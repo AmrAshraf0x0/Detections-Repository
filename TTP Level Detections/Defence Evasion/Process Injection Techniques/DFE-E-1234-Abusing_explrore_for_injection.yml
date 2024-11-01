@@ -1,0 +1,23 @@
+title: Detect Multiple Instances of explorer.exe
+description: Detects multiple instances of explorer.exe running simultaneously, which may indicate process injection or other malicious activity.
+status: Suggestion
+author: Amr Ashraf
+date: 2024/09/23
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image: 'C:\\Windows\\explorer.exe'
+  condition: selection | count(Image) > 1
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+falsepositives:
+  - Not Known
+level: high
+tags:
+  - attack.execution
+  - attack.t1055
