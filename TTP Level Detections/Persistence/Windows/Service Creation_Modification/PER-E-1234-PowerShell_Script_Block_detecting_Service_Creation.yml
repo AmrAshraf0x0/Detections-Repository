@@ -1,6 +1,6 @@
 title: Detect PowerShell Script Block Logging
 description: Detects the execution of PowerShell scripts and commands using script block logging.
-status: Suggestion
+status: Developed
 author: Amr Ashraf
 logsource:
   product: windows

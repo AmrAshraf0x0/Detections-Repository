@@ -1,6 +1,6 @@
 title: Detect Suspicious Process Creation
 description: Detects the execution of commands that create services, such as using sc.exe, PowerShell, or Service Control Manager (SCM).
-status: Suggestion
+status: Developed
 author: Amr Ashraf
 logsource:
   product: windows

@@ -1,6 +1,6 @@
 title: Detect Registry Changes about Service Creation
 description: Detects modifications to registry keys under HKLM\SYSTEM\CurrentControlSet\Services, which can indicate service creation or modification.
-status: Suggestion
+status: Developed
 author: Amr Ashraf
 logsource:
   product: windows
