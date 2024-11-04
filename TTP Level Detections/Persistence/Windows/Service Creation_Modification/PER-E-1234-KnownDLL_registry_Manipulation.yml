@@ -1,6 +1,6 @@
 title: Detect Registry Changes for Path Hijacking
 description: Detects modifications to registry keys that define DLL and executable search paths.
-status: Suggestion
+status: Developed
 author: Amr Ashraf
 logsource:
   product: windows
