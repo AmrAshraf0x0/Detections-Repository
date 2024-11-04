@@ -1,0 +1,29 @@
+title: Detect RDP Brute Force Attempts on Linux
+description: Detects repeated failed RDP login attempts from the same source IP, indicative of a brute-force attack.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/03
+logsource:
+  category: authentication
+  product: linux
+detection:
+  selection:
+    SyslogProgram: 'xrdp-sesman'       # Common for RDP sessions managed by xrdp on Linux
+    message:
+      - '*authentication failure*'
+      - '*failed login*'
+  condition: selection | count() by source_ip > 10 within 1m
+fields:
+  - source_ip
+  - user
+  - target_host
+  - SyslogProgram
+  - message
+falsepositives:
+  - Users mistyping RDP passwords multiple times
+  - Legitimate automated scripts with incorrect credentials
+level: medium
+tags:
+  - attack.reconnaissance
+  - attack.t1110
+s

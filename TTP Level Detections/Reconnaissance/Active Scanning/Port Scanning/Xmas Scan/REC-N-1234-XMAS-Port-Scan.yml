@@ -1,0 +1,23 @@
+title: Detect XMAS Scan
+description: Detects packets with FIN, PSH, and URG flags set, indicative of an XMAS Scan.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/03
+logsource:
+  category: firewall
+  product: any
+detection:
+  selection:
+    packet_flags: ['FIN', 'PSH', 'URG']
+  condition: selection | count() by source_ip > 20 within 1m
+fields:
+  - source_ip
+  - dest_ip
+  - dest_port
+  - packet_flags
+falsepositives:
+  - Rare software or network equipment using unconventional flag combinations
+level: medium
+tags:
+  - attack.reconnaissance
+  - attack.t1046
