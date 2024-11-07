@@ -1,0 +1,24 @@
+title: Detect High Frequency Requests to a Single Endpoint
+description: Detects when a single endpoint receives more than 999 requests within a 10-minute timeframe, potentially indicating brute force or automated abuse.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/07
+logsource:
+  category: Public APIs
+  product: firewall
+detection:
+  timeframe: 10m
+  condition: grouped by Request | count(Request) > 999
+fields:
+  - Src
+  - User
+  - Request
+  - Status
+  - Bytes
+  - StartTime
+falsepositives:
+  - High legitimate traffic, such as load testing.
+level: high
+tags:
+  - attack.reconnaissance
+  - attack.t1071
