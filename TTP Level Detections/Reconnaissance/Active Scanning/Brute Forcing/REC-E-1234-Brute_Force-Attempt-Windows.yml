@@ -13,7 +13,7 @@ detection:
       - 2   
       - 3   
       - 10  
-  condition: selection | count() by source_ip > 10 within 1m or count() by user > 10  within 1m
+  condition: selection | count() by source_ip > 10 within 5m or count() by user > 10  within 5m
 fields:
   - source_ip
   - user

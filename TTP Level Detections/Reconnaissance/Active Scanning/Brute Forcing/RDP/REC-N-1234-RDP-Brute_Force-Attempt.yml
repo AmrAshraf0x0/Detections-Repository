@@ -10,7 +10,7 @@ detection:
   selection:
     dest_port: 3389                     
     event_type: 'connection_attempt'     
-  condition: selection | count() by source_ip > 10 within 1m
+  condition: selection | count() by source_ip > 10 within 5m
 fields:
   - source_ip
   - dest_ip
