@@ -1,0 +1,25 @@
+title: Detect FTP Brute Force Attempts on Network
+description: Detects repeated FTP connection attempts from the same source IP in network logs, indicative of a brute force attack.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/03
+logsource:
+  category: firewall
+  product: any
+detection:
+  selection:
+    dest_port: 21                      
+    event_type: 'connection_attempt'   
+  condition: selection | count() by source_ip > 15 within 1m
+fields:
+  - source_ip
+  - dest_ip
+  - dest_port
+  - event_type
+falsepositives:
+  - Legitimate FTP clients with incorrect credentials or automated scripts
+  - Misconfigured FTP clients or network equipment
+level: medium
+tags:
+  - attack.reconnaissance
+  - attack.t1110

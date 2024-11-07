@@ -1,0 +1,23 @@
+title: Detect TCP Connect Scan
+description: Detects high volume of TCP connection attempts to various ports, indicative of a TCP Connect Scan.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/03
+logsource:
+  category: firewall
+  product: any
+detection:
+  selection:
+    protocol: tcp
+  condition: selection | count() by source_ip > 100 within 1m
+fields:
+  - source_ip
+  - dest_ip
+  - dest_port
+  - protocol
+falsepositives:
+  - High network traffic environments with legitimate multiple port connections
+level: medium
+tags:
+  - attack.reconnaissance
+  - attack.t1046
