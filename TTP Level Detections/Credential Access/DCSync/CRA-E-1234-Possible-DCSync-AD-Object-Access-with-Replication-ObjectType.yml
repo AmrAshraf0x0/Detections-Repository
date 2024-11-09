@@ -1,0 +1,31 @@
+title: Detect DCsync Attempt Using DRSR Replication Rights
+description: Detects possible DCsync attempts by monitoring for 4662 events related to directory replication operations.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/07
+logsource:
+  category: windows
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4662
+    ObjectType: 'replication'
+    Properties: '*19195a5b-6da0-11d0-afd3-00c04fd930c9*'
+  filter_account:
+    SubjectUserName|contains:
+      - 'krbtgt'
+      - 'system$'
+  condition: selection and not filter_account
+fields:
+  - SubjectUserName
+  - SubjectDomainName
+  - ObjectType
+  - ObjectName
+  - Properties
+falsepositives:
+  - Replication traffic from legitimate DC accounts or authorized replication services.
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1003.006

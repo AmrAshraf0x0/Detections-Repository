@@ -1,0 +1,30 @@
+title: Detect Suspicious DRSR (DCsync) Replication Traffic Over RPC
+description: Detects potential DCsync attempts by monitoring for unusual network traffic involving RPC (port 135) to a Domain Controller, particularly from non-DC machines.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/07
+logsource:
+  category: network_traffic
+  product: any
+detection:
+  selection:
+    DestinationPort: 135               # DRSR runs over RPC on port 135
+    Protocol: tcp
+  filter_source_ip: 
+    SourceIp|endswith:                  # Filter to known DC IPs if available
+      - '192.168.1.1'
+      - '192.168.1.2'
+  condition: selection and not filter_source_ip
+fields:
+  - SourceIp
+  - DestinationIp
+  - DestinationPort
+  - Protocol
+  - Bytes
+falsepositives:
+  - Legitimate replication traffic from DCs in the environment.
+  - Maintenance operations or configuration changes involving replication.
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1003.006
