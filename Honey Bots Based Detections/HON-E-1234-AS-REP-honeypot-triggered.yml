@@ -1,0 +1,24 @@
+title: Detect AS-REP Requests on Honeypot Accounts (AS-REP Roasting)
+description: Detects AS-REP requests for honeypot accounts configured without pre-authentication to catch AS-REP roasting attempts.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/07
+logsource:
+  category: authentication
+  product: windows
+detection:
+  selection:
+    EventID: 4768
+    TargetUserName: "honeypot1"  # List honeypot account names
+    TicketOptions: "0x40810000"
+  condition: selection
+fields:
+  - TargetUserName
+  - TicketOptions
+  - TicketEncryptionType
+falsepositives:
+  - None expected; honeypot accounts are unused.
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1558.004
