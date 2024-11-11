@@ -8,7 +8,6 @@ logsource:
   product: windows
 detection:
   selection:
-    EventID: 4656
     ObjectType: "Process"
     ObjectName: "C:\\Windows\\System32\\lsass.exe"
     AccessMask: 

@@ -8,7 +8,6 @@ logsource:
   product: windows
   definition:
     - source: Security
-    - event_id: [4663, 4656]
 detection:
   selection_file_direct:
     EventID: 4663

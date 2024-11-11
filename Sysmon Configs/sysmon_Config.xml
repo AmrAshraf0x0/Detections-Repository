@@ -7,6 +7,7 @@
   <!-- Disables lookup behavior, default is True (Boolean) -->
   <ArchiveDirectory>Sysmon</ArchiveDirectory>
   <!-- Sets the name of the directory in the C:\ root where preserved files will be saved (String)-->
+  
   <EventFiltering>
     <!-- Event ID 1 == Process Creation - Includes -->
     <RuleGroup groupRelation="or">
@@ -58,18 +59,6 @@
     <RuleGroup groupRelation="or">
       <!--Default to log all and exclude a few common processes-->
       <CreateRemoteThread onmatch="exclude">
-        <SourceImage condition="is">C:\Windows\System32\svchost.exe</SourceImage>
-        <SourceImage condition="is">C:\Windows\System32\wininit.exe</SourceImage>
-        <SourceImage condition="is">C:\Windows\System32\csrss.exe</SourceImage>
-        <SourceImage condition="is">C:\Windows\System32\services.exe</SourceImage>
-        <SourceImage condition="is">C:\Windows\System32\winlogon.exe</SourceImage>
-        <SourceImage condition="is">C:\Windows\System32\audiodg.exe</SourceImage>
-        <Rule groupRelation="and">
-          <SourceImage condition="is">C:\Windows\System32\dwm.exe</SourceImage>
-          <TargetImage condition="is">C:\Windows\System32\csrss.exe</TargetImage>
-        </Rule>
-        <TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
-        <SourceImage condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</SourceImage>
       </CreateRemoteThread>
     </RuleGroup>
 
@@ -81,6 +70,36 @@
     <!-- Event ID 10 == ProcessAccess - Includes -->
     <RuleGroup groupRelation="or">
       <ProcessAccess onmatch="include">
+        <Rule name="Suspicious Memory Access on Browser Process" groupRelation="or">
+          
+          <!-- Monitoring access to Chrome, Firefox, and Edge -->
+          <TargetImage condition="contains">\\chrome.exe</TargetImage>
+          <TargetImage condition="contains">\\firefox.exe</TargetImage>
+          <TargetImage condition="contains">\\msedge.exe</TargetImage>
+          <GrantedAccess condition="is">0x1fffff</GrantedAccess> <!-- Full access, associated with memory dumping -->
+        </Rule>
+
+        <Rule name="Suspicious Full Access to LSASS Memory" groupRelation="and">
+          <!-- ObjectName: Targeting lsass.exe -->
+          <ObjectName condition="is">C:\Windows\System32\lsass.exe</ObjectName>
+          
+          <!-- AccessMask: Monitoring for full access or other suspicious access rights -->
+          <AccessMask condition="in">
+            <value>0x1038</value>
+            <value>0x1438</value>
+            <value>0x143a</value>
+            <value>0x1fffff</value> <!-- Full access -->
+          </AccessMask>
+          
+          <!-- Filtering out known legitimate processes to reduce false positives -->
+          <ProcessName condition="not_in">
+            <value>C:\Program Files\Windows Defender\MsMpEng.exe</value>
+            <value>C:\Program Files (x86)\CrowdStrike\CSFalconService.exe</value>
+          </ProcessName>
+        </Rule>
+        <!-- Using Debugging libraries to dump the memory of a process -->
+        <CallTrace name="Dumping Process Memory Using Debuging Libraries" condition="contains">dbghelp.dll</CallTrace>
+        <CallTrace name="Dumping Process Memory Using Debuging Libraries" condition="contains">dbgcore.dll</CallTrace>
       </ProcessAccess>
     </RuleGroup>
 
