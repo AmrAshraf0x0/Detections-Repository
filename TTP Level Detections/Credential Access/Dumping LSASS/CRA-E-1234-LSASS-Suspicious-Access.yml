@@ -1,0 +1,37 @@
+title: Suspicious Full Access to LSASS Memory
+description: Detects processes with high access rights (0x1fffff) attempting to access lsass.exe, which can indicate credential dumping attempts. Known legitimate processes are whitelisted to reduce false positives.
+author: Amr Ashraf
+status: Developed
+date: 2024/11/10
+logsource:
+  category: process_access
+  product: windows
+detection:
+  selection:
+    EventID: 4656
+    ObjectType: "Process"
+    ObjectName: "C:\\Windows\\System32\\lsass.exe"
+    AccessMask: 
+      - '0x1038'
+      - '0x1438'
+      - '0x143a'
+      - "0x1fffff"  # Full access
+  filter_whitelist:
+    ProcessName:
+      - 'C:\\Program Files\\Windows Defender\\MsMpEng.exe'
+      - 'C:\\Program Files (x86)\\CrowdStrike\\CSFalconService.exe'
+  condition: selection and not filter_whitelist
+fields:
+  - EventID
+  - ObjectName
+  - AccessMask
+  - ProcessName
+  - AccountName
+  - TargetUserSid
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1003.001
+  - attack.suspicious_memory_access
+falsepositives:
+  - Legitimate security software accessing lsass.exe, such as antivirus, EDR tools, and other authorized applications.
