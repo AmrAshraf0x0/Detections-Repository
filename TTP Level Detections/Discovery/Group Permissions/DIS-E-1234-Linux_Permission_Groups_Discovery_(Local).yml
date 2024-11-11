@@ -1,0 +1,35 @@
+title: Linux Permission Groups Discovery (Local)
+description: Detects commands used to enumerate local group permissions on Linux.
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/11
+modified: 2024/11/11
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith:
+      - "/bin/cat"
+      - "/usr/bin/getent"
+      - "/usr/bin/groups"
+      - "/usr/bin/id"
+    CommandLine|contains|any:
+      - "/etc/group"
+      - "/etc/passwd"
+      - "getent group"
+      - "groups"
+      - "id -Gn"
+  condition: selection | count () by Hostname > 5 within 2m 
+fields:
+  - Image
+  - CommandLine
+  - User
+  - Hostname
+falsepositives:
+  - System administrators checking user permissions.
+  - Automated scripts that verify group permissions for compliance.
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1069.001

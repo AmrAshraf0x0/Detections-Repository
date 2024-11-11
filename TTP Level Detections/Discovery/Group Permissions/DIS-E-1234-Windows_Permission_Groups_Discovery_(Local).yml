@@ -1,0 +1,43 @@
+title: Windows Permission Groups Discovery (Local)
+description: Detects commands used to enumerate local group permissions on Windows.
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/11
+modified: 2024/11/11
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    NewProcessName|endswith:
+      - "\\net.exe"
+      - "\\net1.exe"
+      - "\\powershell.exe"
+      - "\\cmd.exe"
+      - "\\wmic.exe"
+    CommandLine|contains|any:
+      - "net localgroup"       
+      - "net user"         
+      - "net group"            
+      - "Get-LocalGroupMember" 
+      - "Get-LocalGroup"      
+      - "Get-WmiObject Win32_Group" 
+      - "wmic group"
+  selection1:
+    EventID:
+      - '4799'
+  condition: selection OR selection1 | count () by Hostname > 5 within 2m 
+fields:
+  - EventID
+  - NewProcessName
+  - ParentProcessName
+  - User
+  - Hostname
+  - CommandLine
+falsepositives:
+  - System administrators checking user permissions.
+  - Automated scripts that verify group permissions for compliance.
+level: low
+tags:
+  - attack.discovery
+  - attack.t1069.001

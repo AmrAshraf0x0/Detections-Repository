@@ -1,0 +1,51 @@
+title: Linux Local System Account Enumeration
+description: Detects commands used to enumerate local system accounts on Linux.
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/11
+modified: 2024/11/11
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection_1:
+    Image|endswith: 
+      - '/lastlog'
+  selection_2:
+    CommandLine|contains: 
+      - '''x:0:'''
+  selection_3:
+    Image|endswith:
+      - '/cat'
+      - '/ed'
+      - '/head'
+      - '/more'
+      - '/nano'
+      - '/tail'
+      - '/vi'
+      - '/vim'
+    CommandLine|contains:
+      - '/etc/passwd'
+      - '/etc/shadow'
+      - '/etc/sudoers'
+  selection_4:
+      Image|endswith: 
+      - '/id'
+  selection_5:
+      Image|endswith: 
+      - '/lsof'
+      CommandLine|contains: 
+      - '-u'
+  condition: 1 of selection* | count () by Hostname > 5 within 2m 
+fields:
+  - Image
+  - CommandLine
+  - User
+  - Hostname
+falsepositives:
+  - Routine administrative tasks by IT personnel or system administrators.
+  - Compliance and auditing scripts that verify local accounts and configurations.
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1087.001
