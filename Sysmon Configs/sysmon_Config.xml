@@ -112,6 +112,18 @@
     <!-- Event ID 12,13,14 == RegObject added/deleted, RegValue Set, RegObject Renamed - Includes -->
     <RuleGroup groupRelation="or">
       <RegistryEvent onmatch="include">
+
+        <!-- Detect access to sensitive LSA secrets -->
+        <RuleGroup name="Suspicious LSA Secrets Access" groupRelation="or">
+          <TargetObject condition="begin with">HKLM\SECURITY\Policy\Secrets</TargetObject>
+          <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa</TargetObject>
+        </RuleGroup>
+        
+        <!-- Exclude known legitimate processes to reduce noise -->
+        <Image condition="is not">C:\Windows\System32\services.exe</Image>
+        <Image condition="is not">C:\Windows\System32\lsass.exe</Image>
+        <!-- Additional legitimate software or monitoring tools can be added here -->
+
       </RegistryEvent>
     </RuleGroup>
 
