@@ -17,6 +17,15 @@
     <!-- Event ID 1 == Process Creation - Excludes -->
     <RuleGroup groupRelation="or">
       <ProcessCreate onmatch="include">
+        <!-- Famous Port forwarding Commands -->
+        <CommandLine condition="contains">ssh -L</CommandLine>
+        <CommandLine condition="contains">ssh -R</CommandLine>
+        <CommandLine condition="contains">plink -L</CommandLine>
+        <CommandLine condition="contains">plink -R</CommandLine>
+        <CommandLine condition="contains">nc -l -p</CommandLine>
+        <CommandLine condition="contains">netsh interface portproxy add</CommandLine>
+
+
       </ProcessCreate>
     </RuleGroup>
     <!-- Event ID 2 == File Creation Time - Includes -->
