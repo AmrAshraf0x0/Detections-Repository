@@ -1,0 +1,31 @@
+title: Network Share Manipulation via Command-Line
+status: experimental
+description: Detects manipulation of network shares using command-line tools.
+references:
+  - https://attack.mitre.org/techniques/T1135/
+Author: Shunaid Shafique
+tags:
+  - attack.discovery
+  - attack.t1135
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4688  # Process Creation event in Windows Security logs
+    Image:
+      - '*\net.exe'
+      - '*\wmic.exe'
+      - '*\schtasks.exe'
+    CommandLine:
+      - '* net share *'
+      - '* net use *'
+      - '* wmic share *'
+      - '* wmic netuse *'
+      - '* schtasks /create /sc * /tn * /tr * /ru *'
+  condition: >
+    selection
+    and not (user IN EXCLUDED_USERS)
+falsepositives:
+  - Legitimate administrative activities managing network shares or scheduled tasks.
+level: medium
