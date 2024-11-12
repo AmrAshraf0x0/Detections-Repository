@@ -1,0 +1,108 @@
+title: Detect Port Forwarding and Tunneling Techniques in Windows
+id: 9f2e7c3a-3fc6-4d91-b6c9-f34a8edb8271
+status: Developed
+description: Detects unauthorized SSH and netsh port forwarding configurations, SOCKS proxy usage, and related tunneling activity that may indicate attacker pivoting and C2 activity across Windows.
+author: Danish Kumar
+date: 2024-11-12
+
+references:
+  - https://www.ssh.com/ssh/tunneling/example
+  - https://www.fireeye.com/blog/threat-research/2019/01/bypassing-network-restrictions-through-rdp-tunneling.html
+  - https://adepts.of0x.cc/netsh-portproxy-code/
+  - https://www.dfirnotes.net/portproxy_detection/
+
+logsource:
+  category:
+    - registry_event
+    - process_creation
+    - network_connection
+  product: windows
+
+detection:
+
+  # Detection 1: PortProxy Registry Change for Port Forwarding Persistence
+  # Windows Event IDs: 
+  # - Sysmon Event ID 13 (Registry modification)
+  # - Windows Security Event ID 4657 (Registry modification, if Sysmon is unavailable)
+  registry_change:
+    EventID:
+      - 13    # Sysmon Registry Modification Event
+      - 4657  # Windows Security Registry Modification Event
+    TargetObject|contains: '\Services\PortProxy\v4tov4\tcp\'
+
+  # Detection 2: Process Creation for Known Port Forwarding and Tunneling Tools
+  # Windows Event IDs:
+  # - Sysmon Event ID 1 (Process creation)
+  # - Windows Security Event ID 4688 (Process creation)
+  process_creation_tools:
+    EventID:
+      - 1    # Sysmon Process Creation Event
+      - 4688 # Windows Security Process Creation Event
+    Image|endswith:
+      - '\netsh.exe'
+      - '\nc.exe'
+      - '\ssh.exe'
+      - '\plink.exe'
+      - '\socat.exe'
+      - '\ssh-agent.exe'
+    CommandLine|contains|any:
+      - 'PortProxy'  # Netsh port forwarding configuration
+      - '-L'         # Local forwarding for SSH/Plink/Netcat
+      - '-R'         # Remote forwarding for SSH/Plink
+      - '-D'         # Dynamic SOCKS proxy for SSH/Plink
+      - '-f'         # Background flag, useful for tunneling tools
+      - '-C'         # SSH connection flag
+      - '-e'         # Netcat execute flag
+
+  # Detection 3: Internal IP Network Anomalies (Possible Lateral Movement)
+  # Windows Event IDs:
+  # - Sysmon Event ID 3 (Network connection)
+  # - Windows Filtering Platform (WFP) Allowed Connection Event ID 5156
+  internal_communications:
+    EventID:
+      - 3    # Sysmon Network Connection Event
+      - 5156 # WFP Allowed Connection Event
+    SourceIP|startswith: '<INTERNAL_IP_RANGE>'       # Customize for your internal IP schema
+    DestinationIP|startswith: '<INTERNAL_IP_RANGE>'   # Internal IP schema
+    condition: |
+      count(SourceIP) > 50  # Adjust based on normal internal communication volume
+
+  # Detection 4: Unusual Outbound Connections (Possible C2 Activity)
+  # Windows Event IDs:
+  # - Sysmon Event ID 3 (Network connection)
+  # - Windows Filtering Platform (WFP) Allowed Connection Event ID 5156
+  unusual_outbound_connections:
+    EventID:
+      - 3    # Sysmon Network Connection Event
+      - 5156 # WFP Allowed Connection Event
+    SourceIP|startswith: '<INTERNAL_IP_RANGE>'         # Internal IP range
+    DestinationIP|notstartswith: '<INTERNAL_IP_RANGE>'  # External IP range only
+    condition: |
+      count(DestinationIP) > 10  # Tune based on expected outbound patterns
+
+condition: |
+  registry_change or
+  process_creation_tools or
+  (process_creation_tools and internal_communications) or
+  (process_creation_tools and unusual_outbound_connections)
+
+fields:
+  - UserName                          # Identifies the user who executed the command
+  - ProcessId                         # Unique process ID for tracking
+  - ParentProcessId                   # Parent process ID for process hierarchy
+  - TargetObject                      # Registry path for PortProxy detection
+  - Image                             # Path of the executable in process creation events
+  - CommandLine                       # Full command line for understanding arguments
+  - SourceIP                          # Source IP address in network events
+  - DestinationIP                     # Destination IP for detecting C2 traffic
+  - Protocol                          # Network protocol (TCP/UDP)
+  - Timestamp                         # Event timestamp for timeline reconstruction
+
+level: high
+tags:
+  - attack.command-and-control
+  - attack.lateral-movement
+  - attack.t1090
+  - attack.t1071
+  - attack.t1021
+  - attack.t1027
