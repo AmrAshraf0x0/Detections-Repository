@@ -19,6 +19,8 @@ detection:
       - 'ntds'
       - 'ntdsutil'
       - 'create'
+      -  Invoke-NinjaCopy
+      -  secretsdump.py
   selection_audit:
     EventID:
       - 4656
