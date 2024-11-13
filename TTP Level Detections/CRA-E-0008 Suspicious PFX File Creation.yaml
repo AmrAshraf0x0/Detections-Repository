@@ -1,0 +1,28 @@
+title: CRA-E-0008 Suspicious PFX File Creation
+description: Detects the creation of PFX files, potentially indicating adversarial activity exporting a local certificate to a PFX file.
+references:
+  - https://help.fortinet.com/fsiem/Public_Resource_Access/7_1_0/rules/PH_RULE_Suspicious_PFX_File_Creation.htm
+  - https://github.com/OTRF/detection-hackathon-apt29/issues/14
+  - https://github.com/OTRF/ThreatHunter-Playbook/blob/2d4257f630f4c9770f78d0c1df059f891ffc3fec/docs/evals/apt29/detections/6.B.1_6392C9F1-D975-4F75-8A70-433DEDD7F622.md
+status: Developed
+author: Shahbaz Ahmad
+date: 13/11/2024
+logsource:
+  product: windows
+  category: file_create
+detection:
+  selection:
+    TargetFilename|endswith: '.pfx'
+  filter:
+    TargetFilename|contains|all:
+      - '\Templates\Windows\Windows_TemporaryKey.pfx'
+      - '\CMake\'
+  condition: selection and not filter
+fields:
+  - TargetFilename
+falsepositives:
+  - System administrators managing certificates.
+level: medium
+tags:
+  - attack.credential-access
+  - attack.t1552.004
