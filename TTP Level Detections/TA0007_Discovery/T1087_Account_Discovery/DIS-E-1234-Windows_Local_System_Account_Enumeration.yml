@@ -13,9 +13,9 @@ detection:
       - '4798'
   selection1:
     Commandline|contains|any:
-      - "net user"                    
-      - "net localgroup"            
-      - "Get-LocalUser"            
+      - "net user"
+      - "net localgroup"
+      - "Get-LocalUser"
       - "Get-WmiObject -Class Win32_UserAccount"
       - "Get-ADUser"
   exclusion:
@@ -40,5 +40,5 @@ falsepositives:
   - Compliance and auditing scripts that verify local accounts and configurations.
 level: low
 tags:
-  - attack.discovery
+  - attack.account_discovery
   - attack.t1087.001
