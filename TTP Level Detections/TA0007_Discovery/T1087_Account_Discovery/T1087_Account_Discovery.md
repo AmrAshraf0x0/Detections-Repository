@@ -68,7 +68,7 @@ These commands are commonly used to query and enumerate domain accounts via the 
 	- `Get-ADGroupMember`
 - Exclusions to rule are for accounts containing `tenable` and `$` as Tenable agents are authorized to run continuous auditing scripts across environment for compliance, and machine accounts are authorized to periodically enumerate domain Windows accounts. 
 - Rule threshold is 3 observed commandlines from one host within 5 minutes (may need to be tuned for sensitivity after testing).
-- 
+ 
 **Validation**
 - [x] MITRE ATT&CK Detection DS0017: monitors for relevant commandline execution on Windows.
 - [x] Atomic Red Team: covers red team tests 1-22 for t1087.002.
