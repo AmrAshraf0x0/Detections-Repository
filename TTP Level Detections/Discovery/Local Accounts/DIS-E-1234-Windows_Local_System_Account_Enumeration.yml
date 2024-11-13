@@ -3,7 +3,7 @@ description: Detects commands used to enumerate local system accounts on Windows
 status: Developed
 author: Yuliya Volkova
 date: 2024/11/11
-modified: 2024/11/11
+modified: 2024/11/12
 logsource:
   category: process_creation
   product: windows
@@ -12,13 +12,7 @@ detection:
     EventID:
       - '4798'
   selection1:
-    NewProcessName|endswith:
-      - "\\net.exe"
-      - "\\net1.exe"
-      - "\\powershell.exe"
-      - "\\cmd.exe"
-      - "\\wmic.exe"
-    CommandLine|contains|any:
+    Commandline|contains|any:
       - "net user"                    
       - "net localgroup"            
       - "Get-LocalUser"            
@@ -28,14 +22,19 @@ detection:
     User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
       - "$"
       - "tenable"
-  condition: (selection OR selection1) AND NOT exclusion | count () by Hostname > 5 within 2m 
+  condition: (selection OR selection1) AND NOT exclusion | count () by Commandline > 3 within 5m 
 fields:
   - EventID
+  - ProcessID
   - NewProcessName
+  - ParentProcessID
   - ParentProcessName
+  - ParentImage
+  - Image
   - User
   - Hostname
-  - CommandLine
+  - Commandline
+  - CreationUTCTime
 falsepositives:
   - Routine administrative tasks by IT personnel or system administrators.
   - Compliance and auditing scripts that verify local accounts and configurations.

@@ -22,14 +22,19 @@ detection:
   exclusion:
     User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
       - "$"
-  condition: (selection OR selection1) AND NOT exclusion | count () by Hostname > 30 within 15m 
+  condition: (selection OR selection1) AND NOT exclusion | count () by Hostname > 30 within 10m 
 fields:
   - EventID
+  - ProcessID
   - NewProcessName
+  - ParentProcessID
   - ParentProcessName
+  - ParentImage
+  - Image
   - User
   - Hostname
-  - CommandLine
+  - Commandline
+  - CreationUTCTime
 falsepositives:
   - System administrators checking domain local groups.
   - Automated scripts that verify domain local groups.
