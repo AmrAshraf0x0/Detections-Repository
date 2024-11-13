@@ -1,5 +1,5 @@
-title: Linux Domain Account Enumeration
-description: Detects commands used to enumerate domain accounts on Linux.
+title: Linux Domain Group Enumeration
+description: Detects commands used to enumerate domain groups on Linux.
 status: Developed
 author: Yuliya Volkova
 date: 2024/11/12
@@ -9,14 +9,14 @@ logsource:
   product: linux
 detection:
   selection:
-    commandline|contains|any:
+    Commandline|contains|any:
+      - "ldapdomaindump" 
       - "ldapsearch"
       - "ldapwhoami"
       - "getent passwd"
       - "getent group"
       - "wbinfo -u"
       - "wbinfo -g"
-      - "id"
       - "net ads search"
   selection1:
     Commandline|contains|any:
