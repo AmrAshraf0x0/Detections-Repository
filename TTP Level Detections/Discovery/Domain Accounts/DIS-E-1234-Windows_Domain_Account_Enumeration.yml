@@ -1,0 +1,51 @@
+title: Windows Domain Account Enumeration
+description: Detects commands used to enumerate local system accounts on Windows.
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/12
+modified: 2024/11/12
+logsource:
+  category: security
+  product: windows
+detection:
+  selection:
+    EventID: # For commands
+    - "4688"
+    NewProcessName|endswith:
+      - "\\net.exe"
+      - "\\powershell.exe"
+      - "\\dsquery.exe"
+      - "\\adfind.exe"
+    CommandLine|contains|any:
+      - "net user /domain"
+      - "net group /domain"
+      - "Get-ADUser"
+      - "Get-ADGroupMember"
+      - "dsquery user"
+      - "adfind -b"
+  selection1: # For PowerShell scriptblocks
+    EventID: 
+      - "4104"
+    ScriptBlockText|contains|any:
+      - "Get-ADUser"
+      - "Search-ADAccount"
+      - "Get-ADGroupMember"
+  exclusion:
+    User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
+      - "$"
+      - "tenable"
+  condition: (selection OR selection1) AND NOT exclusion | count () by Hostname > 10 within 5m 
+fields:
+  - EventID
+  - NewProcessName
+  - ParentProcessName
+  - User
+  - Hostname
+  - Commandline
+falsepositives:
+  - Routine administrative tasks by IT personnel or system administrators.
+  - Compliance and auditing scripts that verify domain accounts and configurations.
+level: low
+tags:
+- attack.account_discovery
+- attack.t1087.002

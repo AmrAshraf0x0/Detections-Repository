@@ -8,13 +8,13 @@ logsource:
   category: process_creation
   product: linux
 detection:
-  selection_1:
+  selection1:
     Image|endswith: 
-      - '/lastlog'
-  selection_2:
+      - '/lastlog' # Need to check logging in client
+  selection2:
     CommandLine|contains: 
       - '''x:0:'''
-  selection_3:
+  selection3:
     Image|endswith:
       - '/cat'
       - '/ed'
@@ -28,15 +28,15 @@ detection:
       - '/etc/passwd'
       - '/etc/shadow'
       - '/etc/sudoers'
-  selection_4:
+  selection4:
       Image|endswith: 
       - '/id'
-  selection_5:
+  selection5:
       Image|endswith: 
       - '/lsof'
       CommandLine|contains: 
       - '-u'
-  condition: 1 of selection* | count () by Hostname > 5 within 2m 
+  condition: 1 of selection* # Does not require exclusion at this point in time
 fields:
   - Image
   - CommandLine
@@ -47,5 +47,5 @@ falsepositives:
   - Compliance and auditing scripts that verify local accounts and configurations.
 level: medium
 tags:
-  - attack.discovery
+  - attack.account_discovery
   - attack.t1087.001

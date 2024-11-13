@@ -24,7 +24,11 @@ detection:
       - "Get-LocalUser"            
       - "Get-WmiObject -Class Win32_UserAccount"
       - "Get-ADUser"
-  condition: selection OR selection1 | count () by Hostname > 5 within 2m 
+  exclusion:
+    User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
+      - "$"
+      - "tenable"
+  condition: (selection OR selection1) AND NOT exclusion | count () by Hostname > 5 within 2m 
 fields:
   - EventID
   - NewProcessName

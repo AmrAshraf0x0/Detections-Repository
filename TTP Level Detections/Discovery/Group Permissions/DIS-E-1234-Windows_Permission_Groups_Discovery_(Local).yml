@@ -9,6 +9,9 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID:
+      - '4799'
+  selection1:
     NewProcessName|endswith:
       - "\\net.exe"
       - "\\net1.exe"
@@ -23,10 +26,11 @@ detection:
       - "Get-LocalGroup"      
       - "Get-WmiObject Win32_Group" 
       - "wmic group"
-  selection1:
-    EventID:
-      - '4799'
-  condition: selection OR selection1 | count () by Hostname > 5 within 2m 
+  exclusion:
+    User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
+      - "$"
+      - "tenable"
+  condition: (selection OR selection1) AND NOT exclusion | count () by Hostname > 5 within 2m 
 fields:
   - EventID
   - NewProcessName

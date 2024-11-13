@@ -1,0 +1,39 @@
+title: Local Domain Group Enumeration
+description: Detects commands used to enumerate domain local groups (--local-groups).
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/12
+modified: 2024/11/12
+logsource:
+  category: security
+  product: windows
+detection:
+  selection:
+    EventID:
+      - '4661'
+  selection1:
+    NewProcessName|endswith:
+      - '\\lsass.exe'
+    ObjectServer: 'Security Account Manager'
+    ObjectType: SAM_ALIAS
+    ObjectName|startswith:
+      - S-1-5-32- # Refers to built-in domain local groups
+      - S-1-5-21- # Refers to others domain local groups
+  exclusion:
+    User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
+      - "$"
+  condition: (selection OR selection1) AND NOT exclusion | count () by Hostname > 30 within 15m 
+fields:
+  - EventID
+  - NewProcessName
+  - ParentProcessName
+  - User
+  - Hostname
+  - CommandLine
+falsepositives:
+  - System administrators checking domain local groups.
+  - Automated scripts that verify domain local groups.
+level: low
+tags:
+  - attack.discovery
+  - attack.t1069.001
