@@ -3,7 +3,7 @@ description: Detects commands used to enumerate local system accounts on Linux.
 status: Developed
 author: Yuliya Volkova
 date: 2024/11/11
-modified: 2024/11/11
+modified: 2024/11/12
 logsource:
   category: process_creation
   product: linux
@@ -24,7 +24,7 @@ detection:
       - '/tail'
       - '/vi'
       - '/vim'
-    CommandLine|contains:
+    Commandline|contains:
       - '/etc/passwd'
       - '/etc/shadow'
       - '/etc/sudoers'
@@ -34,12 +34,12 @@ detection:
   selection5:
       Image|endswith: 
       - '/lsof'
-      CommandLine|contains: 
+      Commandline|contains: 
       - '-u'
   condition: 1 of selection* # Does not require exclusion at this point in time
 fields:
   - Image
-  - CommandLine
+  - Commandline
   - User
   - Hostname
 falsepositives:
