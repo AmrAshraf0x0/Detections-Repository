@@ -8,6 +8,7 @@ references:
 author: '@pbssubhash , Nasreddine Bencherchali'
 date: 2022-12-08
 modified: 2022-12-09
+Added by: Amr Ashraf
 tags:
     - attack.credential-access
     - attack.t1003.001

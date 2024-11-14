@@ -9,6 +9,7 @@ references:
 author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
 date: 2019-09-12
 modified: 2023-08-17
+Added by: Amr Ashraf
 tags:
     - attack.defense-evasion
     - attack.t1112

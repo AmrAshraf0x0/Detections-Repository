@@ -3,6 +3,7 @@ description: Detects processes with high access rights (0x1fffff) attempting to 
 author: Amr Ashraf
 status: Developed
 date: 2024/11/10
+Added by: Amr Ashraf
 logsource:
   category: process_access
   product: windows

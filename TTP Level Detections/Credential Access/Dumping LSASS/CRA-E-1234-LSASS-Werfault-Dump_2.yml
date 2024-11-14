@@ -8,6 +8,7 @@ references:
     - https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/596a1078-e883-4972-9bbc-49e60bebca55
 author: Nasreddine Bencherchali (Nextron Systems)
 date: 2022-12-07
+Added by: Amr Ashraf
 tags:
     - attack.credential-access
     - attack.t1003.001

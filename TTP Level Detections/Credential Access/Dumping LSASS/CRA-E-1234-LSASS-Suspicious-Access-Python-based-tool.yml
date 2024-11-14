@@ -13,6 +13,7 @@ references:
 author: Bhabesh Raj, Jonhnathan Ribeiro
 date: 2023-11-27
 modified: 2023-11-29
+Added by: Amr Ashraf
 tags:
     - attack.credential-access
     - attack.t1003.001

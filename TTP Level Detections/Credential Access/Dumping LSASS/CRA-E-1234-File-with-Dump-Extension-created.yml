@@ -6,6 +6,7 @@ references:
     - https://learn.microsoft.com/en-us/windows/win32/wer/collecting-user-mode-dumps
 author: Nasreddine Bencherchali (Nextron Systems)
 date: 2023-09-07
+Added by: Amr Ashraf
 tags:
     - attack.defense-evasion
     - detection.threat-hunting

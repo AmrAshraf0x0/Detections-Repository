@@ -9,6 +9,7 @@ references:
     - https://www.gradenegger.eu/en/details-of-the-event-with-id-53-of-the-source-microsoft-windows-certificationauthority/
 author: '@SerkinValery'
 date: 2024-03-07
+Added by: Amr Ashraf
 tags:
     - attack.credential-access
     - attack.t1553.004
