@@ -1,0 +1,57 @@
+title: Remote Access Using Local Administrator Privileges
+status: Developed
+description: Detects potential unauthorized remote access using local administrator accounts, which could indicate lateral movement or privilege escalation attempts.
+author: Arthur Thomas
+date: 14/11/2024
+references:
+  - https://attack.mitre.org/techniques/T1078/
+  - https://attack.mitre.org/techniques/T1021/
+logsource:
+  product: windows
+  category: 
+    - process_creation
+    - authentication
+detection:
+  selection_process:
+    Image|endswith: 
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains|all:
+      - 'Enter-PSSession'
+      - '-Credential'
+  selection_auth:
+    EventID: 4624
+    LogonType:
+      - 3  # Network logon
+      - 10 # Remote interactive logon (RDP)
+    TargetUserName|endswith: '$'  # Local accounts with machine names
+  selection_elevated:
+    ElevatedPrivileges: 'Yes'
+  filter_system:
+    User|contains: 'SYSTEM'
+  filter_local_admin:
+    TargetUserName:
+      - 'Administrator'
+      - 'Admin'
+  condition: (selection_process or (selection_auth and selection_elevated)) and not filter_system and not filter_local_admin
+falsepositives:
+  - Legitimate administrative activities using PowerShell Remoting or RDP
+  - Automated scripts or tools that use local admin accounts for system management
+  - Regular backup, monitoring, or maintenance services using local admin for remote access
+level: high
+fields:
+  - EventID
+  - LogonType
+  - TargetUserName
+  - TargetDomainName
+  - IpAddress
+  - WorkstationName
+  - LogonProcessName
+  - LogonGuid
+  - Image
+  - CommandLine
+  tags:
+  - attack.lateral_movement
+  - attack.t1078
+  - attack.t1078.001
+  - attack.t1021
