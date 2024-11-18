@@ -1,0 +1,31 @@
+title: Detection of Anomalous SAML Assertion Usage
+description: Detects unusual SAML assertion traffic that could indicate a potential SAML key theft or Golden SAML attack. 
+status: Developed
+author: Amr Ashraf
+logsource:
+  category: network_traffic
+  product: windows
+detection:
+  selection:
+    Protocol: "SAML"
+    Direction: "request"
+  condition: selection
+  groupby:
+    - TicketID
+    - SourceIP
+  timeframe: 1h
+  count: 5
+  # Flag if the same SAML assertion (TicketID) is used from different IPs or hosts
+  condition: count() by TicketID, SourceIP > 5 within 1h
+fields:
+  - Protocol
+  - SourceIP
+  - DestinationIP
+  - TicketID
+  - Timestamp
+level: high
+tags:
+  - attack.persistence
+  - attack.t1071.001
+falsepositives:
+  - Legitimate use of SAML assertions by multiple sources for load balancing or redundancy purposes.

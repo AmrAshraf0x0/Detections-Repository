@@ -1,0 +1,22 @@
+title: HackTool - Mimikatz Kirbi File Creation
+status: Developed
+description: Detects the creation of files created by mimikatz such as ".kirbi", "mimilsa.log", etc.
+author: Florian Roth (Nextron Systems), David ANDRE
+date: 2021-11-08
+modified: 2024-06-27
+Added By: Amr Ashraf
+tags:
+    - attack.credential-access
+    - attack.t1558
+logsource:
+    category: file_event
+    product: windows
+detection:
+    selection:
+        TargetFilename|endswith:
+            - '.kirbi' # Kerberos tickets
+            - 'mimilsa.log' # MemSSP default file
+    condition: selection
+falsepositives:
+    - Unlikely
+level: critical

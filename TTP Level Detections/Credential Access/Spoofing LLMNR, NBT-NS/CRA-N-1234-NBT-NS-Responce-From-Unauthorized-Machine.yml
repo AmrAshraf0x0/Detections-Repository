@@ -1,0 +1,26 @@
+title: Detection of NBT-NS Spoofing from Firewall Logs
+description: Detects unsolicited NBT-NS responses logged in firewall traffic, which may indicate an attacker attempting to spoof name resolution to intercept traffic.
+status: Developed
+author: Amr Ashraf
+logsource:
+  category: firewall
+  product: windows
+detection:
+  selection:
+    DestinationPort: 137          # NBT-NS uses port 137
+    Protocol: 'UDP'               # NBT-NS typically uses UDP
+    Direction: 'response'         # Looking for responses (unsolicited)
+  condition: selection
+fields:
+  - SourceIP
+  - DestinationIP
+  - DestinationPort
+  - Protocol
+  - Query
+  - Response
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1071.001
+falsepositives:
+  - Legitimate devices using NBT-NS for local name resolution within a local network.

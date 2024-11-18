@@ -1,0 +1,16 @@
+title: Suspicious AD Enumeration via PowerShell
+status: Developed
+author: Amr Ashraf
+logsource:
+  product: windows
+  category: powershell
+detection:
+  selection:
+    EventID: 4104
+    ScriptBlockText|contains:
+      - "Get-ADUser"
+      - "Get-ADComputer"
+      - "Get-ADGroup"
+      - "Get-ADOrganizationalUnit"
+  condition: selection
+level: medium

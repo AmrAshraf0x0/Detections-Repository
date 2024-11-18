@@ -1,0 +1,23 @@
+title: Excessive LDAP Queries from Single IP
+description: Detects when a large number of LDAP queries are made from a single IP address in a short time, which could indicate LDAP enumeration or brute force attacks.
+status: Developed
+author: Amr Ashraf
+logsource:
+  category: network_connection
+  product: windows
+detection:
+  selection:
+    EventID: 4662
+    ObjectType: 'ldapQuery'
+  condition: selection | count() by src_ip > 100 within 1m
+fields:
+  - EventID
+  - src_ip
+  - ObjectType
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.enumeration
+  - attack.t1071.001
+falsepositives:
+  - Legitimate administrative actions or automated systems performing health checks.

@@ -1,0 +1,25 @@
+title: Suspicious JavaScript Execution Via Mshta.EXE
+description: Detects execution of javascript code using "mshta.exe".
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
+tags:
+    - attack.defense-evasion
+    - attack.t1218.005
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    process_creation:
+        EventID: 4688
+        Channel: Security
+    selection_img:
+        - NewProcessName|endswith: \mshta.exe
+        - OriginalFileName: MSHTA.EXE
+    selection_cli:
+        CommandLine|contains: javascript
+    condition: process_creation and (all of selection_*)
+falsepositives:
+    - Unknown
+level: high
+

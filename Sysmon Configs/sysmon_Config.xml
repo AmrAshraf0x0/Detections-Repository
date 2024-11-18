@@ -1,0 +1,246 @@
+<Sysmon schemaversion="4.90">
+  <HashAlgorithms>*</HashAlgorithms>
+  <!-- This now also determines the file names of the files preserved (String) -->
+  <CheckRevocation>False</CheckRevocation>
+  <!-- Setting this to true might impact performance -->
+  <DnsLookup>False</DnsLookup>
+  <!-- Disables lookup behavior, default is True (Boolean) -->
+  <ArchiveDirectory>Sysmon</ArchiveDirectory>
+  <!-- Sets the name of the directory in the C:\ root where preserved files will be saved (String)-->
+  
+  <EventFiltering>
+    <!-- Event ID 1 == Process Creation - Includes -->
+    <RuleGroup groupRelation="or">
+      <ProcessCreate onmatch="include">
+      </ProcessCreate>
+    </RuleGroup>
+    <!-- Event ID 1 == Process Creation - Excludes -->
+    <RuleGroup groupRelation="or">
+      <ProcessCreate onmatch="include">
+        <!-- Famous Port forwarding Commands -->
+        <CommandLine condition="contains">ssh -L</CommandLine>
+        <CommandLine condition="contains">ssh -R</CommandLine>
+        <CommandLine condition="contains">plink -L</CommandLine>
+        <CommandLine condition="contains">plink -R</CommandLine>
+        <CommandLine condition="contains">nc -l -p</CommandLine>
+        <CommandLine condition="contains">netsh interface portproxy add</CommandLine>
+
+
+      </ProcessCreate>
+    </RuleGroup>
+    <!-- Event ID 2 == File Creation Time - Includes -->
+    <RuleGroup groupRelation="or">
+      <FileCreateTime onmatch="include">
+      </FileCreateTime>
+    </RuleGroup>
+    <!-- Event ID 3 == Network Connection - Includes -->
+    <RuleGroup groupRelation="or">
+      <NetworkConnect onmatch="include">
+      </NetworkConnect>
+    </RuleGroup>
+    <!-- Event ID 5 == Process Terminated - Includes -->
+    <RuleGroup groupRelation="or">
+      <ProcessTerminate onmatch="include">
+      </ProcessTerminate>
+    </RuleGroup>
+    <!-- Event ID 6 == Driver Loaded - Excludes -->
+    <RuleGroup groupRelation="or">
+      <!--Default to log all and exclude only valid signed Microsoft or Intel drivers-->
+      <DriverLoad onmatch="exclude">
+        <Rule groupRelation="and">
+          <Signature condition="begin with">Intel </Signature>
+          <SignatureStatus condition="is">Valid</SignatureStatus>
+        </Rule>
+        <Rule groupRelation="and">
+          <Signature condition="contains">Microsoft</Signature>
+          <SignatureStatus condition="is">Valid</SignatureStatus>
+        </Rule>
+      </DriverLoad>
+    </RuleGroup>
+
+    <!-- Event ID 7 == Image Loaded - Includes -->
+    <RuleGroup groupRelation="or">
+      <ImageLoad onmatch="include">
+      </ImageLoad>
+    </RuleGroup>
+
+    <!-- Event ID 8 == CreateRemoteThread - Excludes -->
+    <RuleGroup groupRelation="or">
+      <!--Default to log all and exclude a few common processes-->
+      <CreateRemoteThread onmatch="exclude">
+      </CreateRemoteThread>
+    </RuleGroup>
+
+    <!-- Event ID 9 == RawAccessRead - Includes -->
+    <RuleGroup groupRelation="or">
+      <RawAccessRead onmatch="include" />
+    </RuleGroup>
+
+    <!-- Event ID 10 == ProcessAccess - Includes -->
+    <RuleGroup groupRelation="or">
+      <ProcessAccess onmatch="include">
+        <Rule name="Suspicious Memory Access on Browser Process" groupRelation="or">
+          
+          <!-- Monitoring access to Chrome, Firefox, and Edge -->
+          <TargetImage condition="contains">\\chrome.exe</TargetImage>
+          <TargetImage condition="contains">\\firefox.exe</TargetImage>
+          <TargetImage condition="contains">\\msedge.exe</TargetImage>
+          <GrantedAccess condition="is">0x1fffff</GrantedAccess> <!-- Full access, associated with memory dumping -->
+        </Rule>
+
+        <Rule name="Suspicious Full Access to LSASS Memory" groupRelation="and">
+          <!-- ObjectName: Targeting lsass.exe -->
+          <ObjectName condition="is">C:\Windows\System32\lsass.exe</ObjectName>
+          
+          <!-- AccessMask: Monitoring for full access or other suspicious access rights -->
+          <AccessMask condition="in">
+            <value>0x1038</value>
+            <value>0x1438</value>
+            <value>0x143a</value>
+            <value>0x1fffff</value> <!-- Full access -->
+          </AccessMask>
+          
+          <!-- Filtering out known legitimate processes to reduce false positives -->
+          <ProcessName condition="not_in">
+            <value>C:\Program Files\Windows Defender\MsMpEng.exe</value>
+            <value>C:\Program Files (x86)\CrowdStrike\CSFalconService.exe</value>
+          </ProcessName>
+        </Rule>
+        <!-- Using Debugging libraries to dump the memory of a process -->
+        <CallTrace name="Dumping Process Memory Using Debuging Libraries" condition="contains">dbghelp.dll</CallTrace>
+        <CallTrace name="Dumping Process Memory Using Debuging Libraries" condition="contains">dbgcore.dll</CallTrace>
+      </ProcessAccess>
+    </RuleGroup>
+
+    <!-- Event ID 11 == FileCreate - Includes -->
+    <RuleGroup groupRelation="or">
+      <FileCreate onmatch="include">
+      </FileCreate>
+    </RuleGroup>
+
+    <!-- Event ID 12,13,14 == RegObject added/deleted, RegValue Set, RegObject Renamed - Includes -->
+    <RuleGroup groupRelation="or">
+      <RegistryEvent onmatch="include">
+
+        <!-- Detect access to sensitive LSA secrets -->
+        <RuleGroup name="Suspicious LSA Secrets Access" groupRelation="or">
+          <TargetObject condition="begin with">HKLM\SECURITY\Policy\Secrets</TargetObject>
+          <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Lsa</TargetObject>
+        </RuleGroup>
+        
+        <!-- Exclude known legitimate processes to reduce noise -->
+        <Image condition="is not">C:\Windows\System32\services.exe</Image>
+        <Image condition="is not">C:\Windows\System32\lsass.exe</Image>
+        <!-- Additional legitimate software or monitoring tools can be added here -->
+
+      </RegistryEvent>
+    </RuleGroup>
+
+
+    <!-- Event ID 15 == FileStream Created - Includes -->
+    <RuleGroup groupRelation="or">
+      <FileCreateStreamHash onmatch="include">
+      </FileCreateStreamHash>
+    </RuleGroup>
+
+    <!-- Event ID 17,18 == PipeEvent. Log Named pipe created & Named pipe connected - Includes -->
+    <RuleGroup groupRelation="or">
+      <PipeEvent onmatch="include">
+        <Rule groupRelation="and">
+          <PipeName condition="begin with">\</PipeName>
+          <EventType>CreatePipe</EventType>
+        </Rule>
+        <PipeName name="technique_id=T1021.002,technique_name=SMB/Windows Admin Shares" condition="begin with">\atsvc</PipeName>
+        <Rule groupRelation="and">
+          <PipeName name="technique_id=T1021.002,technique_name=SMB/Windows Admin Shares" condition="begin with">\msse-</PipeName>
+          <PipeName name="technique_id=T1021.002,technique_name=SMB/Windows Admin Shares" condition="end with">-server</PipeName>
+        </Rule>
+        <PipeName name="technique_id=T1021.002,technique_name=SMB/Windows Admin Shares" condition="begin with">\msagent_</PipeName>
+        <PipeName name="technique_id=T1055; Possible Cobalt Strike post-exploitation jobs." condition="begin with">\postex_</PipeName>
+        <PipeName name="technique_id=T1021.004,technique_name=Remote Services: SSH" condition="begin with">\postex_ssh_</PipeName>
+        <PipeName name="technique_id=T1021.002,technique_name=SMB/Windows Admin Shares" condition="begin with">\status_</PipeName>
+        <PipeName name="technique_id=T1021.002,technique_name=SMB/Windows Admin Shares" condition="begin with">\gruntsvc</PipeName>
+        <PipeName name="technique_id=T1021.002,technique_name=SMB/Windows Admin Shares" condition="begin with">\svcctl</PipeName>
+        <PipeName name="technique_id=T1021.002,technique_name=SMB/Windows Admin Shares" condition="begin with">\msf-pipe</PipeName>
+        <Rule groupRelation="and">
+          <PipeName name="technique_id=T1059.001,technique_name=PowerShell" condition="begin with">\PSHost</PipeName>
+          <Image condition="is not">powershell.exe</Image>
+        </Rule>
+        <Rule groupRelation="and">
+          <PipeName name="technique_id=T1059.001,technique_name=PowerShell" condition="begin with">\PSHost</PipeName>
+          <Image condition="is not">powershell_ise.exe</Image>
+        </Rule>
+        <PipeName name="technique_id=T1021.002,technique_name=SMB/Windows Admin Shares" condition="begin with">\PSEXESVC</PipeName>
+        <PipeName name="technique_id=T1049,technique_name=System Network Connections Discovery" condition="begin with">\srvsvc</PipeName>
+        <Rule groupRelation="and">
+          <PipeName condition="begin with">\TSVCPIPE</PipeName>
+        </Rule>
+        <PipeName name="technique_id=T1033,technique_name=System Owner/User Discovery" condition="begin with">\winreg</PipeName>
+      </PipeEvent>
+    </RuleGroup>
+
+    <!-- Event ID 19,20,21, == WmiEvent. Log all WmiEventFilter, WmiEventConsumer, WmiEventConsumerToFilter activity - Includes -->
+    <RuleGroup groupRelation="or">
+      <WmiEvent onmatch="include">
+      </WmiEvent>
+    </RuleGroup>
+
+    <!-- Event ID 22 == DNS Queries and their results Excludes -->
+    <RuleGroup groupRelation="or">
+      <!--Default to log all and exclude a few common processes-->
+      <DnsQuery onmatch="exclude">
+      </DnsQuery>
+    </RuleGroup>
+
+    <!-- Event ID 23 == File Delete and overwrite events which saves a copy to the archivedir - Includes -->
+    <!-- Default set to disabled due to disk space implications, enable with care!-->
+    <RuleGroup groupRelation="or">
+      <FileDelete onmatch="include" />
+    </RuleGroup>
+    <!-- Event ID 24 == Clipboard change events, only captures text, not files - Includes -->
+    <!-- Default set to disabled due to privacy implications and potential data you leave for attackers, enable with care!-->
+    <RuleGroup groupRelation="or">
+      <ClipboardChange onmatch="include" />
+    </RuleGroup>
+    <!-- Event ID 25 == Process tampering events - Excludes -->
+    <RuleGroup groupRelation="or">
+      <ProcessTampering onmatch="exclude">
+      </ProcessTampering>
+    </RuleGroup>
+    <!-- Event ID 26 == File Delete and overwrite events, does NOT save the file - Includes -->
+    <RuleGroup groupRelation="or">
+      <FileDeleteDetected onmatch="include">
+      </FileDeleteDetected>
+    </RuleGroup>
+    <!-- Event ID 27 == File Block Executable and overwrite events - Includes -->
+    <!-- Default set to disabled due to potential unwanted blocks, enable with care!-->
+    <RuleGroup groupRelation="or">
+      <FileBlockExecutable onmatch="include" />
+    </RuleGroup>
+    <!-- Event ID 28 == Fileblock Shredding events - Includes -->
+    <!-- Default set to disabled due to disk space implications, enable with care!-->
+    <RuleGroup groupRelation="or">
+      <FileBlockShredding onmatch="include" />
+    </RuleGroup>
+    <!-- Event ID 29 == File Executable Detected events - Excludes -->
+    <RuleGroup groupRelation="or">
+      <FileExecutableDetected onmatch="exclude" />
+    </RuleGroup>
+
+    <RuleGroup groupRelation="or">
+      <CreateRemoteThread onmatch="include">
+      </CreateRemoteThread>
+    </RuleGroup>
+    <RuleGroup groupRelation="or">
+      <WmiEvent onmatch="exclude" />
+    </RuleGroup>
+    <RuleGroup groupRelation="or">
+      <FileDeleteDetected onmatch="exclude">
+      </FileDeleteDetected>
+    </RuleGroup>
+    <RuleGroup groupRelation="or">
+      <FileExecutableDetected onmatch="include">
+      </FileExecutableDetected>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>

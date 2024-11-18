@@ -1,0 +1,21 @@
+title: Potential Credential Dumping Via WER - Application
+description: Detects Windows error reporting event where the process that crashed is lsass. This could be the cause of an intentional crash by techniques such as Lsass-Shtinkering to dump credential
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    product: windows
+    service: application
+detection:
+    selection:
+        Provider_Name: 'Application Error'
+        EventID: 1000
+        AppName: 'lsass.exe'
+        ExceptionCode: 'c0000001' # STATUS_UNSUCCESSFUL
+    condition: selection
+falsepositives:
+    - Rare legitimate crashing of the lsass process
+level: high

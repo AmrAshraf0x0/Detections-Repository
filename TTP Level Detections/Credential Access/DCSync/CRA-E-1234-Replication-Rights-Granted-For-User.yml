@@ -1,0 +1,32 @@
+title: Detect Granting of Directory Replication Permissions
+description: Detects granting of sensitive directory replication permissions, such as "Replicating Directory Changes," which can enable DCsync attacks.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/07
+logsource:
+  category: windows
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4662
+    Properties:                                  # Properties often contain replication permission keywords
+      - "*Replicating Directory Changes*"
+      - "*Replicating Directory Changes All*"
+      - "*Replicating Directory Changes In Filtered Set*"
+  condition: selection
+fields:
+  - SubjectUserName
+  - SubjectDomainName
+  - ObjectType
+  - Properties
+  - ObjectName
+  - AccessMask
+falsepositives:
+  - Legitimate changes by authorized administrators.
+  - Domain controller updates or maintenance operations.
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1003.006
+  - attack.t1098
