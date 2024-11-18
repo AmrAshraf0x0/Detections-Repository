@@ -31,4 +31,4 @@ fields:
 falsepositives:
     - Legitimate use of fodhelper.exe utility by legitimate user
 level: high
-ruletype: Sigma
+

@@ -21,4 +21,4 @@ detection:
 falsepositives:
     - Investigate the contents of the "UserInitMprLogonScript" value to determine of the added script is legitimate
 level: medium
-ruletype: Sigma
+

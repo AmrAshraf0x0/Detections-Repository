@@ -43,4 +43,4 @@ fields:
 falsepositives:
     - Legitimate use of cmstp.exe utility by legitimate user
 level: high
-ruletype: Sigma
+

@@ -39,4 +39,4 @@ falsepositives:
     - Amazon SSM Document Worker
     - Windows Defender ATP
 level: high
-ruletype: Sigma
+

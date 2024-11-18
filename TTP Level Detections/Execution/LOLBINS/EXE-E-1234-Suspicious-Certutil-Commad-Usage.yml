@@ -46,4 +46,4 @@ fields:
 falsepositives:
     - False positives depend on scripts and administrative tools used in the monitored environment
 level: high
-ruletype: Sigma
+

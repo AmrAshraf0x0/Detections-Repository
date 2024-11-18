@@ -35,4 +35,4 @@ detection:
 falsepositives:
     - Unknown sub processes of Wsreset.exe
 level: high
-ruletype: Sigma
+

@@ -47,4 +47,4 @@ detection:
 falsepositives:
     - Some of the keys mentioned here could be modified by an administrator while setting group policy (it should be investigated either way)
 level: high
-ruletype: Sigma
+

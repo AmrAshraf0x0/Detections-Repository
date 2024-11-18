@@ -22,4 +22,4 @@ detection:
 falsepositives:
     - Runas command-line tool using /netonly parameter
 level: high
-ruletype: Sigma
+

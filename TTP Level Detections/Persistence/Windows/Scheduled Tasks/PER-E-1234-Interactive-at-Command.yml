@@ -20,4 +20,4 @@ detection:
 falsepositives:
     - Unlikely (at.exe deprecated as of Windows 8)
 level: high
-ruletype: Sigma
+

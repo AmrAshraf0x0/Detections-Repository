@@ -41,4 +41,4 @@ fields:
 falsepositives:
     - Unknown
 level: low
-ruletype: Sigma
+

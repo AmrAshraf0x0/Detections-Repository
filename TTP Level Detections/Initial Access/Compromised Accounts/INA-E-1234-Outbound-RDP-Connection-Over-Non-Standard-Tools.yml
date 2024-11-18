@@ -77,4 +77,4 @@ detection:
 falsepositives:
     - Third party RDP tools
 level: high
-ruletype: Sigma
+

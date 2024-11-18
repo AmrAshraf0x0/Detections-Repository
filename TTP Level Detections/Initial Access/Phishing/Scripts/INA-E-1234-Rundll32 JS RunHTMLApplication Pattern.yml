@@ -24,4 +24,4 @@ detection:
 falsepositives:
     - Unlikely
 level: high
-ruletype: Sigma
+

@@ -82,4 +82,4 @@ fields:
 falsepositives:
     - Unknown
 level: high
-ruletype: Sigma
+
