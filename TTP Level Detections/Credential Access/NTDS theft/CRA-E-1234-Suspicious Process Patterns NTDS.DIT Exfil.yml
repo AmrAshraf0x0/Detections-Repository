@@ -1,22 +1,8 @@
 title: Suspicious Process Patterns NTDS.DIT Exfil
-id: 1fb003fd-3505-dd3d-39c9-067a836b7257
-related:
-    - id: 8bc64091-6875-4881-aaf9-7bd25b5dda08
-      type: derived
-status: Developed
 description: Detects suspicious process patterns used in NTDS.DIT exfiltration
-references:
-    - https://www.ired.team/offensive-security/credential-access-and-credential-dumping/ntds.dit-enumeration
-    - https://www.n00py.io/2022/03/manipulating-user-passwords-without-mimikatz/
-    - https://pentestlab.blog/tag/ntds-dit/
-    - https://github.com/samratashok/nishang/blob/414ee1104526d7057f9adaeee196d91ae447283e/Gather/Copy-VSS.ps1
-    - https://github.com/zcgonvh/NTDSDumpEx
-    - https://github.com/rapid7/metasploit-framework/blob/d297adcebb5c1df6fe30b12ca79b161deb71571c/data/post/powershell/NTDSgrab.ps1
-    - https://blog.talosintelligence.com/2022/08/recent-cyber-attack.html?m=1
-author: Florian Roth (Nextron Systems)
-date: 2022-03-11
-modified: 2022-11-10
-Added By: Amr Ashraf
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
 tags:
     - attack.credential-access
     - attack.t1003.003

@@ -1,17 +1,8 @@
 title: PowerShell Download and Execution Cradles
-id: 7c4af673-03d0-fd2c-2562-41ee96b4d36e
-related:
-    - id: 85b0b087-eddf-4a2b-b033-d771fa2b9775
-      type: derived
-status: test
 description: Detects PowerShell download and execution cradles.
-references:
-    - https://github.com/VirtualAlllocEx/Payload-Download-Cradles/blob/88e8eca34464a547c90d9140d70e9866dcbc6a12/Download-Cradles.cmd
-    - https://labs.withsecure.com/publications/fin7-target-veeam-servers
-author: Florian Roth (Nextron Systems)
-date: 2022-03-24
-modified: 2023-05-04
-Added By: Amr Ashraf
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
 tags:
     - attack.execution
     - attack.t1059

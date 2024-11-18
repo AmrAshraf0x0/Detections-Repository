@@ -1,17 +1,8 @@
 title: Interactive AT Job
-id: 432d294d-a306-5b48-a105-306e9dfd78cf
-related:
-    - id: 60fc936d-2eb0-4543-8a13-911c750a1dfc
-      type: derived
-status: Developed
 description: Detects an interactive AT job, which may be used as a form of privilege escalation.
-references:
-    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1053.002/T1053.002.md
-    - https://eqllib.readthedocs.io/en/latest/analytics/d8db43cf-ed52-4f5c-9fb3-c9a4b95a0b56.html
-author: E.M. Anhaus (originally from Atomic Blue Detections, Endgame), oscd.community
-date: 2019-10-24
-modified: 2021-11-27
-Edited By: Amr Ashraf
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
 tags:
     - attack.privilege-escalation
     - attack.t1053.002

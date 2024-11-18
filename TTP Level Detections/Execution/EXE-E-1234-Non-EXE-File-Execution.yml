@@ -1,13 +1,8 @@
-author: Zach Mathis
-date: 2022/02/05
-modified: 2023/01/13
-Added By: Amr Ashraf
 title: Proc Exec (Non-Exe Filetype)
 description: Checks whether the image specified in a process creation event doesn't refer to an .exe file.
-
-id: 8d1487f1-7664-4bda-83b5-cb2f79491b6a
-level: high
 status: Developed
+author: Amr Ashraf
+date: 2024/11/09
 logsource:
     product: windows
     service: sysmon
