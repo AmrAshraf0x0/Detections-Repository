@@ -1,6 +1,6 @@
 title: Active Directory Replication from Non Machine Account
 id: 17d619c1-e020-4347-957e-1d1207455c93
-status: test
+status: Developed
 description: Detects potential abuse of Active Directory Replication Service (ADRS) from a non machine account to request credentials.
 references:
     - https://threathunterplaybook.com/hunts/windows/180815-ADObjectAccessReplication/notebook.html
