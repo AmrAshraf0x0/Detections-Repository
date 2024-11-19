@@ -1,4 +1,4 @@
-title: Remotely Hosted HTA File Executed Via Mshta.EXE
+title: Remotely Hosted HTA File Executed Via Mshta
 description: Detects execution of the "mshta" utility with an argument containing the "http" keyword, which could indicate that an attacker is executing a remotely hosted malicious hta file
 status: Developed
 author: Amr Ashraf

@@ -1,4 +1,4 @@
-title: Whoami.EXE Execution From Privileged Process
+title: Whoami Execution From Privileged Process
 description: Detects the execution of "whoami.exe" by privileged accounts that are often abused by threat actors
 status: Developed
 author: Amr Ashraf

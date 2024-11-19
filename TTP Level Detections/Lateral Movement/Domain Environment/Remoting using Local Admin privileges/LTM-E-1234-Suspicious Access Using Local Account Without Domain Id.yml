@@ -1,4 +1,4 @@
-title: Suspicious Access Using Local Account Without Domain Identifier
+title: Suspicious Access Using Local Account Without Domain Id
 description: Detects logons using local accounts that lack a domain identifier, which may indicate attempts to use local privileges or access local administrator accounts without domain authentication.
 status: Developed
 author: Amr Ashraf

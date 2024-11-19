@@ -1,4 +1,4 @@
-title: Detect Targeted Brute Force Attempts on Windows (LogonType 2, 3, 10)
+title: Detect Brute Force Attempts on Windows
 description: Detects repeated failed login attempts from the same source IP or targeting the same account on a Windows system for logon types 2, 3, and 10, indicative of brute-force activity.
 status: Developed
 author: Amr Ashraf
