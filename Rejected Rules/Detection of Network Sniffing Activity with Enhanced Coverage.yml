@@ -1,0 +1,95 @@
+title: Detection of Network Sniffing Activity with Enhanced Coverage
+id: 789ab123-cdef-4567-89gh-ijklmn012345
+status: Developed
+description: Detects network sniffing on Windows systems using a variety of methods, including common sniffing tools, suspicious library loads, and unusual parent-child process relationships.
+author: Danish Kumar 
+date: 2024-11-13
+
+references:
+  - https://attack.mitre.org/techniques/T1040/
+  - https://github.com/redcanaryco/atomic-red-team/blob/main/atomics/T1040/T1040.md
+  - https://redcanary.com/blog/network-sniffing-detection/
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  # Detection 1: Known Sniffing Tool Execution with Common Flags
+  known_tools:
+    EventID:
+      - 4688   # Windows Event ID for Process Creation
+      - 1      # Sysmon Event ID for Process Creation
+    Image|endswith:
+      - '\tshark.exe'
+      - '\windump.exe'
+      - '\tcpdump.exe'
+      - '\NetworkMiner.exe'
+      - '\SmartSniff.exe'
+    CommandLine|contains|any:
+      - '-i'           # Interface selection flag
+      - '--capture'    # Capture flag in some sniffing tools
+      - '-p'           # Promiscuous mode in tcpdump
+      - '-f'           # Specifies capture filter in certain tools
+
+  # Detection 2: Suspicious DLL Load (Packet Capture Libraries)
+  library_load:
+    EventID: 7   # Sysmon DLL Load event
+    Image|endswith:
+      - '\powershell.exe'
+      - '\svchost.exe'
+    TargetFilename|contains:
+      - 'npcap.dll'    # Packet capture library
+      - 'wpcap.dll'    # Packet capture library
+
+  # Detection 3: Unusual Parent-Child Process Relationship
+  parent_child_anomaly:
+    EventID:
+      - 4688  # Windows process creation
+      - 1     # Sysmon process creation
+    ParentImage|endswith:
+      - '\powershell.exe'
+      - '\cmd.exe'
+    Image|endswith:
+      - '\tshark.exe'
+      - '\tcpdump.exe'
+      - '\windump.exe'
+
+  # Detection 4: Command-Line Pattern for Packet Capture Commands
+  command_line_patterns:
+    EventID:
+      - 4688   # Windows Event ID for Process Creation
+      - 1      # Sysmon Event ID for Process Creation
+    CommandLine|contains|any:
+      - '-i'         # Interface selection flag
+      - '-p'         # Promiscuous mode in tcpdump
+      - '-f'         # Capture filters
+      - '--capture'  # Additional capture indicator
+
+  condition: |
+    known_tools or
+    library_load or
+    parent_child_anomaly or
+    command_line_patterns
+
+fields:
+  - EventID
+  - Image
+  - ParentImage
+  - CommandLine
+  - TargetFilename
+  - User
+  - LogonID
+  - ProcessId
+  - ParentProcessId
+  - IntegrityLevel
+
+level: medium
+tags:
+  - attack.discovery
+  - attack.credential-access
+  - attack.t1040
+
+falsepositives:
+  - Legitimate network diagnostics and troubleshooting by network administrators
+  - Authorized use of packet capture tools in testing or secured environments
