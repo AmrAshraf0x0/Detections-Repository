@@ -1,4 +1,4 @@
-title: Suspicious Process Patterns NTDS.DIT Exfil
+title: Suspicious Process Patterns NTDS Exfil
 description: Detects suspicious process patterns used in NTDS.DIT exfiltration
 status: Developed
 author: Amr Ashraf

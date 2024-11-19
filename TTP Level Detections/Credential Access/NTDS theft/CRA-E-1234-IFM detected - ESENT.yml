@@ -1,4 +1,4 @@
-title: IFM detected - ESENT (installation from media)
+title: IFM detected - ESENT
 description: Detects scenarios where an attacker attempts to create an IFM image (usually used for deploying domain controllers to reduce replication traffic) for dumping credentials.
 status: Developed
 author: Amr Ashraf
