@@ -1,0 +1,65 @@
+title: Pass-the-Hash (PtH) Attack Detection
+description: Detects potential Pass-the-Hash attacks by monitoring for suspicious NTLM authentication activity, elevated privileges or from unusual sources during lateral movement.
+status: Developed
+author: Arthur Thomas
+date: 11/11/2024
+references:
+  - https://attack.mitre.org/techniques/T1550/002/
+  - https://attack.mitre.org/techniques/T1075/
+logsource:
+product: windows
+service: security
+detection:
+selection:
+EventID: 4624
+LogonType:
+      - 3  # Network Logon
+      - 9  # NewCredentials
+AuthenticationPackageName: NTLM
+selection_keyLength:
+KeyLength: 0  # No encryption key length specified in PtH attacks
+selection_highValueAccounts:
+TargetUserName|contains:
+      - 'admin'
+      - 'administrator'
+      - 'svc'
+      - 'Domain Admins'
+      - 'Enterprise Admins'
+      - 'krbtgt'
+selection_suspiciousProcesses:
+ProcessName|endswith:
+      - '\psexec.exe'
+      - '\wmiexec.exe'
+      - '\tasklist.exe'
+      - '\mimikatz.exe'
+filter_legitimateAccounts:
+AccountName:
+      - 'SYSTEM'
+      - 'LocalService'
+      - 'NetworkService'
+filter_delegation:
+ImpersonationLevel: '%%1833'  # Delegation impersonation level
+condition: selection AND (selection_keyLength OR selection_highValueAccounts OR selection_suspiciousProcesses) AND NOT (filter_legitimateAccounts OR filter_delegation)
+fields:
+  - EventID
+  - LogonType
+  - AuthenticationPackageName
+  - TargetUserName
+  - AccountName
+  - WorkstationName
+  - IpAddress
+  - ProcessName
+  - LogonProcessName
+  - LogonGuid
+falsepositives:
+  - Legitimate usage of NTLM in environments that heavily rely on NTLM authentication
+  - Legacy systems or applications that require NTLM authentication without encryption
+  - Legitimate administrative tools or scripts that perform NTLM authentication over the network
+  - Scheduled tasks or automated processes using NTLM network logons
+  - Service accounts used for network tasks
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1550.002
+  - attack.t1075
+  - attack.credential_access
