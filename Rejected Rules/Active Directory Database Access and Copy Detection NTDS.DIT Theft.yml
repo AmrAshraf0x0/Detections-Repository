@@ -1,0 +1,52 @@
+title: Active Directory Database Access and Copy Detection NTDS.DIT Theft 
+id: 
+description: Detects attempts to access or copy the NTDS.dit file, typically associated with credential theft or enumeration of domain members.
+status: 
+author: Shunaid Shafique 
+logsource:
+  product: windows
+  service: security
+detection:
+  selection_sysmon:
+    EventID: 1
+    CommandLine|contains:
+      - 'ntdsutil'
+      - 'vssadmin create shadow'
+      - 'copy ntds.dit'
+  selection_powershell:
+    EventID: 800
+    CommandLine|contains|all:
+      - 'ntds'
+      - 'ntdsutil'
+      - 'create'
+      -  Invoke-NinjaCopy
+      -  secretsdump.py
+  selection_audit:
+    EventID:
+      - 4656
+      - 4663
+    ObjectType: File
+    TargetFilename|contains: 'ntds.dit'
+    AccessList:
+      - '%%4416'  # Read file data
+      - '%%4419'  # Read extended file attributes
+      - '%%4423'  # Read file attributes
+      - '%%4417'  # Write data to the file
+      - '%%4424'  # Write file attributes
+  selection_sysmon_file:
+    EventID: 11
+    TargetFilename|endswith: '.dit'
+  condition: selection_sysmon or selection_powershell or selection_audit or selection_sysmon_file
+fields:
+  - EventID
+  - CommandLine
+  - TargetFilename
+  - AccessList
+falsepositives:
+  - Legitimate administrative access to Active Directory databases
+level: high
+tags:
+  - attack.credential_access
+  - attack.discovery
+  - attack.t1003.003
+  - attack.t1087.002

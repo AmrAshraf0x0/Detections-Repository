@@ -1,0 +1,39 @@
+title: Mapping and Manipulation of Network Shares via Command-Line
+status: experimental
+description: >
+  This rule detects manipulation and mapping of network shares using command-line tools.
+  Attackers may use these commands to gain unauthorized access to resources or move laterally within a network.
+  The rule looks for suspicious use of network share management tools such as `net.exe`, `wmic.exe`, and `schtasks.exe`.
+references:
+  - https://attack.mitre.org/techniques/T1135/
+  - https://attack.mitre.org/techniques/T1071/
+
+author: Shunaid Shafique
+tags:
+  - attack.discovery
+  - attack.t1135
+  - attack.t1071
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4688  # Process Creation event in Windows Security logs
+    Image:
+      - '*\\net.exe'
+      - '*\\wmic.exe'
+      - '*\\schtasks.exe'
+    CommandLine:
+      - '*net share*'
+      - '*net use*'
+      - '*wmic share*'
+      - '*wmic netuse*'
+      - '*schtasks /create*'
+  condition: >
+    selection
+    and not (user IN EXCLUDED_USERS)
+falsepositives:
+  - Legitimate administrative activities managing network shares or scheduled tasks.
+  - Automated configuration management tasks by authorized personnel.
+  - Routine IT operations or troubleshooting actions involving network drives.
+level: medium
