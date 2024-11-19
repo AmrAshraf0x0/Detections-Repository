@@ -1,0 +1,26 @@
+title: CRA-E-0009 Unauthorized Access to Certificate Registry Keys
+description: Detects attempts to access registry locations storing certificate information and associated private keys.
+references:
+  - https://attack.mitre.org/techniques/T1649/
+status: Developed
+author: Shahbaz Ahmad
+date: 13/11/2024
+logsource:
+  product: windows
+  category: registry
+detection:
+  selection:
+    EventID: 4663
+    ObjectType: Key
+    ObjectName|contains: '\SOFTWARE\Microsoft\SystemCertificates'
+  condition: selection
+fields:
+  - EventID
+  - ObjectType
+  - ObjectName
+falsepositives:
+  - Legitimate software or authorized user managing certificates 
+level: medium
+tags:
+  - attack.credential_access
+  - attack.t1649

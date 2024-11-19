@@ -1,0 +1,31 @@
+title: CRA-E-0004 LSASS Memory Dump Using rundll32.exe
+description: Detects suspicious use of rundll32.exe to load comsvcs.dll for accessing LSASS memory, commonly used for credential dumping.
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+  - https://redcanary.com/threat-detection-report/techniques/lsass-memory/
+
+status: Developed
+author: Shahbaz Ahmad
+date: 10/11/2024
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_1:
+    EventID: 4688
+    ProcessName: 
+      - 'C:\\Windows\\System32\\rundll32.exe'
+    CommandLine|contains: 
+      - 'comsvcs.dll' 
+      - 'MiniDump'
+  condition: selection
+fields:
+  - EventID
+  - ProcessName
+  - CommandLine
+falsepositives:
+  - Legitimate troubleshooting or diagnostic tasks involving comsvcs.dll
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1003.001
