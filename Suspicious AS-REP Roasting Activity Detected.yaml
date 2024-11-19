@@ -18,15 +18,7 @@ detection:
     EventID: 4768
     Status: '0x0'  # Success
     PreAuthType: 0  # No preauthentication
-  suspicious_tools:
-    CommandLine|contains:
-      - "ASREPRoast"
-      - "Rubeus"
-      - "Invoke-ASREPRoast"
-  threshold:
-    count: 5  # Trigger when more than 5 AS-REP requests are seen without preauthentication in a short timeframe
-    timeframe: 2m
-  condition: selection or (selection and threshold) or (selection and suspicious_tools and threshold)
+  condition: selection 
 falsepositives:
   - Accounts legitimately configured without preauthentication
 level: high

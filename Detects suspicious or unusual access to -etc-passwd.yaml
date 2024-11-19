@@ -16,21 +16,10 @@ detection:
   selection:
     TargetFilename|any: 
     - '/etc/passwd'
-    AccessType: 'read'
-  filter:
-    User:
-      - 'root' 
-    ProcessName|contains|any:
-      - 'cat'     
-      - 'grep'
-    FileAttributes:
-      - 'user:admin'  # Typical for admins or automated reads
-  suspicious_access:
-    User: 'root'
-    ProcessName|endswith: ['/bin/sh', '/bin/bash']
-    SourceIP|not: ['127.0.0.1']  # Exclude localhost access, flag external sources
-    TimeGenerated|within: '15:45-07:00'  # Odd hours as an indicator
-  condition: (selection and not not 1 of filter_*) or suspicious_access #If an event involves the root user or an unusual command (cat or grep) on an admin-level file but does not match all criteria in the filter, it will be flagged
+    AccessType: 
+      - 'read'
+      - 'write'
+  condition: selection
 falsepositives:
   - Legitimate administrative tasks
 level: high

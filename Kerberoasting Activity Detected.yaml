@@ -20,10 +20,10 @@ detection:
   threshold:
     count: 10  # Trigger when more than 10 requests are seen in a short timeframe
     timeframe: 2m
-  filter:
-    ServiceName|endswith:
-      - '$'  # Exclude machine accounts
-  condition: (selection and not filter) or (selection and threshold and not filter)
+  condition: (selection) or (selection and threshold)
 falsepositives:
   - Legitimate service ticket requests
 level: high
+
+# Group by user
+# Check the threshold condition

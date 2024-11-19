@@ -18,9 +18,7 @@ detection:
     TargetFilename|any: 
     - '/etc/shadow'
     AccessType: 'read'
-  filter:
-    User:
-      - 'root' 
+
   suspicious_commands:
     CommandLine|contains|any:
       - "grep -v root /etc/shadow"
@@ -31,12 +29,8 @@ detection:
       - "hydra"
       - "cracklib"
       - "medusa"
-  suspicious_access:
-    User: 'root'
-    ProcessName|endswith: ['/bin/sh', '/bin/bash']
-    SourceIP|not: ['127.0.0.1']  # Exclude localhost access, flag external sources
-    TimeGenerated|within: '15:45-07:00'  # Odd hours as an indicator
-  condition: (selection and not filter) or (selection and suspicious_commands) or suspicious_access
+
+  condition: selection  or  suspicious_commands
   - Legitimate administrative tasks
   - Authorized backup processes
 level: high
