@@ -1,0 +1,34 @@
+title: CRA-E-0001 Possible Use of Mimikatz to Access LSASS
+description: Detects Mimikatz or related processes loading DLLs often associated with credential dumping and subsequently accessing lsass.exe, which may indicate credential harvesting attempts.
+references:
+  - https://attack.mitre.org/techniques/T1003/
+  - https://threathunterplaybook.com/hunts/windows/170105-LSASSMemoryReadAccess/notebook.html
+status: Developed
+author: Shahbaz Ahmad
+date: 10/11/2024
+logsource:
+  product: windows
+  service: sysmon
+detection:
+  Selection_dll_load:
+    EventID: 7
+    ImageLoaded|endswith:
+      - '\samlib.dll'
+      - '\vaultcli.dll'
+      - '\hid.dll'
+      - '\winscard.dll'
+      - '\cryptdll.dll'
+  Selection_lsass_access:
+    EventID: 10
+    TargetImage|endswith: '\lsass.exe'
+  condition: Selection_dll_load and Selection_lsass_access
+fields:
+  - ImageLoaded
+  - TargetImage
+  - EventID
+falsepositives:
+  - Legitimate software using these DLLs
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1003
