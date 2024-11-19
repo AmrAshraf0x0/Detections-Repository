@@ -1,0 +1,36 @@
+title: Linux Local Groups Permissions Enumeration
+description: Detects commands used to enumerate local group permissions on Linux.
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/11
+modified: 2024/11/12
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+  # No ldapsearch because that is covered by DIS-E-1234-Linux_Domain_Group_Enumeration
+    Image|endswith:
+      - "/cat"
+      - "/getent"
+      - "/groups"
+      - "/usr/bin/id"
+    Commandline|contains|any:
+      - "/etc/group"
+      - "/etc/passwd"
+      - "getent group"
+      - "groups"
+      - "id -Gn"
+  condition: selection 
+fields:
+  - Image
+  - Commandline
+  - User
+  - Hostname
+falsepositives:
+  - System administrators checking user permissions.
+  - Automated scripts that verify group permissions for compliance.
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1069.001

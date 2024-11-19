@@ -1,0 +1,46 @@
+title: Windows Local Groups Permissions Enumeration
+description: Detects commands used to enumerate local group permissions on Windows.
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/11
+modified: 2024/11/12
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID:
+      - "4798"
+      - "4799"
+  selection1:
+    Commandline|contains|any:
+      - "net localgroup"       
+      - "net user"            
+      - "Get-LocalGroupMember" 
+      - "Get-LocalGroup"      
+      - "Get-WmiObject Win32_Group" 
+      - "wmic group"
+  exclusion:
+    User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
+      - "$"
+      - "tenable"
+  condition: (selection OR selection1) AND NOT exclusion | count () by Commandline > 3 within 5m 
+fields:
+  - EventID
+  - ProcessID
+  - NewProcessName
+  - ParentProcessID
+  - ParentProcessName
+  - ParentImage
+  - Image
+  - User
+  - Hostname
+  - Commandline
+  - CreationUTCTime
+falsepositives:
+  - System administrators checking user permissions.
+  - Automated scripts that verify group permissions for compliance.
+level: low
+tags:
+  - attack.discovery
+  - attack.t1069.001
