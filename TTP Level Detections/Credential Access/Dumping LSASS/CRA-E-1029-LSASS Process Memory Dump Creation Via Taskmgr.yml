@@ -14,9 +14,9 @@ detection:
         Image|endswith:
             - ':\Windows\system32\taskmgr.exe'
             - ':\Windows\SysWOW64\taskmgr.exe'
-        TargetFilename|contains|all:
+        TargetFilename|contains:
             - '\AppData\Local\Temp\'
-            - '\lsass'
+            - 'lsass'
             - '.DMP'
     condition: selection
 falsepositives:
