@@ -8,6 +8,7 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4663
     TargetFilename:
       - '*\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data'
       - '*\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cookies'

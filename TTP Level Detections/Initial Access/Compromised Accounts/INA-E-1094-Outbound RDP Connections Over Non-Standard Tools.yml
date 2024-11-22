@@ -24,7 +24,6 @@ detection:
             - \device\harddiskvolume?\Windows\System32\mstsc.exe
             - \device\harddiskvolume?\Windows\SysWOW64\mstsc.exe
     filter_optional_dns:
-        # Note: https://github.com/SigmaHQ/sigma/pull/2249
         SourcePort: 53
         Application: \device\harddiskvolume?\Windows\System32\dns.exe
         Protocol: '17'

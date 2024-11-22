@@ -16,6 +16,8 @@ detection:
             - '\eqnedt32.exe'
             - '\wordpad.exe'
             - '\wordview.exe'
+            - '\winword.exe'
+            - '\excel.exe'
             # LOLBINs that can be used to download executables
             - '\certutil.exe'
             - '\certoc.exe'

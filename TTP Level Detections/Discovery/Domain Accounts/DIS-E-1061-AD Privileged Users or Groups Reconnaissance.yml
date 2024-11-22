@@ -16,6 +16,7 @@ detection:
         ObjectType:
             - 'SAM_USER'
             - 'SAM_GROUP'
+            - 'SAM_DOMAIN'
     selection_object:
         - ObjectName|endswith:
               - '-512'
