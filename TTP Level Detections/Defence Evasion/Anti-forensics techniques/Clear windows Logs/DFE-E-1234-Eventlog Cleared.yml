@@ -15,7 +15,7 @@ detection:
         EventID: 104
         Provider_Name: 'Microsoft-Windows-Eventlog'
     filter_main_covered:
-        # The channels below are already covered by the rule 100ef69e-3327-481c-8e5c-6d80d9507556
+        # The channels below are already covered on another rule
         Channel:
             - 'Microsoft-Windows-PowerShell/Operational'
             - 'Microsoft-Windows-Sysmon/Operational'
