@@ -17,6 +17,7 @@ detection:
             - '1131f6aa-9c07-11d1-f79f-00c04fc2dcd2'
             - '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2'
             - '89e95b76-444d-4c62-991a-0facbeda640c'
+            - '19195a5b-6da0-11d0-afd3-00c04fd930c9'
     filter:
         - SubjectUserName|endswith: '$'
         - SubjectUserName|startswith: 'MSOL_' # https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-accounts-permissions#ad-ds-connector-account
