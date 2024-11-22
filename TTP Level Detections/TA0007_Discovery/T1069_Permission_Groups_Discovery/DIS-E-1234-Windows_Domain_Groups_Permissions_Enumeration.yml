@@ -1,39 +1,48 @@
-title: Windows Domain Groups Permissions Discovery
-description: Detects commands used to enumerate local group permissions on Windows.
+title: Windows Domain Groups Permissions Enumeration [Medium]
+description: Detects commands used to enumerate domain group permissions on Windows.
+# EventID 4661 monitoring is in a different rule: DIS-E-1234-Windows_AD_SAM_Sensitive_Domain_Users_&_Groups_Enumeration
 status: Developed
 author: Yuliya Volkova
 date: 2024/11/12
 modified: 2024/11/12
 logsource:
-  category: process_creation
+  category: 
+  - process_creation
+  - ps_module
+  - ps_classic_script
+  - ps_script
   product: windows
 detection:
-  selection:
-    EventID:
-      - '4799'
   selection1:
-    Commandline|contains|any:
-      - "net localgroup"
+    eventID: 
+      - "4688"
+    commandline|contains|any: #Commandline
       - "net group"
-      - "get-ADPrincipalGroupMembership"
-      - "Find-LocalAdminAccess"
-      - "Invoke-EnumerateLocalAdmin"
-      - "Find-GPOComputerAdmin"
-      - "get-aduser -f * -pr DoesNotRequirePreAuth"
-      - "Get-AdGroup"
-      - "Get-DomainGroup"
-      - "adsisearcher"
-      - "useraccountcontrol"
-      - "Get-DomainGroupMember"
   selection2:
-    Image|endswith:
+    eventID:
+      - "800" # PowerShell native
+      - "4103" # PowerShell modern
+      - "4104" # PowerShell scriptblock
+    commandline|contains|any:
+      - "Get-ADGroupMember"
+      - "Get-ADPrincipalGroupMembership"
+      - "Get-ADGroup"
+      - "Get-DomainGroup"
+      - "Get-ADUser -f * -pr DoesNotRequirePreAuth"
+      - "Find-LocalAdminAccess"
+      - "Find-GPOComputerAdmin"
+      - "Invoke-EnumerateLocalAdmin"
+      # - "adsisearcher" # ADSISearcher is an external script
+  selection3:
+    image|endswith:
       - "ldifde.exe"
       - "adfind.exe"
-  exclusion:
-    User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
-      - "$"
+  exclusion: # Exclude known service accounts or automated scripts
+    user|contains|any: 
       - "tenable"
-  condition: (selection OR selection1 OR selection2) AND NOT exclusion | count () by Commandline > 3 within 5m 
+    User|endswith:
+      - "$"
+  condition: (1 OF selection*) AND NOT exclusion
 fields:
   - EventID
   - ProcessID
@@ -49,7 +58,97 @@ fields:
 falsepositives:
   - System administrators checking user permissions.
   - Automated scripts that verify group permissions for compliance.
-level: low
+level: medium
 tags:
   - attack.discovery
   - attack.t1069.002
+
+# Original rule logic: It is valid but needed to be changed as PowerShell detection will not work with
+# how the environment was configured: selection3 will only work on high criticality endpoints
+
+# title: Windows Domain Groups Permissions Enumeration [Medium]
+# description: Detects commands used to enumerate domain group permissions on Windows.
+# EventID 4661 monitoring is in a different rule: DIS-E-1234-Windows_AD_SAM_Sensitive_Domain_Users_&_Groups_Enumeration
+# status: Developed
+# author: Yuliya Volkova
+# date: 2024/11/12
+# modified: 2024/11/12
+# logsource:
+#  category: 
+#  - process_creation
+#  - ps_module
+#  - ps_classic_script
+#  - ps_script
+#  product: windows
+# detection:
+#  selection:
+#    commandline|contains|any: # Commandline
+#      - "net group"
+#  selection1:
+#    eventID: 
+#      - "800"
+#    eventData|contains|any: # PowerShell native
+#      - "Get-ADGroupMember"
+#      - "Get-ADPrincipalGroupMembership"
+#      - "Get-ADGroup"
+#      - "Get-DomainGroup"
+#      - "Get-ADUser -f * -pr DoesNotRequirePreAuth"
+#      - "Find-LocalAdminAccess"
+#      - "Find-GPOComputerAdmin"
+#      - "Invoke-EnumerateLocalAdmin"
+#      # - "adsisearcher" # ADSISearcher is an external script
+#  selection2:
+#    eventID: 
+#      - "4103"
+#    payload|contains|any: # PowerShell modern
+#      - "Get-ADGroupMember"
+#      - "Get-ADPrincipalGroupMembership"
+#      - "Get-ADGroup"
+#      - "Get-DomainGroup"
+#      - "Get-ADUser -f * -pr DoesNotRequirePreAuth"
+#      - "Find-LocalAdminAccess"
+#      - "Find-GPOComputerAdmin"
+#      - "Invoke-EnumerateLocalAdmin"
+#      # - "adsisearcher" # ADSISearcher is an external script
+#  selection3:
+#    eventID: 
+#      - "4104"
+#    eventData|contains|any: # PowerShell scriptblock
+#      - "Get-ADGroupMember"
+#      - "Get-ADPrincipalGroupMembership"
+#      - "Get-ADGroup"
+#      - "Get-DomainGroup"
+#      - "Get-ADUser -f * -pr DoesNotRequirePreAuth"
+#      - "Find-LocalAdminAccess"
+#      - "Find-GPOComputerAdmin"
+#      - "Invoke-EnumerateLocalAdmin"
+#      # - "adsisearcher" # ADSISearcher is an external script
+#  selection4:
+#    image|endswith:
+#      - "ldifde.exe"
+#      - "adfind.exe"
+#  exclusion: # Exclude known service accounts or automated scripts
+#    user|contains|any: 
+#      - "tenable"
+#    User|endswith:
+#      - "$"
+#  condition: (1 OF selection*) AND NOT exclusion
+# fields:
+#  - EventID
+#  - ProcessID
+#  - NewProcessName
+#  - ParentProcessID
+#  - ParentProcessName
+#  - ParentImage
+#  - Image
+#  - User
+#  - Hostname
+#  - Commandline
+#  - CreationUTCTime
+# falsepositives:
+#  - System administrators checking user permissions.
+#  - Automated scripts that verify group permissions for compliance.
+# level: medium
+# tags:
+#  - attack.discovery
+#  - attack.t1069.002 

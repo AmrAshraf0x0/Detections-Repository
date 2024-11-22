@@ -1,0 +1,42 @@
+title: Windows LDAP GPO Enumeration [Medium]
+description: Detects possible Active Directory GPO enumeration via LDAP.
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/20
+modified: 2024/11/20
+logsource:
+  category: ldap_query
+  product: windows
+detection:
+  selection:
+    eventID: 
+      - "30"
+    searchFilter|contains|any:
+      - "(objectCategory=groupPolicyContainer)" # Matches objects of type Group Policy Object (GPO)
+  exclusion: # Exclude known service accounts or automated scripts
+    user|contains|any: 
+      - "tenable"
+    user|endswith:
+      - "$"
+    searchFilter|contains:
+      - "(domainSid=*)" # Matches queries specifying a domain security identifier (SID) to exclude narrow queries aimed at identifying domains, as they may be benign
+      - "(objectSid=*)" # Matches queries specifying object security identifiers (SIDs) to exclude narrow object-specific queries that are less likely to indicate enumeration 
+  condition: selection AND NOT exclusion
+fields:
+  - EventID
+  - ProcessID
+  - NewProcessName
+  - ParentProcessID
+  - ParentProcessName
+  - ParentImage
+  - Image
+  - User
+  - Hostname
+  - Commandline
+  - CreationUTCTime
+falsepositives:
+  - Legitimate Group Policy queries by administrators or compliance tools.
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1615

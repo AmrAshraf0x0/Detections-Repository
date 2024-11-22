@@ -8,20 +8,20 @@ logsource:
   category: process_creation
   product: windows
 detection:
-  selection:
-    EventID: # For commands
-    - "4688"
-    Commandline|contains|any:
+  selection1:
+    eventID: 
+    - "4688" 
+    commandline|contains|any: # Commandline
       - "net user /domain"
       - "net group /domain"
-      - "Get-ADUser"
       - "Search-ADAccount"
-      - "Get-ADGroupMember"
       - "dsquery user"
       - "adfind -b"
-  selection1: # For PowerShell scriptblocks
+  selection2: 
     EventID: 
-      - "4104"
+      - "800" # PowerShell native
+      - "4103" # PowerShell modern
+      - "4104" # PowerShell scriptblock
     ScriptBlockText|contains|any:
       - "Get-ADUser"
       - "Search-ADAccount"

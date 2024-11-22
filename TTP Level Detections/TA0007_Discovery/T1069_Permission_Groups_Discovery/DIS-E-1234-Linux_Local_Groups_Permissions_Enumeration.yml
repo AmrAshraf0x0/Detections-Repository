@@ -1,29 +1,36 @@
-title: Linux Permission Groups Discovery (Local)
+title: Linux Local Groups Permissions Enumeration [Medium]
 description: Detects commands used to enumerate local group permissions on Linux.
 status: Developed
 author: Yuliya Volkova
 date: 2024/11/11
-modified: 2024/11/11
+modified: 2024/11/12
 logsource:
   category: process_creation
   product: linux
+  # No ldapsearch because that is covered by DIS-E-1234-Linux_Domain_Account_Enumeration
 detection:
-  selection:
-    Image|endswith:
-      - "/bin/cat"
-      - "/usr/bin/getent"
-      - "/usr/bin/groups"
+  selection1:
+    image|endswith:
+      - "/groups"
+  selection2:
+    image|endswith:
+      - "/cat"
+      - "/head"
+      - "/tail"
+      - "/more"
+      - "/getent"
+      - "/groups"
       - "/usr/bin/id"
-    CommandLine|contains|any:
+    commandline|contains|any: # Sensitive file access and enumeration command detection
       - "/etc/group"
       - "/etc/passwd"
       - "getent group"
       - "groups"
       - "id -Gn"
-  condition: selection | count () by Hostname > 5 within 2m 
+  condition: 1 OF selection* 
 fields:
   - Image
-  - CommandLine
+  - Commandline
   - User
   - Hostname
 falsepositives:

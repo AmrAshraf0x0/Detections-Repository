@@ -3,26 +3,30 @@ description: Detects commands used to enumerate local system accounts on Windows
 status: Developed
 author: Yuliya Volkova
 date: 2024/11/11
-modified: 2024/11/12
+modified: 2024/11/20
 logsource:
   category: process_creation
   product: windows
 detection:
-  selection:
-    EventID:
-      - '4798'
   selection1:
-    Commandline|contains|any:
-      - "net user"                    
-      - "net localgroup"            
-      - "Get-LocalUser"            
+    eventID:
+      - '4688'
+    commandline|contains|any: #Commandline
+      - "net user"
+  selection2:
+    eventID:
+      - "800" # PowerShell native
+      - "4103" # PowerShell modern
+      - "4104" # PowerShell scriptblock
+    commandline|contains|any:
+      - "Get-LocalUser"
       - "Get-WmiObject -Class Win32_UserAccount"
       - "Get-ADUser"
   exclusion:
     User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
       - "$"
       - "tenable"
-  condition: (selection OR selection1) AND NOT exclusion | count () by Commandline > 3 within 5m 
+  condition: (selection1 OR selection2) AND NOT exclusion
 fields:
   - EventID
   - ProcessID
@@ -40,5 +44,5 @@ falsepositives:
   - Compliance and auditing scripts that verify local accounts and configurations.
 level: low
 tags:
-  - attack.discovery
+  - attack.account_discovery
   - attack.t1087.001

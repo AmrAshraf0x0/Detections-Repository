@@ -1,0 +1,46 @@
+title: Windows GPO Enumeration
+description: Detects discovery of Group Policies typically using commands or PowerShell to query local or domain GPOs.
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/12
+modified: 2024/11/20
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection1:
+    eventID:
+      - "4688"
+    commandline|contains|any: # Commandline
+      - "gpresult"                            
+  selection2:
+    eventID:
+      - "800" # PowerShell native
+      - "4103" # PowerShell modern
+      - "4104" # PowerShell scriptblock
+    commandline|contains|any: # Commandline                  
+      - "Get-GPO"   
+      - "Get-DomainGPO" 
+      - "GPOAudit"
+      - "GPORemoteAccessPolicy"             
+      - "Get-GPResultantSetOfPolicy"       
+      - "Get-GPPermission" 
+  exclusion: # Exclude known service accounts or automated scripts
+    user|contains|any: 
+      - "tenable"
+    user|endswith:
+      - "$"
+  condition: (selection1 OR selection2) AND NOT exclusion
+fields:
+  - EventID
+  - NewProcessName
+  - ParentProcessName
+  - User
+  - Hostname
+  - Commandline
+falsepositives:
+  - Legitimate Group Policy queries by administrators or compliance tools.
+level: low
+tags:
+  - attack.discovery
+  - attack.t1615

@@ -1,47 +1,69 @@
-title: Windows Permission Groups Discovery (Local)
+title: Windows Local Groups Permissions Enumeration [Medium]
 description: Detects commands used to enumerate local group permissions on Windows.
+# EventID 4661 monitoring is in a different rule: DIS-E-1234-Windows_AD_SAM_Sensitive_Domain_Users_&_Groups_Enumeration
 status: Developed
 author: Yuliya Volkova
 date: 2024/11/11
-modified: 2024/11/11
+modified: 2024/11/12
 logsource:
-  category: process_creation
+  category: 
+  - process_creation
+  - ps_module
+  - ps_classic_script
+  - ps_script
   product: windows
 detection:
   selection:
     EventID:
-      - '4799'
-  selection1:
-    NewProcessName|endswith:
-      - "\\net.exe"
-      - "\\net1.exe"
-      - "\\powershell.exe"
-      - "\\cmd.exe"
-      - "\\wmic.exe"
-    CommandLine|contains|any:
+      - "4798"
+      - "4799"
+    Commandline|contains|any: # Commandline
       - "net localgroup"       
-      - "net user"         
-      - "net group"            
+      - "net user"
+      - "wmic group"
+  selection1:
+    EventID: 
+      - "800"
+    EventData|contains|any: # PowerShell native
       - "Get-LocalGroupMember" 
       - "Get-LocalGroup"      
       - "Get-WmiObject Win32_Group" 
-      - "wmic group"
-  exclusion:
-    User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
-      - "$"
+  selection2:
+    EventID: 
+      - "4103"
+    Payload|contains|any: # PowerShell modern
+      - "Get-LocalGroupMember" 
+      - "Get-LocalGroup"      
+      - "Get-WmiObject Win32_Group" 
+  selection3:
+    EventID: 
+      - "4103"
+    EventData|contains|any: # PowerShell scriptblock
+      - "Get-LocalGroupMember" 
+      - "Get-LocalGroup"      
+      - "Get-WmiObject Win32_Group" 
+  exclusion: # Exclude known service accounts or automated scripts
+    User|contains|any: 
       - "tenable"
-  condition: (selection OR selection1) AND NOT exclusion | count () by Hostname > 5 within 2m 
+    User|endswith:
+      - "$"
+  condition: (1 OF selection*) AND NOT exclusion
 fields:
   - EventID
+  - ProcessID
   - NewProcessName
+  - ParentProcessID
   - ParentProcessName
+  - ParentImage
+  - Image
   - User
   - Hostname
-  - CommandLine
+  - Commandline
+  - CreationUTCTime
 falsepositives:
   - System administrators checking user permissions.
   - Automated scripts that verify group permissions for compliance.
-level: low
+level: medium
 tags:
   - attack.discovery
   - attack.t1069.001

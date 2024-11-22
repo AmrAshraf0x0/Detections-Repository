@@ -1,0 +1,54 @@
+title: Windows AD SAM Sensitive Domain Users & Groups Enumeration [Medium]
+description: Detects scenarios where an attacker attempts to enumerate sensitive domain group settings and memberships on Windows through SAM.
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/21
+modified: 2024/11/21
+logsource:
+  category: security
+  product: windows
+detection:
+  selection:
+    eventID: 
+    - '4661'
+    # processName|endswith: # EventID 4661 is already bound to LSASS
+    # - '\lsass.exe'
+    # objectServer: 
+    # - 'Security Account Manager'
+    object:
+      - SAM_USER
+      - SAM_GROUP
+      - SAM_ALIAS
+    # objectName|startswith: # Commented out because it is overspecified
+    #  - S-1-5-32- # Built-in domain local groups
+    #  - S-1-5-21- # Domain users and groups
+    # objectName|endswith:
+    #  - '-500' # Local Admins
+    #  - '-512' # Domain Admins
+    #  - '-513' # Domain Users    
+  exclusion: # Exclude known service accounts or automated scripts
+    user|contains|any: 
+      - "tenable"
+    user|endswith:
+      - "$"
+  condition: selection AND NOT exclusion
+fields:
+  - EventID
+  - ProcessID
+  - NewProcessName
+  - ParentProcessID
+  - ParentProcessName
+  - ParentImage
+  - Image
+  - User
+  - Hostname
+  - Commandline
+  - CreationUTCTime
+falsepositives:
+  - System administrators checking user permissions.
+  - Automated scripts that verify sensitive users and group permissions for compliance.
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1069.001
+  - attack.t1069.002
