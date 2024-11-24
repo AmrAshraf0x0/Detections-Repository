@@ -1,0 +1,24 @@
+title: Detect Secure Boot Disabling
+id: detect-secure-boot-disabling
+status: Developed
+description: Detects attempts to disable Secure Boot from the firmware or OS-level changes.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image: '*\bcdedit.exe'
+    CommandLine:
+      - '*bcdedit*set*{current}*bootdebug*on*'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - User
+level: critical
+tags:
+  - attack.persistence
+  - attack.t1542.001
+falsepositives:
+  - System recovery or legitimate troubleshooting activities

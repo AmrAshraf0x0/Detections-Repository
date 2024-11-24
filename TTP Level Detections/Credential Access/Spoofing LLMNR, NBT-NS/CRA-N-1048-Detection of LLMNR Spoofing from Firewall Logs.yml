@@ -9,7 +9,7 @@ detection:
   selection:
     DestinationPort: 5355     # LLMNR uses port 5355
     Protocol: 'UDP'           # LLMNR is typically sent over UDP
-    Direction: 'response'     # Looking for responses (unsolicited)
+    Direction: 'response'     # Looking for responses
   condition: selection
 fields:
   - SourceIP

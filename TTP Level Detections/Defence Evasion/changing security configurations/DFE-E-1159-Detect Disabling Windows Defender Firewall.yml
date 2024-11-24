@@ -1,0 +1,29 @@
+title: Detect Disabling Windows Defender Firewall
+id: detect-disabling-windows-defender-firewall-logs
+status: Developed
+description: Detects attempts to disable Windows Defender Firewall using event logs that indicate changes to firewall settings.
+author: Amr Ashraf
+date: 2024-11-24
+logsource:
+  category: windows
+  product: windows
+detection:
+  selection:
+    EventID: 2004
+    ProviderName: 'Microsoft-Windows-Windows Firewall with Advanced Security'
+    Message:
+      - '*Firewall state has been turned off*'
+      - '*Firewall profile disabled*'
+  condition: selection
+fields:
+  - EventID
+  - ProviderName
+  - Message
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.004
+falsepositives:
+  - Legitimate administrative changes or system updates

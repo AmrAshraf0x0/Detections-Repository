@@ -1,0 +1,33 @@
+title: Detect Files with Double Extensions
+id: detect-double-extensions-regex-exclusions
+status: Developed
+description: Detects files with double extensions, excluding known legitimate file types such as `.tar.gz` or `.config.ini`.
+author: Amr Ashraf
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventID: 4663
+    ObjectType: 'File'
+    ObjectName|re: 
+      - '^.*\.[a-zA-Z0-9]{1,4}\.[a-zA-Z0-9]{1,4}$'
+  exclusion:
+    ObjectName|re: 
+      - '^.*\.tar\.gz$'
+      - '^.*\.config\.ini$'
+      - '^.*\.log\.txt$'
+  condition: selection and not exclusion
+fields:
+  - EventID
+  - ObjectName
+  - ObjectType
+  - AccessMask
+  - SubjectUserName
+level: high
+tags:
+  - attack.execution
+  - attack.defense_evasion
+  - detection.files
+falsepositives:
+  - Legitimate files with double extensions excluded in the rule

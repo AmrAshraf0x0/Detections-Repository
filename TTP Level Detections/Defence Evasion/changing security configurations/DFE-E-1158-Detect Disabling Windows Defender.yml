@@ -1,0 +1,30 @@
+title: Detect Disabling Windows Defender
+id: detect-disabling-windows-defender-logs
+status: Developed
+description: Detects attempts to disable Windows Defender using event logs that indicate changes to Defender configuration or service status.
+author: Amr Ashraf
+date: 2024-11-24
+logsource:
+  category: windows
+  product: windows
+detection:
+  selection:
+    EventID: 5004
+    ProviderName: 'Microsoft-Windows-Windows Defender'
+    Message:
+      - '*Real-time protection feature has been disabled*'
+      - '*Antivirus settings have been disabled*'
+      - '*Defender Antivirus service stopped*'
+  condition: selection
+fields:
+  - EventID
+  - ProviderName
+  - Message
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001
+falsepositives:
+  - Legitimate administrative tasks or updates

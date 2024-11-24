@@ -9,7 +9,7 @@ detection:
   selection:
     EventID: 4662
     ObjectType: 'ldapQuery'
-  condition: selection | count() by src_ip > 100 within 1m
+  condition: selection | count() by src_ip > 100 within 1m  # Test the value before deploy
 fields:
   - EventID
   - src_ip
