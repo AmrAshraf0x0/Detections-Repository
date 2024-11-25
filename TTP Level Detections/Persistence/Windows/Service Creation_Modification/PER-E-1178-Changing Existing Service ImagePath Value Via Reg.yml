@@ -1,0 +1,30 @@
+title: Changing Existing Service ImagePath Value Via Reg
+description: |
+    Adversaries may execute their own malicious payloads by hijacking the Registry entries used by services.
+    Adversaries may use flaws in the permissions for registry to redirect from the originally specified executable to one that they control, in order to launch their own code at Service start.
+    Windows stores local service configuration information in the Registry under HKLM\SYSTEM\CurrentControlSet\Services
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
+tags:
+    - attack.persistence
+    - attack.t1574.011
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    process_creation:
+        EventID: 4688
+        Channel: Security
+    selection:
+        CommandLine|contains|all:
+            - 'add '
+            - SYSTEM\CurrentControlSet\Services\
+            - ' ImagePath '
+        NewProcessName|endswith: \reg.exe
+    selection_value:
+        CommandLine|contains|windash: ' -d '
+    condition: process_creation and (all of selection*)
+falsepositives:
+    - Unknown
+level: medium

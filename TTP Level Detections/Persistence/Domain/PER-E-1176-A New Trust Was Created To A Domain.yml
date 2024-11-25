@@ -1,0 +1,21 @@
+title: A New Trust Was Created To A Domain
+description: Addition of domains is seldom and should be verified for legitimacy.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
+tags:
+    - attack.persistence
+    - attack.t1098
+logsource:
+    product: windows
+    service: security
+detection:
+    security:
+        Channel: Security
+    selection:
+        EventID: 4706
+    condition: security and selection
+falsepositives:
+    - Legitimate extension of domain structure
+level: medium
+ruletype: Sigma
