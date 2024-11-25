@@ -19,10 +19,12 @@ Detects commands and processes used to enumerate local group permissions on Wind
 - Exclusions to rule are for accounts containing `tenable` and `$` as Tenable agents are authorized to run continuous auditing scripts across environment for compliance, and machine accounts are authorized to periodically enumerate local Windows accounts. 
 - Rule threshold is 3 observed commandlines from one host within 5 minutes (may need to be tuned for sensitivity after testing).
 
+**Validation**
 - [x] MITRE ATT&CK Detection DS0017: monitors for relevant commandline execution on Windows.
 - [x] MITRE ATT&CK Detection DS0036: monitors for EventIDs `4798` and `4799` on Windows.
 - [x] Atomic Red Team: covers red team tests 2-6 for t1069.001.
-***
+
+* * *
 ### DIS-E-1234-Windows_Domain_Groups_Permissions_Enumeration
 
 **Sub-technique covered:** T1069.002
@@ -76,13 +78,14 @@ Detects commands and processes used to enumerate local group permissions on Linu
 	- `groups`
 	- `id -Gn`
 
+**Validation**
 - [x] MITRE ATT&CK Detection DS0017: monitors for relevant commandline execution on Linux.
 - [x] Atomic Red Team: covers red team test 1 for t1069.001.
 
+* * *
 ### References
 - [MITRE ATT&CK T1087.001](https://attack.mitre.org/techniques/T1069/001/)
 - [MITRE ATT&CK T1087.002](https://attack.mitre.org/techniques/T1069/002/)
 - [Atomic Red Team T1087.001](https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1069.001/T1069.001.md)
 - [Atomic Red Team T1087.002](https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1069.002/T1069.002.md)
 - [Windows SID Index](https://learn.microsoft.com/en-us/windows/win32/secauthz/well-known-sids)
-- 
