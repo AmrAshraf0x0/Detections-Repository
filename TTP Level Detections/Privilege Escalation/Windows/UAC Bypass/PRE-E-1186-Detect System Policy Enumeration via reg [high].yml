@@ -1,0 +1,28 @@
+title: Detect System Policy Enumeration via reg
+id: detect-system-policy-enumeration-reg
+status: Developed
+description: Detects enumeration of system policies directly using reg.exe targeting the HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System registry key.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image: '*\reg.exe'
+    CommandLine|re: 
+      - '.*query\s+HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Policies\\\\System.*'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.reconnaissance
+  - attack.discovery
+  - detection.registry
+falsepositives:
+  - Legitimate administrative actions
+  - System monitoring or auditing tools

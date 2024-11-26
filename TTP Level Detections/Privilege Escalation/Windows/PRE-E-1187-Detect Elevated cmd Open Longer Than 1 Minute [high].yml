@@ -1,0 +1,37 @@
+title: Detect Elevated cmd Open Longer Than 1 Minute
+id: detect-elevated-cmd-open-long-duration
+status: Developed
+description: Detects elevated cmd.exe processes spawned from non-explorer.exe parents that remain active for longer than 1 minute.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  creation:
+    EventID: 4688
+    Image: '*\cmd.exe'
+    IntegrityLevel: High
+    ParentImage|endswith: 
+      - '\explorer.exe'
+    condition: creation and not ParentImage|endswith: '\explorer.exe'
+  termination:
+    EventID: 4689
+    Image: '*\cmd.exe'
+  timeframe: 1m
+  condition: creation and termination
+fields:
+  - EventID
+  - Image
+  - CommandLine
+  - ParentImage
+  - IntegrityLevel
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.execution
+  - detection.process
+falsepositives:
+  - Administrative tasks that require elevated cmd.exe for extended durations
+  - Debugging or scripting operations
