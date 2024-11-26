@@ -1,0 +1,49 @@
+title: Windows Account Enumeration via LDAP [Medium]
+description: Detects possible Active Directory group enumeration via LDAP.
+# Requires Microsoft-Windows-LDAP-Client/Debug ETW logging to function
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/20
+modified: 2024/11/20
+logsource:
+  category: ldap_query
+  product: windows
+detection:
+  selection1:
+    # eventID: # Possible to detect with network traffic if configured on client end 
+    #  - "30"
+    searchFilter|contains|any:
+      - "(sAMAccountType=536870913)" # User accounts with delegation privileges
+      - "(sAMAccountType=536870912)" # Normal user accounts
+      - "(sAMAccountType=268435457)" # Computer accounts with delegation privileges
+      - "(sAMAccountType=268435456)" # Computer accounts
+      - "(objectCategory=organizationalUnit)"
+  exclusion: # Exclude known service accounts or automated scripts
+    user|contains|any: 
+      - "tenable"
+    user|endswith:
+      - "$"
+    searchFilter|contains:
+      - '(domainSid=*)'
+      - '(objectSid=*)'
+  condition: selection1 AND NOT exclusion
+fields:
+  - EventID
+  - ProcessID
+  - NewProcessName
+  - ParentProcessID
+  - ParentProcessName
+  - ParentImage
+  - Image
+  - User
+  - Hostname
+  - Commandline
+  - CreationUTCTime
+falsepositives:
+  - System administrators checking user permissions.
+  - Automated scripts that verify group permissions for compliance.
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1069.001
+  - attack.t1069.002

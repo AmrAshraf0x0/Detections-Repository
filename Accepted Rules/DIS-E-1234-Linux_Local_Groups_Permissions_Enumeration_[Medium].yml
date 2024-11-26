@@ -7,7 +7,7 @@ modified: 2024/11/12
 logsource:
   category: process_creation
   product: linux
-  # No ldapsearch because that is covered by DIS-E-1234-Linux_Domain_Account_Enumeration
+  # No ldapsearch because that is covered by DIS-E-1234-Linux_Domain_Local_Group_&_Account_Enumeration_[Medium]
 detection:
   selection1:
     image|endswith:
@@ -15,15 +15,19 @@ detection:
   selection2:
     image|endswith:
       - "/cat"
+      - "/ed"
       - "/head"
-      - "/tail"
       - "/more"
+      - "/nano"
+      - "/tail"
+      - "/vi"
+      - "/vim'
+      - "/ls"
       - "/getent"
       - "/groups"
       - "/usr/bin/id"
     commandline|contains|any: # Sensitive file access and enumeration command detection
       - "/etc/group"
-      - "/etc/passwd"
       - "getent group"
       - "groups"
       - "id -Gn"

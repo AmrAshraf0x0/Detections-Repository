@@ -1,11 +1,15 @@
-title: Windows GPO Enumeration
+title: Windows GPO Enumeration [Low]
 description: Detects discovery of Group Policies typically using commands or PowerShell to query local or domain GPOs.
 status: Developed
 author: Yuliya Volkova
 date: 2024/11/12
 modified: 2024/11/20
 logsource:
-  category: process_creation
+  category:
+  - process_creation
+  - ps_module
+  - ps_classic_script
+  - ps_script
   product: windows
 detection:
   selection1:
@@ -18,7 +22,7 @@ detection:
       - "800" # PowerShell native
       - "4103" # PowerShell modern
       - "4104" # PowerShell scriptblock
-    commandline|contains|any: # Commandline                  
+    commandline|contains|any:                 
       - "Get-GPO"   
       - "Get-DomainGPO" 
       - "GPOAudit"

@@ -1,4 +1,4 @@
-title: Windows AD SAM Sensitive Domain Users & Groups Enumeration [Medium]
+title: Windows AD SAM Sensitive Domain Users & Groups Enumeration [High]
 description: Detects scenarios where an attacker attempts to enumerate sensitive domain group settings and memberships on Windows through SAM.
 status: Developed
 author: Yuliya Volkova
@@ -8,9 +8,9 @@ logsource:
   category: security
   product: windows
 detection:
-  selection:
+  selection1:
     eventID: 
-    - '4661'
+    - "4661"
     # processName|endswith: # EventID 4661 is already bound to LSASS
     # - '\lsass.exe'
     # objectServer: 
@@ -31,7 +31,7 @@ detection:
       - "tenable"
     user|endswith:
       - "$"
-  condition: selection AND NOT exclusion
+  condition: selection1 AND NOT exclusion
 fields:
   - EventID
   - ProcessID
@@ -47,7 +47,7 @@ fields:
 falsepositives:
   - System administrators checking user permissions.
   - Automated scripts that verify sensitive users and group permissions for compliance.
-level: medium
+level: high
 tags:
   - attack.discovery
   - attack.t1069.001

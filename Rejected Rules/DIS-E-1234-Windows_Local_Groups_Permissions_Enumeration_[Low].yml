@@ -1,4 +1,4 @@
-title: Windows Local Groups Permissions Enumeration [Medium]
+title: Windows Local Groups Permissions Enumeration [Low]
 description: Detects commands used to enumerate local group permissions on Windows.
 # EventID 4661 monitoring is in a different rule: DIS-E-1234-Windows_AD_SAM_Sensitive_Domain_Users_&_Groups_Enumeration
 status: Developed
@@ -13,39 +13,27 @@ logsource:
   - ps_script
   product: windows
 detection:
-  selection:
-    EventID:
+  selection1:
+    eventID:
       - "4798"
       - "4799"
-    Commandline|contains|any: # Commandline
+    commandline|contains|any: # Commandline
       - "net localgroup"       
       - "net user"
       - "wmic group"
-  selection1:
-    EventID: 
-      - "800"
-    EventData|contains|any: # PowerShell native
-      - "Get-LocalGroupMember" 
-      - "Get-LocalGroup"      
-      - "Get-WmiObject Win32_Group" 
   selection2:
-    EventID: 
-      - "4103"
-    Payload|contains|any: # PowerShell modern
-      - "Get-LocalGroupMember" 
-      - "Get-LocalGroup"      
-      - "Get-WmiObject Win32_Group" 
-  selection3:
-    EventID: 
-      - "4103"
-    EventData|contains|any: # PowerShell scriptblock
+    eventID: 
+      - "800" # PowerShell native
+      - "4103" # PowerShell modern
+      - "4104" # PowerShell scriptblock
+    commandline|contains|any:
       - "Get-LocalGroupMember" 
       - "Get-LocalGroup"      
       - "Get-WmiObject Win32_Group" 
   exclusion: # Exclude known service accounts or automated scripts
-    User|contains|any: 
+    user|contains|any: 
       - "tenable"
-    User|endswith:
+    user|endswith:
       - "$"
   condition: (1 OF selection*) AND NOT exclusion
 fields:
@@ -63,7 +51,7 @@ fields:
 falsepositives:
   - System administrators checking user permissions.
   - Automated scripts that verify group permissions for compliance.
-level: medium
+level: low
 tags:
   - attack.discovery
   - attack.t1069.001

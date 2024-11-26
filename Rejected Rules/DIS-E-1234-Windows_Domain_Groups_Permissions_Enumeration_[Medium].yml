@@ -40,7 +40,7 @@ detection:
   exclusion: # Exclude known service accounts or automated scripts
     user|contains|any: 
       - "tenable"
-    User|endswith:
+    user|endswith:
       - "$"
   condition: (1 OF selection*) AND NOT exclusion
 fields:

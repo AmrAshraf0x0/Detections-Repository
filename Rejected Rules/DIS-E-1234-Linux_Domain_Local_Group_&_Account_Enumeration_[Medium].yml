@@ -1,4 +1,4 @@
-title: Linux Group Enumeration
+title: Linux Domain/Local Group & Account Enumeration [Medium]
 description: Detects commands used to enumerate domain and local groups on domain-joined Linux endpoints.
 status: Developed
 author: Yuliya Volkova
