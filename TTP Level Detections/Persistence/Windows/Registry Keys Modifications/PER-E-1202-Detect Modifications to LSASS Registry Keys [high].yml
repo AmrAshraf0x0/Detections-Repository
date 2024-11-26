@@ -1,0 +1,30 @@
+title: Detect Modifications to LSASS Registry Keys
+id: detect-lsass-registry-modification
+status: Developed
+description: Detects suspicious modifications to LSASS-related registry keys, indicating potential abuse for persistence or privilege escalation.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    EventID: 4657  # Registry modification
+    RegistryKey|contains:
+      - 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\Authentication Packages'
+      - 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\Notification Packages'
+      - 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\Security Packages'
+  condition: selection
+fields:
+  - EventID
+  - RegistryKey
+  - RegistryValueName
+  - User
+  - ComputerName
+  - NewValue
+level: high
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - t1547.002
+falsepositives:
+  - Legitimate software installation or updates (e.g., security software)
