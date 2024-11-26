@@ -1,5 +1,4 @@
 title: Detect IP Block Scanning
-id: detect-ip-block-scanning-firewall
 status: Developed
 description: Detects IP block scanning attempts based on a single source IP rapidly probing multiple destination IPs or ports in firewall logs.
 author: Amr Ashraf
@@ -9,12 +8,12 @@ logsource:
   product: any
 detection:
   selection:
-    action: allow   # Logs traffic permitted by the firewall (optional; depends on firewall configuration)
+    action: allow  
   aggregation:
     by:
       - source_ip
-    timeframe: 1m  # Aggregates events over a 1-minute window
-    count: 50      # Threshold for connections to multiple destination IPs
+    timeframe: 1m   
+    count: 50      
   condition: selection and aggregation
 fields:
   - source_ip
