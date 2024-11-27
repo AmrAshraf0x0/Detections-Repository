@@ -1,0 +1,56 @@
+title: PowerShell Network-Based File Download
+status: experimental
+description: Detects PowerShell activity indicative of downloading files from the internet, which could signal malicious ingress tool transfer (MITRE ATT&CK T1105). Analysts should validate by reviewing process lineage, associated network activity, and script content for intent.
+author: Arthur Thomas
+date: 27/11/2024
+severity: medium
+tags:
+    - attack.ingress_tool_transfer
+    - attack.t1105
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    product: windows
+    service: powershell
+detection:
+    selection:
+        EventID:
+            - 4104  # PowerShell script block logging
+            - 4103  # PowerShell module logging
+            - 4688  # Process creation
+    keywords:
+        - 'Net.WebClient'
+        - 'Invoke-WebRequest'
+        - 'Start-BitsTransfer'
+        - 'DownloadFile'
+        - 'DownloadString'
+        - 'downloadata'
+        - 'iex'
+        - '.invoke'
+        - 'invoke-expression'
+        - '-join'
+        - 'base64'
+filter_url:
+        ScriptBlockText|contains:
+            - 'http://'
+            - 'https://'
+    filter_extension:
+        ScriptBlockText|endswith:
+            - '.exe'
+            - '.dll'
+            - '.ps1'
+            - '.bat'
+            - '.cmd'
+            - '.vbs'
+            - '.js'
+    condition: selection and 1 of keywords and (1 of filter_url or 1 of filter_extension)
+falsepositives:
+    - Legitimate PowerShell scripts downloading updates or content
+    - Automation tasks or scripts from trusted sources
+fields:
+    - ComputerName
+    - User
+    - ScriptBlockText
+    - CommandLine
+    - ParentCommandLine
+

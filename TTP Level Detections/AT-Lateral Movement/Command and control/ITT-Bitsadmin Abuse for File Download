@@ -1,0 +1,44 @@
+title: Bitsadmin Abuse for File Download
+status: experimental
+description: Detects the abuse of Bitsadmin.exe to download malicious files from remote locations, a technique often used for ingress tool transfer (MITRE ATT&CK T1105).
+author: Arthur Thomas
+date: 27/11/2024
+tags:
+  - attack.command_and_control
+  - attack.t1105
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_security:
+    Channel: 'Security'
+    EventID: 4688
+    NewProcessName|endswith: '\bitsadmin.exe'
+    CommandLine|contains:
+      - '/transfer'
+      - '/download'
+      - "/create"
+      - "/addfile"
+  selection_sysmon:
+    Channel: 'Sysmon'
+    EventID: 1
+    Image|endswith: '\bitsadmin.exe'
+    CommandLine|contains:
+      - '/transfer'
+      - '/download'
+  selection_network_security:
+    Channel: 'Security'
+    EventID: 5156
+    ApplicationName|endswith: '\bitsadmin.exe'
+    Direction: 'Outbound'
+  selection_network_sysmon:
+    Channel: 'Sysmon'
+    EventID: 3
+    Image|endswith: '\bitsadmin.exe'
+    Initiated: true
+    DestinationIp|startswith: 'Remote'
+  condition: selection_security or selection_sysmon or selection_network_security or selection_network_sysmon
+falsepositives:
+  - Legitimate file transfer operations via Bitsadmin.
+  - Automated tasks using Bitsadmin for patching or updates.
+level: high
