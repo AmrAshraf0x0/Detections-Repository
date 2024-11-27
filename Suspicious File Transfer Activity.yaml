@@ -1,0 +1,38 @@
+title: Suspicious File Transfer Activity
+id: 4d-c2c-5
+status: test
+description: Detects suspicious file downloads or uploads indicative of ingress tool transfer.
+references:
+  - https://attack.mitre.org/techniques/T1105/
+author: Muhammad Asad
+date: 2024-11-26
+tags:
+  - attack.command-and-control
+  - attack.t1105
+logsource:
+  product: network
+  category: web_proxy
+
+detection:
+  selection_1:
+    RequestMethod: GET
+    FileExtension|endswith:
+      - ".exe"
+      - ".ps1"
+      - ".bat"
+      - ".sh"
+  selection_2:
+    URL|endswith:
+      - ".exe"
+      - ".bat"
+      - ".ps1"
+      - ".sh"
+    Session: Active
+    Duration|gte: 300                          # Longer than 5 minutes 
+
+condition: selection_1 or selection_2
+
+falsepositives:
+  - Legitimate software updates
+  - IT tools transfer
+level: medium

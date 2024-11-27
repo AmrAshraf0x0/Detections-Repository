@@ -1,0 +1,43 @@
+title: Suspicious Domain Generation Algorithm (DGA) Detection
+id: ad-c2c-3
+status: test
+description: Detects DGA activity based on regular expressions matching suspicious domain names and thresholds for high-frequency DNS queries from a single source IP.
+references:
+  - https://attack.mitre.org/techniques/T1568/002/
+author: Muhammad Asad
+date: 2024-11-25
+tags:
+  - attack.command-and-control
+  - attack.t1568.003
+logsource:
+  product: network
+  category: dns
+
+detection:
+  selection:
+    QueryName|regex:
+      - "^[a-zA-Z0-9]{8,63}\.[a-z]{2,4}$"
+      - "^[a-zA-Z0-9]{12,32}\.[a-z]{2,6}$"
+      - '^[a-z]{11}\.eu$'
+      - '^[b-y]{12}\.(com|in|net|ru)$'
+      - '^[b-y]{12}\.pw$'
+      - '^[b-y]{12}\.(biz|pw|space|us)$'
+      - '^[b-y]{12}\.(cc|com|info|net)$'
+      - '^[d-km-y]{12}\.(com|in|net|ru)$'
+      - '^[a-z]{8}\.info$'
+      - '^v[12]{1}\.[a-uw-z]{7}\.ru$'
+      - '^[b-np-z]{7,11}\.(com|net)$'
+      - '^[a-z]{14,16}\.(biz|com|info|net|org)$'
+    timeframe: 1m
+  QueryType: A
+  QueryResponse: NXDOMAIN                             # Resolution Failure
+  QueryFrequency|any:
+    - gte: 20                                         # At least 20 events from the same source IP within 1 minute
+    - ">50 queries per minute"
+
+condition: (selection and QueryType and QueryFrequency) or (selection and QueryResponse and QueryFrequency)
+
+falsepositives:
+  - Dynamic DNS providers
+  - Newly registered legitimate domains
+level: high

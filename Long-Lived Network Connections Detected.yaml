@@ -1,0 +1,39 @@
+title: Long-Lived Network Connections Detected
+id: ad-c2c-2
+status: test
+description: Detects long-lived connections combined with high data transfers that could indicate persistent C2 channels.
+references:
+  - https://attack.mitre.org/techniques/T1071/001/
+author: Muhammad Asad
+date: 2024-11-25
+tags:
+  - attack.command-and-control
+  - attack.t1071.001
+logsource:
+  product: network
+  category: firewall
+
+detection:
+  selection_1:
+    protocol: tcp                               # C2 commonly uses TCP protocol
+    Duration|gte: 1200                          # Longer than 20 minutes        
+    bytes_out: ">1024"                          # Over 1 MB
+    Protocol: tcp
+    DestinationIP|ipnotin:
+      - "8.8.8.8"                               # Google DNS
+      - "1.1.1.1"                               # Cloudflare DNS
+      - "known_VPN_IPs"                         # Evanti, SMA
+      - "trusted_partners"                      # CBI Bank
+  
+  selection_2:
+    protocol: tcp   
+    Duration|gte: [gte: 600 , lte: 180]          # From 3 minutes to longer than 10 minutes
+    TimeGenerated|within: '15:45-07:00'          # Odd office hours as an indicator
+    BytesTransferred|gte: 1024 
+
+condition: selection_1 or selection_2
+
+falsepositives:
+  - Authorized remote desktop sessions or legitimate VPNs
+level: critical
+

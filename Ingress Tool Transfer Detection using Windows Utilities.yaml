@@ -1,0 +1,47 @@
+title: Ingress Tool Transfer Detection using Windows Utilities
+id: ad-c2c-4
+status: test
+description: Detects file transfer activities that may indicate an adversary downloading tools into the environment using certutil, PowerShell, curl, or wget.
+references:
+  - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1105/T1105.yaml
+  - https://attack.mitre.org/techniques/T1105/
+author: Muhammad Asad
+date: 2024-11-26
+tags:
+  - attack.command-and-control
+  - attack.t1105
+logsource:
+  product: windows
+  service: security
+  category: process_creation
+
+detection:
+  selection_certutil:
+    EventID: 4688                                                                                   # Process Creation in Windows Security logs
+    NewProcessName: 'C:\Windows\System32\certutil.exe'
+    ProcessCommandLine|contains: '-urlcache -split -f'
+  selection_powershell:
+    EventID: 4688
+    NewProcessName: 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'                     # Add other PS extensions also
+    ProcessCommandLine|contains:
+      - "Invoke-WebRequest"
+      - "Invoke-RestMethod"
+  selection_curl:
+    EventID: 4688
+    NewProcessName: 'C:\Windows\System32\curl.exe'
+    ProcessCommandLine|contains: "http"
+  selection_wget:
+    EventID: 4688
+    NewProcessName: 'C:\Windows\System32\wget.exe'
+    ProcessCommandLine|contains: "http"
+  selection_smb:
+    EventID: 5145                                                                                   # File share access
+    ShareName: '\\*\*'                                                                              # File access via SMB shares
+
+condition: selection_certutil or selection_powershell or selection_curl or selection_wget or selection_smb
+
+falsepositives:
+  - Legitimate file transfers by administrators
+  - Software updates or system patching activities
+
+level: critical
