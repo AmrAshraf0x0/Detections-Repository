@@ -1,0 +1,44 @@
+title: Long Connection Beaconing/C2 Detection
+description: Detects long-duration connections that may indicate malware maintaining persistent Command and Control (C2) sessions.
+status: experimental
+references:
+  - https://attack.mitre.org/techniques/T1095/
+  - https://attack.mitre.org/techniques/T1071/
+author: Arthur Thomas
+date: 2024-11-27
+logsource:
+  product: all
+  service: network
+  category: connection
+detection:
+  selection:
+    ConnectionState: "Established"
+    DestinationIp|ip_is_private: false  # Exclude private IPs
+  aggregation:
+    # Aggregate connections to calculate their duration
+    timeframe: 24h
+    group_by:
+      - SourceIp
+      - DestinationIp
+      - DestinationPort
+    metrics:
+      - max(ConnectionEndTime) - min(ConnectionStartTime): DurationInSeconds
+  condition: selection and DurationInSeconds > 3600
+fields:
+  - SourceIp
+  - DestinationIp
+  - DestinationPort
+  - Protocol
+  - ConnectionStartTime
+  - ConnectionEndTime
+  - BytesSent
+  - BytesReceived
+falsepositives:
+  - Legitimate long-lived sessions (e.g., video streaming, VPNs, database connections).
+  - Backup services or file synchronization.
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1071
+  - attack.t1095
+  - detection.long_connections
