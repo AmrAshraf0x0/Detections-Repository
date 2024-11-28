@@ -1,0 +1,26 @@
+title: Long Connections Possible C2 Activity
+description: Detects long-duration network connections with low data transfer, which may indicate command and control (C2) activity.
+status: experimental
+author: Shunaid Shafique
+date: 2024-11-28
+logsource:
+  category: network_traffic
+  product: any
+  direction: incoming  # Focus on incoming traffic from external to internal
+detection:
+  selection:
+    Duration|greater: 3600  # Connection lasts more than 1 hour it can be changed anytime
+    Protocol|in:
+      - tcp
+      - udp
+    DestinationPort|in:
+      - 443 
+      - 80   
+      - 8080 
+      - 22   
+    BytesTransferred|less: 1000  # Low data transfer
+  condition: selection
+falsepositives:
+  - Legitimate long connections like VPNs, RDP, or file transfers.
+  - Prolonged admin sessions like SSH could be mistaken for C2.
+level: high
