@@ -3,6 +3,9 @@ status: experimental
 description: Detects potential abuse of Bitsadmin.exe for downloading files, a common tactic for ingress tool transfer (MITRE ATT&CK T1105).
 author: Arthur Thomas
 date: 27/11/2024
+tags:
+  - attack.command_and_control
+  - attack.t1105
 logsource:
   category: process_creation
   product: windows
@@ -11,25 +14,16 @@ detection:
     Channel: 'Security'
     EventID: 4688
     NewProcessName|endswith: '\bitsadmin.exe'
-    CommandLine|contains|all:
+    CommandLine|contains|any:
       - '/transfer'
       - '/download'
   selection_process_sysmon:
     Channel: 'Sysmon'
     EventID: 1
     Image|endswith: '\bitsadmin.exe'
-    CommandLine|contains|all:
+    CommandLine|contains|any:
       - '/transfer'
       - '/download'
-  selection_network_security:
-    Channel: 'Security'
-    EventID: 5156
-    ApplicationName|endswith: '\bitsadmin.exe'
-    Direction: 'Outbound'
-  selection_network_sysmon:
-    Channel: 'Sysmon'
-    EventID: 3
-    Image|endswith: '\bitsadmin.exe'
     DestinationIp|ip_is_private: false  # Exclude internal/private IPs
   condition: selection_process_security or selection_process_sysmon or selection_network_security or selection_network_sysmon
 fields:
@@ -45,6 +39,3 @@ falsepositives:
   - Legitimate use of Bitsadmin for file transfers (e.g., system updates, patching).
   - Internal tasks leveraging Bitsadmin in trusted environments.
 level: high
-tags:
-  - attack.command_and_control
-  - attack.t1105
