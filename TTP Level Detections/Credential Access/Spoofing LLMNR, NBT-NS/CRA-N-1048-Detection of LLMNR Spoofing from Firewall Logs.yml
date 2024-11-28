@@ -1,0 +1,26 @@
+title: Detection of LLMNR Spoofing from Firewall Logs
+description: Detects unsolicited LLMNR responses logged in firewall traffic, which may indicate an attacker attempting to spoof name resolution to intercept traffic.
+status: Developed
+author: Amr Ashraf
+logsource:
+  category: firewall
+  product: windows
+detection:
+  selection:
+    DestinationPort: 5355     # LLMNR uses port 5355
+    Protocol: 'UDP'           # LLMNR is typically sent over UDP
+    Direction: 'response'     # Looking for responses
+  condition: selection
+fields:
+  - SourceIP
+  - DestinationIP
+  - DestinationPort
+  - Protocol
+  - Query
+  - Response
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1071.001
+falsepositives:
+  - Legitimate devices using LLMNR for local name resolution within a local network.

@@ -1,0 +1,23 @@
+title: Detect FIN Scan
+description: Detects TCP packets with only the FIN flag set, indicative of a FIN Scan.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/03
+logsource:
+  category: firewall
+  product: any
+detection:
+  selection:
+    packet_flags: 'FIN'
+  condition: selection | count() by source_ip > 20 within 1m
+fields:
+  - source_ip
+  - dest_ip
+  - dest_port
+  - packet_flags
+falsepositives:
+  - Some network diagnostic tools or misconfigured software may generate FIN-only packets
+level: medium
+tags:
+  - attack.reconnaissance
+  - attack.t1046

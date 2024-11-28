@@ -1,0 +1,26 @@
+title: Detect DNS Zone Transfer Attempt
+id: example-dns-zone-transfer
+status: Developed
+description: Detects DNS Zone Transfer (AXFR) attempts in DNS server logs.
+author: Amr Ashraf
+date: 2024-11-24
+logsource:
+  category: dns
+  product: any
+detection:
+  selection:
+    dns_query:
+      - AXFR
+  condition: selection
+fields:
+  - source_ip
+  - destination_ip
+  - dns_query
+  - event_time
+level: high
+tags:
+  - attack.t1071.001
+  - attack.reconnaissance
+falsepositives:
+  - Legitimate zone transfers between internal nameservers
+  - Maintenance operations by authorized admins

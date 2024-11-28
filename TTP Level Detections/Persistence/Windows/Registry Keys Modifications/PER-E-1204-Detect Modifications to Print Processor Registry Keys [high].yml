@@ -1,0 +1,29 @@
+title: Detect Modifications to Print Processor Registry Keys
+id: detect-print-processor-registry-modification
+status: Developed
+description: Detects suspicious modifications to registry keys related to print processors, which may indicate persistence mechanisms.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    EventID: 4657  # Registry modification
+    RegistryKey|contains:
+      - 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Print\\Environments\\'
+    RegistryValueName: 'Driver'
+  condition: selection
+fields:
+  - EventID
+  - RegistryKey
+  - RegistryValueName
+  - User
+  - ComputerName
+  - NewValue
+level: high
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - t1547.012
+falsepositives:
+  - Legitimate printer driver installations or updates

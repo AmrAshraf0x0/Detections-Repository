@@ -1,0 +1,26 @@
+title: Detect Metadata Manipulation for Alternate Data Streams
+id: detect-ads-metadata
+status: Developed
+description: Detects manipulation of file metadata indicating ADS usage.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image:
+      - '*\streams.exe'
+      - '*\powershell.exe'
+    CommandLine|contains: ':'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+level: medium
+tags:
+  - attack.persistence
+  - detection.metadata
+falsepositives:
+  - Legitimate administrative actions (e.g., inspecting files with streams.exe)

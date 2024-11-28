@@ -1,0 +1,29 @@
+title: Detect Shortcut File Modifications
+status: Developed
+description: Detects modifications to shortcut files (.lnk), especially in startup directories.
+author: Amr Ashraf
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    FileName|endswith: '.lnk'
+    FileAccess: 'WRITE'
+    FilePath|contains:
+      - '%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup'
+      - '%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup'
+      - '%USERPROFILE%\\Desktop'
+  condition: selection
+fields:
+  - FileName
+  - FilePath
+  - FileAccess
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.persistence
+  - attack.execution
+  - t1547.009
+falsepositives:
+  - Legitimate shortcut modifications by users or applications

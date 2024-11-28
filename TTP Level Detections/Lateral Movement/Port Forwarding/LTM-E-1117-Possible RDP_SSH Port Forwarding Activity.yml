@@ -1,0 +1,26 @@
+title: Possible RDP/SSH Port Forwarding Activity
+status: Developed
+description: Detects port forwarding by looking for connection on the localhost on RDP or SSH
+author: Amr Ashraf
+date: 2024/11/18
+logsource:
+    category: network_connection
+    product: windows
+detection:
+    network_connection:
+        EventID: 5156
+        Channel: Security
+    selection_img:
+        SourcePort: 
+            - 3389
+            - 22
+        Direction: '%%14593'
+    selection_destination:
+        DestAddress|cidr:
+            - 127.0.0.0/8
+            - ::1/128
+    condition: network_connection and (all of selection_*)
+falsepositives:
+    - Unknown
+level: high
+

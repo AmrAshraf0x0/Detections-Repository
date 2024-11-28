@@ -1,0 +1,24 @@
+title: Modify User Shell Folders Startup Value
+description: Detect modification of the startup key to a path where a payload could be stored to be launched during startup
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
+tags:
+    - attack.persistence
+    - attack.privilege-escalation
+    - attack.t1547.001
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    registry_set:
+        EventID: 4657
+        Channel: Security
+    selection:
+        ObjectName|contains: SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders
+        ObjectName|endswith: Startup
+    condition: registry_set and selection
+falsepositives:
+    - Unknown
+level: high
+

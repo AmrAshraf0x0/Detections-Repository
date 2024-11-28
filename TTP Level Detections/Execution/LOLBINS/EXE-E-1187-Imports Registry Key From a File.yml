@@ -1,0 +1,38 @@
+title: Imports Registry Key From a File
+description: Detects the import of the specified file to the registry with regedit.exe.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
+tags:
+    - attack.t1112
+    - attack.defense-evasion
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    process_creation:
+        EventID: 4688
+        Channel: Security
+    selection_img:
+        - NewProcessName|endswith: \regedit.exe
+        - OriginalFileName: REGEDIT.EXE
+    selection_cli:
+        CommandLine|contains:
+            - ' /i '
+            - ' /s '
+            - .reg
+    filter_1:
+        CommandLine|contains|windash:
+            - ' -e '
+            - ' -a '
+            - ' -c '
+    filter_2:
+        CommandLine|re: :[^ \\]       # to avoid intersection with ADS rule
+    condition: process_creation and (all of selection_* and not all of filter_*)
+fields:
+    - ParentProcessName
+    - CommandLine
+falsepositives:
+    - Legitimate import of keys
+    - Evernote
+level: medium

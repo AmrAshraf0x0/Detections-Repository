@@ -1,0 +1,31 @@
+title: Detect Alternate Data Streams (ADS) File Creation or Access
+id: detect-ads-creation-access
+status: Developed
+description: Detects creation or access of files with Alternate Data Streams (ADS) in NTFS.
+author: Amr Ashraf
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventID: 4663
+    ObjectName|contains: ':'
+  exclusion:
+    ObjectName|endswith:
+      - ':Zone.Identifier'
+      - ':$DATA'
+      - ':$INDEX_ALLOCATION'
+  condition: selection and not exclusion
+fields:
+  - EventID
+  - ObjectName
+  - AccessMask
+  - SubjectUserName
+  - Hostname
+level: medium
+tags:
+  - attack.persistence
+  - attack.defense_evasion
+  - detection.files
+falsepositives:
+  - Legitimate ADS usage (e.g., browser downloads with Zone.Identifier)

@@ -1,0 +1,33 @@
+title: Detect Application Discovery via CommandLine
+status: Developed
+description: Detects usage of commands like tasklist or WMIC to enumerate running processes or application windows.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - 'tasklist'
+      - 'wmic process list'
+  selection2:
+    Image|endswith:
+      - 'powershell.exe'
+      - 'python.exe'
+    CommandLine|contains:
+      - 'EnumWindows'
+      - 'Get-Process'
+      - 'FindWindow'
+  condition: selection or selection2
+fields:
+  - CommandLine
+  - ParentImage
+  - ProcessName
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.discovery
+  - t1010
+falsepositives:
+  - Legitimate administrative or monitoring activities

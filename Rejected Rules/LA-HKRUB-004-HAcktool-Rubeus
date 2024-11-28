@@ -1,0 +1,48 @@
+title: HackTool - Rubeus Execution
+status: Developed
+description: Detects the execution of the hacktool Rubeus via process execution or command line parameters
+references:
+  - https://blog.harmj0y.net/redteaming/from-kekeo-to-rubeus
+  - https://m0chan.github.io/2019/07/31/How-To-Attack-Kerberos-101.html
+  - https://github.com/GhostPack/Rubeus
+author: Arthur Thomas
+date: 11/11/2024
+logsource:
+category: process_creation
+product: windows
+detection:
+selection_image:
+Image|endswith: '\Rubeus.exe'
+OriginalFileName: 'Rubeus.exe'
+Description: 'Rubeus'
+selection_cmdline:
+  CommandLine|contains:
+      - 'asreproast '
+      - 'dump /service:krbtgt '
+      - 'dump /luid:0x'
+      - 'kerberoast '
+      - 'createnetonly /program:'
+      - 'ptt /ticket:'
+      - '/impersonateuser:'
+      - 'renew /ticket:'
+      - 'asktgt /user:'
+      - 'harvest /interval:'
+      - 's4u /user:'
+      - 's4u /ticket:'
+      - 'hash /password:'
+      - 'golden /aes256:'
+      - 'silver /user:'
+condition: selection_image or selection_cmdline
+fields:
+  - CommandLine
+  - ParentCommandLine
+  - User
+falsepositives:
+  - Unlikely, except for legitimate use in pentesting or security testing environments
+level: high
+tags:
+attack.credential_access
+attack.t1003
+attack.t1558.003
+attack.lateral_movement
+attack.t1550.003

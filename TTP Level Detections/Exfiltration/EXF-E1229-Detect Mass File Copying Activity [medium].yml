@@ -1,0 +1,32 @@
+title: Detect Mass File Copying Activity
+status: Developed
+description: Detects tools or scripts used for automated file copying, such as RoboCopy or rsync.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith:
+      - 'robocopy.exe'
+      - 'xcopy.exe'
+      - 'powershell.exe'
+    CommandLine|contains:
+      - '/mir'
+      - '/e'
+      - '/s'
+      - 'Copy-Item -Recurse'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.collection
+  - attack.exfiltration
+  - t1119
+falsepositives:
+  - Legitimate data transfers or backups

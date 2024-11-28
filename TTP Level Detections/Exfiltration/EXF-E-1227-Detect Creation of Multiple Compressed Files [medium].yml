@@ -1,0 +1,34 @@
+title: Detect Creation of Multiple Compressed Files
+status: Developed
+description: Detects the creation of more than 3 compressed files within a 3-minute timeframe, which may indicate suspicious archiving activity.
+author: Amr Ashraf
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    FileName|endswith:
+      - '.zip'
+      - '.tar'
+      - '.7z'
+      - '.gz'
+      - '.rar'
+      - '.xz'
+    FileAccess: 'WRITE'
+  timeframe: 3m
+  condition: selection | count() > 3
+fields:
+  - FileName
+  - FilePath
+  - FileSize
+  - User
+  - Hostname
+  - ProcessName
+level: medium
+tags:
+  - attack.collection
+  - attack.exfiltration
+  - t1560
+falsepositives:
+  - Legitimate bulk compression activities such as backups or software packaging
+  - System maintenance scripts

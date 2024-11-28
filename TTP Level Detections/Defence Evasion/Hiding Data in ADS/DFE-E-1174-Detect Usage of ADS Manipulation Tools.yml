@@ -1,0 +1,26 @@
+title: Detect Usage of ADS Manipulation Tools
+id: detect-ads-tools
+status: Developed
+description: Detects execution of known tools for manipulating Alternate Data Streams.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image:
+      - '*\streams.exe'
+      - '*\ads.exe'
+      - '*\ads_tool.exe'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+level: medium
+tags:
+  - attack.persistence
+  - detection.tools
+falsepositives:
+  - Legitimate use by administrators

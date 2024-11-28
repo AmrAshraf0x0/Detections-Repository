@@ -1,0 +1,39 @@
+title: Detect Suspicious Archive Creation Activity
+status: Developed
+description: Detects suspicious processes and file creations related to custom archive tools or large files with uncommon extensions occurring within a 1-minute timeframe.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  process_activity:
+    Image|endswith:
+      - '.exe'
+      - '.bat'
+      - '.py'
+    CommandLine|contains:
+      - '--archive'
+      - '--compress'
+      - '--pack'
+      - '--encode'
+  file_creation:
+    FileSize: '>50MB' # Test the value in the environment
+  timeframe: 1m
+  condition: process_activity and file_creation
+fields:
+  - Image
+  - CommandLine
+  - FileName
+  - FilePath
+  - FileSize
+  - ParentImage
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.collection
+  - attack.exfiltration
+  - t1560.003
+falsepositives:
+  - Legitimate data compression tools or internal utilities
+  - Backup processes or database dumps

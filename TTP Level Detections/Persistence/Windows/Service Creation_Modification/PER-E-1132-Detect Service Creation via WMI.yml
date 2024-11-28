@@ -1,0 +1,23 @@
+title: Detect Service Creation via WMI
+description: Detects the creation of services via WMI commands.
+status: Suggestion
+author: Amr Ashraf
+logsource:
+  product: windows
+  service: wmi
+detection:
+  selection:
+    EventID: 5861
+    Operation: 'Create'
+    TargetInstance|contains: 'Win32_Service'
+  condition: selection
+fields:
+ - EventID
+ - Operation
+ - TargetInstance
+falsepositives:
+ - Legitimate use of WMI for service creation
+level: high
+tags:
+ - attack.persistence
+ - attack.t1543.003

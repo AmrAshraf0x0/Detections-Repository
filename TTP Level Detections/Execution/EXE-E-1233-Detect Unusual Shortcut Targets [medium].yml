@@ -1,0 +1,34 @@
+title: Detect Unusual Shortcut Targets
+status: Developed
+description: Detects shortcuts pointing to unexpected or malicious executables/scripts.
+author: Amr Ashraf
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    FileName|endswith: '.lnk'
+    Target|contains:
+      - 'powershell.exe'
+      - 'cmd.exe'
+      - 'mshta.exe'
+      - 'cscript.exe'
+      - 'wscript.exe'
+    FilePath|contains:
+      - '%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup'
+      - '%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup'
+      - '%USERPROFILE%\\Desktop'
+  condition: selection
+fields:
+  - FileName
+  - FilePath
+  - Target
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.persistence
+  - attack.execution
+  - t1547.009
+falsepositives:
+  - Legitimate administrative scripts

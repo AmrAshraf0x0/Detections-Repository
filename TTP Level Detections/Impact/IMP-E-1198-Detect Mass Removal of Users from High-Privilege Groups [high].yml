@@ -1,0 +1,37 @@
+title: Detect Mass Removal of Users from High-Privilege Groups
+id: detect-mass-user-removal-privileged-groups
+status: Developed
+description: Detects the removal of more than 4 users from Domain Admins or other high-privilege groups within 5 minutes.
+author: Amr Ashraf
+logsource:
+  category: directory_service
+  product: windows
+detection:
+  selection:
+    EventID: 4729  # A member was removed from a security-enabled global group
+    GroupName|contains:
+      - 'Domain Admins'
+      - 'Enterprise Admins'
+      - 'Administrators'
+      - 'Schema Admins'
+      - 'Account Operators'
+      - 'Server Operators'
+  timeframe: 5m
+  condition: selection | count() by GroupName > 4
+fields:
+  - EventID
+  - GroupName
+  - MemberName
+  - SubjectUserName
+  - SubjectDomainName
+  - SubjectLogonId
+  - MemberSid
+  - GroupSid
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.persistence
+  - t1098
+falsepositives:
+  - Legitimate bulk administrative tasks
+  - Active Directory cleanup or restructuring

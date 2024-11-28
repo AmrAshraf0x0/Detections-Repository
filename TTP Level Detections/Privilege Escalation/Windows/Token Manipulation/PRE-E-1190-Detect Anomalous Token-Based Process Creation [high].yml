@@ -1,0 +1,36 @@
+title: Detect Anomalous Token-Based Process Creation
+id: detect-anomalous-token-process
+status: Developed
+description: Detects anomalous process creation using manipulated or stolen access tokens, minimizing false positives by filtering common administrative actions.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_token:
+    EventID: 4696
+    TargetUserName|not: 
+      - 'SYSTEM'
+      - 'LOCAL SERVICE'
+      - 'NETWORK SERVICE'
+    SubjectUserName|not: 
+      - 'Administrator'
+      - 'Domain Admins'
+    TargetLogonId: '0x3e7'       # SYSTEM token
+  condition: selection_token
+fields:
+  - EventID
+  - SubjectUserName
+  - TargetUserName
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.execution
+  - attack.t1134.001
+falsepositives:
+  - Legitimate use of tokens by authorized administrative tools
+  - Scheduled tasks or automated scripts

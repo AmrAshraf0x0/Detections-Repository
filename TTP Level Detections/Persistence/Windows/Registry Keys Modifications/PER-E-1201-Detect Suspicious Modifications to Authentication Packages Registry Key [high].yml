@@ -1,0 +1,28 @@
+title: Detect Suspicious Modifications to Authentication Packages Registry Key
+id: detect-authentication-packages-registry-modification
+status: Developed
+description: Detects modifications to the Authentication Packages registry key, which may indicate persistence.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    EventID: 4657  # Registry modification event
+    RegistryKey: 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa'
+    RegistryValueName: 'Authentication Packages'
+  condition: selection
+fields:
+  - EventID
+  - RegistryKey
+  - RegistryValueName
+  - NewValue
+  - User
+  - ComputerName
+level: high
+tags:
+  - attack.persistence
+  - attack.execution
+  - t1547.002
+falsepositives:
+  - Legitimate software installation or updates (e.g., third-party authentication packages)

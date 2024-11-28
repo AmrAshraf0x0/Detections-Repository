@@ -1,0 +1,32 @@
+title: Detect Modifications to Registry Run Keys
+id: detect-registry-run-key-modifications
+status: Developed
+description: Detects suspicious modifications to registry Run keys, which may indicate persistence mechanisms.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    EventID: 4657  # Registry modification event
+    RegistryKey|contains:
+      - 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
+      - 'HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
+      - 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce'
+      - 'HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce'
+      - 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run'
+      - 'HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run'
+  condition: selection
+fields:
+  - RegistryKey
+  - RegistryValueName
+  - NewValue
+  - User
+  - ComputerName
+level: high
+tags:
+  - attack.persistence
+  - attack.execution
+  - t1547.001
+falsepositives:
+  - Legitimate software installations or updates

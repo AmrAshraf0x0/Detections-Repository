@@ -1,0 +1,23 @@
+title: Detect AppLocker Policy Bypass
+id: detect-applocker-policy-bypass
+status: Developed
+description: Detects attempts to bypass AppLocker using executables or scripts.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image: '*\regsvr32.exe'
+    CommandLine: '*scrobj.dll*'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - User
+level: high
+tags:
+  - attack.execution
+  - attack.t1218.010
+falsepositives:
+  - Authorized use of Regsvr32 for legitimate tasks

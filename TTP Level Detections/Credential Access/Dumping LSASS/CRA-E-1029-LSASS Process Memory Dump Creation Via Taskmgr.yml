@@ -1,0 +1,24 @@
+title: LSASS Process Memory Dump Creation Via Taskmgr
+description: Detects the creation of an "lsass.dmp" file by the taskmgr process. This indicates a manual dumping of the LSASS.exe process memory using Windows Task Manager.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    category: file_event
+    product: windows
+detection:
+    selection:
+        Image|endswith:
+            - ':\Windows\system32\taskmgr.exe'
+            - ':\Windows\SysWOW64\taskmgr.exe'
+        TargetFilename|contains:
+            - '\AppData\Local\Temp\'
+            - 'lsass'
+            - '.DMP'
+    condition: selection
+falsepositives:
+    - Rare case of troubleshooting by an administrator or support that has to be investigated regardless
+level: high

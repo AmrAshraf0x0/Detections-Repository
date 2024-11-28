@@ -1,0 +1,20 @@
+title: Mimikatz MemSSP Default Log File Creation
+status: Developed
+description: Detects Mimikatz MemSSP default log file creation
+author: David ANDRE
+date: 2021/12/20
+modified: 2023/02/16
+Added By: Amr Ashraf
+tags:
+    - attack.credential_access
+    - attack.t1003
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        TargetFilename|endswith: 'mimilsa.log'
+    condition: selection
+falsepositives:
+    - Unlikely
+level: critical

@@ -1,0 +1,25 @@
+title: Detect RDP Brute Force Attempts on Network
+description: Detects repeated RDP connection attempts from the same source IP in network logs, indicative of brute-force activity.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/03
+logsource:
+  category: firewall
+  product: any
+detection:
+  selection:
+    dest_port: 3389                     
+    event_type: 'connection_attempt'     
+  condition: selection | count() by source_ip > 10 within 5m
+fields:
+  - source_ip
+  - dest_ip
+  - dest_port
+  - event_type
+falsepositives:
+  - High network activity from legitimate RDP clients or administrators
+  - Automated monitoring tools attempting regular RDP connections
+level: medium
+tags:
+  - attack.reconnaissance
+  - attack.t1110

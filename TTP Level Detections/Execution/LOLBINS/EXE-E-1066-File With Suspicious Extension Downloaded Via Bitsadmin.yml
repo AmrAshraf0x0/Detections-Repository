@@ -1,0 +1,65 @@
+title: File With Suspicious Extension Downloaded Via Bitsadmin
+description: Detects usage of bitsadmin downloading a file with a suspicious extension
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
+tags:
+    - attack.defense-evasion
+    - attack.persistence
+    - attack.t1197
+    - attack.s0190
+    - attack.t1036.003
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    process_creation:
+        EventID: 4688
+        Channel: Security
+    selection_img:
+        - NewProcessName|endswith: \bitsadmin.exe
+        - OriginalFileName: bitsadmin.exe
+    selection_flags:
+        CommandLine|contains:
+            - ' /transfer '
+            - ' /create '
+            - ' /addfile '
+    selection_extension:
+        CommandLine|contains:
+            - .7z
+            - .asax
+            - .ashx
+            - .asmx
+            - .asp
+            - .aspx
+            - .bat
+            - .cfm
+            - .cgi
+            - .chm
+            - .cmd
+            - .dll
+            - .gif
+            - .jpeg
+            - .jpg
+            - .jsp
+            - .jspx
+            - .log
+            - .png
+            - .ps1
+            - .psm1
+            - .rar
+            - .scf
+            - .sct
+            - .txt
+            - .vbe
+            - .vbs
+            - .war
+            - .wsf
+            - .wsh
+            - .xll
+            - .zip
+    condition: process_creation and (all of selection_*)
+falsepositives:
+    - Unknown
+level: high
+

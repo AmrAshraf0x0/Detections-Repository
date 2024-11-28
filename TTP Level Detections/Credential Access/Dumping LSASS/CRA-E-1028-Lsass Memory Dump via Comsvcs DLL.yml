@@ -1,0 +1,20 @@
+title: Lsass Memory Dump via Comsvcs DLL
+description: Detects adversaries leveraging the MiniDump export function from comsvcs.dll via rundll32 to perform a memory dump from lsass.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    category: process_access
+    product: windows
+detection:
+    selection:
+        TargetImage|endswith: '\lsass.exe'
+        SourceImage|endswith: '\rundll32.exe'
+        CallTrace|contains: 'comsvcs.dll'
+    condition: selection
+falsepositives:
+    - Unknown
+level: high

@@ -1,0 +1,50 @@
+title: RDP Sensitive Settings Changed
+description: |
+    Detects tampering of RDP Terminal Service/Server sensitive settings.
+    Such as allowing unauthorized users access to a system via the 'fAllowUnsolicited' or enabling RDP via 'fDenyTSConnections'...etc
+status: Developed
+author: Amr Ashraf
+date: 2024/11/09
+tags:
+    - attack.defense-evasion
+    - attack.persistence
+    - attack.t1112
+logsource:
+    category: registry_set
+    product: windows
+detection:
+    registry_set:
+        EventID: 4657
+        Channel: Security
+    selection_shadow:
+        ObjectName|contains:
+            - \Control\Terminal Server\
+            - \Windows NT\Terminal Services\
+        ObjectName|endswith: \Shadow
+        NewValue:
+            - DWORD (0x00000001)   # Full Control with user’s permission
+            - DWORD (0x00000002)   # Full Control without user’s permission
+            - DWORD (0x00000003)   # View Session with user’s permission
+            - DWORD (0x00000004)   # View Session without user’s permission
+    selection_terminal_services_key:
+        ObjectName|contains:
+            - \Control\Terminal Server\
+            - \Windows NT\Terminal Services\
+        ObjectName|endswith:
+            - \DisableRemoteDesktopAntiAlias
+            - \DisableSecuritySettings
+            - \fAllowUnsolicited
+            - \fAllowUnsolicitedFullControl
+        NewValue: DWORD (0x00000001)
+    selection_tamper_only:
+        # Any changes to these keys should be suspicious and looked at
+        ObjectName|contains:
+            - \Control\Terminal Server\InitialProgram
+            - \Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram
+            - \services\TermService\Parameters\ServiceDll
+            - \Windows NT\Terminal Services\InitialProgram
+    condition: registry_set and (selection_shadow or selection_terminal_services_key or selection_tamper_only)
+falsepositives:
+    - Some of the keys mentioned here could be modified by an administrator while setting group policy (it should be investigated either way)
+level: high
+

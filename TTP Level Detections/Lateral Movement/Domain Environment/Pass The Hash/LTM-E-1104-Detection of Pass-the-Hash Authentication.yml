@@ -1,0 +1,29 @@
+title: Detection of Pass-the-Hash Authentication
+description: Detects the use of NTLM authentication with a network logon type (Type 3) from suspicious IP addresses or machines, which could indicate a Pass-the-Hash attack.
+status: Developed
+author: Amr Ashraf
+date: 2024/11/11
+logsource:
+  category: authentication
+  product: windows
+detection:
+  selection:
+    EventID: 4624
+    LogonType: 3
+    AuthenticationPackageName: 'NTLM'
+  condition: selection
+fields:
+  - EventID
+  - LogonType
+  - AuthenticationPackageName
+  - SourceIP
+  - TargetUserName
+  - TargetDomainName
+  - WorkstationName
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1071.001
+  - attack.t1075
+falsepositives:
+  - Legitimate network logins by users accessing services that require NTLM authentication.

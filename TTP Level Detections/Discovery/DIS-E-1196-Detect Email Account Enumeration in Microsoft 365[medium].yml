@@ -1,0 +1,25 @@
+title: Detect Email Account Enumeration in Microsoft 365
+id: detect-email-account-enumeration-m365
+status: Developed
+description: Detects email account enumeration in Microsoft 365 using Graph API or PowerShell.
+author: Amr Ashraf
+logsource:
+  category: azure_activity
+  product: office365
+detection:
+  selection:
+    operationName|contains: 
+      - 'Get-Mailbox'
+      - 'Export-Mailbox'
+      - 'Search-Mailbox'
+  condition: selection
+fields:
+  - operationName
+  - caller
+  - ipAddress
+level: medium
+tags:
+  - attack.discovery
+  - t1087
+falsepositives:
+  - Administrative auditing or email migrations

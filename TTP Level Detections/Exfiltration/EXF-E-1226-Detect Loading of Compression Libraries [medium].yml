@@ -1,0 +1,31 @@
+title: Detect Loading of Compression Libraries
+status: Developed
+description: Detects processes loading known compression libraries for archiving data.
+author: Amr Ashraf
+logsource:
+  category: dll_loading
+  product: windows
+detection:
+  selection:
+    Image|endswith:
+      - '.exe'
+      - '.py'
+      - '.dll'
+    LoadedDLL|contains:
+      - 'zlib.dll'
+      - 'libarchive.dll'
+      - 'SharpZipLib.dll'
+      - '7z.dll'
+  condition: selection
+fields:
+  - Image
+  - LoadedDLL
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.collection
+  - attack.exfiltration
+  - t1560.002
+falsepositives:
+  - Legitimate applications using compression libraries
