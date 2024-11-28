@@ -18,8 +18,8 @@ detection:
       - '.work'
       - '.date'
     QueryName|matches:
-      - '[a-zA-Z0-9]{12,}\\.com'  # Random-looking domains with alphanumeric characters
-      - '[a-zA-Z0-9]{16,}\\.net'  # Random domains with longer character lengths
+      - '[a-zA-Z0-9]{12,}\\.com'  # Random-looking domains with alphanumeric characters need to implement regex 
+      - '[a-zA-Z0-9]{16,}\\.net'  # Random domains with longer character lengths need to implement regex 
     QueryCount|greater: 5  # Multiple queries to suspicious domains in a short period
   condition: selection
 falsepositives:
