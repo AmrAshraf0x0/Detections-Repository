@@ -2,7 +2,7 @@ title: Bitsadmin Abuse for File Download
 status: experimental
 description: Detects potential abuse of Bitsadmin.exe for downloading files, a common tactic for ingress tool transfer (MITRE ATT&CK T1105).
 author: Arthur Thomas
-date: 2024-11-27
+date: 27/11/2024
 logsource:
   category: process_creation
   product: windows
