@@ -1,0 +1,30 @@
+title: Control Panel Items Execution
+status: Developed
+description: Detects the use of Control Panel items as execution payloads via control.exe or rundll32.exe. Adversaries can leverage this technique to execute arbitrary commands or evade detection.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName: 
+      - "control.exe"
+      - "rundll32.exe"
+      
+    - CommandLine|contains: ".cpl"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.execution
+  - t1196
+falsepositives:
+  - Legitimate administrative use of Control Panel items
+  - Authorized software using Control Panel items

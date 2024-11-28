@@ -1,0 +1,30 @@
+title: Root Certificate Install
+status: Developed
+description: Identifies modifications to the local trusted root certificates via known Windows tools. The installation of a malicious root certificate could enable attackers to masquerade malicious files as legitimate, decrypt SSL traffic, or perform other malicious activities.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    RegistryPath|contains:
+      - "\\Software\\Microsoft\\SystemCertificates\\Root\\Certificates\\"
+      - "\\Software\\Microsoft\\SystemCertificates\\AuthRoot\\Certificates\\"
+      - "\\Software\\Policies\\Microsoft\\SystemCertificates\\Root\\Certificates\\"
+      - "\\Software\\Policies\\Microsoft\\SystemCertificates\\AuthRoot\\Certificates\\"
+    RegistryPath|endswith: "\\Blob"
+  condition: selection
+fields:
+  - RegistryPath
+  - ProcessName
+  - User
+  - Hostname
+  - NewValue
+level: high
+tags:
+  - attack.defense_evasion
+  - t1130
+falsepositives:
+  - Legitimate software or system processes installing root certificates
+  - Administrative tasks related to SSL inspection
+

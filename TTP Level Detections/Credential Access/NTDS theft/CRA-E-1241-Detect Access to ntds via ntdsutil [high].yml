@@ -1,0 +1,27 @@
+title: Detect Access to ntds via ntdsutil
+status: Developed
+description: Detects the use of ntdsutil.exe to access the ntds.dit file, which may indicate legitimate administrative tasks or malicious credential dumping attempts.
+author: Amr Ashraf
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    FileName: "ntds.dit"
+    ProcessName: "ntdsutil.exe"
+  condition: selection
+fields:
+  - FileName
+  - FilePath
+  - ProcessName
+  - CommandLine
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.credential_access
+  - attack.persistence
+  - t1003.003
+falsepositives:
+  - Legitimate administrative access by authorized users
+  - System maintenance or backup tasks
