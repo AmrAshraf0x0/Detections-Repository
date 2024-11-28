@@ -1,0 +1,9 @@
+Title: CNC-E-0002 Command and Control Over DNS Protocol Detected[High]
+Description:
+C2 over DNS is a covert technique attackers use to communicate between a compromised system and their Command-and-Control (C2) server, leveraging the DNS protocol. The attacker first registers a domain and sets up an authoritative name server for it, which acts as the C2 server. When the victim system performs a DNS query to this domain, the query is routed to the attacker's name server. The server responds with a specially crafted DNS response that embeds commands to be executed on the victim system. After execution, the victim system attaches the results as a subdomain in subsequent DNS queries back to the attacker's name server. This technique allows for bidirectional communication while appearing as legitimate DNS traffic.
+
+References:
+ - https://www.linkedin.com/pulse/detecting-malware-command-control-channels-chris-brenton/
+ - https://attack.mitre.org/techniques/T1071/004/
+Detection:
+Multiple DNS queries with the same domain name and different sub-domains from the same host.(Regex required)

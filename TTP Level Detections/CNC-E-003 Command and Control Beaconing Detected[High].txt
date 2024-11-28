@@ -1,0 +1,9 @@
+title: CNC-E-003 Command and Control Beaconing Detected[High]
+Description:
+In traditional Command and Control (C2) operations, attackers use a C2 server as an intermediary to communicate with compromised hosts. The malware on the victim system periodically checks in with the C2 server, often with randomized intervals to avoid detection techniques. During these check-ins, the malware fetches commands from the attacker (e.g., running "tasklist" to gather process details) and uploads the results back to the C2 server. 
+
+References:
+ - https://www.linkedin.com/pulse/detecting-malware-command-control-channels-chris-brenton/
+
+Detection:
+Traditional beacons can usually be identified by mapping the connection frequency of IP pairs over an extended period of time.

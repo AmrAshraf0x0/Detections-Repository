@@ -1,0 +1,51 @@
+title: CNC-E-0001 Ingress Tool Transfer via FTP, SSH, and SMB to the Compromised Host[HIGH]  
+description: Detects potential transfer of malicious tools or payloads via FTP, SSH, or SMB. Correlating network connection event and the file creation event may indicate an attacker transferring executable or script files to a compromised system.  
+references:  
+  - https://redcanary.com/threat-detection-report/techniques/ingress-tool-transfer/
+  - https://attack.mitre.org/techniques/T1105/
+  - https://attack.mitre.org/software/S0095/
+status: Developed  
+author: Shahbaz Ahmad
+date: 25/11/2024
+logsource:  
+  product: windows  
+  service: security  
+detection:  
+  selection_network:  
+    EventID: 5156  
+    Protocol: 6
+    Direction: 
+      - Outbound
+    DestinationPort:  
+      - 21    
+      - 22  
+      - 445
+  selection_sysmon:
+    EventID: 3
+    Protocol: 
+      - TCP
+    DestinationPort:  
+      - 21    
+      - 22  
+      - 445
+  selection_file:  
+    EventID: 11  
+    TargetFilename|endswith:  
+      - '.exe'  
+      - '.dll'  
+      - '.bat'  
+      - '.ps1'  
+
+ condition: (selection_network and selection_file) or (selection_sysmon and selection_file)
+fields:  
+  - EventID   
+  - Protocol 
+  - DestinationPort  
+  - TargetFilename    
+
+falsepositives:  
+  - Legitimate administrative activities such as file transfers for patching or updates may trigger this rule.  
+level: high  
+tags:  
+  - attack.command_and_control  
+  - attack.t1105  

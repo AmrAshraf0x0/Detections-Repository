@@ -1,0 +1,30 @@
+title: CNC-F-0001 Command and Control Over Non-Standard Ports[HIGH]
+description: Detects cases where adversaries use non-standard ports for well-known protocols, such as HTTPS over non-standard ports, which may indicate an attempt of establishing command and control.
+references:
+  - https://attack.mitre.org/techniques/T1571/
+status: Developed
+author: Shahbaz Ahmad
+date: 27/11/2024
+logsource:
+  category: firewall
+  product: any
+detection:
+  selection:
+    Direction: Outbound
+    Application:
+      - 'HTTPS'
+      - 'HTTP'
+  filter:
+    DestinationPort:
+      - '80'
+      - '443'
+  condition: selection and not filter
+fields:
+  - Direction
+  - Application
+  - DestinationPort
+falsepositives:
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1571
