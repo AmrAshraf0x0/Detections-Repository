@@ -24,8 +24,8 @@ detection:
     user|endswith:
       - "$"
     searchFilter|contains:
-      - '(domainSid=*)'
-      - '(objectSid=*)'
+      - "(domainSid=*)"
+      - "(objectSid=*)"
   condition: selection1 AND NOT exclusion
 fields:
   - EventID

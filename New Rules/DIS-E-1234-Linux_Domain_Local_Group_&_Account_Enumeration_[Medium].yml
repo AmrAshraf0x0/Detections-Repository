@@ -37,11 +37,11 @@ detection:
       - "net ads search"
   selection3:
       image|endswith: 
-      - '/id'
+      - "/id"
   selection4:
       image|endswith: # Default logs; need to check logging in client
-      - '/lastlog'
-  condition: selection OR selection1 # Does not require exclusion at this point in time
+      - "/lastlog"
+  condition: selection1 OR selection2 # Does not require exclusion at this point in time
 fields:
   - Image
   - Commandline

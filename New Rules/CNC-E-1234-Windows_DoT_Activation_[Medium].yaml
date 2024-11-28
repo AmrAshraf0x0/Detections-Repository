@@ -1,0 +1,55 @@
+title: Windows DoT Activation [Medium]
+description: Detects scenarios where an attacker attempts to enable DNS over TLS in order to evade detection for command and control purposes.
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/25
+modified: 2024/11/25
+logsource:
+  category:
+  - process_creation
+  - ps_module
+  - ps_classic_script
+  - ps_script
+  product: windows
+detection:
+  selection1:
+    eventID:
+    - "4688"
+    image|endswith: 
+    - "netsh.exe" # Full path "C:\Windows\system32\netsh.exe"
+    commandLine|contains: 
+    - "dot" # Full command: "netsh dns add global dot=yes"
+    - "dothost" # Full command: "netsh dns add encryption server=<resolver_ip> dothost=: autoupgrade=yes"
+  selection2:
+    eventID: 
+      - "800" # PowerShell native
+      - "4103" # PowerShell modern
+      - "4104" # PowerShell scriptblock
+    commandline|contains|any:
+      - '-ItemProperty'
+      - '\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters'
+      - 'EnableAutoDoh'
+  exclusion: # Exclude known service accounts or automated scripts
+    user|contains|any: 
+      - "tenable"
+    user|endswith:
+      - "$"
+  condition: selection1 AND NOT exclusion
+fields:
+  - EventID
+  - ProcessID
+  - NewProcessName
+  - ParentProcessID
+  - ParentProcessName
+  - ParentImage
+  - Image
+  - User
+  - Hostname
+  - Commandline
+  - CreationUTCTime
+falsepositives:
+  - System administrators legitimately activating DoT.
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1071.004 

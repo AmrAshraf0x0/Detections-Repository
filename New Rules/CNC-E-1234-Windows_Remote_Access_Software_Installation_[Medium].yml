@@ -1,0 +1,74 @@
+title: Windows Remote Access Software Installation [Medium]
+description: Detects select remote access software installation on endpoints. 
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/27
+modified: 2024/11/26
+logsource:
+  category: system
+  product: windows
+detection:
+  selection1:
+    eventID:
+    - "7045" # A service has been installed in the system
+  selection2:
+    imagePath|contains: 
+    - "MeshAgent.exe"
+    serviceName|contains: 
+    - "Mesh Agent"
+  selection3:
+    serviceName|contains: 
+    - "AnyDesk Service"
+  selection4:
+    imagePath|contains: 
+    - "\NetSupport Manager\client32.exe"
+    serviceName|contains: 
+    - "Client32"
+  selection5:
+    imagePath|contains|all:
+    - "\rutserv.exe"
+    - "-service"
+    serviceName|contains: 
+    - "Remote Utilities - Host"
+  selection6:
+    serviceName|contains:
+    - "AmmyyAdmin"
+    - "Atera"
+    - "BASupportExpressSrvcUpdater"
+    - "BASupportExpressStandaloneService"
+    - "chromoting"
+    - "GoToAssist"
+    - "GoToMyPC"
+    - "jumpcloud"
+    - "LMIGuardianSvc"
+    - "LogMeIn"
+    - "monblanking"
+    - "Parsec"
+    - "RManService" 
+    - "RPCPerformanceService"
+    - "RPCService"
+    - "SplashtopRemoteService"
+    - "SSUService"
+    - "TeamViewer"
+    - "TightVNC"
+    - "vncserver"
+    - "Zoho"
+  condition: selection1 AND (selection2 OR selection3 OR selection4 OR selection5 OR selection6)
+fields:
+  - EventID
+  - ProcessID
+  - NewProcessName
+  - ParentProcessID
+  - ParentProcessName
+  - ParentImage
+  - Image
+  - User
+  - Hostname
+  - Commandline
+  - CreationUTCTime
+falsepositives:
+  - Legitimate use of remote access software by administrators or approved users
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1219
