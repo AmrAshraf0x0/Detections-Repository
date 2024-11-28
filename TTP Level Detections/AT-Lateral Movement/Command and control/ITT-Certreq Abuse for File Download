@@ -9,11 +9,11 @@ logsource:
 detection:
   selection:
     Image|endswith: '\certreq.exe'
-    CommandLine|contains|all:
+    CommandLine|contains|any:
       - '-submit'
       - '-post'
       - '-config'
-      - 'http' # Remote file transfer
+      - 'http' 
       - 'https'
       - 'submit'
       - 'get'
