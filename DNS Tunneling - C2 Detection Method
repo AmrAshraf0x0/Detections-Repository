@@ -1,0 +1,26 @@
+title: DNS Lookup for TXT and Null Request
+author: Shunaid Shafique
+description: Detects DNS lookups for Text (TXT) records or Null DNS requests, indicative of potential DNS tunneling or command-and-control (C2) activity.
+references:
+  - https://www.fortiguard.com/appcontrol/39624
+status: experimental
+logsource:
+  product: firewall
+  category: dns
+detection:
+  selection:
+    query_type:
+      - TXT
+      - Null
+    dst_ip: "*"
+  condition: selection | count() by src_ip, query_type where duration < 10m > 10
+  group_by:
+    - src_ip
+fields:
+  - query_type
+falsepositives:
+  - Legitimate DNS lookups (e.g., cloud-based services or DNS load balancing)
+level: low
+tags:
+  - attack.command_and_control
+  - attack.t1071.004
