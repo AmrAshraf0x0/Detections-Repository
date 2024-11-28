@@ -1,0 +1,28 @@
+title: Remote Access Tools (RAT) C2 Activity Detection
+description: Detects potential Command and Control (C2) activity through remote access tools like RDP, TeamViewer, and AnyDesk.
+status: experimental
+author: Shunaid Shafique
+date: 2024-11-28
+logsource:
+  category: network_traffic
+  product: any
+detection:
+  selection:
+    Duration|greater: 3600 Mins
+    Protocol|in:
+      - tcp
+      - udp
+    DestinationPort|in:
+      - 3389   # RDP
+      - 5900   # VNC
+      - 22     # SSH
+      - 5938   # TeamViewer default
+      - 4430   # AnyDesk default
+    BytesTransferred|less: 1000  # Less than 1KB data
+  condition: selection
+falsepositives:
+  - Legitimate long RDP, SSH, or remote support sessions.
+  - Prolonged file transfers or system maintenance using remote tools.
+level: high
+tags:
+  - attack.command-and-control
