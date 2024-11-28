@@ -1,0 +1,33 @@
+title: Detect Unauthorized Access to OST or PST Files
+status: Developed
+description: Detects unauthorized access to Outlook data files (.ost or .pst) by processes that are not trusted, which may indicate potential data exfiltration or credential harvesting.
+author: Amr Ashraf
+logsource:
+  category: file_access
+  product: windows
+detection:
+  selection:
+    FileName|endswith:
+      - ".ost"
+      - ".pst"
+  exclusion:
+    ProcessName|contains:
+      - "OUTLOOK.EXE"  # Trusted Microsoft Outlook process
+      - "scanpst.exe"  # Known PST file repair tool
+      - "scanost.exe"  # Known OST file repair tool
+  condition: selection and not exclusion
+fields:
+  - FileName
+  - FilePath
+  - ProcessName
+  - CommandLine
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.collection
+  - attack.exfiltration
+  - t1003.008
+falsepositives:
+  - Backup or archiving software accessing these files
+  - File repair tools or administrative actions
