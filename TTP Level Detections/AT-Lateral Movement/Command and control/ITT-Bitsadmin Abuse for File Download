@@ -1,29 +1,24 @@
 title: Bitsadmin Abuse for File Download
 status: experimental
-description: Detects the abuse of Bitsadmin.exe to download malicious files from remote locations, a technique often used for ingress tool transfer (MITRE ATT&CK T1105).
+description: Detects potential abuse of Bitsadmin.exe for downloading files, a common tactic for ingress tool transfer (MITRE ATT&CK T1105).
 author: Arthur Thomas
-date: 27/11/2024
-tags:
-  - attack.command_and_control
-  - attack.t1105
+date: 2024-11-27
 logsource:
   category: process_creation
   product: windows
 detection:
-  selection_security:
+  selection_process_security:
     Channel: 'Security'
     EventID: 4688
     NewProcessName|endswith: '\bitsadmin.exe'
-    CommandLine|contains:
+    CommandLine|contains|all:
       - '/transfer'
       - '/download'
-      - "/create"
-      - "/addfile"
-  selection_sysmon:
+  selection_process_sysmon:
     Channel: 'Sysmon'
     EventID: 1
     Image|endswith: '\bitsadmin.exe'
-    CommandLine|contains:
+    CommandLine|contains|all:
       - '/transfer'
       - '/download'
   selection_network_security:
@@ -35,10 +30,21 @@ detection:
     Channel: 'Sysmon'
     EventID: 3
     Image|endswith: '\bitsadmin.exe'
-    Initiated: true
-    DestinationIp|startswith: 'Remote'
-  condition: selection_security or selection_sysmon or selection_network_security or selection_network_sysmon
+    DestinationIp|ip_is_private: false  # Exclude internal/private IPs
+  condition: selection_process_security or selection_process_sysmon or selection_network_security or selection_network_sysmon
+fields:
+  - EventID
+  - Channel
+  - NewProcessName
+  - CommandLine
+  - Image
+  - DestinationIp
+  - ApplicationName
+  - Direction
 falsepositives:
-  - Legitimate file transfer operations via Bitsadmin.
-  - Automated tasks using Bitsadmin for patching or updates.
+  - Legitimate use of Bitsadmin for file transfers (e.g., system updates, patching).
+  - Internal tasks leveraging Bitsadmin in trusted environments.
 level: high
+tags:
+  - attack.command_and_control
+  - attack.t1105
