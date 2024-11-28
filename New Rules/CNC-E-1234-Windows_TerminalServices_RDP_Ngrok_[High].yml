@@ -1,0 +1,37 @@
+title: Windows TerminalServices RDP Ngrok [High]
+description: Detects Ngrok Usage with Remote Desktop Service, which could be a sign of malicious behaviour.
+# OS firewall logging and network logging should be correlated in order to effectively make use of rule
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/26
+modified: 2024/11/26
+logsource:
+    category: terminalservices_localsessionmanager
+    product: windows
+detection:
+    selection:
+        # eventID: 
+        # - "21" # Windows RDP login
+        address|contains: 
+        - "16777216" # Creating an RDP tunnel by ngrok leaves a source address value of ::%16777216 in the system’s RDP event logs.
+    condition: selection
+fields:
+  - EventID
+  - ProcessID
+  - NewProcessName
+  - ParentProcessID
+  - ParentProcessName
+  - ParentImage
+  - Image
+  - User
+  - Hostname
+  - Commandline
+  - CreationUTCTime
+falsepositives:
+  - Unlikely
+level: high
+tags:
+  - attack.t1090 # Is not directly attributed to specific sub-technique, but can pertain to t1090.001, t1090.002, t1090.003
+  - attack.command_and_control
+references:
+  - https://www.logpoint.com/en/blog/a-deep-look-at-the-darkside-ransomware-operators-and-their-affiliates/

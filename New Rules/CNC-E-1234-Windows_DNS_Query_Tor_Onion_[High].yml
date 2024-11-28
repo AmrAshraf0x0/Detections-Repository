@@ -1,0 +1,38 @@
+title: Windows DNS Query Tor Onion [High]
+description: Detects DNS resolution of an .onion address related to Tor routing networks.
+# Requires Microsoft-Windows-DNS Client Events/Operational to be enabled to collect logs against eventID 3008 (selection2)
+status: Developed
+author: Yuliya Volkova
+date: 2024/11/26
+modified: 2024/11/26
+logsource:
+  category: microsoft_dns
+  product: windows
+detection:
+  selection1:
+    url|contains:
+    - ".onion"
+  # selection2: # Will not log against eventID 3008 on current environment configuration
+  #  eventID:
+  #  - "3008"
+  #  queryName|contains:
+  #  - ".onion"
+  condition: selection1 # OR selection2
+fields:
+  - EventID
+  - ProcessID
+  - NewProcessName
+  - ParentProcessID
+  - ParentProcessName
+  - ParentImage
+  - Image
+  - User
+  - Hostname
+  - Commandline
+  - CreationUTCTime
+falsepositives:
+  - Unlikely
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1071.001
