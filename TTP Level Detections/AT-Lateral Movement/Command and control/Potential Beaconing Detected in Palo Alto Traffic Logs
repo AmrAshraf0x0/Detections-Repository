@@ -1,0 +1,53 @@
+title: Potential Beaconing Detected in Palo Alto Traffic Logs
+description: Detects potential beaconing patterns in traffic logs from Palo Alto Networks by analyzing recurrent time delta patterns in connections to untrusted public networks. 
+  The rule focuses on identifying suspicious periodic outbound communication, which could indicate malware callbacks or data exfiltration.
+references:
+  - http://www.austintaylor.io/detect/beaconing/intrusion/detection/system/command/control/flare/elastic/stack/2017/06/10/detect-beaconing-with-flare-elasticsearch-and-intrusion-detection-systems/
+  - https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/detect-network-beaconing-via-intra-request-time-delta-patterns/ba-p/779586
+status: experimental
+author: Arthur Thomas
+date: 27/11/2024
+tags:
+  - attack.command_and_control
+  - attack.t1071
+  - attack.t1571
+  - detection.beaconing
+logsource:
+  product: firewall
+  service: paloalto
+  category: network
+detection:
+  selection:
+    DeviceVendor: "Palo Alto Networks"
+    Activity: "TRAFFIC"
+  filter:
+    DestinationIP|ip_is_private: false
+  timeframe: 1d
+  conditions:
+    - selection
+    - filter
+    - TimeDeltainSeconds: 
+        gt: 25
+    - TotalEvents: 
+        gt: 30
+    - MostFrequentTimeDeltaCount: 
+        gt: 25
+    - BeaconPercent: 
+        gt: 80
+  fields:
+    - TimeGenerated
+    - DeviceName
+    - SourceUserID
+    - SourceIP
+    - SourcePort
+    - DestinationIP
+    - DestinationPort
+    - ReceivedBytes
+    - SentBytes
+output:
+  fields:
+    - timestamp: TimeGenerated
+    - IPCustomEntity: DestinationIP
+    - AccountCustomEntity: SourceUserID
+    - HostCustomEntity: DeviceName
+level: low

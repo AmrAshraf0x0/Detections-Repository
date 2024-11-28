@@ -1,0 +1,36 @@
+title: Short-Term DNS Tunneling Detection
+status: experimental
+description: Detects a high number of DNS queries to the same domain within a 1-hour window, potentially indicating DNS tunneling activity for C2 or exfiltration.
+author: Arthur Thomas
+date: 27/11/2024
+tags:
+  - attack.command_and_control
+  - attack.t1071
+  - attack.t1071.004
+  - attack.exfiltration
+  - attack.t1048
+  - attack.t1048.003
+references:
+  - https://zeltser.com/c2-dns-tunneling/
+logsource:
+  category: dns
+  product: all
+detection:
+  selection:
+    query_name: '*'  # Field representing DNS queries (adjust based on your log schema)
+  aggregation:
+    # Aggregates queries by domain name within a 1-hour window
+    timeframe: 1h
+    group_by:
+      - src_ip
+    metrics:
+      - count(): query_count
+  condition: selection and query_count > 100
+fields:
+  - query_name
+  - src_ip
+  - timestamp
+falsepositives:
+  - Legitimate applications or services generating high DNS query volumes (e.g., monitoring tools, internal communications).
+  - Recursive DNS servers or legitimate traffic bursts in large environments.
+level: high

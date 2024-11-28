@@ -2,7 +2,11 @@ title: Certreq Abuse for Ingress Tool Transfer
 description: Detects potential abuse of the certreq utility for downloading tools or payloads during an ingress attack.
 status: experimental
 author: Arthur Thomas
-date: 2024-11-27
+date: 27/11/2024
+tags:
+  - attack.t1105  # Ingress Tool Transfer
+  - attack.defense_evasion
+  - attack.execution
 logsource:
   category: process_creation
   product: windows
@@ -31,7 +35,3 @@ falsepositives:
   - Legitimate certificate requests using `certreq.exe` with remote servers.
   - Enterprise-specific certificate configurations.
 level: high
-tags:
-  - attack.t1105  # Ingress Tool Transfer
-  - attack.defense_evasion
-  - attack.execution

@@ -5,7 +5,12 @@ references:
   - https://attack.mitre.org/techniques/T1095/
   - https://attack.mitre.org/techniques/T1071/
 author: Arthur Thomas
-date: 2024-11-27
+date: 27/11/2024
+tags:
+  - attack.command_and_control
+  - attack.t1071
+  - attack.t1095
+  - detection.long_connections
 logsource:
   product: all
   service: network
@@ -21,8 +26,6 @@ detection:
       - SourceIp
       - DestinationIp
       - DestinationPort
-    metrics:
-      - max(ConnectionEndTime) - min(ConnectionStartTime): DurationInSeconds
   condition: selection and DurationInSeconds > 3600
 fields:
   - SourceIp
@@ -37,8 +40,3 @@ falsepositives:
   - Legitimate long-lived sessions (e.g., video streaming, VPNs, database connections).
   - Backup services or file synchronization.
 level: medium
-tags:
-  - attack.command_and_control
-  - attack.t1071
-  - attack.t1095
-  - detection.long_connections

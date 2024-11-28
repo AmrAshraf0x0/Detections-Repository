@@ -1,0 +1,35 @@
+title: Short Interval Network Beaconing Detection
+status: experimental
+description: Detects potential network beaconing with frequent connections to the same destination over a short interval.
+author: Arthur Thomas
+date: 27/11/2024
+tags:
+  - attack.command_and_control
+  - attack.t1071
+logsource:
+  category: network_connection
+  product: firewall
+detection:
+  selection:
+    src_ip: '*'
+    dst_ip: '*'
+    dst_port: '*'
+  aggregation:
+    # Aggregate by source IP, destination IP, and destination port
+    timeframe: 5m
+    group_by:
+      - src_ip
+      - dst_ip
+    metrics:
+      - count(): connection_count
+      - min_diff(timestamp): interval
+  condition: selection and connection_count > 10 and interval < 30
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+  - timestamp
+falsepositives:
+  - Legitimate applications with frequent network communications
+  - Automated system updates or health checks
+level: medium

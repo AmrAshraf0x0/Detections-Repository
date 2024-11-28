@@ -3,7 +3,6 @@ status: experimental
 description: Detects PowerShell activity indicative of downloading files from the internet, which could signal malicious ingress tool transfer (MITRE ATT&CK T1105). Analysts should validate by reviewing process lineage, associated network activity, and script content for intent.
 author: Arthur Thomas
 date: 27/11/2024
-severity: medium
 tags:
     - attack.ingress_tool_transfer
     - attack.t1105
@@ -53,4 +52,4 @@ fields:
     - ScriptBlockText
     - CommandLine
     - ParentCommandLine
-
+level: medium
