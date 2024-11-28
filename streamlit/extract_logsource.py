@@ -3,11 +3,8 @@ import os
 import json
 
 path_to_rules = [
-    "rules",
-    "rules-emerging-threats",
-    "rules-placeholder",
-    "rules-threat-hunting",
-    "rules-compliance",
+    "Tool Level Detections",
+    "TTP Level Detections",
 ]
 
 
