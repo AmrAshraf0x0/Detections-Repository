@@ -1,0 +1,28 @@
+title: Domain Generation Algorithm (DGA) Detection via Port 53
+description: Detects potential Domain Generation Algorithm (DGA) activity by identifying suspicious domain patterns over Port 53 or application-level DNS traffic.
+status: experimental
+author: Shunaid Shafique
+date: 2024-11-28
+Refrence : https://docs.paloaltonetworks.com/dns-security/administration/monitor-dns-security/view-dns-security-logs#id802940e5-2a06-4f28-9244-8bdd7b2d68fa
+logsource:
+  category: network_traffic
+  product: any
+  service: dns
+detection:
+  selection:
+    DestinationPort: 53  # Detect DNS traffic on Port 53
+    QueryName|contains:
+      - '.xyz'   # Uncommon TLDs used in DGA
+      - '.top'
+      - '.club'
+      - '.work'
+      - '.date'
+    QueryName|matches:
+      - '[a-zA-Z0-9]{12,}\\.com'  # Random-looking domains with alphanumeric characters
+      - '[a-zA-Z0-9]{16,}\\.net'  # Random domains with longer character lengths
+    QueryCount|greater: 5  # Multiple queries to suspicious domains in a short period
+  condition: selection
+falsepositives:
+  - Legitimate applications querying a large number of random domains might trigger this rule.
+  - DNS traffic from internal applications or servers querying multiple domains could also lead to false positives.
+level: high
