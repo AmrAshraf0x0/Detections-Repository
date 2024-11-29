@@ -1,0 +1,34 @@
+title: Windows File Permissions Modification
+status: Developed
+description: Detects the use of tools such as `attrib.exe`, `takeown.exe`, or `icacls.exe` to modify file permissions or attributes, which can be used to evade discretionary access control lists (DACLs).
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName:
+        - "attrib.exe"
+      CommandLine|contains:
+        - "+h"
+    - ProcessName: 
+        - "takeown.exe"
+    - ProcessName: 
+        - "icacls.exe"
+      CommandLine|contains:
+        - "grant"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.defense_evasion
+  - t1222
+falsepositives:
+  - Legitimate administrative tasks managing file permissions
+  - Authorized use of file permission modification tools

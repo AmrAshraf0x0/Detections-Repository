@@ -1,0 +1,29 @@
+title: Certutil Encode or Decode Commands
+status: Developed
+description: Identifies the use of certutil.exe with encode or decode arguments, which may indicate attempts to obfuscate or transfer malicious files.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName: "certutil.exe"
+      CommandLine|contains: "encode"
+    - ProcessName: "certutil.exe"
+      CommandLine|contains: "decode"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.execution
+  - t1140
+falsepositives:
+  - Legitimate administrative use of certutil for file management
+  - Training or testing scenarios involving encode or decode operations

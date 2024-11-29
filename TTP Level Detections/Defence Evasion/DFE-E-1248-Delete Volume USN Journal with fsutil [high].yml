@@ -1,0 +1,26 @@
+title: Delete Volume USN Journal with fsutil
+status: Developed
+description: Identifies use of the fsutil command to delete the volume USN Journal. This technique is used by attackers to eliminate evidence of files created during post-exploitation activities.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ProcessName: "fsutil.exe"
+    CommandLine|contains:
+      - "usn"
+      - "deletejournal"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentImage
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.defense_evasion
+  - t1070
+falsepositives:
+  - Legitimate administrative use of fsutil to manage USN Journals

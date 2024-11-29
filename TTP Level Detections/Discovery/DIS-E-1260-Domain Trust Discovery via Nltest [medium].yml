@@ -1,0 +1,25 @@
+title: Domain Trust Discovery via Nltest
+status: Developed
+description: Identifies the execution of nltest.exe with the `domain_trusts` parameter, used by attackers to enumerate Active Directory trusts.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName: "nltest.exe"
+      CommandLine|contains: "domain_trusts"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.discovery
+  - t1482
+falsepositives:
+  - Legitimate administrative tasks querying domain trusts

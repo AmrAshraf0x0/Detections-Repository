@@ -1,0 +1,24 @@
+title: Clearing Windows Event Logs with wevtutil
+status: Developed
+description: Identifies attempts to clear Windows event logs with the command `wevtutil`.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ProcessName: "wevtutil.exe"
+    CommandLine|contains: "cl"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentImage
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.defense_evasion
+  - t1070
+falsepositives:
+  - Legitimate administrative or maintenance tasks clearing event logs

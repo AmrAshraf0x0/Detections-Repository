@@ -1,0 +1,65 @@
+title: Unusual Child Process
+status: Developed
+description: Identifies processes launched with suspicious parent processes, which may indicate malicious behavior or system anomalies.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName: "smss.exe"
+      ParentProcessName|not:
+        - "System"
+        - "smss.exe"
+    - ProcessName: "csrss.exe"
+      ParentProcessName|not:
+        - "smss.exe"
+        - "svchost.exe"
+    - ProcessName: "wininit.exe"
+      ParentProcessName|not: "smss.exe"
+    - ProcessName: "winlogon.exe"
+      ParentProcessName|not: "smss.exe"
+    - ProcessName: "lsass.exe"
+      ParentProcessName|not: "wininit.exe"
+    - ProcessName: "LogonUI.exe"
+      ParentProcessName|not:
+        - "winlogon.exe"
+        - "wininit.exe"
+    - ProcessName: "services.exe"
+      ParentProcessName|not: "wininit.exe"
+    - ProcessName: "svchost.exe"
+      ParentProcessName|not:
+        - "services.exe"
+        - "*\\system32\\svchost.exe"
+      ProcessPath: "*\\syswow64\\svchost.exe"
+    - ProcessName: "spoolsv.exe"
+      ParentProcessName|not: "services.exe"
+    - ProcessName: "taskhost.exe"
+      ParentProcessName|not:
+        - "services.exe"
+        - "svchost.exe"
+    - ProcessName: "taskhostw.exe"
+      ParentProcessName|not:
+        - "services.exe"
+        - "svchost.exe"
+    - ProcessName: "userinit.exe"
+      ParentProcessName|not:
+        - "dwm.exe"
+        - "winlogon.exe"
+  condition: selection
+fields:
+  - ProcessName
+  - ParentProcessName
+  - ParentProcessPath
+  - ProcessPath
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.execution
+  - t1093
+  - t1055
+falsepositives:
+  - Custom or non-standard Windows configurations
+  - Legitimate administrative tasks or third-party software behavior

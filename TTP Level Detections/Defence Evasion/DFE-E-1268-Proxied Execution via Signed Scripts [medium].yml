@@ -1,0 +1,31 @@
+title: Proxied Execution via Signed Scripts
+status: Developed
+description: Detects the use of signed scripts such as PubPrn.vbs to proxy execution from a remote site, potentially bypassing signature validation and application whitelisting restrictions.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName: 
+      - "cscript.exe"
+      - "wscript.exe"
+      CommandLine|contains:
+        - ".vbs"
+        - "script:http"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.execution
+  - t1216
+falsepositives:
+  - Legitimate administrative or maintenance scripts
+  - Authorized usage of signed scripts for IT operations

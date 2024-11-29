@@ -1,0 +1,26 @@
+title: Detect Suspicious Use of SoundRecorder for Audio Recording
+status: Developed
+description: Detects the execution of SoundRecorder.exe with the "/FILE" argument, which may indicate the recording of audio to a file. This could signify legitimate use or unauthorized activity.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ProcessName: "SoundRecorder.exe"
+    CommandLine|contains: "/FILE"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentImage
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.collection
+  - attack.execution
+  - t1123
+falsepositives:
+  - Legitimate audio recording by authorized users or applications
+  - Audio recording as part of troubleshooting or diagnostics

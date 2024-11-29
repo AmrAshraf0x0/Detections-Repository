@@ -1,0 +1,26 @@
+title: Detect Procdump Targeting LSASS
+status: Developed
+description: Detects the execution of Procdump targeting the LSASS process, which may indicate credential dumping attempts.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ProcessName|startswith: "procdump"
+    CommandLine|contains: "lsass"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentImage
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.credential_access
+  - attack.tactic.execution
+  - t1003.001
+falsepositives:
+  - Legitimate troubleshooting or debugging using Procdump
+  - Authorized security assessments by penetration testers

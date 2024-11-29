@@ -1,0 +1,47 @@
+title: Detect Processes Running with Unusual Extensions
+status: Developed
+description: Detects processes executing with non-standard or unusual file extensions, such as `.gif`, `.docx`, or `.pdf`, which may indicate masquerading or defense evasion techniques.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ProcessName|endswith:
+      - ".pif"
+      - ".pdf"
+      - ".docx"
+      - ".doc"
+      - ".xlsx"
+      - ".xls"
+      - ".pptx"
+      - ".ppt"
+      - ".txt"
+      - ".rtf"
+      - ".gif"
+      - ".jpg"
+      - ".png"
+      - ".bmp"
+      - ".vbs"
+      - ".vbe"
+      - ".bat"
+      - ".js"
+      - ".cmd"
+      - ".wsh"
+      - ".ps1"
+      - " "
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentImage
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.execution
+  - t1036
+falsepositives:
+  - Legitimate administrative scripts or tools using unusual extensions
+  - Rare legitimate software with non-standard extensions
