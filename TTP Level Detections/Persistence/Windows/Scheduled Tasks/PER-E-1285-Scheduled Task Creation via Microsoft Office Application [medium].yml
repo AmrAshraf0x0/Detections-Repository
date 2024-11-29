@@ -1,0 +1,30 @@
+title: Scheduled Task Creation via Microsoft Office Application
+status: Developed
+description: Detects the creation of a scheduled task via a Microsoft Office application by monitoring the loading of `taskschd.dll`, which may indicate persistence mechanisms.
+author: Amr Ashraf
+logsource:
+  category: image_load
+  product: windows
+detection:
+  selection:
+    - ProcessName:
+        - "excel.exe"
+        - "winword.exe"
+        - "powerpnt.exe"
+        - "outlook.exe"
+      ImageName: "taskschd.dll"
+  condition: selection
+fields:
+  - ProcessName
+  - ImageName
+  - ParentProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.persistence
+  - t1053
+falsepositives:
+  - Legitimate use of Microsoft Office applications interacting with task scheduling
+  - Authorized macros or Office add-ins triggering scheduled tasks

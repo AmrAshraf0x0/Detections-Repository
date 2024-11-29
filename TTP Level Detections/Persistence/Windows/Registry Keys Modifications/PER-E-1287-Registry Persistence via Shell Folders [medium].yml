@@ -1,0 +1,25 @@
+title: Registry Persistence via Shell Folders
+status: Developed
+description: Detects modifications to the registry path associated with shell folders in Windows Explorer, which may indicate persistence mechanisms established by adversaries.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    - RegistryPath|contains: "\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders"
+  condition: selection
+fields:
+  - RegistryPath
+  - RegistryKey
+  - RegistryValue
+  - User
+  - Hostname
+  - Action
+level: medium
+tags:
+  - attack.persistence
+  - t1060
+falsepositives:
+  - Legitimate administrative changes or user customizations
+  - Authorized software installations modifying the registry

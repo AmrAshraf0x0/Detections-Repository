@@ -1,0 +1,38 @@
+title: Image Debuggers for Accessibility Features
+status: Developed
+description: Detects the use of the Debugger registry key to intercept and redirect the execution of common accessibility programs. This technique is often used by attackers for persistence, privilege escalation, or defense evasion.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    RegistryPath|contains:
+      - "\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\"
+      - "\\Software\\Wow6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\"
+    RegistryPath|contains:
+      - "\\sethc.exe\\"
+      - "\\utilman.exe\\"
+      - "\\narrator.exe\\"
+      - "\\osk.exe\\"
+      - "\\magnify.exe\\"
+      - "\\displayswitch.exe\\"
+      - "\\atbroker.exe\\"
+  condition: selection
+fields:
+  - RegistryPath
+  - RegistryKey
+  - RegistryValue
+  - User
+  - Hostname
+  - Action
+level: medium
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - attack.defense_evasion
+  - t1015
+  - t1183
+falsepositives:
+  - Legitimate administrative changes or debugging tools
+  - Authorized software modifying these registry keys

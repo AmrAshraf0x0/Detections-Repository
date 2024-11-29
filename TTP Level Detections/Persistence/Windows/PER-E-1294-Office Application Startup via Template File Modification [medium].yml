@@ -1,0 +1,28 @@
+title: Office Application Startup via Template File Modification
+status: Developed
+description: Detects modifications to default Microsoft Office templates, such as `Normal.dotm` and `PERSONAL.XLSB`, which adversaries can alter to establish persistence.
+author: Amr Ashraf
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    - FilePath|contains:
+        - "\\AppData\\Roaming\\Microsoft\\Templates\\Normal.dotm"
+        - "\\AppData\\Roaming\\Microsoft\\Excel\\XLSTART\\PERSONAL.XLSB"
+    - Subtype|ne: "delete"
+  condition: selection
+fields:
+  - FilePath
+  - FileName
+  - Subtype
+  - User
+  - Hostname
+  - Action
+level: medium
+tags:
+  - attack.persistence
+  - t1137
+falsepositives:
+  - Legitimate user modifications to Office templates
+  - Authorized IT or administrative tasks modifying templates

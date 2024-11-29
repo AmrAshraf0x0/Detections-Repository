@@ -1,0 +1,36 @@
+title: Suspicious File Creation via Browser Extensions
+status: Developed
+description: Detects suspicious file creations in browser extension directories, which may indicate malicious browser extensions installed via app store downloads, social engineering, or prior system compromise.
+author: Amr Ashraf
+logsource:
+  category: file_event
+  product: any
+detection:
+  selection:
+    - Subtype|ne: "delete"
+      FileName|endswith:
+        - ".exe"
+        - ".dll"
+        - ".ps1"
+        - ".vbs"
+        - ".bat"
+      FilePath|contains:
+        # Windows paths
+        - "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions"
+        - "\\Program Files\\Mozilla Firefox\\plugins"
+        - "\\Program Files\\Internet Explorer\\Plugins"
+  condition: selection
+fields:
+  - FileName
+  - FilePath
+  - Subtype
+  - User
+  - Hostname
+  - Action
+level: medium
+tags:
+  - attack.persistence
+  - t1176
+falsepositives:
+  - Legitimate browser extension installations or updates
+  - Authorized IT or administrative tasks involving extensions

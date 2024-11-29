@@ -1,0 +1,25 @@
+title: Installation of Time Providers
+status: Developed
+description: Detects the installation or modification of Windows Time Providers in the registry, a technique attackers may use to establish persistence.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    - RegistryPath|contains: "\\System\\CurrentControlSet\\Services\\W32Time\\TimeProviders\\"
+  condition: selection
+fields:
+  - RegistryPath
+  - RegistryKey
+  - RegistryValue
+  - User
+  - Hostname
+  - Action
+level: medium
+tags:
+  - attack.persistence
+  - t1209
+falsepositives:
+  - Legitimate administrative or IT modifications to time providers
+  - Authorized software or system updates

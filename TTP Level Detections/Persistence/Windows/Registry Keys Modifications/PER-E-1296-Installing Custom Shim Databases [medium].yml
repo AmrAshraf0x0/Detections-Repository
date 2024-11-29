@@ -1,0 +1,32 @@
+title: Installing Custom Shim Databases
+status: Developed
+description: Detects the installation of custom Application Compatibility Shim databases, which attackers may use for persistence or privilege escalation.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    - RegistryPath|contains: "\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Custom\\"
+      RegistryPath|endswith: ".sdb"
+    - ProcessName|not: "sdbinst.exe"
+      ParentProcessName|not: "msiexec.exe"
+  condition: selection
+fields:
+  - RegistryPath
+  - RegistryKey
+  - RegistryValue
+  - RegistryData
+  - ProcessName
+  - ParentProcessName
+  - User
+  - Hostname
+  - Action
+level: medium
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - t1138
+falsepositives:
+  - Legitimate administrative installation of custom shim databases
+  - Authorized software installations modifying compatibility settings

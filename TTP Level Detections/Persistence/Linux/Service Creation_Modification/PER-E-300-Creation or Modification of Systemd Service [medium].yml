@@ -1,0 +1,29 @@
+title: Creation or Modification of Systemd Service
+status: Developed
+description: Detects creation or modification of systemd service files, which can be used to establish persistence on a Linux system. Systemd is widely used for managing background daemon processes and other system resources.
+author: Amr Ashraf
+logsource:
+  category: file_event
+  product: linux
+detection:
+  selection:
+    - Subtype|ne: "delete"
+      FileName|endswith: ".service"
+      FilePath|contains:
+        - "/etc/systemd/system/"
+        - "/usr/lib/systemd/system/"
+  condition: selection
+fields:
+  - FileName
+  - FilePath
+  - Subtype
+  - User
+  - Hostname
+  - Action
+level: medium
+tags:
+  - attack.persistence
+  - t1501
+falsepositives:
+  - Legitimate administrative changes to systemd service files
+  - Authorized software installations or updates modifying service files

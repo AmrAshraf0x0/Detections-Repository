@@ -1,0 +1,31 @@
+title: Persistence via Screensaver
+status: Developed
+description: Detects persistence via screensaver by monitoring modifications to the screensaver registry path, which attackers may exploit to execute malicious payloads. Excludes legitimate screensaver changes made via the Control Panel.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    - RegistryPath|contains: "\\Control Panel\\Desktop\\SCRNSAVE.EXE"
+  exclusion:
+    - ProcessName: "rundll32.exe"
+      ParentProcessName: "explorer.exe"
+      CommandLine|contains: "shell32.dll,Control_RunDLL desk.cpl,ScreenSaver"
+  condition: selection and not exclusion
+fields:
+  - RegistryPath
+  - RegistryKey
+  - RegistryValue
+  - ProcessPath
+  - ParentProcessPath
+  - CommandLine
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.persistence
+  - t1180
+falsepositives:
+  - Legitimate administrative or user changes to screensaver settings
+  - Authorized software updates affecting the screensaver configuration

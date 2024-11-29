@@ -1,0 +1,27 @@
+title: Registration of Winlogon Helper DLL
+status: Developed
+description: Detects modifications to the Winlogon registry key, which may be used to establish persistence by registering a helper DLL.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    - RegistryPath|contains:
+        - "\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\"
+        - "\\Software\\Wow6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\"
+  condition: selection
+fields:
+  - RegistryPath
+  - RegistryKey
+  - RegistryValue
+  - User
+  - Hostname
+  - Action
+level: medium
+tags:
+  - attack.persistence
+  - t1004
+falsepositives:
+  - Legitimate administrative modifications to the Winlogon registry key
+  - Authorized software or system updates modifying this registry key

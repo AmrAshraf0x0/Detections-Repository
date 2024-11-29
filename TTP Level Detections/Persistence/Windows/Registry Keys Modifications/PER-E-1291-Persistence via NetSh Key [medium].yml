@@ -1,0 +1,26 @@
+title: Persistence via NetSh Key
+status: Developed
+description: Detects the creation or modification of helper DLLs in the NetShell registry key, which are loaded into `netsh.exe` every time it executes. Attackers use this technique to establish persistence.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    - RegistryPath|contains: "\\Software\\Microsoft\\NetSh\\"
+  condition: selection
+fields:
+  - RegistryPath
+  - RegistryKey
+  - RegistryValue
+  - RegistryData
+  - User
+  - Hostname
+  - Action
+level: medium
+tags:
+  - attack.persistence
+  - t1128
+falsepositives:
+  - Legitimate administrative or system modifications
+  - Authorized software leveraging NetShell helper DLLs

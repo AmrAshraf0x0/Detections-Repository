@@ -1,0 +1,28 @@
+title: Service Path Modification with sc
+status: Developed
+description: Detects the use of `sc.exe` to modify existing services, particularly by changing the service configuration or executable path (`binPath`). This may indicate attempts to establish persistence.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName: "sc.exe"
+      CommandLine|contains:
+        - "config"
+        - "binPath"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.persistence
+  - t1031
+falsepositives:
+  - Legitimate administrative tasks modifying service configurations
+  - Authorized software or system updates

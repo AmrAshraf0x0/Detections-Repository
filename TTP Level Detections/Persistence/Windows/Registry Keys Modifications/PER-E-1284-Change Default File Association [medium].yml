@@ -1,0 +1,30 @@
+title: Change Default File Association
+status: Developed
+description: Detects changes to default file association handlers, which may be used to establish persistence or modify system behavior.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  timeframe: 1s
+  selection:
+    registry_change:
+      - RegistryPath|contains:
+          - "\\SOFTWARE\\Classes\\"
+      - RegistryPath|contains:
+          - "\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\GlobalAssocChangedCounter"
+  condition: registry_change
+fields:
+  - RegistryPath
+  - RegistryKey
+  - RegistryValue
+  - ProcessName
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.persistence
+  - t1042
+falsepositives:
+  - Legitimate administrative changes to file associations
+  - Authorized software modifying file association registry keys

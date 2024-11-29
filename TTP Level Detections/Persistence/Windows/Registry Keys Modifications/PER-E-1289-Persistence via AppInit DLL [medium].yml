@@ -1,0 +1,32 @@
+title: Persistence via AppInit DLL
+status: Developed
+description: Detects registry modifications of the `AppInit_Dlls` key, which attackers can use to maintain persistence by injecting DLLs into processes that use `user32.dll`.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    - RegistryPath|contains:
+        - "\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Windows\\AppInit_Dlls"
+        - "\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Windows\\AppInit_Dlls"
+      ProcessPath|not:
+        - "\\system32\\msiexec.exe"
+        - "\\syswow64\\msiexec.exe"
+  condition: selection
+fields:
+  - RegistryPath
+  - RegistryKey
+  - RegistryValue
+  - RegistryData
+  - ProcessPath
+  - User
+  - Hostname
+  - Action
+level: medium
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - t1103
+falsepositives:
+  - Legitimate administrative changes or authorized software modifying `AppInit_Dlls`
