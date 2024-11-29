@@ -1,0 +1,29 @@
+title: RegSvr32 Scriptlet Execution
+status: Developed
+description: Detects the execution of `regsvr32.exe` with parameters indicative of loading a script object (scrobj), which may be used for executing malicious scripts.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName: "regsvr32.exe"
+      CommandLine|contains:
+        - "scrobj"
+        - "/i:"
+        - "-i:"
+        - ".sct"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.execution
+  - t1117
+falsepositives:
+  - Legitimate administrative usage of regsvr32 for script execution

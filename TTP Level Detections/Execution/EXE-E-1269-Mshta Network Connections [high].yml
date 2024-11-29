@@ -1,0 +1,31 @@
+title: Mshta Network Connections
+status: Developed
+description: Detects suspicious `mshta.exe` commands that make outbound network connections, potentially indicating command and control or malicious activity.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName: "mshta.exe"
+      CommandLine|contains: "javascript"
+  network_activity:
+    - ProcessName: "mshta.exe"
+  condition: selection and network_activity
+fields:
+  - ProcessName
+  - CommandLine
+  - NetworkProtocol
+  - DestinationIP
+  - DestinationPort
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.execution
+  - attack.defense_evasion
+  - attack.command_and_control
+  - t1170
+falsepositives:
+  - Legitimate administrative scripts or development activities using mshta
+  - Authorized IT tools or monitoring solutions

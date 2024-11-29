@@ -1,0 +1,27 @@
+title: Volume Shadow Copy Deletion via VssAdmin
+status: Developed
+description: Detects suspicious use of `vssadmin.exe` to delete volume shadow copies, which may be indicative of destructive activity or attempts to disable recovery options.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName: "vssadmin.exe"
+      CommandLine|contains:
+        - "delete"
+        - "shadows"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.impact
+  - t1490
+falsepositives:
+  - Legitimate administrative use of `vssadmin` for maintenance or disk management tasks

@@ -1,0 +1,28 @@
+title: Modification of Boot Configuration
+status: Developed
+description: Detects the use of the `bcdedit` command to modify or delete boot configuration data. This tactic may be used by attackers or malware as a destructive technique.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName: "bcdedit.exe"
+      CommandLine|contains:
+        - "set"
+        - "bootstatuspolicy ignoreallfailures"
+        - "recoveryenabled no"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.impact
+  - t1490
+falsepositives:
+  - Legitimate administrative or troubleshooting use of `bcdedit`

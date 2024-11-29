@@ -1,0 +1,34 @@
+title: Executable Written and Executed by Microsoft Office Applications
+status: Developed
+description: Identifies an executable file written by a Microsoft Office application, where the same executable is later executed as its own process. This behavior may indicate suspicious activity, possibly tied to macro objects or technologies like Dynamic Data Exchange (DDE).
+author: Amr Ashraf
+logsource:
+  category: file_event
+  product: windows
+detection:
+  timeframe: 3d
+  selection:
+    file_creation:
+      - FileName|endswith: ".exe"
+        ProcessName:
+          - "winword.exe"
+          - "excel.exe"
+          - "powerpnt.exe"
+    process_execution:
+      - ProcessPath|equals: FilePath
+  condition: file_creation followed by process_execution
+fields:
+  - FileName
+  - FilePath
+  - ProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.execution
+  - t1204
+  - t1173
+falsepositives:
+  - Legitimate Office processes generating and running executable files for authorized macros or scripts
+  - Development or testing scenarios

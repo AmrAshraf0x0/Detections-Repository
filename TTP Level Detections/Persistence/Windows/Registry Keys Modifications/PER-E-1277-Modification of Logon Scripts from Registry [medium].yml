@@ -1,0 +1,25 @@
+title: Modification of Logon Scripts from Registry
+status: Developed
+description: Detects modifications to the logon script path in the Windows Registry, which may indicate an attempt to establish persistence or lateral movement.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    - RegistryPath|contains: "\\Environment\\UserInitMprLogonScript"
+  condition: selection
+fields:
+  - RegistryPath
+  - RegistryKey
+  - RegistryValue
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.persistence
+  - t1037
+falsepositives:
+  - Legitimate administrative tasks modifying logon scripts
+  - Authorized software or configurations

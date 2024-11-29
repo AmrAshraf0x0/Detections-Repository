@@ -1,0 +1,31 @@
+title: Mounting Windows Hidden Shares with net
+status: Developed
+description: Detects the use of `net.exe` or `net1.exe` to mount hidden Windows Admin network shares, which can indicate lateral movement or reconnaissance.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName:
+        - "net.exe"
+        - "net1.exe"
+      ParentProcessName|ne: "net.exe"
+      CommandLine|contains:
+        - "use \\\\*\\$"
+        - "use \\\\*/$"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentProcessName
+  - ParentProcessPath
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.lateral_movement
+  - t1077
+falsepositives:
+  - Legitimate administrative tasks mounting hidden admin shares
+  - Authorized IT operations or scripts

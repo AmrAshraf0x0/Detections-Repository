@@ -1,0 +1,27 @@
+title: Volume Shadow Copy Deletion via WMIC
+status: Developed
+description: Detects the use of `wmic.exe` for shadow copy deletion on endpoints, a tactic commonly associated with ransomware or other destructive attacks.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - ProcessName: "wmic.exe"
+      CommandLine|contains:
+        - "shadowcopy"
+        - "delete"
+  condition: selection
+fields:
+  - ProcessName
+  - CommandLine
+  - ParentProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: medium
+tags:
+  - attack.impact
+  - t1490
+falsepositives:
+  - Legitimate administrative use of `wmic` for shadow copy management

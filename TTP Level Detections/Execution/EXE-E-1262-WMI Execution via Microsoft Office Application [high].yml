@@ -1,0 +1,36 @@
+title: WMI Execution via Microsoft Office Application
+status: Developed
+description: Detects the execution of Windows Management Instrumentation (WMI) via a Microsoft Office application, which may indicate malicious activity.
+author: Amr Ashraf
+logsource:
+  category: image_load
+  product: windows
+detection:
+  selection:
+    - ProcessName:
+        - "excel.exe"
+        - "winword.exe"
+        - "powerpnt.exe"
+        - "outlook.exe"
+      ImageName:
+        - "wbemdisp.dll"
+        - "wbemcomn.dll"
+        - "wbemprox.dll"
+        - "wmiutils.dll"
+        - "wbemsvc.dll"
+        - "fastprox.dll"
+  condition: selection
+fields:
+  - ProcessName
+  - ImageName
+  - ParentProcessName
+  - ProcessPath
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.execution
+  - t1047
+falsepositives:
+  - Legitimate usage of WMI libraries by Microsoft Office applications
+  - Security or monitoring software triggering these detections
