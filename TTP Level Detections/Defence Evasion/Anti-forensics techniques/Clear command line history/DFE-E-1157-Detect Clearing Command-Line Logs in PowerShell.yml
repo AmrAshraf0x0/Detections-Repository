@@ -13,7 +13,6 @@ detection:
     CommandLine:
       - '*Clear-History*'
       - '*Remove-EventLog*'
-      - '*Set-ExecutionPolicy*'
       - '*LogLevel* Off*'
       - '*Clear-Content*'
   condition: selection
