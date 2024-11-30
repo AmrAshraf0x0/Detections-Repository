@@ -15,6 +15,9 @@ detection:
       - '*Real-time protection feature has been disabled*'
       - '*Antivirus settings have been disabled*'
       - '*Defender Antivirus service stopped*'
+
+  selection2:
+    EventID: 5001
   condition: selection
 fields:
   - EventID
