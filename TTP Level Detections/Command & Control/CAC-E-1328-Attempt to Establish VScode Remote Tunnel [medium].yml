@@ -1,0 +1,42 @@
+title: Attempt to Establish VScode Remote Tunnel
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventType: start
+    ProcessArgs:
+      - "*tunnel*"
+    ProcessName:
+      - "code*.exe"
+      - "code-tunnel.exe"
+    ProcessArgsAdditional:
+      - "--accept-server-license-terms"
+  exclusion:
+    ParentProcessName: "Code.exe"
+    ProcessName: "code-tunnel.exe"
+    ProcessArgs: "status"
+  condition: selection and not exclusion
+fields:
+  - EventType
+  - ProcessName
+  - ProcessArgs
+  - ParentProcessName
+  - Hostname
+  - Timestamp
+falsepositives:
+  - Legitimate use of VScode's remote tunnel feature by authorized developers or administrators.
+  - Scheduled maintenance or automation processes using VScode tunnels.
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.T1219
+description: |
+  Detects the execution of the VScode portable binary with the tunnel command line option indicating an
+  attempt to establish a remote tunnel session to Github or a remote VScode instance. Excludes known benign use cases.
+references:
+  - "https://badoption.eu/blog/2023/01/31/code_c2.html"
+  - "https://code.visualstudio.com/docs/remote/tunnels"

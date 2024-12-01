@@ -1,0 +1,30 @@
+title: Potential File Transfer via CertReq
+description: Identifies CertReq making an HTTP POST request, which could be abused by adversaries to download files or upload data to a remote URL.
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    process_name: "CertReq.exe"
+    process_args: "-Post"
+  condition: selection
+fields:
+  - process_name
+  - command_line
+  - parent_process_name
+  - user_id
+  - host_name
+falsepositives:
+  - Legitimate administrative usage for certificate requests
+  - Authorized use of CertReq for internal processes
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.command_and_control
+  - attack.exfiltration
+  - attack.T1105
+  - attack.T1218
+  - attack.T1567

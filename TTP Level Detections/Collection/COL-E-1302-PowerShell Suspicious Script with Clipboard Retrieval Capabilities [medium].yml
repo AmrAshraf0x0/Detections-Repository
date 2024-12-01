@@ -1,0 +1,43 @@
+title: PowerShell Suspicious Script with Clipboard Retrieval Capabilities
+description: Detects PowerShell scripts that can get the contents of the clipboard, which attackers can abuse to retrieve sensitive information such as credentials or messages.
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  suspicious_clipboard_access:
+    script_content:
+      - "*Windows.Clipboard*"
+      - "*Windows.Forms.Clipboard*"
+      - "*Windows.Forms.TextBox*"
+      - "*]::GetText*"
+      - "*.Paste()*"
+      - "*Get-Clipboard*"
+  allowed_users:
+    user_id:
+      - "S-1-5-18"
+  allowed_scripts:
+    file_path:
+      - "C:\\Program Files\\WindowsPowerShell\\Modules\\*.ps1"
+      - "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\*.ps1"
+    file_name:
+      - "Convert-ExcelRangeToImage.ps1"
+      - "Read-Clipboard.ps1"
+  condition: suspicious_clipboard_access and not allowed_users and not allowed_scripts
+fields:
+  - process_name
+  - command_line
+  - user_id
+  - parent_process_name
+falsepositives:
+  - Authorized PowerShell scripts used by administrators for legitimate purposes
+  - Development or testing scripts in authorized environments
+level: medium
+tags:
+  - attack.collection
+  - attack.execution
+  - attack.T1115
+  - attack.T1059
+  - attack.T1059.001

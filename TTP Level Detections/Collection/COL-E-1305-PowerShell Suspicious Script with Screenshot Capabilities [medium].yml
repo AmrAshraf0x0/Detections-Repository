@@ -1,0 +1,33 @@
+title: PowerShell Suspicious Script with Screenshot Capabilities
+description: Detects PowerShell scripts that include functionality to capture screenshots, a common feature in post-exploitation kits and remote access tools (RATs).
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  suspicious_screenshot_script:
+    script_content:
+      - "*CopyFromScreen*"
+      - "*System.Drawing.Bitmap*"
+      - "*Drawing.Bitmap*"
+  allowed_users:
+    user_id:
+      - "S-1-5-18"
+  condition: suspicious_screenshot_script and not allowed_users
+fields:
+  - process_name
+  - command_line
+  - user_id
+  - parent_process_name
+falsepositives:
+  - Authorized PowerShell scripts for legitimate administrative purposes
+  - Testing or development activities in authorized environments
+level: medium
+tags:
+  - attack.collection
+  - attack.execution
+  - attack.T1113
+  - attack.T1059
+  - attack.T1059.001

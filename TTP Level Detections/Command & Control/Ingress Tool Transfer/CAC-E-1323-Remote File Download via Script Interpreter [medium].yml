@@ -1,0 +1,43 @@
+title: Remote File Download via Script Interpreter
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_network:
+    Image|endswith:
+      - "\\wscript.exe"
+      - "\\cscript.exe"
+    DestinationIp|not: "127.0.0.1"
+    Protocol|not: "dns"
+    Direction:
+      - "outgoing"
+      - "egress"
+  selection_file:
+    FileName|endswith:
+      - ".exe"
+      - ".dll"
+    EventType: "creation"
+  condition: selection_network and selection_file
+fields:
+  - Image
+  - CommandLine
+  - DestinationIp
+  - FileName
+falsepositives:
+  - Authorized administrators running scripts for legitimate automation tasks.
+  - Automated tools downloading files for system updates or maintenance.
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.T1105
+  - attack.T1059.005
+  - windows
+description: |
+  Detects Windows Script Host (`cscript.exe` or `wscript.exe`) being used to download an executable or DLL file from an external source. This could indicate malicious activity such as the use of scripts for malware delivery.
+references:
+  - "https://attack.mitre.org/techniques/T1105/"
+  - "https://attack.mitre.org/techniques/T1059/005/"
+  - "https://www.mandiant.com/resources/vbscript-threats"

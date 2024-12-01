@@ -1,0 +1,48 @@
+title: Potential Command and Control via Internet Explorer
+description: Detects instances of Internet Explorer (iexplore.exe) started via Component Object Model (COM) making unusual network connections. Adversaries may abuse Internet Explorer to avoid suspicious processes making network connections and bypass host-based firewall restrictions.
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  library_load:
+    dll_name: "IEProxy.dll"
+    process_name:
+      - "rundll32.exe"
+      - "regsvr32.exe"
+  ie_process:
+    parent_process_name: "iexplore.exe"
+    parent_process_args: "-Embedding"
+  suspicious_dns:
+    network_protocol: "dns"
+    process_name: "iexplore.exe"
+    not_dns_question_name:
+      - "*.microsoft.com"
+      - "*.digicert.com"
+      - "*.msocsp.com"
+      - "*.windowsupdate.com"
+      - "*.bing.com"
+      - "*.identrust.com"
+      - "*.sharepoint.com"
+      - "*.office365.com"
+      - "*.office.com"
+  condition: library_load and ie_process and suspicious_dns
+fields:
+  - process_name
+  - dll_name
+  - parent_process_name
+  - network_protocol
+  - dns_question_name
+  - user_name
+  - host_name
+falsepositives:
+  - Legitimate applications like MS Office using IEProxy to render HTML content
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.execution
+  - attack.T1071
+  - attack.T1559
+  - attack.T1559.001

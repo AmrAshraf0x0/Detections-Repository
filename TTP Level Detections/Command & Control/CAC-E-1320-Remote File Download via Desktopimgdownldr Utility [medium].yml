@@ -1,0 +1,31 @@
+title: Remote File Download via Desktopimgdownldr Utility
+description: Detects the abuse of `desktopimgdownldr.exe` to download files via the `/lockscreenurl` parameter.
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: 
+      - '\\desktopimgdownldr.exe'
+    CommandLine|contains:
+      - "/lockscreenurl:http"
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - ParentCommandLine
+  - User
+falsepositives:
+  - Legitimate administrative usage for configuring desktop images.
+  - System configurations or testing by IT teams.
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.T1105
+  - attack.ingress_tool_transfer
+  - windows
+  - process_creation

@@ -1,0 +1,49 @@
+title: PowerShell Keylogging Script
+description: Detects the use of Win32 API functions in PowerShell scripts that can capture user keystrokes. Attackers may use this technique to steal credentials or other sensitive information.
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  suspicious_keylogging_script:
+    script_content:
+      - "*GetAsyncKeyState*"
+      - "*NtUserGetAsyncKeyState*"
+      - "*GetKeyboardState*"
+      - "*Get-Keystrokes*"
+      - "*SetWindowsHookA*"
+      - "*SetWindowsHookW*"
+      - "*SetWindowsHookEx*"
+      - "*SetWindowsHookExA*"
+      - "*NtUserSetWindowsHookEx*"
+      - "*GetForegroundWindow*"
+      - "*GetWindowTextA*"
+      - "*GetWindowTextW*"
+      - "*WM_KEYBOARD_LL*"
+      - "*WH_MOUSE_LL*"
+  allowed_users:
+    user_id:
+      - "S-1-5-18"
+  allowed_script_blocks:
+    script_content:
+      - "*sentinelbreakpoints*"
+      - "*Set-PSBreakpoint*"
+  condition: suspicious_keylogging_script and not allowed_users and not allowed_script_blocks
+fields:
+  - process_name
+  - command_line
+  - user_id
+  - parent_process_name
+falsepositives:
+  - Authorized PowerShell scripts used by administrators or for legitimate testing
+level: high
+tags:
+  - attack.collection
+  - attack.execution
+  - attack.T1056
+  - attack.T1056.001
+  - attack.T1059
+  - attack.T1059.001
+  - attack.T1106

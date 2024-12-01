@@ -1,0 +1,30 @@
+title: Port Forwarding Rule Addition
+description: Detects modifications to registry keys associated with the creation of port forwarding rules, which adversaries can abuse to bypass network segmentation restrictions.
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: registry_event
+  product: windows
+detection:
+  selection:
+    registry_path:
+      - "HKLM\\SYSTEM\\*ControlSet*\\Services\\PortProxy\\v4tov4\\*"
+      - "\\REGISTRY\\MACHINE\\SYSTEM\\*ControlSet*\\Services\\PortProxy\\v4tov4\\*"
+      - "MACHINE\\SYSTEM\\*ControlSet*\\Services\\PortProxy\\v4tov4\\*"
+  condition: selection
+fields:
+  - registry_path
+  - registry_key
+  - registry_value
+  - host_name
+  - user_name
+falsepositives:
+  - Legitimate port forwarding configuration by administrators
+  - Changes made by system management tools
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.defense_evasion
+  - attack.T1572
+  - attack.T1112

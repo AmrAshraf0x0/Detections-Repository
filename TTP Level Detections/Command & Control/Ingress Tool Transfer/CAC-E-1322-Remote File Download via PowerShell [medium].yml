@@ -1,0 +1,45 @@
+title: Remote File Download via PowerShell
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_network:
+    Image|endswith:
+      - "\\powershell.exe"
+      - "\\pwsh.exe"
+      - "\\powershell_ise.exe"
+    Protocol: "dns"
+    DestinationHostname|endswith:
+      - ".exe"
+      - ".dll"
+      - ".ps1"
+      - ".bat"
+    DestinationHostname|contains: 
+      - "http"
+    DestinationHostname|startswith:
+      - "http://"
+      - "https://"
+  condition: selection_network
+fields:
+  - Image
+  - CommandLine
+  - DestinationHostname
+  - FileName
+falsepositives:
+  - Administrators downloading legitimate updates, patches, or scripts for maintenance purposes.
+  - Authorized security tools or scripts performing automated downloads.
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.T1105
+  - attack.ingress_tool_transfer
+  - windows
+description: |
+  Detects PowerShell being used to download executable or script files from untrusted or suspicious destinations. This activity may indicate malicious behavior such as unauthorized tool or malware deployment.
+references:
+  - "https://attack.mitre.org/techniques/T1105/"
+  - "https://attack.mitre.org/techniques/T1059/001/"
+  - "https://www.mandiant.com/resources/powershell-threats"

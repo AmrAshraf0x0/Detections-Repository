@@ -1,0 +1,55 @@
+title: SUNBURST Command and Control Activity
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: network_traffic
+  product: windows
+detection:
+  selection:
+    ProcessName:
+      - "ConfigurationWizard.exe"
+      - "NetFlowService.exe"
+      - "NetflowDatabaseMaintenance.exe"
+      - "SolarWinds.Administration.exe"
+      - "SolarWinds.BusinessLayerHost.exe"
+      - "SolarWinds.BusinessLayerHostx64.exe"
+      - "SolarWinds.Collector.Service.exe"
+      - "SolarwindsDiagnostics.exe"
+    Protocol: "http"
+  http_request_body_content:
+    - "*swip/Upload.ashx*"
+    - "*swip/SystemDescription*"
+    - "*swip/Events*"
+  request_methods:
+    - "POST"
+    - "PUT"
+    - "GET"
+    - "HEAD"
+  exclusion:
+    RequestBody: "*solarwinds.com*"
+  condition: selection and http_request_body_content and request_methods and not exclusion
+fields:
+  - ProcessName
+  - HttpRequestMethod
+  - RequestBody
+  - DestinationIp
+  - SourceIp
+  - EventTimestamp
+falsepositives:
+  - Legitimate SolarWinds network traffic.
+  - Network traffic from authorized SolarWinds administrative tasks.
+level: high
+tags:
+  - attack.command_and_control
+  - attack.supply_chain
+  - attack.T1071
+  - attack.T1195.002
+description: |
+  Detects suspicious network activity indicative of SUNBURST malware command and control communications. This includes
+  HTTP communications mimicking SolarWinds Orion Improvement Program (OIP) protocol but excludes legitimate SolarWinds
+  traffic to official domains.
+references:
+  - "https://www.fireeye.com/blog/threat-research/2020/12/evasive-attacker-leverages-solarwinds-supply-chain-compromises-with-sunburst-backdoor.html"
+  - "https://attack.mitre.org/techniques/T1071/"
+  - "https://attack.mitre.org/techniques/T1195/002/"
