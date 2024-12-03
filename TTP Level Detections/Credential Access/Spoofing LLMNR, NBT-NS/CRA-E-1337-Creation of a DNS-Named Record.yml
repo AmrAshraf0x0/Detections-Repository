@@ -1,0 +1,32 @@
+title: Creation of a DNS-Named Record
+status: Developed
+author: Amr Ashraf
+date: 2024-12-01
+description: |
+    Detects the creation of a DNS-named record in Active Directory Integrated DNS (ADIDNS). This activity can indicate a potential Dynamic Spoofing attack or malicious targeting of specific DNS records like WPAD for spoofing purposes.
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        EventID: 5137
+        ObjectClass: "dnsNode"
+        host.os.type: "windows"
+        event.action:
+            - "Directory Service Changes"
+            - "directory-service-object-modified"
+    filter:
+        SubjectUserName|endswith: "$"
+    condition: selection and not filter
+fields:
+    - EventID
+    - ObjectClass
+    - SubjectUserName
+falsepositives:
+    - Legitimate changes to DNS records by authorized administrators or automated processes.
+    - Routine DNS management tasks performed by IT operations teams.
+severity: low
+tags:
+    - attack.credential_access
+    - attack.t1557
+    - attack.adversary_in_the_middle

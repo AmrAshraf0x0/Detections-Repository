@@ -1,0 +1,62 @@
+title: Multiple Logon Failures Followed by Logon Success
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: authentication
+  product: windows
+detection:
+  selection_failed_logon:
+    EventID: 4625
+    LogonType: 3
+  exclusion_failed_logon:
+    TargetUserName:
+      - "ANONYMOUS LOGON"
+      - "*$"
+    TargetDomainName: "NT AUTHORITY"
+    Status:
+      - "0xC000015B"
+      - "0XC000005E"
+      - "0XC0000133"
+      - "0XC0000192"
+  selection_successful_logon:
+    EventID: 4624
+    LogonType: 3
+  exclusion_successful_logon:
+    TargetUserName:
+      - "ANONYMOUS LOGON"
+      - "*$"
+    TargetDomainName: "NT AUTHORITY"
+  condition: >
+    sequence
+    [selection_failed_logon and not exclusion_failed_logon] with runs=5
+    [selection_successful_logon and not exclusion_successful_logon]
+  timeframe: 5s
+fields:
+  - EventID
+  - LogonType
+  - TargetUserName
+  - TargetDomainName
+  - IpAddress
+  - TargetSid
+  - SubjectUserName
+  - SubjectDomainName
+  - SubjectLogonId
+  - Status
+  - Timestamp
+falsepositives:
+  - Authentication misconfiguration or expired credentials
+  - Service account password expiration or changes
+  - Domain trust relationship or network infrastructure issues
+level: medium
+tags:
+  - attack.credential_access
+  - attack.T1110
+  - attack.T1110.001
+  - attack.T1110.003
+description: |
+  Identifies multiple consecutive logon failures followed by a successful logon from the same IP address,
+  which may indicate brute force or password spraying activity that successfully compromised an account.
+references:
+  - "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4625"
+  - "https://attack.mitre.org/techniques/T1110/"

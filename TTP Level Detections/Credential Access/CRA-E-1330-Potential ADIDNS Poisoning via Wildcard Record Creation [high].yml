@@ -1,0 +1,39 @@
+title: Potential ADIDNS Poisoning via Wildcard Record Creation
+status: Developed
+date: 2024-12-01
+author: Amr Ashraf
+logsource:
+  category: directory_service
+  product: windows
+detection:
+  selection:
+    EventID: 5137
+    EventAction:
+      - "Directory Service Changes"
+      - "directory-service-object-modified"
+    ObjectDN:
+      - "DC=*,*"
+  condition: selection
+fields:
+  - EventID
+  - EventAction
+  - ObjectDN
+  - SubjectUserSid
+  - SubjectUserName
+  - Timestamp
+falsepositives:
+  - Legitimate DNS record creation activities by administrators or automated systems.
+  - Expected changes in DNS zones as part of AD replication or regular operations.
+level: high
+tags:
+  - attack.credential_access
+  - attack.T1557
+description: |
+  Detects potential poisoning attempts in Active Directory Integrated DNS (ADIDNS) via wildcard record creation. Such activity can be exploited by attackers to redirect DNS queries and facilitate adversary-in-the-middle attacks.
+references:
+  - "https://www.netspi.com/blog/technical/network-penetration-testing/exploiting-adidns/"
+  - "https://www.thehacker.recipes/a-d/movement/mitm-and-coerced-authentications/adidns-spoofing"
+setup: |
+  The 'Audit Directory Service Changes' logging policy must be configured for (Success, Failure).
+  Steps to implement the logging policy with Advanced Audit Configuration:
+  

@@ -1,0 +1,47 @@
+title: NTDS or SAM Database File Copied
+status: Developed
+description: |
+  Identifies a copy operation of the Active Directory Domain Database (ntds.dit) or Security Account Manager (SAM) files.
+  These files contain sensitive information including hashed domain and/or local credentials.
+references:
+  - https://thedfirreport.com/2020/11/23/pysa-mespinoza-ransomware/
+  - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1003.002/T1003.002.md#atomic-test-3---esentutlexe-sam-copy
+  - https://www.elastic.co/security-labs/detect-credential-access
+  - https://www.elastic.co/security-labs/siestagraph-new-implant-uncovered-in-asean-member-foreign-ministry
+author: Amr Ashraf
+date: 2024/11/02
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4688
+    CommandLine|contains:
+      - "\\ntds.dit"
+      - "\\config\\SAM"
+      - "\\*\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy"
+      - "/system32/config/SAM"
+      - "\\User Data\\"
+    OriginalFileName|endswith:
+      - "Cmd.Exe"
+      - "PowerShell.EXE"
+      - "XCOPY.EXE"
+      - "esentutl.exe"
+    CommandLine|regex:
+      - "(?i).*\\b(copy|xcopy|Copy-Item|move|cp|mv)\\b.*"
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - EventID
+falsepositives:
+  - Legitimate system administrators backing up the NTDS or SAM files.
+  - IT maintenance or automation scripts.
+level: high
+tags:
+  - attack.t1003
+  - attack.t1003.002
+  - attack.t1003.003
+  - attack.ta0006

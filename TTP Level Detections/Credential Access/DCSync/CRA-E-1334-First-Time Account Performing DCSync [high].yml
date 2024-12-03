@@ -1,0 +1,40 @@
+title: First-Time Account Performing DCSync
+status: Developed
+author: Amr Ashraf
+date: 2024-12-01
+description: |
+    Detects the first-time usage of a user account to initiate an Active Directory replication process, which could indicate potential DCSync attack attempts to obtain credential data.
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        EventID: 4662
+        Properties|contains:
+            - "DS-Replication-Get-Changes"
+            - "DS-Replication-Get-Changes-All"
+            - "DS-Replication-Get-Changes-In-Filtered-Set"
+            - "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2"
+            - "1131f6aa-9c07-11d1-f79f-00c04fc2dcd2"
+            - "89e95b76-444d-4c62-991a-0facbeda640c"
+    exclusion:
+        SubjectUserName|endswith: ['$', 'MSOL_*']
+    condition: selection and not exclusion
+fields:
+    - EventID
+    - Properties
+    - SubjectUserName
+    - SubjectDomainName
+    - ObjectName
+    - AccessMask
+falsepositives:
+    - Custom administrator accounts used legitimately for Active Directory replication.
+    - Specific software requiring replication privileges.
+severity: high
+tags:
+    - attack.credential_access
+    - attack.privilege_escalation
+    - attack.t1003
+    - attack.t1003.006
+    - attack.t1078
+    - attack.t1078.002

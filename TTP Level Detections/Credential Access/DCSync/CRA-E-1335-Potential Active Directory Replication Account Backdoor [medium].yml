@@ -1,0 +1,36 @@
+title: Potential Active Directory Replication Account Backdoor
+status: Developed
+author: Amr Ashraf
+date: 2024-12-01
+description: |
+    Detects modifications to the nTSecurityDescriptor attribute in a domain object, granting DCSync rights to a user or computer account. This behavior can indicate a backdoor used to re-obtain access to hashes of any user or computer in the domain.
+logsource:
+    category: directory_service
+    product: windows
+detection:
+    selection:
+        EventID: 5136
+        EventAction:
+            - "Directory Service Changes"
+            - "directory-service-object-modified"
+        AttributeLDAPDisplayName: "nTSecurityDescriptor"
+        AttributeValue|contains:
+            - "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2;;S-1-5-21-"
+            - "1131f6aa-9c07-11d1-f79f-00c04fc2dcd2;;S-1-5-21-"
+            - "89e95b76-444d-4c62-991a-0facbeda640c;;S-1-5-21-"
+    condition: selection
+fields:
+    - EventID
+    - AttributeLDAPDisplayName
+    - AttributeValue
+    - SubjectUserName
+    - SubjectDomainName
+    - ObjectName
+falsepositives:
+    - Changes made by legitimate administrators or approved tools for legitimate purposes.
+    - Custom configurations for specific environments requiring attribute modifications.
+severity: medium
+tags:
+    - attack.credential_access
+    - attack.t1003
+    - attack.t1003.006

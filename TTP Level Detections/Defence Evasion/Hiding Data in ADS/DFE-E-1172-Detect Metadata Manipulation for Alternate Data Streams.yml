@@ -12,7 +12,10 @@ detection:
       - '*\streams.exe'
       - '*\powershell.exe'
     CommandLine|contains: ':'
-  condition: selection
+  filter:
+    CommandLine| contains:
+      - '::'
+  condition: selection and not filter
 fields:
   - Image
   - CommandLine

@@ -1,0 +1,41 @@
+title: Potential Relay Attack Against a Domain Controller
+status: Developed
+author: Amr Ashraf
+date: 2024-12-01
+description: |
+    Detects potential relay attacks against a domain controller (DC) by identifying NTLM authentication events 
+    where the domain controller computer account is used from an external source. 
+    Attackers may relay the DC hash after capturing it using forced authentication.
+logsource:
+    category: authentication
+    product: windows
+detection:
+    selection:
+        EventID:
+            - 4624
+            - 4625
+        LogonType: 3
+        AuthenticationPackageName: NTLM
+    filter_machine_account:
+        AccountName|endswith: "$"
+    filter_internal_ips:
+        SourceIp:
+            - "::1"
+            - "127.0.0.1"
+    condition: selection and not filter_machine_account and not filter_internal_ips
+fields:
+    - EventID
+    - AccountName
+    - SourceIp
+    - Hostname
+    - LogonType
+    - AuthenticationPackageName
+falsepositives:
+    - Legitimate network authentication activities using machine accounts.
+    - Misconfigured tools or processes performing network logons with machine accounts.
+severity: low
+tags:
+    - attack.credential_access
+    - attack.t1187
+    - attack.t1557
+    - attack.t1557.001

@@ -11,7 +11,9 @@ detection:
     Image: '*\powershell.exe'
     CommandLine|contains: ':'
   exclusion:
-    CommandLine|contains: 'Zone.Identifier'
+    CommandLine|contains: 
+      - 'Zone.Identifier'
+      - '::'
   condition: selection and not exclusion
 fields:
   - Image

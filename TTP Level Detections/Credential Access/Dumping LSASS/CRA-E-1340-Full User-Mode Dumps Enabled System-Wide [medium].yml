@@ -1,0 +1,43 @@
+title: Full User-Mode Dumps Enabled System-Wide
+status: Developed
+author: Amr Ashraf
+date: 2024-12-01
+description: |
+    Detects the enablement of the full user-mode dumps feature system-wide. This feature allows Windows Error Reporting (WER) to collect data after an application crash. This setting can be exploited in LSASS Shtinkering attacks to dump LSASS memory without introducing malware to the system.
+logsource:
+    category: registry
+    product: windows
+detection:
+    selection:
+        RegistryKey|contains:
+            - "HKLM\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\\LocalDumps\\DumpType"
+            - "\\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\\LocalDumps\\DumpType"
+        RegistryValue: 
+            - "2"
+            - "0x00000002"
+    filter:
+        ProcessImage:
+            - "?:\\Windows\\system32\\svchost.exe"
+        UserID:
+            - "S-1-5-18"
+            - "S-1-5-19"
+            - "S-1-5-20"
+    condition: selection and not filter
+fields:
+    - RegistryKey
+    - RegistryValue
+    - UserID
+    - ProcessImage
+falsepositives:
+    - Legitimate changes by system administrators or automated update processes.
+severity: medium
+tags:
+    - attack.credential_access
+    - attack.t1003
+    - attack.t1003.001
+    - attack.t1112
+    - attack.defense_evasion
+references:
+    - https://docs.microsoft.com/en-us/windows/win32/wer/collecting-user-mode-dumps
+    - https://github.com/deepinstinct/Lsass-Shtinkering
+    - https://media.defcon.org/DEF%20CON%2030/DEF%20CON%2030%20presentations/Asaf%20Gilboa%20-%20LSASS%20Shtinkering%20Abusing%20Windows%20Error%20Reporting%20to%20Dump%20LSASS.pdf
