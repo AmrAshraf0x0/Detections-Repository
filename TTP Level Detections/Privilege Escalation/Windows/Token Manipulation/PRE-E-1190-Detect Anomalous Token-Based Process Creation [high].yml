@@ -8,16 +8,19 @@ logsource:
   product: windows
 detection:
   selection_token:
-    EventID: 4696
-    TargetUserName|not: 
+    - EventID: 4696
+    - TargetLogonId: '0x3e7'
+  filter:
+    - TargetUserName|contains: 
       - 'SYSTEM'
       - 'LOCAL SERVICE'
       - 'NETWORK SERVICE'
-    SubjectUserName|not: 
+  filter1:
+    - SubjectUserName|contains: 
       - 'Administrator'
       - 'Domain Admins'
-    TargetLogonId: '0x3e7'       # SYSTEM token
-  condition: selection_token
+           # SYSTEM token
+  condition: selection_token and not filter and not filter1
 fields:
   - EventID
   - SubjectUserName

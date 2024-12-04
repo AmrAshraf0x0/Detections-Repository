@@ -10,10 +10,11 @@ detection:
     - RegistryPath|contains:
         - "\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Windows\\AppInit_Dlls"
         - "\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Windows\\AppInit_Dlls"
-      ProcessPath|not:
+  filter:
+    - ProcessPath|contains:
         - "\\system32\\msiexec.exe"
         - "\\syswow64\\msiexec.exe"
-  condition: selection
+  condition: selection and not filter
 fields:
   - RegistryPath
   - RegistryKey

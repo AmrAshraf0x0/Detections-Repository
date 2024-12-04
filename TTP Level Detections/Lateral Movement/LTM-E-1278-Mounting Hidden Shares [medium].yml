@@ -10,11 +10,12 @@ detection:
     - ProcessName:
         - "net.exe"
         - "net1.exe"
-      ParentProcessName|ne: "net.exe"
       CommandLine|contains:
         - "use"
         - "\\\\"
-  condition: selection
+  filter:
+      ParentProcessName|contains: "net.exe"
+  condition: selection and not filter
 fields:
   - ProcessName
   - ParentProcessName

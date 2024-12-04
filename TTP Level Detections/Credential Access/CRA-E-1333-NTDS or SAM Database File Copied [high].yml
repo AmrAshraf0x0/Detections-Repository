@@ -27,7 +27,7 @@ detection:
       - "PowerShell.EXE"
       - "XCOPY.EXE"
       - "esentutl.exe"
-    CommandLine|regex:
+    CommandLine|re:
       - "(?i).*\\b(copy|xcopy|Copy-Item|move|cp|mv)\\b.*"
   condition: selection
 fields:

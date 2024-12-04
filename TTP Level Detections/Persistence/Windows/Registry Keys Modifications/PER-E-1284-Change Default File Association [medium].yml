@@ -11,9 +11,8 @@ detection:
     registry_change:
       - RegistryPath|contains:
           - "\\SOFTWARE\\Classes\\"
-      - RegistryPath|contains:
           - "\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\GlobalAssocChangedCounter"
-  condition: registry_change
+  condition: selection
 fields:
   - RegistryPath
   - RegistryKey

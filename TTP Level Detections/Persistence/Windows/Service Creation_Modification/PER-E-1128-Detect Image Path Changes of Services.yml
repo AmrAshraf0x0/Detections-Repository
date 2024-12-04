@@ -3,14 +3,14 @@ description: Detects modifications to the ImagePath registry value of services.
 status: Suggestion
 author: Amr Ashraf
 logsource:
-  product: windows
-  service: security
+  product: windows
+  service: security
 detection:
-  selection:
-    EventID: 4657
-    RegistryKey|contains: 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\'
-    RegistryValue: 'ImagePath'
-  condition: selection
+  selection:
+    EventID: 4657
+    RegistryKey|contains: 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\'
+    RegistryValue: 'ImagePath'
+  condition: selection
 fields:
  - EventID
  - RegistryKey

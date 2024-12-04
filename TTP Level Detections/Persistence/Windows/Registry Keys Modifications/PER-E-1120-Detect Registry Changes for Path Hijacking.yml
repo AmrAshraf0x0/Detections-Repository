@@ -3,13 +3,13 @@ description: Detects modifications to registry keys that define DLL and executab
 status: Developed
 author: Amr Ashraf
 logsource:
-  product: windows
-  service: security
+  product: windows
+  service: security
 detection:
-  selection:
-    EventID: 4657
-    RegistryKey|contains: 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\KnownDLLs'
-  condition: selection
+  selection:
+    EventID: 4657
+    RegistryKey|contains: 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\KnownDLLs'
+  condition: selection
 fields:
  - EventID
  - RegistryKey

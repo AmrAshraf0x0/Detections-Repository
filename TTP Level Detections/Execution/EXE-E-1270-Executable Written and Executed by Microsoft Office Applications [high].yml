@@ -10,7 +10,7 @@ detection:
   selection:
     file_creation:
       - FileName|endswith: ".exe"
-        ProcessName:
+      - ProcessName:
           - "winword.exe"
           - "excel.exe"
           - "powerpnt.exe"

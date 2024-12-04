@@ -10,8 +10,6 @@ detection:
     Image|endswith:
       - "\\wscript.exe"
       - "\\cscript.exe"
-    DestinationIp|not: "127.0.0.1"
-    Protocol|not: "dns"
     Direction:
       - "outgoing"
       - "egress"
@@ -19,8 +17,10 @@ detection:
     FileName|endswith:
       - ".exe"
       - ".dll"
-    EventType: "creation"
-  condition: selection_network and selection_file
+  filter:
+    DestinationIp|not: "127.0.0.1"
+    Protocol|not: "dns"
+  condition: selection_network and selection_file and not filter
 fields:
   - Image
   - CommandLine

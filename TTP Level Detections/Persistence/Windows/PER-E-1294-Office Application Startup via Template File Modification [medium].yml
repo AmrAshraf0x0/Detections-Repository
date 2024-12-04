@@ -10,8 +10,9 @@ detection:
     - FilePath|contains:
         - "\\AppData\\Roaming\\Microsoft\\Templates\\Normal.dotm"
         - "\\AppData\\Roaming\\Microsoft\\Excel\\XLSTART\\PERSONAL.XLSB"
-    - Subtype|ne: "delete"
-  condition: selection
+  filter:
+    - Subtype|contains: "delete"
+  condition: selection and not filter
 fields:
   - FilePath
   - FileName

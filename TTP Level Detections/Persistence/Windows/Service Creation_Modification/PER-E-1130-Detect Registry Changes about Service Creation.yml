@@ -3,13 +3,13 @@ description: Detects modifications to registry keys under HKLM\SYSTEM\CurrentCon
 status: Developed
 author: Amr Ashraf
 logsource:
-  product: windows
-  service: system
+  product: windows
+  service: system
 detection:
-  selection:
-    EventID: 4657
-    RegistryKey|contains: 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\'
-  condition: selection
+  selection:
+    EventID: 4657
+    RegistryKey|contains: 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\'
+  condition: selection
 fields:
  - EventID
  - RegistryKey

@@ -3,12 +3,12 @@ description: Detects the creation of new services in Windows.
 status: Suggestion
 author: Amr Ashraf
 logsource:
-  product: windows
-  service: system
+  product: windows
+  service: system
 detection:
-  selection:
-    EventID: 7045
-  condition: selection
+  selection:
+    EventID: 7045
+  condition: selection
 fields:
  - EventID
  - ServiceName

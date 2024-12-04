@@ -7,19 +7,20 @@ logsource:
   product: any
 detection:
   selection:
-    - Subtype|ne: "delete"
-      FileName|endswith:
+    - FileName|endswith:
         - ".exe"
         - ".dll"
         - ".ps1"
         - ".vbs"
         - ".bat"
-      FilePath|contains:
+    - FilePath|contains:
         # Windows paths
         - "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions"
         - "\\Program Files\\Mozilla Firefox\\plugins"
         - "\\Program Files\\Internet Explorer\\Plugins"
-  condition: selection
+  filter:
+    - Subtype|contains: "delete"
+  condition: selection and not filter
 fields:
   - FileName
   - FilePath

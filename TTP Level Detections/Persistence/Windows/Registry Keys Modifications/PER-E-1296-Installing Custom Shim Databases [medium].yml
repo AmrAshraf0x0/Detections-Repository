@@ -9,9 +9,11 @@ detection:
   selection:
     - RegistryPath|contains: "\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Custom\\"
       RegistryPath|endswith: ".sdb"
-    - ProcessName|not: "sdbinst.exe"
-      ParentProcessName|not: "msiexec.exe"
-  condition: selection
+  filter1:
+      ProcessName|contains: "sdbinst.exe"
+  filter2:
+      ParentProcessName|contains: "msiexec.exe"
+  condition: selection and not (filter1 or filter2)
 fields:
   - RegistryPath
   - RegistryKey

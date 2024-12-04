@@ -13,8 +13,8 @@ detection:
     - EventID: 
       - 4950
       - 4956
-    ProviderName: 'Microsoft-Windows-Security-Auditing'
-    Message|contains: 
+    - ProviderName: 'Microsoft-Windows-Security-Auditing'
+    - Message|contains: 
         - 'A Windows Firewall setting has changed'
         - 'Windows Firewall has changed the active profile'
   condition: selection

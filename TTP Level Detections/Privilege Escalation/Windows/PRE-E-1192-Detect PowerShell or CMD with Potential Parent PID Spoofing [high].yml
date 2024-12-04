@@ -8,16 +8,17 @@ logsource:
   product: windows
 detection:
   selection:
-    EventID: 4688
-    Image|endswith:
+    - EventID: 4688
+    - Image|endswith:
       - '\powershell.exe'
       - '\cmd.exe'
-    ParentImage|not:
-      - '*\explorer.exe'
-      - '*\services.exe'
-      - '*\taskmgr.exe'
-      - '*\mmc.exe'
-  condition: selection
+  filter:
+    ParentImage|endswith:
+      - '\explorer.exe'
+      - '\services.exe'
+      - '\taskmgr.exe'
+      - '\mmc.exe'
+  condition: selection and not filter
 fields:
   - EventID
   - Image

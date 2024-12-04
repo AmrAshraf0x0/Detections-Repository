@@ -13,7 +13,7 @@ detection:
       - '*\powershell.exe'
     CommandLine|contains: ':'
   filter:
-    CommandLine| contains:
+    CommandLine|contains:
       - '::'
   condition: selection and not filter
 fields:

@@ -11,8 +11,9 @@ detection:
     FileName|endswith:
       - ".dll"
       - ".exe"
-    FileName|ne: ":Zone.Identifier"
-  condition: selection
+  filter:
+    FileName|contains: ":Zone.Identifier"
+  condition: selection and not filter
 fields:
   - FileName
   - FilePath

@@ -8,45 +8,68 @@ logsource:
 detection:
   selection:
     - ProcessName: "smss.exe"
-      ParentProcessName|not:
+  filter:
+    -  ParentProcessName|contains:
         - "System"
         - "smss.exe"
+  selection1:
     - ProcessName: "csrss.exe"
-      ParentProcessName|not:
+  filter1:  
+    -  ParentProcessName|contains:
         - "smss.exe"
         - "svchost.exe"
+  selection2:
     - ProcessName: "wininit.exe"
-      ParentProcessName|not: "smss.exe"
+  filter2:
+    - ParentProcessName|contains: "smss.exe"
+  selection3:
     - ProcessName: "winlogon.exe"
-      ParentProcessName|not: "smss.exe"
+  filter3:
+    - ParentProcessName|contains: "smss.exe"
+  selection4:
     - ProcessName: "lsass.exe"
-      ParentProcessName|not: "wininit.exe"
+  filter4:
+    - ParentProcessName|contains: "wininit.exe"
+  selection5:
     - ProcessName: "LogonUI.exe"
-      ParentProcessName|not:
+  filter5:
+    - ParentProcessName|contains:
         - "winlogon.exe"
         - "wininit.exe"
+  selection6:
     - ProcessName: "services.exe"
-      ParentProcessName|not: "wininit.exe"
+  filter6:
+    - ParentProcessName|contains: "wininit.exe"
+  selection7:
     - ProcessName: "svchost.exe"
-      ParentProcessName|not:
+  filter7: 
+    - ParentProcessName|contains:
         - "services.exe"
         - "*\\system32\\svchost.exe"
       ProcessPath: "*\\syswow64\\svchost.exe"
+  selection8:
     - ProcessName: "spoolsv.exe"
-      ParentProcessName|not: "services.exe"
+  filter8:
+    - ParentProcessName|contains: "services.exe"
+  selection9:
     - ProcessName: "taskhost.exe"
-      ParentProcessName|not:
+  filter9:
+    - ParentProcessName|contains:
         - "services.exe"
         - "svchost.exe"
+  selection10:
     - ProcessName: "taskhostw.exe"
-      ParentProcessName|not:
+  filter10:
+    - ParentProcessName|contains:
         - "services.exe"
         - "svchost.exe"
+  selection11:
     - ProcessName: "userinit.exe"
-      ParentProcessName|not:
+  filter11:
+    - ParentProcessName|contains:
         - "dwm.exe"
         - "winlogon.exe"
-  condition: selection
+  condition: (selection and filter) or (selection1 and filter1) or (selection2 and filter2) or (selection3 and filter3) or (selection4 and filter4) or (selection5 and filter5) or (selection6 and filter6) or (selection7 and filter7) or (selection8 and filter8) or (selection9 and filter9) or (selection10 and filter10) or (selection11 and filter11)
 fields:
   - ProcessName
   - ParentProcessName

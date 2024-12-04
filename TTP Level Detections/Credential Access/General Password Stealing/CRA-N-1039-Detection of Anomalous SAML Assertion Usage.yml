@@ -6,10 +6,6 @@ logsource:
   category: network_traffic
   product: windows
 detection:
-  selection:
-    Protocol: "SAML"
-    Direction: "request"
-  condition: selection
   groupby:
     - TicketID
     - SourceIP

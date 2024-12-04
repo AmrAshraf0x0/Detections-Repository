@@ -3,13 +3,13 @@ description: Detects the execution of PowerShell scripts and commands using scri
 status: Developed
 author: Amr Ashraf
 logsource:
-  product: windows
-  service: powershell
+  product: windows
+  service: powershell
 detection:
-  selection:
-    EventID: 4104
-    ScriptBlockText|contains: 'New-Service'
-  condition: selection
+  selection:
+    EventID: 4104
+    ScriptBlockText|contains: 'New-Service'
+  condition: selection
 fields:
  - EventID
  - ScriptBlockText

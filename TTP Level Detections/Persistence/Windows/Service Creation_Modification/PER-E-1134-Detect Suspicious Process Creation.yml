@@ -3,25 +3,25 @@ description: Detects the execution of commands that create services, such as usi
 status: Developed
 author: Amr Ashraf
 logsource:
-  product: windows
-  service: security
+  product: windows
+  service: security
 detection:
-  selection1:
-    EventID: 4688
-    NewProcessName: 'C:\\Windows\\System32\\sc.exe'
-    CommandLine|contains: 'create'
-  selection2:
-    EventID: 4688
-    NewProcessName: 'powershell.exe'
-    CommandLine|contains: 'New-Service'
-  selection3:
-    EventID: 4688
-    NewProcessName: 'services.exe'
-    CommandLine|contains: 'create'
-  condition: selection1 or selection2 or selection3
+  selection1:
+    EventID: 4688
+    Image: 'C:\\Windows\\System32\\sc.exe'
+    CommandLine|contains: 'create'
+  selection2:
+    EventID: 4688
+    Image: 'powershell.exe'
+    CommandLine|contains: 'New-Service'
+  selection3:
+    EventID: 4688
+    Image: 'services.exe'
+    CommandLine|contains: 'create'
+  condition: selection1 or selection2 or selection3
 fields:
  - EventID
- - NewProcessName
+ - Image
  - CommandLine
 falsepositives:
  - Legitimate use of service creation commands

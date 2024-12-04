@@ -19,8 +19,9 @@ detection:
             - '\powershell.exe'
             - '\pwsh.exe'
             - '\cmd.exe'
-        TargetFilename|contains: '\start menu\programs\startup\'
-        TargetFilename|contains: '.lnk'
+        TargetFilename|contains: 
+            - '\start menu\programs\startup\'
+            - '.lnk'
     condition: selection
 falsepositives:
     - Depending on your environment accepted applications may leverage this at times. It is recommended to search for anomalies inidicative of malware.

@@ -14,7 +14,7 @@ detection:
       - 327 # The database engine detached a database
     EventData|contains:
       - '\ntds.dit'
-  condition: selection and not filter
+  condition: selection
 falsepositives:
 - Administrator creating a IFM image
 - Backup program or script

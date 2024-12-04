@@ -7,12 +7,13 @@ logsource:
   product: linux
 detection:
   selection:
-    - Subtype|ne: "delete"
-      FileName|endswith: ".service"
-      FilePath|contains:
+    - FileName|endswith: ".service"
+    - FilePath|contains:
         - "/etc/systemd/system/"
         - "/usr/lib/systemd/system/"
-  condition: selection
+  filter:
+    Subtype|contains: "delete"
+  condition: selection and not filter
 fields:
   - FileName
   - FilePath

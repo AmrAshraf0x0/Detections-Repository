@@ -17,7 +17,7 @@ detection:
       - 'nano'
       - 'echo'
       - 'cat'
-  condition: selection and (filter_process or filter_user)
+  condition: selection and filter_process
 fields:
   - EventID
   - FileName

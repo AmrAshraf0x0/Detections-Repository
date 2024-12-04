@@ -8,19 +8,19 @@ logsource:
   product: windows
 detection:
   selection:
-    EventID: 4688
-    Image|re: 
+    - EventID: 4688
+    - Image|re: 
       - '.*\\AppData\\.*'
       - '.*\\Temp\\.*'
       - '.*\\Downloads\\.*'
       - '.*\\Public\\.*'
       - '.*\\ProgramData\\.*'
-    ParentImage|not:
-      - '*\explorer.exe'
-      - '*\cmd.exe'
-      - '*\powershell.exe'
-      - '*\services.exe'
-      - '*\taskmgr.exe'
+    - ParentImage|endswith:
+      - '\explorer.exe'
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\services.exe'
+      - '\taskmgr.exe'
   condition: selection
 fields:
   - EventID

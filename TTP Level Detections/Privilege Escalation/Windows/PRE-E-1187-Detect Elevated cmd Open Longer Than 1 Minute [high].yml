@@ -13,7 +13,9 @@ detection:
     IntegrityLevel: High
     ParentImage|endswith: 
       - '\explorer.exe'
-    condition: creation and not ParentImage|endswith: '\explorer.exe'
+  filter:
+    ParentImage|endswith: '\explorer.exe'
+    condition: creation and not filter
   termination:
     EventID: 4689
     Image: '*\cmd.exe'
