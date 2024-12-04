@@ -30,7 +30,7 @@ fields:
     - ProcessImage
 falsepositives:
     - Legitimate changes by system administrators or automated update processes.
-severity: medium
+level: medium
 tags:
     - attack.credential_access
     - attack.t1003

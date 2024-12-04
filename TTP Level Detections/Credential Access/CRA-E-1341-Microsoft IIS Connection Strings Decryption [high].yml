@@ -23,7 +23,7 @@ fields:
 falsepositives:
     - Legitimate use by administrators or developers to manage IIS configurations.
     - Debugging or maintenance activities involving connection strings.
-severity: high
+level: high
 tags:
     - attack.credential_access
     - attack.t1003

@@ -25,7 +25,7 @@ fields:
 falsepositives:
     - Legitimate changes to DNS records by authorized administrators or automated processes.
     - Routine DNS management tasks performed by IT operations teams.
-severity: low
+level: low
 tags:
     - attack.credential_access
     - attack.t1557

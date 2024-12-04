@@ -27,7 +27,7 @@ fields:
 falsepositives:
     - Legitimate domain administrator activities or updates to DPAPI backup keys.
     - Backup or recovery operations by authorized administrators.
-severity: high
+level: high
 tags:
     - attack.credential_access
     - attack.t1552

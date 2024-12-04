@@ -30,7 +30,7 @@ fields:
 falsepositives:
     - Custom administrator accounts used legitimately for Active Directory replication.
     - Specific software requiring replication privileges.
-severity: high
+level: high
 tags:
     - attack.credential_access
     - attack.privilege_escalation
