@@ -8,12 +8,15 @@ logsource:
   product: windows
 detection:
   selection:
-    Image: '*\powershell.exe'
+    Image: 
+      - '\powershell.exe'
+      - '\pwsh.exe'
     CommandLine|contains: ':'
   exclusion:
     CommandLine|contains: 
       - 'Zone.Identifier'
       - '::'
+      - ":\"
   condition: selection and not exclusion
 fields:
   - Image

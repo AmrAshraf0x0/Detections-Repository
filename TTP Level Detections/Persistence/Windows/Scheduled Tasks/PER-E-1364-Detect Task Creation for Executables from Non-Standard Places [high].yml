@@ -1,0 +1,33 @@
+title: Detect Task Creation for Executables from Non-Standard Places
+id: detect-task-creation-eventid
+status: Developed
+description: Detects task creation events in Windows where the task executes binaries from non-standard paths.
+author: Amr Ashraf
+logsource:
+  category: windows
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4698
+    TaskContent|contains:
+      - '<Command>'
+  filter:
+    TaskContent|contains:
+      - 'C:\Program Files\'
+      - 'C:\Windows\System32\'
+      - 'C:\Windows\SysWOW64\'
+  condition: selection and not filter
+fields:
+  - EventID
+  - TaskName
+  - TaskContent
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.persistence
+  - attack.execution
+  - t1053.005
+falsepositives:
+  - Legitimate scheduled tasks for software installed in non-standard locations.
