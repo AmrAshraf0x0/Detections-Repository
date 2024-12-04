@@ -1,0 +1,43 @@
+title: Detect Suspicious WMI Activity
+status: Developed
+description: Detects suspicious Windows Management Instrumentation (WMI) activity that may indicate discovery, lateral movement, or execution.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - Image|endswith:
+        - '\wmic.exe'
+        - '\wmiprvse.exe'
+        - '\winmgmt.exe'
+      CommandLine|contains:
+        - ' /node:'
+        - ' /user:'
+        - ' process call create'
+        - ' path win32_process'
+        - ' call create'
+    - ParentImage|endswith:
+        - '\powershell.exe'
+        - '\cmd.exe'
+        - '\mshta.exe'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+  - Hostname
+  - ProcessId
+  - ParentProcessId
+level: medium
+tags:
+  - attack.execution
+  - attack.lateral_movement
+  - attack.discovery
+  - t1047
+  - t1569.002
+  - t1028
+falsepositives:
+  - Legitimate administrative WMI usage for IT management
+  - Scheduled tasks invoking WMI for monitoring purposes

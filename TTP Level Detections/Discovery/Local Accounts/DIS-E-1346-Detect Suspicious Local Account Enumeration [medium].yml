@@ -1,0 +1,46 @@
+title: Detect Suspicious Local Account Enumeration
+status: Developed
+description: Detects suspicious commands or processes used to enumerate local accounts, commonly seen in post-exploitation activities.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    - Image|endswith:
+        - '\net.exe'
+        - '\net1.exe'
+      CommandLine|contains:
+        - ' localgroup administrators'
+        - ' user'
+        - ' accounts'
+    - Image|endswith:
+        - '\cmd.exe'
+      CommandLine|contains:
+        - 'wmic useraccount get'
+        - 'whoami /all'
+        - 'net user'
+    - Image|endswith:
+        - '\powershell.exe'
+      CommandLine|contains:
+        - 'Get-LocalUser'
+        - 'Get-LocalGroupMember'
+  exclusion:
+    - ParentImage|endswith:
+        - '\mmc.exe'
+  condition: selection and not exclusion
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+  - Hostname
+  - ProcessId
+  - ParentProcessId
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1087.001
+falsepositives:
+  - Legitimate administrative tasks by IT staff.
+  - Scheduled scripts or monitoring tools querying account information.

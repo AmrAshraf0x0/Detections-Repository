@@ -1,0 +1,25 @@
+title: Detect WMI Persistence
+status: Developed
+description: Detects the creation of WMI Event Filters, Consumers, and Bindings, which may indicate persistence.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    - RegistryPath|contains:
+        - '\\root\\subscription\\__eventfilter'
+        - '\\root\\subscription\\__eventconsumer'
+        - '\\root\\subscription\\__filtertoconsumerbinding'
+  condition: selection
+fields:
+  - RegistryPath
+  - User
+  - Hostname
+  - ProcessId
+level: high
+tags:
+  - attack.persistence
+  - t1546.003
+falsepositives:
+  - Legitimate WMI subscriptions configured by administrators

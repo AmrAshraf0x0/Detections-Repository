@@ -1,0 +1,38 @@
+title: Detect Network Logon Script Modifications
+id: detect-network-logon-script-modification
+status: Developed
+description: Detects suspicious modifications to network logon scripts, which may indicate adversary persistence or lateral movement.
+author: Amr Ashraf
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    - FilePath|startswith:
+        - '\\\\*\\NETLOGON'
+        - '\\\\*\\SYSVOL'
+      EventID: 4663
+      AccessMask: '0x2'  # Write permissions
+  filter:
+    - FileName|endswith:
+        - '.bat'
+        - '.cmd'
+        - '.vbs'
+        - '.ps1'
+  condition: selection and not filter
+fields:
+  - FilePath
+  - FileName
+  - User
+  - Hostname
+  - ProcessName
+  - AccessMask
+level: high
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.lateral_movement
+  - t1037.003
+falsepositives:
+  - Legitimate administrative modifications to logon scripts.
+  - System updates or maintenance tasks involving logon scripts.

@@ -1,0 +1,30 @@
+title: Detect Disabling Cryptographic Hardware
+status: Developed
+description: Detects attempts to disable cryptographic hardware acceleration, which may weaken encryption and indicate an attacker's attempt to degrade security.
+author: Amr Ashraf
+logsource:
+  category: registry
+  product: windows
+detection:
+  selection:
+    - RegistryPath|contains:
+        - "\\System\\CurrentControlSet\\Control\\Cryptography\\Configuration\\Local\\SSL\\00010002\\Functions"
+      ValueName: "DisableHardwareAcceleration"
+      Value: 1
+  condition: selection
+fields:
+  - RegistryPath
+  - ValueName
+  - ValueType
+  - Value
+  - User
+  - Hostname
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.defense_evasion
+  - t1562.001
+  - attack.weaken_encryption
+falsepositives:
+  - Legitimate administrative changes to cryptographic settings.
+  - Configuration changes for troubleshooting or compatibility purposes.

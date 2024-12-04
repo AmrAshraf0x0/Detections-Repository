@@ -1,0 +1,47 @@
+title: Detect Access to Private Keys on Linux
+status: Developed
+description: Detects suspicious access, modification, or creation of private key files on Linux systems, indicating potential credential harvesting or misuse.
+author: Amr Ashraf
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    - Image|endswith:
+        - '/bin/cat'
+        - '/bin/less'
+        - '/bin/grep'
+        - '/usr/bin/nano'
+        - '/usr/bin/vim'
+        - '/usr/bin/ssh'
+      CommandLine|contains:
+        - '.pem'
+        - '.key'
+        - 'id_rsa'
+        - 'id_dsa'
+    - FilePath|endswith:
+        - '.pem'
+        - '.key'
+        - 'id_rsa'
+        - 'id_dsa'
+        - 'authorized_keys'
+  filter:
+    - FilePath|contains:
+        - '/etc/ssl/certs/'
+        - '/var/www/'
+  condition: selection and not filter
+fields:
+  - Image
+  - CommandLine
+  - FilePath
+  - User
+  - Hostname
+  - ProcessId
+  - ParentProcessId
+level: high
+tags:
+  - attack.credential_access
+  - attack.collection
+  - t1552.004
+falsepositives:
+  - Legitimate administrative tasks, such as managing certificates or backups.

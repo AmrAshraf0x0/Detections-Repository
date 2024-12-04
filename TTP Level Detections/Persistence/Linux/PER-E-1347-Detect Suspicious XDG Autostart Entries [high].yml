@@ -1,0 +1,27 @@
+title: Detect Suspicious XDG Autostart Entries
+id: detect-xdg-autostart-entries
+status: Developed
+description: Detects creation or modification of XDG autostart entries, which may indicate persistence through `.desktop` files.
+author: Amr Ashraf
+logsource:
+  category: file_event
+  product: linux
+detection:
+  selection:
+    - FilePath|contains:
+        - '/etc/xdg/autostart/'
+        - '$HOME/.config/autostart/'
+      FileName|endswith: '.desktop'
+  condition: selection
+fields:
+  - FilePath
+  - FileName
+  - User
+  - Hostname
+  - Command
+level: high
+tags:
+  - attack.persistence
+  - t1547.013
+falsepositives:
+  - Legitimate `.desktop` files created by known applications or system administrators.
