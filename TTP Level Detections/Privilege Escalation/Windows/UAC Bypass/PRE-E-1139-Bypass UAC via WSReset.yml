@@ -5,7 +5,7 @@ related:
       type: obsolete
     - id: d797268e-28a9-49a7-b9a8-2f5039011c5c
       type: derived
-status: test
+status: Developed
 description: Detects use of WSReset.exe to bypass User Account Control (UAC). Adversaries use this technique to execute privileged processes.
 references:
     - https://eqllib.readthedocs.io/en/latest/analytics/532b5ed4-7930-11e9-8f5c-d46d6d62a49e.html

@@ -1,6 +1,6 @@
 title: Detect Image Path Changes of Services
 description: Detects modifications to the ImagePath registry value of services.
-status: Suggestion
+status: Developed
 author: Amr Ashraf
 logsource:
   product: windows

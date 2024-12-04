@@ -18,4 +18,3 @@ detection:
 falsepositives:
     - Legitimate extension of domain structure
 level: medium
-ruletype: Sigma

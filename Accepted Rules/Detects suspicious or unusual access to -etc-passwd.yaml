@@ -1,6 +1,6 @@
 title: Detects suspicious or unusual access to /etc/passwd
 id: 1-etc-ad
-status: test
+status: Developed
 description: Detects unauthorized access attempts to the /etc/passwd file.
 references:
   - https://attack.mitre.org/techniques/T1003/008/

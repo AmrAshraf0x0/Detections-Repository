@@ -1,6 +1,6 @@
 title: Suspicious AS-REP Roasting Activity Detected
 id: 1-asrep-ad
-status: test
+status: Developed
 description: Detects potential AS-REP Roasting activity by monitoring for Kerberos AS-REP responses without preauthentication.
 references:
   - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1069.002/T1069.002.md#atomic-test-11---get-aduser-enumeration-using-useraccountcontrol-flags-as-rep-roasting

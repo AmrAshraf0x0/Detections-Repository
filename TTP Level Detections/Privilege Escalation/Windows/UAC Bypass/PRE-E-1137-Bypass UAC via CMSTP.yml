@@ -3,7 +3,7 @@ id: e6b6d67d-434b-039b-029d-55391089a033
 related:
     - id: e66779cc-383e-4224-a3a4-267eeb585c40
       type: derived
-status: test
+status: Developed
 description: Detect commandline usage of Microsoft Connection Manager Profile Installer (cmstp.exe) to install specially formatted local .INF files
 references:
     - https://eqllib.readthedocs.io/en/latest/analytics/e584f1a1-c303-4885-8a66-21360c90995b.html

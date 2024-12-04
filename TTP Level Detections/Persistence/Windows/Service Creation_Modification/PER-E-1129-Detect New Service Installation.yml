@@ -1,6 +1,6 @@
 title: Detect New Service Installation
 description: Detects the creation of new services in Windows.
-status: Suggestion
+status: Developed
 author: Amr Ashraf
 logsource:
   product: windows

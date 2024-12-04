@@ -1,6 +1,6 @@
 title: Detect Service Start Type Modification
 description: Detects changes to the start type of services.
-status: Suggestion
+status: Developed
 author: Amr Ashraf
 logsource:
   product: windows
