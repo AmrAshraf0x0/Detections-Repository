@@ -7,37 +7,32 @@ logsource:
   product: windows
 detection:
   selection_processes:
-    - Image|endswith:
+    - EventID: 4688
+    - ProcessName|endswith:
         - '\powershell.exe'
       CommandLine|contains:
         - 'mciSendString'
         - 'Get-Process *Camera*'
-    - Image|endswith:
+    - ProcessName|endswith:
         - '\ffmpeg.exe'
       CommandLine|contains:
         - '-video_size'
         - '-i video='
         - '-f dshow'
-    - Image|endswith:
+    - ProcessName|endswith:
         - '\obs64.exe'
       CommandLine|contains:
         - '--startrecording'
         - '--recording'
-    - Image|endswith:
+    - ProcessName|endswith:
         - '\vlc.exe'
       CommandLine|contains:
         - '--sout'
         - '--screen-fps'
   condition: selection_processes
 fields:
-  - Image
+  - ProcessName
   - CommandLine
-  - ParentImage
-  - User
-  - Hostname
-  - ProcessId
-  - ParentProcessId
-  - IntegrityLevel
 level: high
 tags:
   - attack.collection
