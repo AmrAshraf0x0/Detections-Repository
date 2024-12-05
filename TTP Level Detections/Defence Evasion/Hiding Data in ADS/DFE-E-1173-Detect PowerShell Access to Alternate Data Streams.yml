@@ -16,7 +16,7 @@ detection:
     CommandLine|contains: 
       - 'Zone.Identifier'
       - '::'
-      - ":\"
+      - '':\'
   condition: selection and not exclusion
 fields:
   - Image

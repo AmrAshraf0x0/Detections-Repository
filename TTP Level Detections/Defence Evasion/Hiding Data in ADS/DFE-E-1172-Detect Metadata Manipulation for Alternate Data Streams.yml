@@ -15,6 +15,7 @@ detection:
   filter:
     CommandLine|contains:
       - '::'
+      - ":\"
   condition: selection and not filter
 fields:
   - Image
