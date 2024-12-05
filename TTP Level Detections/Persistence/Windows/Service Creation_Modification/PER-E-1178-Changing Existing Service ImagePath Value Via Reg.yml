@@ -21,9 +21,8 @@ detection:
             - 'add '
             - SYSTEM\CurrentControlSet\Services\
             - ' ImagePath '
+            - ' -d '
         NewProcessName|endswith: \reg.exe
-    selection_value:
-        CommandLine|contains|windash: ' -d '
     condition: process_creation and (all of selection*)
 falsepositives:
     - Unknown

@@ -10,36 +10,36 @@ logsource:
 product: windows
 service: security
 detection:
-selection:
-EventID: 4624
-LogonType:
-      - 3  # Network Logon
-      - 9  # NewCredentials
-AuthenticationPackageName: NTLM
-selection_keyLength:
-KeyLength: 0  # No encryption key length specified in PtH attacks
-selection_highValueAccounts:
-TargetUserName|contains:
-      - 'admin'
-      - 'administrator'
-      - 'svc'
-      - 'Domain Admins'
-      - 'Enterprise Admins'
-      - 'krbtgt'
-selection_suspiciousProcesses:
-ProcessName|endswith:
-      - '\psexec.exe'
-      - '\wmiexec.exe'
-      - '\tasklist.exe'
-      - '\mimikatz.exe'
-filter_legitimateAccounts:
-AccountName:
-      - 'SYSTEM'
-      - 'LocalService'
-      - 'NetworkService'
-filter_delegation:
-ImpersonationLevel: '%%1833'  # Delegation impersonation level
-condition: selection AND (selection_keyLength OR selection_highValueAccounts OR selection_suspiciousProcesses) AND NOT (filter_legitimateAccounts OR filter_delegation)
+      selection:
+            EventID: 4624
+            LogonType:
+                  - 3  # Network Logon
+                  - 9  # NewCredentials
+            AuthenticationPackageName: NTLM
+      selection_keyLength:
+            KeyLength: 0  # No encryption key length specified in PtH attacks
+            selection_highValueAccounts:
+            TargetUserName|contains:
+                  - 'admin'
+                  - 'administrator'
+                  - 'svc'
+                  - 'Domain Admins'
+                  - 'Enterprise Admins'
+                  - 'krbtgt'
+      selection_suspiciousProcesses:
+            ProcessName|endswith:
+                  - '\psexec.exe'
+                  - '\wmiexec.exe'
+                  - '\tasklist.exe'
+                  - '\mimikatz.exe'
+      filter_legitimateAccounts:
+            AccountName:
+                  - 'SYSTEM'
+                  - 'LocalService'
+                  - 'NetworkService'
+      filter_delegation:
+            ImpersonationLevel: '%%1833'  # Delegation impersonation level
+      condition: selection AND (selection_keyLength OR selection_highValueAccounts OR selection_suspiciousProcesses) AND NOT (filter_legitimateAccounts OR filter_delegation)
 fields:
   - EventID
   - LogonType
