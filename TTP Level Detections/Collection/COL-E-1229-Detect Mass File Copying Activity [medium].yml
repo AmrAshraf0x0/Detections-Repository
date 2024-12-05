@@ -7,7 +7,8 @@ logsource:
   product: windows
 detection:
   selection:
-    Image|endswith:
+    EventID: 4688
+    ProcessName|endswith:
       - 'robocopy.exe'
       - 'xcopy.exe'
       - 'powershell.exe'
@@ -18,11 +19,8 @@ detection:
       - 'Copy-Item -Recurse'
   condition: selection
 fields:
-  - Image
+  - ProcessName
   - CommandLine
-  - ParentImage
-  - User
-  - Hostname
 level: medium
 tags:
   - attack.collection

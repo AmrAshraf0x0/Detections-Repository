@@ -8,19 +8,19 @@ logsource:
   product: windows
 detection:
   suspicious_screenshot_script:
-    script_content:
+    EventID: 4104
+    ScriptBlockText|contains:
       - "*CopyFromScreen*"
       - "*System.Drawing.Bitmap*"
       - "*Drawing.Bitmap*"
   allowed_users:
-    user_id:
+    SecurityID:
       - "S-1-5-18"
   condition: suspicious_screenshot_script and not allowed_users
 fields:
-  - process_name
-  - command_line
-  - user_id
-  - parent_process_name
+  - EventID
+  - ScriptBlockText
+  - SecurityID
 falsepositives:
   - Authorized PowerShell scripts for legitimate administrative purposes
   - Testing or development activities in authorized environments

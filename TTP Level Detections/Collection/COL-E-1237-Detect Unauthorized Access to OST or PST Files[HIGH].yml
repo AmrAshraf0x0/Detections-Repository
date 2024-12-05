@@ -7,7 +7,9 @@ logsource:
   product: windows
 detection:
   selection:
-    FileName|endswith:
+    EventID: 4663 
+    ObjectType: file
+    ObjectName|endswith:
       - ".ost"
       - ".pst"
   exclusion:
@@ -17,12 +19,8 @@ detection:
       - "scanost.exe"  # Known OST file repair tool
   condition: selection and not exclusion
 fields:
-  - FileName
-  - FilePath
+  - ObjectName
   - ProcessName
-  - CommandLine
-  - User
-  - Hostname
 level: high
 tags:
   - attack.collection

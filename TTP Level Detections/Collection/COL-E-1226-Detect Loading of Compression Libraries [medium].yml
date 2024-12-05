@@ -7,11 +7,12 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 7
     Image|endswith:
       - '.exe'
       - '.py'
       - '.dll'
-    LoadedDLL|contains:
+    ImageLoaded|contains:
       - 'zlib.dll'
       - 'libarchive.dll'
       - 'SharpZipLib.dll'
@@ -19,9 +20,7 @@ detection:
   condition: selection
 fields:
   - Image
-  - LoadedDLL
-  - User
-  - Hostname
+  - ImageLoaded
 level: medium
 tags:
   - attack.collection
@@ -29,3 +28,4 @@ tags:
   - t1560.002
 falsepositives:
   - Legitimate applications using compression libraries
+

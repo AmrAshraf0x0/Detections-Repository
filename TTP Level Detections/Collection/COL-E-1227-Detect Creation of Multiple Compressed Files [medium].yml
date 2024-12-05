@@ -7,6 +7,7 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 11
     FileName|endswith:
       - '.zip'
       - '.tar'
@@ -14,16 +15,11 @@ detection:
       - '.gz'
       - '.rar'
       - '.xz'
-    FileAccess: 'WRITE'
   timeframe: 3m
   condition: selection | count() > 3
 fields:
   - FileName
-  - FilePath
-  - FileSize
-  - User
-  - Hostname
-  - ProcessName
+  - EventID
 level: medium
 tags:
   - attack.collection
@@ -32,3 +28,6 @@ tags:
 falsepositives:
   - Legitimate bulk compression activities such as backups or software packaging
   - System maintenance scripts
+
+
+#discussion required

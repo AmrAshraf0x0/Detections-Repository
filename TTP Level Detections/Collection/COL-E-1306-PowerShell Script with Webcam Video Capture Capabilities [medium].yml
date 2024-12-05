@@ -8,7 +8,8 @@ logsource:
   product: windows
 detection:
   suspicious_webcam_script:
-    script_content:
+    EventID: 4104
+    ScriptBlockText|contains:
       - "*NewFrameEventHandler*"
       - "*VideoCaptureDevice*"
       - "*DirectX.Capture.Filters*"
@@ -21,10 +22,8 @@ detection:
       - "*avicap32*"
   condition: suspicious_webcam_script
 fields:
-  - process_name
-  - command_line
-  - user_id
-  - parent_process_name
+  - EventID
+  - ScriptBlockText
 falsepositives:
   - Authorized PowerShell scripts for testing or legitimate video recording purposes
 level: medium

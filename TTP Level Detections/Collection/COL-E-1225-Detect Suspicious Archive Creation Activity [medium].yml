@@ -7,7 +7,8 @@ logsource:
   product: windows
 detection:
   process_activity:
-    Image|endswith:
+    EventID: 4688
+    ProcessName|endswith:
       - '.exe'
       - '.bat'
       - '.py'
@@ -17,6 +18,7 @@ detection:
       - '--pack'
       - '--encode'
   file_creation:
+    EventID: 11
     FileSize: '>50MB' # Test the value in the environment
   timeframe: 1m
   condition: process_activity and file_creation

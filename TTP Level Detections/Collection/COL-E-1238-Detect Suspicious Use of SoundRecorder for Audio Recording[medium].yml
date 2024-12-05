@@ -7,15 +7,14 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     ProcessName: "SoundRecorder.exe"
     CommandLine|contains: "/FILE"
   condition: selection
 fields:
+  - EventID
   - ProcessName
   - CommandLine
-  - ParentImage
-  - User
-  - Hostname
 level: medium
 tags:
   - attack.collection

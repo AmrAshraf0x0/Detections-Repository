@@ -8,7 +8,8 @@ logsource:
   product: windows
 detection:
   suspicious_keylogging_script:
-    script_content:
+    EventID: 4104
+    ScriptBlockText|contains:
       - "*GetAsyncKeyState*"
       - "*NtUserGetAsyncKeyState*"
       - "*GetKeyboardState*"
@@ -24,18 +25,16 @@ detection:
       - "*WM_KEYBOARD_LL*"
       - "*WH_MOUSE_LL*"
   allowed_users:
-    user_id:
+    SecurityID:
       - "S-1-5-18"
   allowed_script_blocks:
-    script_content:
+    ScriptBlockText|contains:
       - "*sentinelbreakpoints*"
       - "*Set-PSBreakpoint*"
   condition: suspicious_keylogging_script and not allowed_users and not allowed_script_blocks
 fields:
-  - process_name
-  - command_line
-  - user_id
-  - parent_process_name
+  - ScriptBlockText
+  - SecurityID
 falsepositives:
   - Authorized PowerShell scripts used by administrators or for legitimate testing
 level: high

@@ -8,21 +8,21 @@ logsource:
   product: windows
 detection:
   suspicious_mailbox_collection:
-    script_content:
+    EventID: 4104
+    ScriptBlockText|contains:
       - "*Microsoft.Office.Interop.Outlook*"
       - "*Interop.Outlook.olDefaultFolders*"
       - "*::olFolderInBox*"
       - "*Microsoft.Exchange.WebServices.Data.Folder*"
       - "*Microsoft.Exchange.WebServices.Data.FileAttachment*"
   allowed_users:
-    user_id:
+    SecurityID:
       - "S-1-5-18"
   condition: suspicious_mailbox_collection and not allowed_users
 fields:
-  - process_name
-  - command_line
-  - user_id
-  - parent_process_name
+  - EventID
+  - ScriptBlockText
+  - SecurityID
 falsepositives:
   - Authorized PowerShell scripts for mailbox management by administrators
   - Testing or development activities in controlled environments

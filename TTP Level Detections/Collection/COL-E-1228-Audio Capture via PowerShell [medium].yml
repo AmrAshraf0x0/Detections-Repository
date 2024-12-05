@@ -9,17 +9,26 @@ logsource:
     category: process_creation
     product: windows
 detection:
-    process_creation:
+    selection_process_creation:
         EventID: 4688
-        Channel: Security
-    selection:
+        ProcessName|endswith:
+            - \powershell.exe
         CommandLine|contains:
             - WindowsAudioDevice-Powershell-Cmdlet
             - Toggle-AudioDevice
             - 'Get-AudioDevice '
             - 'Set-AudioDevice '
             - 'Write-AudioDevice '
-    condition: process_creation and selection
+    selection_scriptblock:
+        EventID: 4104
+        ScriptBlockText|contains:
+            - WindowsAudioDevice-Powershell-Cmdlet
+            - Toggle-AudioDevice
+            - 'Get-AudioDevice '
+            - 'Set-AudioDevice '
+            - 'Write-AudioDevice '
+    condition: selection_process_creation and selection_scriptblock
 falsepositives:
     - Legitimate audio capture by legitimate user.
 level: medium
+

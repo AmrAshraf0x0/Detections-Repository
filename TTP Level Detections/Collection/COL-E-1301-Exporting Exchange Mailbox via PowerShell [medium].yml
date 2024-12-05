@@ -8,19 +8,18 @@ logsource:
   product: windows
 detection:
   selection:
-    process_name:
+    EventID: 4688
+    ProcessName:
       - "powershell.exe"
       - "pwsh.exe"
       - "powershell_ise.exe"
-    command_line:
+    CommandLine|contains:
       - "*MailboxExportRequest*"
       - "*-Mailbox*-ContentFilter*"
   condition: selection
 fields:
-  - process_name
-  - command_line
-  - parent_process_name
-  - user_id
+  - ProcessName
+  - CommandLine
 falsepositives:
   - Legitimate Exchange system administration activity
 level: medium
@@ -30,4 +29,4 @@ tags:
   - attack.T1005
   - attack.T1114
   - attack.T1114.002
-  - attack.T
+
