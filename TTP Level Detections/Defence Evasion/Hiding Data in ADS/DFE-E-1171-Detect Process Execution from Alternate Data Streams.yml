@@ -14,7 +14,7 @@ detection:
       - ':Zone.Identifier'
     CommandLine|contains:
       - '::'
-      - '':\'
+      - ':\'
     ParentProcessName|contains:	
       - 'compattelrunner.exe'
   condition: selection and not exclusion
