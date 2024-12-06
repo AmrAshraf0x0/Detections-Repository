@@ -1,0 +1,31 @@
+title: Detect Ping Sweep via Command Prompt
+status: Developed
+description: Detects the use of a `for` loop in Windows Command Prompt to perform a ping sweep across a subnet, commonly used for network reconnaissance.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 4688
+    Image|endswith: '\cmd.exe'
+    CommandLine|contains|all:
+      - 'for /l'
+      - 'ping'
+      - '-n '
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative or network troubleshooting tasks
+  - Scripts or tools performing authorized network scans
+level: high
+tags:
+  - attack.discovery
+  - attack.t1018
+  - attack.execution

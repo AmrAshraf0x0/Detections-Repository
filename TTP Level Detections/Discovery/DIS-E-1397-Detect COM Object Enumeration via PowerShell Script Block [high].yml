@@ -1,0 +1,35 @@
+title: Detect COM Object Enumeration via PowerShell Script Block
+status: Developed
+description: Detects the use of PowerShell to enumerate COM objects and their methods by querying the registry and CLSIDs. This technique may indicate reconnaissance or preparation for COM abuse.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script
+  product: windows
+detection:
+  selection:
+    EventID: 4104
+    ScriptBlockText|contains|all:
+      - "New-PSDrive"
+      - "-PSProvider registry"
+      - "HKEY_CLASSES_ROOT"
+  selection2:
+    ScriptBlockText|contains|any:
+      - "Get-ChildItem -Path HKCR:\\CLSID"
+      - "[activator]::CreateInstance"
+      - "Get-Member"
+  condition: selection or selection2
+fields:
+  - EventID
+  - ScriptBlockText
+  - UserID
+  - Computer
+  - LogonID
+falsepositives:
+  - Legitimate administrative tasks or PowerShell scripts for system inventory or debugging
+level: high
+tags:
+  - attack.discovery
+  - attack.persistence
+  - attack.t1592.002
+  - attack.execution

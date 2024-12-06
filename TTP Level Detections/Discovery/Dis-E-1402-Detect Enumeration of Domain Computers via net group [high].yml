@@ -1,0 +1,31 @@
+title: Detect Enumeration of Domain Computers via net group
+status: Developed
+description: Detects the use of the `net group` command to enumerate domain computers using the "Domain Computers" group. This is often indicative of reconnaissance activities in Active Directory.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: 
+      - '\net.exe'
+      - '\net1.exe'
+    CommandLine|contains|all:
+      - "group"
+      - "/domain"
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative use to query Active Directory groups
+  - Authorized scripts or tools performing group enumeration
+level: high
+tags:
+  - attack.discovery
+  - attack.t1018
+  - attack.t1087

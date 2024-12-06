@@ -1,0 +1,34 @@
+title: Detect PowerShell Lateral Movement Using Excel COM Object (Process Creation)
+status: Developed
+description: Detects PowerShell lateral movement using the Excel COM object (`Excel.Application`) to execute commands on a remote computer, identified through process creation logs.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 4688
+    Image|endswith|any:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains|all:
+      - '[System.Activator]::CreateInstance'
+      - '[type]::GetTypeFromProgID("Excel.Application"'
+  condition: selection
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative tasks or scripts leveraging Excel COM objects
+  - Authorized automation tools interacting with Excel
+level: critical
+tags:
+  - attack.execution
+  - attack.lateral_movement
+  - attack.t1570
+  - attack.t1021

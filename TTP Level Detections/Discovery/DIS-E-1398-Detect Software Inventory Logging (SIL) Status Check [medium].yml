@@ -1,0 +1,30 @@
+title: Detect Software Inventory Logging (SIL) Status Check
+status: Developed
+description: Detects the use of `reg.exe` to query the status of Software Inventory Logging (SIL) via the registry. Adversaries may use this to identify software of interest on the target system.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 4688
+    Image|endswith: '\reg.exe'
+    CommandLine|contains|all:
+      - "hklm\\software\\microsoft\\windows\\softwareinventorylogging"
+      - "/v collectionstate"
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative tasks or software inventory checks
+  - Security monitoring or compliance tools auditing registry
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1012
+  - attack.execution

@@ -1,0 +1,30 @@
+title: Detect WMI Enumeration of Active Directory Computers via PowerShell Script Block
+status: Developed
+description: Detects PowerShell script blocks querying WMI for Active Directory computer objects using the `ds_computer` class in the `root\directory\ldap` namespace.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script
+  product: windows
+detection:
+  selection:
+    EventID: 4104
+    ScriptBlockText|contains|all:
+      - 'get-wmiobject'
+      - '-class ds_computer'
+      - '-namespace root\directory\ldap'
+  condition: selection
+fields:
+  - EventID
+  - ScriptBlockText
+  - UserID
+  - Computer
+  - LogonID
+falsepositives:
+  - Legitimate administrative tasks or scripts querying Active Directory via WMI
+  - Authorized troubleshooting or inventory processes
+level: high
+tags:
+  - attack.discovery
+  - attack.t1018
+  - attack.execution

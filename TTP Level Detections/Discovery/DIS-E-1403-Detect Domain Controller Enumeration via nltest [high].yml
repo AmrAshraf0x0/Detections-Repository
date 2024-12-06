@@ -1,0 +1,30 @@
+title: Detect Domain Controller Enumeration via nltest.exe
+id: d12e3456-89ab-4cd5-8123-bcdef5678901
+status: Developed
+description: Detects the use of `nltest.exe` to enumerate domain controllers in a target domain using the `/dclist` flag. This activity may indicate reconnaissance in Active Directory.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 4688
+    Image|endswith: '\nltest.exe'
+    CommandLine|contains|all:
+      - '/dclist:'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative tasks or domain troubleshooting
+  - Authorized scripts for monitoring or testing domain configurations
+level: high
+tags:
+  - attack.discovery
+  - attack.t1018
+  - attack.execution

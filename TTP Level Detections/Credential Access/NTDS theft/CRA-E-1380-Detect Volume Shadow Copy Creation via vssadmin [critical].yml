@@ -1,0 +1,31 @@
+title: Detect Volume Shadow Copy Creation via vssadmin
+status: Developed
+description: Detects the use of vssadmin.exe to create a Volume Shadow Copy, which may be used to access sensitive files like NTDS.dit.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 4688
+    Image|endswith: '\vssadmin.exe'
+    CommandLine|contains|all:
+      - "create"
+      - "shadow"
+      - "/for="
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - ParentCommandLine
+  - User
+falsepositives:
+  - Legitimate use by system administrators for backup or troubleshooting
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1003.003
+  - attack.execution
+  - attack.persistence
