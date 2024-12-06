@@ -15,7 +15,9 @@ detection:
   filter:
     CommandLine|contains:
       - '::'
-      - ":\"
+      - ":\\"
+    ParentProcessName|contains:	
+      - 'compattelrunner.exe'
   condition: selection and not filter
 fields:
   - Image

@@ -12,6 +12,11 @@ detection:
   exclusion:
     Image|endswith:
       - ':Zone.Identifier'
+    CommandLine|contains:
+      - '::'
+      - '':\'
+    ParentProcessName|contains:	
+      - 'compattelrunner.exe'
   condition: selection and not exclusion
 fields:
   - Image
