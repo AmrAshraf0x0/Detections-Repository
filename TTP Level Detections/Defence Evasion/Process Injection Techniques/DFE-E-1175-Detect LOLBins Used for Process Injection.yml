@@ -15,6 +15,8 @@ detection:
     CommandLine|contains: 
       - '/i:'  # Injecting DLL
       - '/s'   # Silent injection
+  filter:
+    ParentProcessName|endswith: '\tmccsf.exe'
   condition: selection
 fields:
   - Image
