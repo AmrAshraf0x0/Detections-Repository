@@ -15,6 +15,10 @@ detection:
       - ':Zone.Identifier'
       - ':$DATA'
       - ':$INDEX_ALLOCATION'
+      - '::'
+      - ':\'
+    ParentProcessName|contains:	
+      - 'compattelrunner.exe'
   condition: selection and not exclusion
 fields:
   - EventID
