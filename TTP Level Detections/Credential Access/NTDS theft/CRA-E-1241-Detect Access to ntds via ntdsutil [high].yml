@@ -3,10 +3,11 @@ status: Developed
 description: Detects the use of ntdsutil.exe to access the ntds.dit file, which may indicate legitimate administrative tasks or malicious credential dumping attempts.
 author: Amr Ashraf
 logsource:
-  category: file_event
+  category: file_access
   product: windows
 detection:
   selection:
+    EventID: 4663
     FileName: "ntds.dit"
     ProcessName: "ntdsutil.exe"
   condition: selection

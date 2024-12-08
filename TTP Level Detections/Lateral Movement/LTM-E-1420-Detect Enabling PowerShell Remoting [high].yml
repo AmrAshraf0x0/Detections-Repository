@@ -1,0 +1,34 @@
+title: Detect Enabling PowerShell Remoting
+status: Developed
+description: Detects the use of `Enable-PSRemoting` to enable PowerShell remoting, which may indicate attempts to configure remote access or facilitate lateral movement.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 4688
+    Image|endswith|any:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains|all:
+      - 'Enable-PSRemoting'
+      - '-Force'
+  condition: selection
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative tasks configuring PowerShell remoting
+  - Authorized scripts enabling PSRemoting for operational purposes
+level: high
+tags:
+  - attack.execution
+  - attack.lateral_movement
+  - attack.t1021
+  - attack.t1569

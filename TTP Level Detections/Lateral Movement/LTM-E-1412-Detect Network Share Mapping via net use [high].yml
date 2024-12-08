@@ -1,0 +1,33 @@
+title: Detect Network Share Mapping via net use
+status: Developed
+description: Detects the use of `net use` to map a network share using explicit credentials, which may indicate lateral movement or unauthorized access attempts.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 4688
+    Image|endswith: '\cmd.exe'
+    CommandLine|contains|all:
+      - 'net use'
+      - '\\'
+      - '/u:'
+  condition: selection
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative tasks mapping network shares
+  - Automated scripts for authorized file sharing or backups
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.credential_access
+  - attack.t1077
+  - attack.t1021

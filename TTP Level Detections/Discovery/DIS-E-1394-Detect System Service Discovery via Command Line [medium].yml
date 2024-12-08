@@ -1,0 +1,36 @@
+title: Detect System Service Discovery via Command Line
+status: Developed
+description: Detects the use of `tasklist.exe` and `sc query` commands to enumerate system services, often used during reconnaissance or privilege escalation attempts.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_tasklist:
+    EventID: 4688
+    ParentProcessName|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+      - '\cmd.exe'
+    Image|endswith: '\tasklist.exe'
+  selection_sc_query:
+    EventID: 4688
+    Image|endswith: '\sc.exe'
+    CommandLine|contains|any:
+      - "query"
+      - "query state= all"
+  condition: selection_tasklist or selection_sc_query
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative or troubleshooting activities
+  - System monitoring or performance analysis scripts
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1007

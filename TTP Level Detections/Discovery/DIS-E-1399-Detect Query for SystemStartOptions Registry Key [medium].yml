@@ -1,0 +1,30 @@
+title: Detect Query for SystemStartOptions Registry Key
+status: Developed
+description: Detects the use of `reg.exe` to query the `SystemStartOptions` registry key, which can reveal system boot parameters and security-related settings.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 4688
+    Image|endswith: '\reg.exe'
+    CommandLine|contains|all:
+      - "HKLM\\SYSTEM\\CurrentControlSet\\Control"
+      - "SystemStartOptions"
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate use by administrators for system troubleshooting
+  - Compliance or auditing scripts verifying system configurations
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1012
+  - attack.execution

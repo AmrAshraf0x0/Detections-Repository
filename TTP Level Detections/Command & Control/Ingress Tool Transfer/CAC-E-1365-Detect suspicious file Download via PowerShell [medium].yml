@@ -1,0 +1,48 @@
+title: Detect suspicious file Download via PowerShell
+status: Developed
+description: Detects the use of PowerShell to download suspicious files using web-related cmdlets, their aliases, or unconventional methods like Get-Content, including abbreviated usage.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+detection:
+  selection:
+    EventID: 4688
+    Image|contains: 
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains|all:
+      - "http" # Ensures web-related activity
+  cmdlets_and_aliases:
+    CommandLine|contains|any:
+      - "Invoke-WebRequest"
+      - "iwr" # Alias for Invoke-WebRequest
+      - "Net.WebClient"
+      - "Http.HttpClient"
+      - "wget" # Common alias
+      - "curl" # Common alias
+      - "Get-Content"
+      - "gc" # Abbreviation for Get-Content
+  image_extensions:
+    CommandLine|contains|any:
+      - ".jpg"
+      - ".jpeg"
+      - ".png"
+      - ".gif"
+      - ".bmp"
+      - ".svg"
+      - ".exe"
+      - ".ps1"
+  condition: selection and cmdlets_and_aliases and image_extensions
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - ParentCommandLine
+falsepositives:
+  - Legitimate administrative tasks downloading or accessing image files
+  - Automation scripts or business tools used for downloading media
+  - Testing, debugging, or legitimate content reading activities by administrators
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1105

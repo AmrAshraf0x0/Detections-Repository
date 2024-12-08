@@ -1,0 +1,32 @@
+title: Detect Volume Direct Access (PowerShell)
+id: 88f6327e-51ec-4bbf-b2e8-3fea534eab8b
+status: Developed
+description: Detects the use of PowerShell to directly read the volume boot sector via the DOS device path specifier (e.g., `\\.\C:`).
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script
+  product: windows
+detection:
+  selection:
+    EventID: 4104
+    ScriptBlockText|contains|all:
+      - "New-Object IO.FileStream"
+      - "\\\\.\\"
+      - "'Open'"
+      - "'Read'"
+  condition: selection
+fields:
+  - EventID
+  - ScriptBlockText
+  - UserID
+  - Computer
+  - LogonID
+falsepositives:
+  - Legitimate use by system administrators for disk analysis or troubleshooting
+  - Authorized security testing or forensics activities
+level: critical
+tags:
+  - attack.discovery
+  - attack.t1003
+  - attack.t1005

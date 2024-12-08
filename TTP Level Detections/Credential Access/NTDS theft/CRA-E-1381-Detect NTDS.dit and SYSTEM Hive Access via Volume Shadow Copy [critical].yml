@@ -1,0 +1,34 @@
+title: Detect NTDS.dit and SYSTEM Hive Access via Volume Shadow Copy
+status: Developed
+description: Detects attempts to access the NTDS.dit and SYSTEM registry hive from a Volume Shadow Copy, indicating potential credential dumping.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: file_access
+  product: windows
+detection:
+  selection:
+    EventID: 4663
+    ObjectName|contains|any:
+      - '\Windows\NTDS\NTDS.dit'
+      - '\Windows\System32\config\SYSTEM'
+  exclusion:
+    ObjectName|startswith: 'C:\'
+  condition: selection and not exclusion
+fields:
+  - EventID
+  - ObjectName
+  - AccessMask
+  - SubjectUserName
+  - SubjectDomainName
+  - ProcessName
+  - ProcessId
+falsepositives:
+  - Legitimate administrative tasks accessing Volume Shadow Copies
+  - Backup or disaster recovery operations
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1003.003
+  - attack.persistence
+  - attack.discovery

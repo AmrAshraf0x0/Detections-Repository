@@ -1,0 +1,30 @@
+title: Detect PowerShell Lateral Movement Using Excel COM Object
+status: Developed
+description: Detects PowerShell lateral movement using the Excel COM object (`Excel.Application`) to execute commands on a remote computer. This activity may indicate attempts at remote code execution or lateral movement.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script
+  product: windows
+detection:
+  selection_com_object:
+    EventID: 4104
+    ScriptBlockText|contains|all:
+      - '[System.Activator]::CreateInstance'
+      - '[type]::GetTypeFromProgID("Excel.Application"'
+  condition: selection_com_object and selection_activate_app
+fields:
+  - EventID
+  - ScriptBlockText
+  - UserID
+  - Computer
+  - LogonID
+falsepositives:
+  - Legitimate administrative tasks or scripts leveraging Excel COM objects
+  - Authorized automation tools interacting with Excel
+level: critical
+tags:
+  - attack.execution
+  - attack.lateral_movement
+  - attack.t1570
+  - attack.t1021

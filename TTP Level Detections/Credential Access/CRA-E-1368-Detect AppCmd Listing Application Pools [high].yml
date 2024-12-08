@@ -1,0 +1,31 @@
+title: Detect AppCmd Listing Application Pools
+status: Developed
+description: Detects the usage of AppCmd.exe commands that list IIS application pools and may reveal service account credentials.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 4688
+    Image: 'C:\Windows\System32\inetsrv\appcmd.exe'
+    CommandLine|contains|any:
+      - "list apppool /@t:*"
+      - "list apppool /@text:*"
+      - "list apppool /text:*"
+      - "list apppool /config"
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - ParentCommandLine
+falsepositives:
+  - Legitimate administrative tasks managing IIS configurations
+  - Automation scripts used for IIS maintenance
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1003.008
+  - attack.execution

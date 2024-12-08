@@ -1,0 +1,44 @@
+title: Detect Changing Non-Executable Files to Executable or Script Extensions
+status: Developed
+description: Detects file operations where a non-executable file (e.g., .txt) is copied, moved, or renamed to an executable or script extension (e.g., .exe, .ps1, .bat).
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  file_operations:
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains|any:
+      - "copy"
+      - "move"
+      - "Copy-Item"
+      - "Move-Item"
+      - "Rename-Item"
+      - "mv"
+      - "cp"
+  source_extensions:
+    CommandLine|re:
+      - '\.(txt|log|csv|json|xml|ini|jpg|png|jpeg|html)$'
+  target_extensions:
+    CommandLine|re:
+      - '\.(exe|dll|bat|cmd|ps1|vbs|js)$'
+  condition: file_operations and source_extensions and target_extensions
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - ParentCommandLine
+  - User
+falsepositives:
+  - Legitimate administrative or development activities
+  - Automation scripts or applications performing file transformations
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1564
+  - attack.t1059
+  - attack.execution

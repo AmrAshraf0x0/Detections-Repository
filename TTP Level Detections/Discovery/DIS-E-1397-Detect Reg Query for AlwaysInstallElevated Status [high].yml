@@ -1,0 +1,35 @@
+title: Detect Reg Query for AlwaysInstallElevated Status
+status: Developed
+description: Detects the use of `reg query` commands to check the AlwaysInstallElevated registry key status. If AlwaysInstallElevated is enabled, it can allow privilege escalation via MSI package installation with SYSTEM-level privileges.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 4688
+    Image|endswith: '\reg.exe'
+    CommandLine|contains:
+      - "AlwaysInstallElevated"
+  selection_hkcu:
+    CommandLine|contains|all:
+      - 'HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer'
+  selection_hklm:
+    CommandLine|contains|all:
+      - 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer'
+  condition: selection and (selection_hkcu or selection_hklm)
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative tasks checking AlwaysInstallElevated settings
+  - Troubleshooting or compliance scripts auditing registry configurations
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1546.014
+  - attack.discovery

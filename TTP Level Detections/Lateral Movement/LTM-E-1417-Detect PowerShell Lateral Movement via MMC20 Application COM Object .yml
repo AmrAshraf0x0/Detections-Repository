@@ -1,0 +1,34 @@
+title: Detect PowerShell Lateral Movement via MMC20 Application COM Object
+status: Developed
+description: Detects PowerShell lateral movement using the MMC20 Application COM object to execute commands on a remote computer. This behavior may indicate attempts at remote code execution or lateral movement.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script
+  product: windows
+detection:
+  selection:
+    EventID: 4104
+    ScriptBlockText|contains|all:
+      - '[activator]::CreateInstance'
+      - '[type]::GetTypeFromProgID("MMC20.application"'
+  selection1:
+    ScriptBlockText|contains|any:
+      - '.ExecuteShellCommand('
+      - '.Document.ActiveView'
+  condition: selection and selection1
+fields:
+  - EventID
+  - ScriptBlockText
+  - UserID
+  - Computer
+  - LogonID
+falsepositives:
+  - Legitimate administrative scripts or tools leveraging MMC20 COM objects
+  - Authorized automation or monitoring scripts
+level: critical
+tags:
+  - attack.execution
+  - attack.lateral_movement
+  - attack.t1570
+  - attack.t1021
