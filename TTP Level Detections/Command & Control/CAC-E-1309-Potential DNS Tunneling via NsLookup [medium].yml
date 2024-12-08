@@ -8,8 +8,8 @@ logsource:
   product: windows
 detection:
   selection:
-    process_name: "nslookup.exe"
-    process_args:
+    NewProcessName: 'nslookup.exe'
+    CommandLine|contains:
       - "-querytype=*"
       - "-qt=*"
       - "-q=*"

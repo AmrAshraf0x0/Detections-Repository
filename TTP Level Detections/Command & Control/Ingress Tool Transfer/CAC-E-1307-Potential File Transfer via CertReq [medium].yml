@@ -8,15 +8,14 @@ logsource:
   product: windows
 detection:
   selection:
-    process_name: "CertReq.exe"
-    process_args: "-Post"
+    EventID: 4688
+    NewProcessName: "CertReq.exe"
+    CommandLine|contains: "-Post"
   condition: selection
 fields:
-  - process_name
-  - command_line
-  - parent_process_name
-  - user_id
-  - host_name
+  - EventID
+  - NewProcessName
+  - CommandLine
 falsepositives:
   - Legitimate administrative usage for certificate requests
   - Authorized use of CertReq for internal processes

@@ -7,19 +7,17 @@ logsource:
   product: windows
 detection:
   selection:
-    Image|endswith:
-      - "\\MpCmdRun.exe"
+    EventID: 4688 
+    NewProcessName|endswith:
+      - "\MpCmdRun.exe"
     CommandLine|contains:
       - "-DownloadFile"
       - "-url"
       - "-path"
   condition: selection
 fields:
-  - Image
+  - NewProcessName
   - CommandLine
-  - ParentImage
-  - ParentCommandLine
-  - User
 falsepositives:
   - Legitimate administrative usage for updating or troubleshooting Windows Defender.
   - Authorized IT or security tools automating downloads for testing.

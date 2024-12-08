@@ -19,6 +19,7 @@ detection:
       - "scanost.exe"  # Known OST file repair tool
   condition: selection and not exclusion
 fields:
+  - ObjectType
   - ObjectName
   - ProcessName
 level: high

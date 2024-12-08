@@ -8,12 +8,12 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    ProcessName: "SoundRecorder.exe"
+    NewProcessName: "SoundRecorder.exe"
     CommandLine|contains: "/FILE"
   condition: selection
 fields:
   - EventID
-  - ProcessName
+  - NewProcessName
   - CommandLine
 level: medium
 tags:

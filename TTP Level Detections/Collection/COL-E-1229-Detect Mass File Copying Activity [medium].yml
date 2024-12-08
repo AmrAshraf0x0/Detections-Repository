@@ -8,7 +8,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    ProcessName|endswith:
+    NewProcessName|endswith:
       - 'robocopy.exe'
       - 'xcopy.exe'
       - 'powershell.exe'
@@ -19,7 +19,7 @@ detection:
       - 'Copy-Item -Recurse'
   condition: selection
 fields:
-  - ProcessName
+  - NewProcessName
   - CommandLine
 level: medium
 tags:

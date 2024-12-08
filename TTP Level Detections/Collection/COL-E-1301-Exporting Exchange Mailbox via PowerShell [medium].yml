@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    ProcessName:
+    NewProcessName:
       - "powershell.exe"
       - "pwsh.exe"
       - "powershell_ise.exe"
@@ -18,7 +18,7 @@ detection:
       - "*-Mailbox*-ContentFilter*"
   condition: selection
 fields:
-  - ProcessName
+  - NewProcessName
   - CommandLine
 falsepositives:
   - Legitimate Exchange system administration activity

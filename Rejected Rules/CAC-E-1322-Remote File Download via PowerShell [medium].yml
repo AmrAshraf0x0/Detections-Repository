@@ -7,10 +7,10 @@ logsource:
   product: windows
 detection:
   selection_network:
-    Image|endswith:
-      - "\\powershell.exe"
-      - "\\pwsh.exe"
-      - "\\powershell_ise.exe"
+    NewProcessName|endswith:
+      - "\powershell.exe"
+      - "\pwsh.exe"
+      - "\powershell_ise.exe"
     Protocol: "dns"
     DestinationHostname|endswith:
       - ".exe"

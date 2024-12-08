@@ -11,7 +11,7 @@ logsource:
 detection:
     selection_process_creation:
         EventID: 4688
-        ProcessName|endswith:
+        NewProcessName|endswith:
             - \powershell.exe
         CommandLine|contains:
             - WindowsAudioDevice-Powershell-Cmdlet

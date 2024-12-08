@@ -8,7 +8,7 @@ logsource:
 detection:
   selection:
     EventID: 11
-    FileName|endswith:
+    TargetFileName|endswith:
       - '.zip'
       - '.tar'
       - '.7z'
@@ -18,7 +18,7 @@ detection:
   timeframe: 3m
   condition: selection | count() > 3
 fields:
-  - FileName
+  - TargetFileName
   - EventID
 level: medium
 tags:

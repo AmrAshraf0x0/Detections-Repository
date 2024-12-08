@@ -8,30 +8,30 @@ logsource:
 detection:
   selection_processes:
     - EventID: 4688
-    - ProcessName|endswith:
+    - NewProcessName|endswith:
         - '\powershell.exe'
       CommandLine|contains:
         - 'mciSendString'
         - 'Get-Process *Camera*'
-    - ProcessName|endswith:
+    - NewProcessName|endswith:
         - '\ffmpeg.exe'
       CommandLine|contains:
         - '-video_size'
         - '-i video='
         - '-f dshow'
-    - ProcessName|endswith:
+    - NewProcessName|endswith:
         - '\obs64.exe'
       CommandLine|contains:
         - '--startrecording'
         - '--recording'
-    - ProcessName|endswith:
+    - NewProcessName|endswith:
         - '\vlc.exe'
       CommandLine|contains:
         - '--sout'
         - '--screen-fps'
   condition: selection_processes
 fields:
-  - ProcessName
+  - NewProcessName
   - CommandLine
 level: high
 tags:

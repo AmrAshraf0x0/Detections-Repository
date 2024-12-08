@@ -3,29 +3,26 @@ status: Developed
 date: 2024-12-01
 author: Amr Ashraf
 logsource:
-  category: process_creation
   product: windows
 detection:
-  selection_network:
-    Image|endswith:
-      - "\\wscript.exe"
-      - "\\cscript.exe"
-    Direction:
-      - "outgoing"
-      - "egress"
+  selection_process:
+    EventID: 4688
+    NewProcessName|endswith:
+      - '\wscript.exe'
+      - '\cscript.exe'
   selection_file:
-    FileName|endswith:
-      - ".exe"
-      - ".dll"
-  filter:
-    DestinationIp|not: "127.0.0.1"
-    Protocol|not: "dns"
-  condition: selection_network and selection_file and not filter
+    EventID: 11
+    TargetFileName|endswith:
+      - '.exe'
+      - '.dll'
+      - '.ps1'
+      - '.bat'
+      - '.vbs'
+  condition: selection_process and selection_file
 fields:
-  - Image
-  - CommandLine
-  - DestinationIp
-  - FileName
+  - EventID
+  - NewProcessName
+  - TargetFileName
 falsepositives:
   - Authorized administrators running scripts for legitimate automation tasks.
   - Automated tools downloading files for system updates or maintenance.
@@ -35,7 +32,7 @@ tags:
   - attack.T1105
   - attack.T1059.005
   - windows
-description: |
+description:
   Detects Windows Script Host (`cscript.exe` or `wscript.exe`) being used to download an executable or DLL file from an external source. This could indicate malicious activity such as the use of scripts for malware delivery.
 references:
   - "https://attack.mitre.org/techniques/T1105/"

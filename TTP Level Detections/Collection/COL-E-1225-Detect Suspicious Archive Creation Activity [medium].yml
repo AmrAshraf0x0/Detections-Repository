@@ -8,7 +8,7 @@ logsource:
 detection:
   process_activity:
     EventID: 4688
-    ProcessName|endswith:
+    NewProcessName|endswith:
       - '.exe'
       - '.bat'
       - '.py'
@@ -23,14 +23,10 @@ detection:
   timeframe: 1m
   condition: process_activity and file_creation
 fields:
-  - Image
+  - NewProcessName
   - CommandLine
-  - FileName
-  - FilePath
+  - EventID
   - FileSize
-  - ParentImage
-  - User
-  - Hostname
 level: medium
 tags:
   - attack.collection
