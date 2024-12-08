@@ -19,7 +19,10 @@ detection:
       - "HKLM\\SOFTWARE\\Microsoft\\Active Setup\\Installed Components"
       - "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run"
       - "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run"
-  condition: selection
+  selection1:
+    CommandLine|contains:
+      - "query"
+  condition: selection and selection1
 fields:
   - CommandLine
   - Image
