@@ -1,5 +1,4 @@
-title: Detect Domain Controller Enumeration via nltest.exe
-id: d12e3456-89ab-4cd5-8123-bcdef5678901
+title: Detect Domain Controller Enumeration via nltest
 status: Developed
 description: Detects the use of `nltest.exe` to enumerate domain controllers in a target domain using the `/dclist` flag. This activity may indicate reconnaissance in Active Directory.
 author: Amr Ashraf

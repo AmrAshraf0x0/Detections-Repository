@@ -1,0 +1,31 @@
+title: Detect Unicode-Encoded "http" in Script Block Logging
+status: Developed
+description: Detects the presence of "http" in Unicode encoding within PowerShell script block logs, often used as an obfuscation technique for malicious URLs.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script
+  product: windows
+detection:
+  selection_unicode_http:
+    EventID: 4104
+    ScriptBlockText|contains|all:
+      - '\u0068'  # 'h'
+      - '\u0074'  # 't'
+      - '\u0070'  # 'p'
+  condition: selection_unicode_http
+fields:
+  - EventID
+  - ScriptBlockText
+  - UserID
+  - Computer
+  - LogonID
+falsepositives:
+  - Legitimate PowerShell scripts using Unicode-encoded URLs
+  - Security research or testing scripts using encoded characters
+level: high
+tags:
+  - attack.execution
+  - attack.obfuscation
+  - attack.t1027
+  - attack.t1105

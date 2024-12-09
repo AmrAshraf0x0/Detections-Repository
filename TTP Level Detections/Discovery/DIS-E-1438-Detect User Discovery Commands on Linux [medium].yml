@@ -1,0 +1,43 @@
+title: Detect User Discovery Commands on Linux
+status: Developed
+description: Detects the execution of commands commonly used to discover users and system owners on Linux or macOS systems.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection_user_discovery:
+    CommandLine|contains|any:
+      - 'users'
+      - 'w'
+      - 'who'
+      - 'whoami'
+      - 'id'
+      - 'last'
+      - 'finger'
+      - 'cat /etc/passwd'
+      - 'awk -F: \'{print $1}\' /etc/passwd'
+      - 'getent passwd'
+      - 'groups'
+      - 'cat /etc/group'
+      - 'grep \'^sudo\' /etc/group'
+      - 'ls /home'
+      - 'dscacheutil -q group'
+      - 'netstat -tuln'
+      - 'ss -tnp'
+  condition: selection_user_discovery
+fields:
+  - CommandLine
+  - User
+  - PID
+  - ParentPID
+  - Hostname
+falsepositives:
+  - Legitimate administrative commands for troubleshooting or inventory
+  - Scheduled system maintenance scripts
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1087
+  - attack.t1016

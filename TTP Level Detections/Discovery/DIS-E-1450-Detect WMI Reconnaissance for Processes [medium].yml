@@ -1,0 +1,25 @@
+title: Detect WMI Reconnaissance for Processes
+status: Developed
+description: Detects the use of WMI to enumerate processes on the host via `wmic process get`.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'wmic process get'
+  condition: selection
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate administrative tasks
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1057

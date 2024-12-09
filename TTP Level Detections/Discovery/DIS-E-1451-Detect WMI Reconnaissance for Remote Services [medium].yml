@@ -1,0 +1,26 @@
+title: Detect WMI Reconnaissance for Remote Services
+status: Developed
+description: Detects the use of WMI to query remote services on a host.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'wmic /node:'
+      - 'service'
+  condition: selection
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate administrative tasks
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1018
