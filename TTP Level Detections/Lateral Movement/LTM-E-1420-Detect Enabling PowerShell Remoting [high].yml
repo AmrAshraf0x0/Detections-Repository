@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    Image|endswith|any:
+    NewProcessName|endswith|any:
       - '\powershell.exe'
       - '\pwsh.exe'
     CommandLine|contains|all:
@@ -19,10 +19,7 @@ detection:
 fields:
   - EventID
   - CommandLine
-  - Image
-  - ParentImage
-  - User
-  - LogonID
+  - NewProcessName
 falsepositives:
   - Legitimate administrative tasks configuring PowerShell remoting
   - Authorized scripts enabling PSRemoting for operational purposes
