@@ -9,6 +9,7 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     Commandline|contains|any:
       - "get-ADPrincipalGroupMembership"
       - "Find-LocalAdminAccess"

@@ -7,20 +7,20 @@ logsource:
   product: windows
 detection:
   selection:
-    - Image|endswith:
+    - NewProcessName|endswith:
         - '\net.exe'
         - '\net1.exe'
       CommandLine|contains:
         - ' localgroup administrators'
         - ' user'
         - ' accounts'
-    - Image|endswith:
+    - NewProcessName|endswith:
         - '\cmd.exe'
       CommandLine|contains:
         - 'wmic useraccount get'
         - 'whoami /all'
         - 'net user'
-    - Image|endswith:
+    - NewProcessName|endswith:
         - '\powershell.exe'
       CommandLine|contains:
         - 'Get-LocalUser'

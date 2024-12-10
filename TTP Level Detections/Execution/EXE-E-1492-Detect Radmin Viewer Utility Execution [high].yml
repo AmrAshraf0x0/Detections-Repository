@@ -10,7 +10,7 @@ detection:
   selection:
     CommandLine|contains:
       - 'Radmin.exe'
-    Image|endswith:
+    NewProcessName|endswith:
       - '\Radmin Viewer 3\Radmin.exe'
   condition: selection
 fields:

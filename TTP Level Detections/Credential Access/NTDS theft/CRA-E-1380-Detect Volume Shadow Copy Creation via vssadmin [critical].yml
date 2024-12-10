@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    Image|endswith: '\vssadmin.exe'
+    NewProcessName|endswith: '\vssadmin.exe'
     CommandLine|contains|all:
       - "create"
       - "shadow"

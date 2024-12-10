@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    Image|endswith: '\powershell.exe'
+    NewProcessName|endswith: '\powershell.exe'
     CommandLine|contains|all:
       - "win32_shadowcopy"
       - ".Create("

@@ -8,7 +8,7 @@ logsource:
   product: windows
 detection:
   selection:
-    Image|endswith: '\schtasks.exe'
+    NewProcessName|endswith: '\schtasks.exe'
     CommandLine|contains|any:
       - '/Create'
       - '/Run'

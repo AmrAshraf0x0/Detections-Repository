@@ -8,7 +8,7 @@ logsource:
   product: windows
 detection:
   selection:
-    Image|endswith: '\at.exe'
+    NewProcessName|endswith: '\at.exe'
     CommandLine|contains|all:
       - 'at'
   condition: selection

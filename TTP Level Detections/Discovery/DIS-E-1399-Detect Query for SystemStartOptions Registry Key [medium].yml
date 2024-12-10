@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    Image|endswith: '\reg.exe'
+    NewProcessName|endswith: '\reg.exe'
     CommandLine|contains|all:
       - "HKLM\\SYSTEM\\CurrentControlSet\\Control"
       - "SystemStartOptions"

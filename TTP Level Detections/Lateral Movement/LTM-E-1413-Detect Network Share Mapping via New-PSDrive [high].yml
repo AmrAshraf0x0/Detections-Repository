@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    Image|endswith|any:
+    NewProcessName|endswith|any:
       - '\powershell.exe'
       - '\pwsh.exe'
     CommandLine|contains|all:

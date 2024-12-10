@@ -13,7 +13,7 @@ detection:
       - "\\ScreenConnect.WindowsBackstageShell.exe"
       - "\\ScreenConnect.WindowsFileManager.exe"
   selection_child_processes:
-    Image|endswith:
+    NewProcessName|endswith:
       - "\\powershell.exe"
       - "\\cmd.exe"
       - "\\net.exe"

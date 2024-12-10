@@ -14,7 +14,7 @@ detection:
       - 'deletejournal'
       - '/D'
   selection_image:
-    Image|endswith: '\fsutil.exe'
+    NewProcessName|endswith: '\fsutil.exe'
   condition: selection_command and selection_image
 fields:
   - CommandLine

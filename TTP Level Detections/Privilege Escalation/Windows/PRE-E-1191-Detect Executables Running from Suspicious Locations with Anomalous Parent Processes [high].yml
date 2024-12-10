@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     - EventID: 4688
-    - Image|re: 
+    - NewProcessName|re: 
       - '.*\\AppData\\.*'
       - '.*\\Temp\\.*'
       - '.*\\Downloads\\.*'

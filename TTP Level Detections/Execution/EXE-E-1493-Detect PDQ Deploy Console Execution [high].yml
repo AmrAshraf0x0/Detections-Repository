@@ -10,7 +10,7 @@ detection:
   selection:
     CommandLine|contains:
       - 'PDQDeployConsole.exe'
-    Image|endswith:
+    NewProcessName|endswith:
       - '\Admin Arsenal\PDQ Deploy\PDQDeployConsole.exe'
   condition: selection
 fields:

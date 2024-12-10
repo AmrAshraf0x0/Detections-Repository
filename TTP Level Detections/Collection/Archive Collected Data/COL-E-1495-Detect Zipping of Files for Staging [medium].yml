@@ -8,9 +8,10 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     CommandLine|contains:
       - 'Compress-Archive'
-    Image|endswith:
+    NewProcessName|endswith:
       - '\powershell.exe'
   condition: selection
 fields:

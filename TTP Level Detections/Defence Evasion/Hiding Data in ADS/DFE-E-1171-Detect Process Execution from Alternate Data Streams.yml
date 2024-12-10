@@ -8,9 +8,9 @@ logsource:
   product: windows
 detection:
   selection:
-    Image|contains: ':'
+    CommandLine|contains: ':'
   exclusion:
-    Image|endswith:
+    CommandLine|endswith:
       - ':Zone.Identifier'
     CommandLine|contains:
       - '::'

@@ -8,12 +8,12 @@ logsource:
   product: windows
 detection:
   selection:
-    - Image|endswith:
+    - NewProcessName|endswith:
         - '\wmic.exe'
       CommandLine|contains:
         - '/FORMAT:*'
         - '.xsl'
-    - Image|endswith:
+    - NewProcessName|endswith:
         - '\powershell.exe'
       CommandLine|contains:
         - 'TransformNode'

@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    Image|endswith: '\createdump.exe'
+    NewProcessName|endswith: '\createdump.exe'
     CommandLine|contains|all:
       - "-u"
       - "-f"

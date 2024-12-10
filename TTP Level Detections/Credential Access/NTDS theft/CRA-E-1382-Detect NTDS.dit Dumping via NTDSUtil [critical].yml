@@ -10,7 +10,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    Image|endswith: '\ntdsutil.exe'
+    NewProcessName|endswith: '\ntdsutil.exe'
     CommandLine|contains:
       - "ac i ntds"
       - "ifm"

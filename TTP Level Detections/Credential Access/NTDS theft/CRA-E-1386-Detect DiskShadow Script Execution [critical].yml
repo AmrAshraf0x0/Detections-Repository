@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    Image|endswith: '\diskshadow.exe'
+    NewProcessName|endswith: '\diskshadow.exe'
     CommandLine|contains: "/s"
   condition: selection
 fields:

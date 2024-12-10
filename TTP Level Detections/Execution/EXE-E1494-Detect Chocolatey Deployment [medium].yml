@@ -11,7 +11,7 @@ detection:
     CommandLine|contains:
       - 'choco install'
       - '7zip'
-    Image|endswith:
+    NewProcessName|endswith:
       - '\Chocolatey\choco.exe'
   condition: selection
 fields:

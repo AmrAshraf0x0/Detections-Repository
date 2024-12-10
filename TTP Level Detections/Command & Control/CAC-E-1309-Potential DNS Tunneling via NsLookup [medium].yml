@@ -8,6 +8,7 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     NewProcessName: 'nslookup.exe'
     CommandLine|contains:
       - "-querytype=*"
