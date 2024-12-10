@@ -1,0 +1,28 @@
+title: Detect WMI Remote Process Execution
+status: Developed
+description: Detects the use of WMI to execute a process on a remote host.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'wmic /user:'
+      - '/node:'
+      - 'process'
+  condition: selection
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate administrative tasks
+level: high
+tags:
+  - attack.execution
+  - attack.lateral_movement
+  - attack.t1059.003

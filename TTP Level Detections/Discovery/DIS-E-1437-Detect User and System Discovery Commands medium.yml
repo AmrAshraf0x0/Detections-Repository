@@ -1,0 +1,44 @@
+title: Detect User and System Discovery Commands
+status: Developed
+description: Detects the use of commands commonly used to identify system owners, users, and active sessions on an endpoint. This behavior may indicate reconnaissance activity.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_discovery_commands:
+    EventID: 4688
+    CommandLine|contains|any:
+      - 'whoami'
+      - 'wmic useraccount get'
+      - 'quser'
+      - 'qwinsta'
+      - 'query user'
+      - 'query session'
+      - 'net user'
+      - 'net localgroup'
+      - 'dsquery user'
+      - 'Get-WmiObject -Class Win32_UserAccount'
+      - 'hostname'
+      - 'systeminfo'
+      - 'tasklist /SVC'
+      - 'netstat -an'
+      - 'ipconfig /all'
+      - 'arp -a'
+  condition: selection_discovery_commands
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - TargetFilename
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative tasks collecting user and system information
+  - Authorized monitoring or inventory scripts
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1087.001
+  - attack.t1016

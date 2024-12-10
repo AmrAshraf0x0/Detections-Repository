@@ -1,0 +1,29 @@
+title: Detect Packet Capture Using pktmon
+status: Developed
+description: Detects the use of `pktmon.exe` to initiate packet capture, which may indicate network reconnaissance or unauthorized monitoring.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_pktmon:
+    EventID: 4688
+    Image|endswith: '\pktmon.exe'
+  condition: selection_pktmon
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate use of `pktmon.exe` by administrators for troubleshooting or diagnostics
+  - Security audits or tests involving packet capture
+level: high
+tags:
+  - attack.discovery
+  - attack.collection
+  - attack.t1040
+  - attack.t1020

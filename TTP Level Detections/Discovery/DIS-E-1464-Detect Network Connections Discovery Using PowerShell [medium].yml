@@ -1,0 +1,35 @@
+title: Detect Network Connections Discovery Using PowerShell
+status: Developed
+description: Detects the execution of the PowerShell cmdlet `Get-NetTCPConnection`, which is used to enumerate active TCP connections on the system.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script
+  product: windows
+detection:
+  selection_script_block:
+    EventID: 4104
+    ScriptBlockText|contains: 'Get-NetTCPConnection'
+  selection_command_line:
+    EventID: 4688
+    CommandLine|contains: 'Get-NetTCPConnection'
+    Image|endswith|any:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+  condition: selection_script_block or selection_command_line
+fields:
+  - EventID
+  - ScriptBlockText
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate use by administrators for monitoring or troubleshooting
+  - Authorized automation scripts that include network diagnostics
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1049
+  - attack.execution

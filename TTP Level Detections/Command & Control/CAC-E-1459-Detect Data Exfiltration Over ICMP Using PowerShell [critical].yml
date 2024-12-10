@@ -1,0 +1,35 @@
+title: Detect Data Exfiltration Over ICMP Using PowerShell
+status: Developed
+description: Detects the use of PowerShell to exfiltrate data over the ICMP protocol by sending file contents using the `ping` method.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script
+  product: windows
+detection:
+  selection_script_block:
+    EventID: 4104
+    ScriptBlockText|contains|all:
+      - 'System.Net.Networkinformation.ping'
+      - 'Get-Content -Path'
+      - '.Send('
+  selection_command_line:
+    EventID: 4688
+    CommandLine|contains|all:
+      - 'powershell'
+      - 'System.Net.Networkinformation.ping'
+  condition: selection_script_block or selection_command_line
+fields:
+  - EventID
+  - ScriptBlockText
+  - CommandLine
+  - UserID
+  - Computer
+  - LogonID
+falsepositives:
+  - Legitimate administrative scripts or network testing tools using ICMP
+level: critical
+tags:
+  - attack.exfiltration
+  - attack.t1048.003
+  - attack.t1071.001

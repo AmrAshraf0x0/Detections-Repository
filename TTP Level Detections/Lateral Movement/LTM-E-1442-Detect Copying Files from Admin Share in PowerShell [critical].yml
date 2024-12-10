@@ -1,0 +1,42 @@
+title: Detect Copying Files from Admin Share in PowerShell
+status: Developed
+description: Detects PowerShell commands and cmdlets used to copy files, which may indicate lateral movement or data exfiltration attempts.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_copy_cmdlets:
+    EventID: 4688
+    CommandLine|contains|any:
+      - 'Copy-Item'
+      - 'New-Item -ItemType File'
+      - 'Move-Item'
+      - '[System.IO.File]::Copy'
+      - '[System.IO.File]::Move'
+  selection_admin_share:
+    CommandLine|contains|all:
+      - '\\'
+      - 'C$'
+  selection_admin_share1:
+    CommandLine|contains|all:
+      - '\\'
+      - 'ADMIN$'
+  condition: selection_copy_cmdlets and (selection_admin_share or selection_admin_share1) 
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative tasks copying files to or from administrative shares
+  - Authorized scripts or automation tools performing file operations
+level: critical
+tags:
+  - attack.exfiltration
+  - attack.lateral_movement
+  - attack.t1105
+  - attack.t1021

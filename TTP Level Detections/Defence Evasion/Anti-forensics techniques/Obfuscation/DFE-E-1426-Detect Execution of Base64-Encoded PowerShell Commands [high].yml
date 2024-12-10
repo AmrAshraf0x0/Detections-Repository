@@ -1,0 +1,27 @@
+title: Detect Execution of Base64-Encoded PowerShell Commands
+status: Developed
+description: Detects the execution of PowerShell commands with the `-EncodedCommand` parameter via script block logging. This behavior is commonly associated with obfuscation and execution of malicious commands.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script
+  product: windows
+detection:
+  selection:
+    EventID: 4104
+    ScriptBlockText|contains: '-EncodedCommand'
+  condition: selection
+fields:
+  - EventID
+  - ScriptBlockText
+  - UserID
+  - Computer
+  - LogonID
+falsepositives:
+  - Legitimate use of `-EncodedCommand` in administrative or automated scripts
+  - Security tools using encoded commands for secure operations
+level: high
+tags:
+  - attack.execution
+  - attack.obfuscation
+  - attack.t1059.001

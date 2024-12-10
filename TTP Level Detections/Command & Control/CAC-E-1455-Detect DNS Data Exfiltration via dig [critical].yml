@@ -1,0 +1,33 @@
+title: Detect DNS Data Exfiltration via dig
+status: Developed
+description: Detects potential data exfiltration using the `dig` command with Base64-encoded subdomains, which is commonly used for DNS tunneling or exfiltration.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith: '/dig'
+    CommandLine|contains|all:
+      - '@'
+      - '-p'
+    CommandLine|contains|any:
+      - 'base64'
+      - 'echo'
+  condition: selection
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate DNS queries using dig for troubleshooting or diagnostics
+  - Authorized network testing involving DNS queries
+level: critical
+tags:
+  - attack.exfiltration
+  - attack.command_and_control
+  - attack.t1071.004
+  - attack.t1048

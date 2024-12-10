@@ -1,0 +1,26 @@
+title: Detect WMI Rundll32 Execution
+status: Developed
+description: Detects the use of WMI to execute a DLL function via rundll32.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'wmic /node:'
+      - 'rundll32.exe'
+  condition: selection
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate administrative tasks
+level: high
+tags:
+  - attack.execution
+  - attack.t1218.011

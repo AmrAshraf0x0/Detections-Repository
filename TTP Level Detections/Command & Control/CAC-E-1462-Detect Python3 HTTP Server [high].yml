@@ -1,0 +1,30 @@
+title: Detect Python3 HTTP Server
+status: Developed
+description: Detects the use of the Python3 `http.server` module to create a local HTTP server, which may be used for exfiltration or staging.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection_python_http_server:
+    Image|endswith: '/python3'
+    CommandLine|contains|all:
+      - '-m'
+      - 'http.server'
+  condition: selection_python_http_server
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate use of Python3 HTTP server for development or testing
+  - Authorized local file sharing using Python
+level: high
+tags:
+  - attack.execution
+  - attack.t1071.001
+  - attack.t1105
+  - attack.lateral_movement

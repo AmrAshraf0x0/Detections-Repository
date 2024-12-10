@@ -1,0 +1,29 @@
+title: Detect Logon Script Modification via Registry
+status: Developed
+description: Detects changes to the HKCU\Environment\UserInitMprLogonScript registry key, which may indicate attempts to establish persistence via logon scripts.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: registry_event
+  product: windows
+detection:
+  selection_registry_modification:
+    RegistryKey|contains|all:
+      - 'HKCU\\Environment'
+    EventType: 'SetValue'
+    ValueName: 'UserInitMprLogonScript'
+  condition: selection_registry_modification
+fields:
+  - RegistryKey
+  - ValueName
+  - Value
+  - EventType
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative or operational tasks modifying logon scripts
+  - Authorized software or scripts setting logon configuration
+level: high
+tags:
+  - attack.persistence
+  - attack.t1037.001

@@ -1,0 +1,31 @@
+title: Detect System Network Connections Discovery Commands
+status: Developed
+description: Detects the execution of commands such as `netstat`, `net use`, and `net sessions` to list active network connections, shares, and sessions, which may indicate reconnaissance activity.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_netstat:
+    CommandLine|contains: 'netstat'
+  selection_net_use:
+    CommandLine|contains: 'net use'
+  selection_net_sessions:
+    CommandLine|contains: 'net sessions'
+  condition: selection_netstat or selection_net_use or selection_net_sessions
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate use by administrators for troubleshooting or monitoring
+  - IT automation scripts querying network connections or shares
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1049
+  - attack.t1016

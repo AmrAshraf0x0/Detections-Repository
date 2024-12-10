@@ -1,0 +1,31 @@
+title: Detect DNS-Based Data Exfiltration via PowerShell
+status: Developed
+description: Detects the use of PowerShell to exfiltrate data via DNS subdomains, a common technique for covert data transfer or Command and Control (C2).
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script
+  product: windows
+detection:
+  selection_dns_exfiltration:
+    EventID: 4104
+    ScriptBlockText|contains|all:
+      - 'Resolve-DnsName'
+      - '[System.Text.Encoding]::UTF8.GetBytes'
+      - '[Convert]::ToBase64String'
+  condition: selection_dns_exfiltration
+fields:
+  - EventID
+  - ScriptBlockText
+  - UserID
+  - Computer
+  - LogonID
+falsepositives:
+  - Legitimate use of `Resolve-DnsName` for troubleshooting or testing
+  - Security research or monitoring involving DNS queries
+level: critical
+tags:
+  - attack.exfiltration
+  - attack.t1071.004
+  - attack.t1048
+  - attack.command_and_control
