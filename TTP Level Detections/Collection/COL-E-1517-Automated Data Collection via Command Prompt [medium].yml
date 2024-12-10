@@ -1,0 +1,24 @@
+title: Automated Data Collection via Command Prompt
+description: Detects automated data collection using Command Prompt to gather .docx files from the system.
+author: Amr Ashraf
+date: 2024-12-06
+status: developed
+severity: medium
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - 'dir c: /b /s .docx'
+      - 'for /R c:\ %f in (*.docx) do copy /Y %f'
+  condition: selection
+falsepositives:
+  - Legitimate scripts or administrative tasks scanning for and copying files.
+tags:
+  - attack.collection
+  - attack.T1119
+fields:
+  - CommandLine
+  - ParentCommandLine
+  - Image

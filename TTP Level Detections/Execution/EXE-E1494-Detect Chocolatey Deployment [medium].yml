@@ -1,0 +1,27 @@
+title: Detect Chocolatey Deployment
+status: Developed
+description: Detects the use of Chocolatey package manager to deploy software like 7-Zip, which could indicate unauthorized deployment.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - 'choco install'
+      - '7zip'
+    Image|endswith:
+      - '\Chocolatey\choco.exe'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate use of Chocolatey for software deployment.
+level: medium
+tags:
+  - attack.execution
+  - attack.t1033

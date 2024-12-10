@@ -1,0 +1,27 @@
+title: Detect Disabling Bash History Logging
+status: Developed
+description: Detects attempts to disable Bash history logging or clear logging for current and future shell sessions.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection_set_o_history:
+    CommandLine|contains: 'set +o history'
+  selection_export_histfile:
+    CommandLine|contains: 'export HISTFILESIZE=0'
+  selection_unset_histfile:
+    CommandLine|contains: 'unset HISTFILE'
+  condition: selection_set_o_history or selection_export_histfile or selection_unset_histfile
+fields:
+  - CommandLine
+  - User
+  - ProcessID
+  - ParentProcessID
+falsepositives:
+  - Legitimate administrative actions to configure shell behavior.
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1070.004

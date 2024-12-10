@@ -1,0 +1,25 @@
+title: Suspicious rsync Usage
+status: Developed
+description: Detects potentially suspicious usage of rsync for file transfer.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'rsync'
+      - '@'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentCommandLine
+  - User
+  - ProcessName
+falsepositives:
+  - Legitimate use of rsync for file backups or system administration.
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1105

@@ -1,0 +1,27 @@
+title: Detect Activation of Guest Account on Windows
+status: Developed
+description: Detects the activation of the default Guest account, which is disabled by default in Windows environments, potentially indicating unauthorized access attempts.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'net'
+      - 'user'
+      - 'guest'
+      - '/active:yes'
+  condition: selection
+fields:
+  - CommandLine
+  - User
+  - ParentImage
+  - Hostname
+falsepositives:
+  - Legitimate administrative actions enabling the Guest account.
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1078.001

@@ -1,0 +1,31 @@
+title: Detect Curl or Wget Piping Downloads to Bash
+status: Developed
+description: Detects the use of curl or wget to directly pipe a downloaded script to bash, which is a common technique for executing remote payloads.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'curl'
+      - '|bash'
+  selection2:
+    CommandLine|contains|all:
+      - 'wget'
+      - '|bash'
+  condition: selection or selection2
+fields:
+  - CommandLine
+  - User
+  - ParentImage
+  - Image
+  - Hostname
+falsepositives:
+  - Administrator downloading and executing scripts for software installations.
+level: high
+tags:
+  - attack.execution
+  - attack.persistence
+  - attack.t1059.004

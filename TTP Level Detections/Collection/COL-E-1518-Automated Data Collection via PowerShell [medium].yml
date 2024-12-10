@@ -1,0 +1,24 @@
+title: Automated Data Collection via PowerShell
+description: Detects PowerShell commands used for recursively searching and copying files for data collection.
+author: Amr Ashraf
+date: 2024-12-06
+status: developed
+severity: medium
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - 'Get-ChildItem -Recurse -Include *.doc'
+      - 'Copy-Item'
+  condition: selection
+falsepositives:
+  - Legitimate administrative or backup activities.
+tags:
+  - attack.collection
+  - attack.T1119
+fields:
+  - CommandLine
+  - ParentCommandLine
+  - Image

@@ -1,0 +1,29 @@
+title: Detect Deletion of USN Journal Using FSUtil
+status: Developed
+description: Detects the use of `fsutil` to delete the Update Sequence Number (USN) journal, which can be used to hinder forensic investigations.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_command:
+    CommandLine|contains|all:
+      - 'fsutil'
+      - 'usn'
+      - 'deletejournal'
+      - '/D'
+  selection_image:
+    Image|endswith: '\fsutil.exe'
+  condition: selection_command and selection_image
+fields:
+  - CommandLine
+  - Image
+  - User
+  - ParentImage
+falsepositives:
+  - Legitimate use of `fsutil` for disk management by system administrators.
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1070.002

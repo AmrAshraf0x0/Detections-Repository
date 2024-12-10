@@ -1,0 +1,24 @@
+title: Detect Execution of Visual Basic Scripts
+status: Developed
+description: Detects the execution of VBScript files using `cscript` or other means.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains: '.vbs'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - User
+  - ParentImage
+  - Hostname
+falsepositives:
+  - Legitimate use of VBScript for administrative tasks.
+level: medium
+tags:
+  - attack.execution
+  - attack.t1059.005

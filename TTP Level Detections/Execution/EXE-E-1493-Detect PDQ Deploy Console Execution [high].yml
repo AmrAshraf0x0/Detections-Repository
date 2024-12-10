@@ -1,0 +1,26 @@
+title: Detect PDQ Deploy Console Execution
+status: Developed
+description: Detects the execution of PDQ Deploy software which may be used to deploy Remote Administration Tools (RATs).
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+      - 'PDQDeployConsole.exe'
+    Image|endswith:
+      - '\Admin Arsenal\PDQ Deploy\PDQDeployConsole.exe'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate use of PDQ Deploy for administrative purposes.
+level: high
+tags:
+  - attack.execution
+  - attack.t1059

@@ -1,0 +1,28 @@
+title: Detect Crontab File Replacement
+status: Developed
+description: Detects suspicious activity where a crontab file is replaced or modified, which may indicate persistence mechanisms.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith: '/crontab'
+    CommandLine|contains|any:
+      - 'crontab -l >'
+      - 'crontab'
+  condition: selection
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - User
+  - ParentImage
+falsepositives:
+  - Legitimate administrative activities updating cron schedules
+level: high
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.t1053.003
