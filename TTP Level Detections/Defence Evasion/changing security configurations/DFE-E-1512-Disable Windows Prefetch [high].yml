@@ -1,0 +1,27 @@
+title: Disable Windows Prefetch
+id: 001-0005
+description: Detects registry changes to disable prefetch, potentially hiding execution artifacts.
+author: Amr Ashraf
+date: 2024-12-06
+status: developed
+logsource:
+  category: windows
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4657
+    ObjectName: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters'
+    ObjectValueName: 'EnablePrefetcher'
+    NewValue: '0'
+  condition: selection
+falsepositives:
+  - System optimization by administrators
+tags:
+  - attack.defense_evasion
+  - attack.T1112
+severity: high
+fields:
+  - ObjectName
+  - ObjectValueName
+  - NewValue

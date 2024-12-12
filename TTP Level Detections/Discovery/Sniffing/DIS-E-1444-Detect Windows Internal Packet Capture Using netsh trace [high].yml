@@ -9,7 +9,7 @@ logsource:
 detection:
   selection_netsh_trace:
     EventID: 4688
-    Image|endswith: '\netsh.exe'
+    NewProcessName|endswith: '\netsh.exe'
     CommandLine|contains|all:
       - 'trace start'
       - 'capture=yes'

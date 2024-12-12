@@ -1,0 +1,26 @@
+title: Detect Systemd Service and Timer Creation
+status: Developed
+description: Detects the creation or modification of systemd service and timer files, which can be used for persistence or scheduled execution.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: file_creation
+  product: linux
+detection:
+  selection_service_creation:
+    TargetFilename|endswith|any:
+      - '/etc/systemd/system/'
+  condition: selection_service_creation
+fields:
+  - EventID
+  - TargetFilename
+  - User
+  - ProcessName
+  - ParentProcessName
+falsepositives:
+  - Legitimate system administration tasks creating or modifying systemd services and timers
+level: high
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.t1053.005

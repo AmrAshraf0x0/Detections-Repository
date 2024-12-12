@@ -8,7 +8,8 @@ logsource:
   product: windows
 detection:
   selection:
-    Image|endswith: 
+    EventID: 4688
+    NewProcessName|endswith: 
       - '\\desktopimgdownldr.exe'
     CommandLine|contains:
       - "/lockscreenurl:http"

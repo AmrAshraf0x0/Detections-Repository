@@ -8,7 +8,8 @@ logsource:
   product: windows
 detection:
   selection_curl_upload:
-    Image|endswith: '\curl.exe'
+    EventID: 4688
+    NewProcessName|endswith: '\curl.exe'
     CommandLine|contains|all:
       - '-F'
       - 'file=@'

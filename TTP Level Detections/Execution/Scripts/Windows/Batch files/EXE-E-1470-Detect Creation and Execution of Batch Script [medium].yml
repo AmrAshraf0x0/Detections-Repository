@@ -1,0 +1,32 @@
+title: Detect Creation and Execution of Batch Script
+status: Developed
+description: Detects the creation and subsequent execution of batch scripts written to disk within a short time frame, which may indicate malicious activity.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  - category: process_creation
+    product: windows
+  - category: file_creation
+    product: windows
+detection:
+  timeframe: 1m
+  file_creation:
+    EventID: 11
+    TargetFilename|endswith: '.bat'
+  process_execution:
+    EventID: 4688
+    CommandLine|contains: '.bat'
+  condition: process_execution within 1m of file_creation  
+fields:
+  - TargetFilename
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate administrative tasks that create and execute batch scripts within a short time frame.
+level: medium
+tags:
+  - attack.execution
+  - attack.persistence
+  - attack.t1059.003

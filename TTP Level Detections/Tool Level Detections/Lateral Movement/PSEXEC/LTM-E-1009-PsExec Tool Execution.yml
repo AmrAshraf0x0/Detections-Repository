@@ -26,9 +26,6 @@ detection:
         Channel: Security
     selection:
         NewProcessName|endswith: \PSEXESVC.exe
-        SubjectUserName|contains: # covers many language settings
-            - AUTHORI
-            - AUTORI
     condition: process_creation and selection
 fields:
     - EventID

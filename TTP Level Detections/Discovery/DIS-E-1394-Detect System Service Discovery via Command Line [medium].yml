@@ -13,10 +13,10 @@ detection:
       - '\powershell.exe'
       - '\pwsh.exe'
       - '\cmd.exe'
-    Image|endswith: '\tasklist.exe'
+    NewProcessName|endswith: '\tasklist.exe'
   selection_sc_query:
     EventID: 4688
-    Image|endswith: '\sc.exe'
+    NewProcessName|endswith: '\sc.exe'
     CommandLine|contains|any:
       - "query"
       - "query state= all"

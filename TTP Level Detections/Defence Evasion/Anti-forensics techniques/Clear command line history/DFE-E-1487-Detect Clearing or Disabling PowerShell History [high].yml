@@ -1,0 +1,26 @@
+title: Detect Clearing or Disabling PowerShell History
+status: Developed
+description: Detects attempts to clear or disable PowerShell history using various methods.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script_block_logging
+  product: windows
+detection:
+  selection_clear_history:
+    ScriptBlock|contains: 'Remove-Item (Get-PSReadlineOption).HistorySavePath'
+  selection_disable_logging:
+    ScriptBlock|contains: 'Set-PSReadlineOption -HistorySaveStyle SaveNothing'
+  selection_custom_handler:
+    ScriptBlock|contains: 'Set-PSReadLineOption -AddToHistoryHandler'
+  condition: selection_clear_history or selection_disable_logging or selection_custom_handler
+fields:
+  - ScriptBlock
+  - User
+  - Hostname
+falsepositives:
+  - PowerShell configuration changes for legitimate administrative tasks.
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1070.004

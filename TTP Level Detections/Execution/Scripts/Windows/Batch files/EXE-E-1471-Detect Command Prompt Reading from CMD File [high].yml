@@ -1,0 +1,26 @@
+title: Detect Command Prompt Reading from CMD File
+status: Developed
+description: Detects the use of `cmd /r` to execute commands read from a file, similar to techniques used by malware such as Raspberry Robin.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains|all:
+      - 'cmd /r'
+      - '<'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate batch processing tasks using cmd input redirection.
+level: high
+tags:
+  - attack.execution
+  - attack.persistence
+  - attack.t1059.003

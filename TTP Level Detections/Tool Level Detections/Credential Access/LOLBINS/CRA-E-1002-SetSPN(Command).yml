@@ -8,7 +8,7 @@ logsource:
   product: windows
 detection:
   selection:
-    Image|endswith: '\\SetSPN.exe'
+    NewProcessName|endswith: '\\SetSPN.exe'
   condition: selection
 fields:
   - Image

@@ -1,0 +1,23 @@
+title: Detect System Time Manipulation on Windows
+status: Developed
+description: Detects changes to the system clock using PowerShell commands such as `Set-Date`.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script_block_logging
+  product: windows
+detection:
+  selection_set_date:
+    ScriptBlock|contains:
+      - 'Set-Date -Date'
+  condition: selection_set_date
+fields:
+  - ScriptBlock
+  - User
+  - Hostname
+falsepositives:
+  - Legitimate system time adjustments by administrators or during system maintenance.
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1070.006

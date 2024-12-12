@@ -1,0 +1,26 @@
+title: Tamper Windows Defender Protection
+description: Detects registry modifications to disable Windows Defender Tamper Protection.
+author: Amr Ashraf
+date: 2024-12-06
+status: developed
+logsource:
+  category: windows
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4657
+    ObjectName: 'HKLM\SOFTWARE\Microsoft\Windows Defender\Features'
+    ObjectValueName: 'TamperProtection'
+    NewValue: '0'
+  condition: selection
+falsepositives:
+  - Legitimate administrative changes
+tags:
+  - attack.defense_evasion
+  - attack.T1562
+severity: high
+fields:
+  - ObjectName
+  - ObjectValueName
+  - NewValue

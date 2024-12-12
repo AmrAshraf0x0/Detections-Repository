@@ -1,0 +1,26 @@
+title: Enable Remote Desktop Protocol (RDP)
+description: Detects registry changes to enable RDP by modifying fDenyTSConnections.
+author: Amr Ashraf
+date: 2024-12-06
+status: developed
+logsource:
+  category: windows
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4657
+    ObjectName: 'HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server'
+    ObjectValueName: 'fDenyTSConnections'
+    NewValue: '0'
+  condition: selection
+falsepositives:
+  - Legitimate administrative RDP configuration
+tags:
+  - attack.lateral_movement
+  - attack.T1021
+severity: high
+fields:
+  - ObjectName
+  - ObjectValueName
+  - NewValue

@@ -7,6 +7,7 @@ logsource:
   product: windows
 detection:
   selection_network:
+  EventID: 4688
     NewProcessName|endswith:
       - "\powershell.exe"
       - "\pwsh.exe"

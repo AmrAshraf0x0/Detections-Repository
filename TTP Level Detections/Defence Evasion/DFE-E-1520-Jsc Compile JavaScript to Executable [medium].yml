@@ -1,0 +1,25 @@
+title: Jsc Compile JavaScript to Executable
+description: Detects the use of jsc.exe to compile JavaScript code into an executable.
+author: Amr Ashraf
+date: 2024-12-06
+status: developed
+severity: medium
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    NewProcessName|endswith: '\jsc.exe'
+    CommandLine|contains: '.js'
+  condition: selection
+falsepositives:
+  - Legitimate use of jsc.exe for development purposes.
+tags:
+  - attack.defense_evasion
+  - attack.execution
+  - attack.T1127
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - ParentCommandLine

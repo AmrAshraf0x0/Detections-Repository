@@ -1,0 +1,26 @@
+title: Modify PowerShell Execution Policy to Bypass
+description: Detects registry changes to modify PowerShell execution policy to bypass restrictions.
+author: Amr Ashraf
+date: 2024-12-06
+status: developed
+logsource:
+  category: windows
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4657
+    ObjectName: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
+    ObjectValueName: 'ExecutionPolicy'
+    NewValue: 'Bypass'
+  condition: selection
+falsepositives:
+  - Legitimate administrative changes
+tags:
+  - attack.execution
+  - attack.T1059
+severity: high
+fields:
+  - ObjectName
+  - ObjectValueName
+  - NewValue

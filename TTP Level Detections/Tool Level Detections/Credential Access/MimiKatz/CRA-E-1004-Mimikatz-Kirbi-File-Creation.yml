@@ -16,6 +16,7 @@ detection:
         TargetFilename|endswith:
             - '.kirbi' # Kerberos tickets
             - 'mimilsa.log' # MemSSP default file
+            - 'mimikatz'
     condition: selection
 falsepositives:
     - Unlikely

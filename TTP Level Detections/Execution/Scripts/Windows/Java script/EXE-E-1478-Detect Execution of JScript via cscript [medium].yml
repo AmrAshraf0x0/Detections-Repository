@@ -1,0 +1,32 @@
+title: Detect Execution of JScript via cscript
+status: Developed
+description: Detects the execution of JScript files using the `cscript` command, commonly used for script execution.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains: '.js'
+    ParentImage|endswith: 
+      - '\cscript.exe'
+      - '\wscript.exe'
+  selection1:
+    CommandLine|contains: '.js'
+    NewProcessName|endswith: 
+      - '\cscript.exe'
+      - '\wscript.exe'
+  condition: selection
+fields:
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - Hostname
+falsepositives:
+  - Legitimate use of JScript for administrative or development purposes.
+level: medium
+tags:
+  - attack.execution
+  - attack.t1059.007

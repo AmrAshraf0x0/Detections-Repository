@@ -1,0 +1,26 @@
+title: Detect Account Manipulation 
+status: Developed
+description: Detects suspicious PowerShell script blocks used to rename or modify administrator account details.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: script_block_logging
+  product: windows
+detection:
+  selection:
+    ScriptBlock|contains|all:
+      - 'Rename-LocalUser'
+      - 'Set-LocalUser'
+      - 'atr:'
+  condition: selection
+fields:
+  - ScriptBlock
+  - User
+  - HostApplication
+  - ParentCommandLine
+falsepositives:
+  - Legitimate administrative scripts modifying local accounts.
+level: high
+tags:
+  - attack.privilege_escalation
+  - attack.t1098

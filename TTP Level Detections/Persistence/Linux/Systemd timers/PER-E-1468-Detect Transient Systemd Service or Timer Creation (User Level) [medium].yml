@@ -1,0 +1,29 @@
+title: Detect Transient Systemd Service or Timer Creation (User Level)
+status: Developed
+description: Detects the use of the `systemd-run` command with `--user` to create transient user-level systemd services or timers.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection_user_level:
+    CommandLine|contains|all:
+      - 'systemd-run'
+      - '--user'
+    CommandLine|contains|any:
+      - '--unit='
+      - '--on-calendar='
+  condition: selection_user_level
+fields:
+  - EventID
+  - CommandLine
+  - User
+  - ParentProcessName
+falsepositives:
+  - Legitimate use of `systemd-run` by administrators or authorized scripts
+level: medium
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.t1053.005

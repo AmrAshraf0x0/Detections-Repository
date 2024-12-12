@@ -1,0 +1,28 @@
+title: Detect Task Scheduling Using 'at' Command
+status: Developed
+description: Detects the use of the `at` command to schedule tasks "deprecated shouldn't be used". This can be used by attackers to execute commands or scripts at a later time.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    NewProcessName|endswith: '\at.exe'
+    CommandLine|contains|all:
+      - 'at'
+  condition: selection
+fields:
+  - EventID
+  - CommandLine
+  - Image
+  - ParentImage
+  - User
+  - LogonID
+falsepositives:
+  - Legitimate administrative use of the `at` command to schedule tasks
+level: high
+tags:
+  - attack.execution
+  - attack.persistence
+  - attack.t1053.002

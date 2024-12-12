@@ -1,0 +1,40 @@
+title: Detect Command Line Based Permission and Group Enumeration
+status: Developed
+description: Detects various command-line techniques used for permission and group enumeration in a domain or local environment, including tools like `net` commands and PowerShell cmdlets.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_net_commands:
+    CommandLine|contains:
+      - 'net localgroup'
+      - 'net group /domain'
+      - 'net group "enterprise admins" /domain'
+      - 'net group "domain admins" /domain'
+      - 'net groups "Account Operators"'
+      - 'net groups "Exchange Organization Management"'
+      - 'net group "BUILTIN\Backup Operators"'
+      - 'net group /domai "Domain Admins"'
+  selection_powershell_commands:
+    CommandLine|contains:
+      - 'get-ADPrincipalGroupMembership'
+      - 'Find-LocalAdminAccess'
+      - 'Invoke-EnumerateLocalAdmin'
+      - 'Find-GPOComputerAdmin'
+      - 'get-aduser'
+      - 'DoesNotRequirePreAuth'
+  condition: selection_net_commands or selection_powershell_commands
+fields:
+  - CommandLine
+  - ParentImage
+  - Image
+  - User
+falsepositives:
+  - Legitimate administrative use for group or permission enumeration.
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1069.002
+  - attack.t1557.002

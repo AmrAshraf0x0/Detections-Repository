@@ -19,7 +19,7 @@ logsource:
 detection:
     selection_img:
         - OriginalFileName: 'winPEAS.exe'
-        - Image|endswith:
+        - NewProcessName|endswith:
               - '\winPEASany_ofs.exe'
               - '\winPEASany.exe'
               - '\winPEASx64_ofs.exe'

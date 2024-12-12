@@ -22,8 +22,7 @@ logsource:
     product: windows
 detection:
     selection:
-        TargetFilename|startswith: 'C:\Windows\PSEXEC-'
-        TargetFilename|endswith: '.key'
+        TargetFilename|startswith: 'PSEXEC-'
     condition: selection
 falsepositives:
     - Unlikely

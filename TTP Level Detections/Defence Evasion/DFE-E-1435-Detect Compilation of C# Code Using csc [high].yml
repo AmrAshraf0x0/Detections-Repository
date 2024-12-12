@@ -9,7 +9,7 @@ logsource:
 detection:
   selection_csc:
     EventID: 4688
-    Image|endswith: '\csc.exe'
+    NewProcessName|endswith: '\csc.exe'
   selection_suspicious_arguments:
     CommandLine|contains:
       - '/out:'

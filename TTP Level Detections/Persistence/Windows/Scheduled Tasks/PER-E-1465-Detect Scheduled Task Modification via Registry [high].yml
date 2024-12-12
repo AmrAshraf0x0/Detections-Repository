@@ -1,0 +1,25 @@
+title: Detect Scheduled Task Modification via Registry
+status: Developed
+description: Detects registry modifications associated with scheduled task persistence, such as altering `HKEY_CURRENT_USER\Software\Classes\mscfile\shell\open\command`.
+author: Amr Ashraf
+date: 2024-12-06
+logsource:
+  category: registry_event
+  product: windows
+detection:
+  selection:
+    TargetObject|contains|any:
+      - 'HKEY_CURRENT_USER\Software\Classes\mscfile\shell\open\command'
+  condition: selection
+fields:
+  - EventID
+  - TargetObject
+  - Details
+  - User
+falsepositives:
+  - Legitimate administrative changes to task configuration
+level: critical
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.t1053.005

@@ -8,7 +8,7 @@ logsource:
   product: windows
 detection:
   selection:
-    Image|endswith: 
+    NewProcessName|endswith: 
       - '\net.exe'
       - '\net1.exe'
     CommandLine|contains|all:

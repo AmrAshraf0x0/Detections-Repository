@@ -8,7 +8,7 @@ logsource:
   product: windows
 detection:
   file_operations:
-    Image|endswith:
+    NewProcessName|endswith:
       - '\cmd.exe'
       - '\powershell.exe'
       - '\pwsh.exe'

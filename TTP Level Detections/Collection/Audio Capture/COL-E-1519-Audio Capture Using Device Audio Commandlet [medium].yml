@@ -1,0 +1,22 @@
+title: Audio Capture Using Device Audio Commandlet
+description: Detects the use of AudioDeviceCmdlets via PowerShell for capturing device audio.
+author: Amr Ashraf
+date: 2024-12-06
+status: developed
+severity: medium
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains: 'WindowsAudioDevice-Powershell-Cmdlet'
+  condition: selection
+falsepositives:
+  - Legitimate use of AudioDeviceCmdlets for system audio management.
+tags:
+  - attack.collection
+  - attack.T1123
+fields:
+  - CommandLine
+  - ParentCommandLine
+  - Image

@@ -11,7 +11,7 @@ detection:
       - 'tasklist'
       - 'wmic process list'
   selection2:
-    Image|endswith:
+    NewProcessName|endswith:
       - 'powershell.exe'
       - 'python.exe'
     CommandLine|contains:

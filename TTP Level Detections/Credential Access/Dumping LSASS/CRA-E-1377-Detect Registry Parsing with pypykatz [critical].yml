@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    Image|contains:
+    NewProcessName|contains:
       - '\python'
     CommandLine|contains|all:
       - "live"

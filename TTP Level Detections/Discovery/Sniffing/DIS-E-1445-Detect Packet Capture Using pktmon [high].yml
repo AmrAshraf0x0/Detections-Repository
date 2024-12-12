@@ -9,7 +9,7 @@ logsource:
 detection:
   selection_pktmon:
     EventID: 4688
-    Image|endswith: '\pktmon.exe'
+    NewProcessName|endswith: '\pktmon.exe'
   condition: selection_pktmon
 fields:
   - EventID

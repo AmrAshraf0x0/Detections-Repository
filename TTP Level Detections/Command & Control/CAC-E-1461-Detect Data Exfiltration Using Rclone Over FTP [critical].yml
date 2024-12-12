@@ -8,13 +8,13 @@ logsource:
   product: windows
 detection:
   selection_rclone_config:
-    Image|endswith: '\rclone.exe'
+    NewProcessName|endswith: '\rclone.exe'
     CommandLine|contains|all:
       - 'config create'
       - 'ftp'
       - 'host'
   selection_rclone_transfer:
-    Image|endswith: '\rclone.exe'
+    NewProcessName|endswith: '\rclone.exe'
     CommandLine|contains|all:
       - 'copy'
       - 'ftpserver'

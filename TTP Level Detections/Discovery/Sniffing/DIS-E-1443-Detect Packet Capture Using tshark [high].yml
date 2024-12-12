@@ -9,7 +9,7 @@ logsource:
 detection:
   selection_tshark:
     EventID: 4688
-    Image|endswith: '\tshark.exe'
+    NewProcessName|endswith: '\tshark.exe'
     CommandLine|contains|all:
       - '-i'
       - '-c'

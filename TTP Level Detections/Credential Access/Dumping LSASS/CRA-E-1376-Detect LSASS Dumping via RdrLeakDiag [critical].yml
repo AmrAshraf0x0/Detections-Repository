@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4988
-    Image|endswith:
+    NewProcessName|endswith:
       - '\rdrleakdiag.exe'
     CommandLine|contains|all:
       - "/p"
