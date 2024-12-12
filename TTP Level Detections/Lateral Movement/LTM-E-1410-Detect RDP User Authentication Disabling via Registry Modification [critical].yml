@@ -9,14 +9,14 @@ logsource:
 detection:
   selection:
     EventID: 4657
-    RegistryKey|contains: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
-    RegistryValueName: 'UserAuthentication'
+    ObjectName|contains: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
+    ObjectValueName: 'UserAuthentication'
     RegistryValueData: '0'
   condition: selection
 fields:
   - EventID
-  - RegistryKey
-  - RegistryValueName
+  - ObjectName
+  - ObjectValueName
   - RegistryValueData
   - User
   - Computer
@@ -30,3 +30,5 @@ tags:
   - attack.lateral_movement
   - attack.t1562
   - attack.t1021
+
+#need to verify the logs being received on SIEM
