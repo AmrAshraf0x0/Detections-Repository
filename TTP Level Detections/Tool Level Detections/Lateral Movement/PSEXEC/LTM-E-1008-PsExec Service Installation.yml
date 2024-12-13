@@ -26,7 +26,6 @@ detection:
         EventID: 7045
     selection_service:
         - ServiceName: PSEXESVC
-        - ImagePath|endswith: \PSEXESVC.exe
     condition: system and (all of selection_*)
 falsepositives:
     - Unknown

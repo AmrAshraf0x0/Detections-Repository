@@ -1,0 +1,1 @@
+event.code: "4104" and message : ("*Get-ADUser*" or *Get-ADComputer*"or *Get-ADGroup*" or "*Get-ADOrganizationalUnit*")
