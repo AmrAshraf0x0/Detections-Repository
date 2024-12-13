@@ -8,10 +8,10 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     NewProcessName|endswith: '\schtasks.exe'
     CommandLine|contains|all:
-      - '-EncodedCommand'
-      - 'powershell.exe'
+      - 'EncodedCommand'
   condition: selection
 fields:
   - EventID
@@ -24,6 +24,5 @@ falsepositives:
   - Legitimate use of encoded commands in automation or deployment scripts
 level: critical
 tags:
-  - attack.execution
   - attack.persistence
-  - attack.t1053.005
+  - T1053.005

@@ -8,6 +8,7 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     CommandLine|contains:
       - 'choco install'
       - '7zip'
@@ -24,4 +25,4 @@ falsepositives:
 level: medium
 tags:
   - attack.execution
-  - attack.t1033
+  - T1072

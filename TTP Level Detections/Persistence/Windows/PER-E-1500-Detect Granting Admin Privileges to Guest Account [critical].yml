@@ -8,12 +8,12 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     CommandLine|contains|all:
       - 'net'
       - 'localgroup'
       - 'Administrators' 
       - 'guest'
-      - '/add'
   condition: selection
 fields:
   - CommandLine
@@ -25,4 +25,5 @@ falsepositives:
 level: critical
 tags:
   - attack.privilege_escalation
-  - attack.t1078.001
+  - T1078.001
+  - T1098

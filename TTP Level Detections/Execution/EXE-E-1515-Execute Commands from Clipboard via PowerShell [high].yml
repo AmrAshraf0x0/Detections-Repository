@@ -5,11 +5,12 @@ date: 2024-12-06
 status: developed
 severity: high
 logsource:
-  category: process_creation
+  category: script_block
   product: windows
 detection:
   selection:
-    CommandLine|contains:
+    EventID: 4104
+    CommandLine|contains|all:
       - 'Get-Clipboard'
       - 'iex'
   condition: selection
@@ -17,7 +18,7 @@ falsepositives:
   - Developers using clipboard during legitimate tasks
 tags:
   - attack.execution
-  - attack.T1115
+  - T1115
 fields:
   - CommandLine
   - ParentImage

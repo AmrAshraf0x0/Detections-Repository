@@ -8,6 +8,7 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     CommandLine|contains: '.vbs'
   condition: selection
 fields:
@@ -21,4 +22,4 @@ falsepositives:
 level: medium
 tags:
   - attack.execution
-  - attack.t1059.005
+  - T1059.005

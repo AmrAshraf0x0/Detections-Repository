@@ -8,6 +8,7 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4657
     TargetObject|contains|any:
       - 'HKEY_CURRENT_USER\Software\Classes\mscfile\shell\open\command'
   condition: selection
@@ -21,5 +22,4 @@ falsepositives:
 level: critical
 tags:
   - attack.persistence
-  - attack.execution
-  - attack.t1053.005
+  - T1053.005

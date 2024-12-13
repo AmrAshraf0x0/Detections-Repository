@@ -8,11 +8,11 @@ logsource:
   product: windows
 detection:
   selection_account_creation:
+    EventID: 4104
     ScriptBlock|contains:
       - 'New-ADUser'
-      - '-Enabled:$False'
   selection_group_addition:
-    ScriptBlock|contains:
+    ScriptBlock|contains|all:
       - 'Add-ADGroupMember'
       - 'Domain Admins'
   condition: selection_account_creation or selection_group_addition
@@ -23,7 +23,7 @@ fields:
   - ParentCommandLine
 falsepositives:
   - Legitimate administrative tasks using Active Directory PowerShell module.
-level: critical
+level: high
 tags:
-  - attack.privilege_escalation
-  - attack.t1098
+  - attack.persistence
+  - T1136.002
