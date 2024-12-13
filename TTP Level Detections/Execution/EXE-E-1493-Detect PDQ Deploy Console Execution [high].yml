@@ -8,10 +8,9 @@ logsource:
   product: windows
 detection:
   selection:
-    CommandLine|contains:
-      - 'PDQDeployConsole.exe'
+    EventID: 
     NewProcessName|endswith:
-      - '\Admin Arsenal\PDQ Deploy\PDQDeployConsole.exe'
+      - '\PDQDeployConsole.exe'
   condition: selection
 fields:
   - CommandLine
@@ -23,4 +22,4 @@ falsepositives:
 level: high
 tags:
   - attack.execution
-  - attack.t1059
+  - T1072

@@ -8,7 +8,8 @@ logsource:
   product: windows
 detection:
   selection:
-    ScriptBlock|contains|all:
+    EventID: 4104
+    ScriptBlock|contains:
       - 'Rename-LocalUser'
       - 'Set-LocalUser'
       - 'atr:'
@@ -20,7 +21,7 @@ fields:
   - ParentCommandLine
 falsepositives:
   - Legitimate administrative scripts modifying local accounts.
-level: high
+level: medium
 tags:
-  - attack.privilege_escalation
-  - attack.t1098
+  - attack.persistence
+  - T1136.001

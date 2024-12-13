@@ -5,17 +5,16 @@ author: Amr Ashraf
 date: 2024/11/09
 tags:
     - attack.credential-access
-    - attack.t1003.001
+    - T1003.001
 logsource:
     category: file_event
     product: windows
 detection:
     selection:
+        EventID: 11
         Image|endswith:
-            - ':\Windows\system32\taskmgr.exe'
-            - ':\Windows\SysWOW64\taskmgr.exe'
-        TargetFilename|contains:
-            - '\AppData\Local\Temp\'
+            - '\taskmgr.exe'
+        TargetFilename|contains|all:
             - 'lsass'
             - '.DMP'
     condition: selection
