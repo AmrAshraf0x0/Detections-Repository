@@ -5,14 +5,16 @@ author: Amr Ashraf
 date: 2024/11/09
 tags:
     - attack.credential_access
-    - attack.t1003.001
+    - T1003.001
 logsource:
     category: file_event
     product: windows
 detection:
     selection:
-        TargetFilename|contains: 'lsass'
-        TargetFilename|endswith: 'dmp'
+        EventID: 11
+        TargetFilename|contains: 
+            - 'lsass'
+            - 'dmp'
     condition: selection
 fields:
     - ComputerName

@@ -16,4 +16,6 @@ detection:
   condition: selection
 tags:
   - Discovery
+  - T1087.002
+  - T1069.002
 level: medium

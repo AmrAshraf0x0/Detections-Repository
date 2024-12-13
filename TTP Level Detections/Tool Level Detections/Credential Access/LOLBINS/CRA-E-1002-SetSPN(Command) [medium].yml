@@ -8,6 +8,7 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     NewProcessName|endswith: '\\SetSPN.exe'
   condition: selection
 fields:
@@ -18,7 +19,6 @@ fields:
 level: medium
 tags:
   - attack.credential_access
-  - attack.t1207
-  - attack.discovery
+  - T1558.003
 falsepositives:
   - Legitimate usage by domain administrators for SPN management tasks.

@@ -14,9 +14,8 @@ author: Thomas Patzke
 date: 2017/06/12
 modified: 2023/02/28
 tags:
-    - attack.execution
-    - attack.t1569.002
-    - attack.s0029
+    - attack.lateral-movement
+    - T1021.002
 logsource:
     category: process_creation
     product: windows
@@ -37,5 +36,5 @@ fields:
     - PipeName
 falsepositives:
     - Unknown
-level: low
+level: Medium
 

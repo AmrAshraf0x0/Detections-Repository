@@ -5,12 +5,15 @@ author: Amr Ashraf
 date: 2024/11/09
 tags:
     - attack.credential-access
-    - attack.t1003.001
+    - T1003.001
 logsource:
     category: process_access
     product: windows
 detection:
     selection:
+        EventID: 
+            - "8"
+            - "10"
         TargetImage|endswith: '\lsass.exe'
         SourceImage|endswith: '\rundll32.exe'
         CallTrace|contains: 'comsvcs.dll'

@@ -5,7 +5,7 @@ author: Amr Ashraf
 date: 2024/11/09
 tags:
     - attack.credential-access
-    - attack.t1003.006
+    - T1003.006
 logsource:
     product: windows
     service: security
