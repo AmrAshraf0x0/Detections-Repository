@@ -9,10 +9,17 @@ logsource:
 detection:
   selection:
     EventID: 4688
+    NewProcessName|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
     CommandLine|contains|all:
       - 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
       - 'PortNumber'
   selection_firewall:
+  EventID: 4688
+  NewProcessName|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
     CommandLine|contains|all:
       - 'New-NetFirewallRule'
       - '-Direction Inbound'
@@ -21,10 +28,7 @@ detection:
 fields:
   - EventID
   - CommandLine
-  - Image
-  - ParentImage
-  - User
-  - LogonID
+  - NewProcessName
 falsepositives:
   - Legitimate administrative tasks reconfiguring RDP ports or firewall rules
   - Security tools performing automated configuration updates

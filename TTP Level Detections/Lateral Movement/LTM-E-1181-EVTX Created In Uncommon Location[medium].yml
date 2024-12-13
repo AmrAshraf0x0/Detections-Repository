@@ -14,13 +14,11 @@ logsource:
     category: file_event
     product: windows
 detection:
-    file_event:
+    selection_file_event:
         EventID: 11
-        Channel: Microsoft-Windows-Sysmon/Operational
-    selection:
-        TargetFilename|endswith: .evtx
+        TargetFileName|endswith: .evtx
     filter_main_path:
-        TargetFilename|startswith: C:\Windows\System32\winevt\Logs\
+        TargetFileName|startswith: C:\Windows\System32\winevt\Logs\
     filter_main_baseimage:
         TargetFilename|startswith: C:\ProgramData\Microsoft\Windows\Containers\BaseImages\
         TargetFilename|endswith: \Windows\System32\winevt\Logs\

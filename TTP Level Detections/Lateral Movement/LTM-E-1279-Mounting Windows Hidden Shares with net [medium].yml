@@ -7,22 +7,19 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName:
+    - NewProcessName:
         - "net.exe"
         - "net1.exe"
     - CommandLine|contains:
         - "use \\\\*\\$"
         - "use \\\\*/$"
   filter:
-      ParentProcessName|contains: "net.exe"
+      CreatorProcessName|contains: "net.exe"
   condition: selection and not filter
 fields:
-  - ProcessName
+  - NewProcessName
   - CommandLine
-  - ParentProcessName
-  - ParentProcessPath
-  - User
-  - Hostname
+  - CreatorProcessName
 level: medium
 tags:
   - attack.lateral_movement
