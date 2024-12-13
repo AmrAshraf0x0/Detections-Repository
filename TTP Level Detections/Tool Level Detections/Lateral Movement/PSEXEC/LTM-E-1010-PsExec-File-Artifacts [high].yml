@@ -16,7 +16,7 @@ logsource:
     product: windows
 detection:
     selection:
-        EventID: 4688
+        EventID: 11
         TargetFilename|startswith: 'PSEXEC-'
     condition: selection
 falsepositives:
