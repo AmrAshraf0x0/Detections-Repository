@@ -13,6 +13,7 @@ detection:
       - 'Compress-Archive'
     NewProcessName|endswith:
       - '\powershell.exe'
+      - '\pwsh.exe'
   condition: selection
 fields:
   - CommandLine

@@ -5,11 +5,12 @@ date: 2024-12-06
 status: developed
 severity: medium
 logsource:
-  category: process_creation
+  category: script_block
   product: windows
 detection:
   selection:
-    CommandLine|contains: 'WindowsAudioDevice-Powershell-Cmdlet'
+    EventID: 4104
+    message|contains: 'WindowsAudioDevice-Powershell-Cmdlet'
   condition: selection
 falsepositives:
   - Legitimate use of AudioDeviceCmdlets for system audio management.

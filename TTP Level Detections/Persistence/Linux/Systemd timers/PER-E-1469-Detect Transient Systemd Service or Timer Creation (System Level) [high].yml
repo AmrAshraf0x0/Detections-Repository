@@ -24,5 +24,4 @@ falsepositives:
 level: high
 tags:
   - attack.persistence
-  - attack.execution
   - attack.t1053.005
