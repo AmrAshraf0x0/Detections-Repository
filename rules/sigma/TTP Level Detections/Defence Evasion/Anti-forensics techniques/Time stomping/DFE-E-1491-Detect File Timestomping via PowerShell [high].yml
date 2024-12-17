@@ -7,6 +7,8 @@ logsource:
   category: script_block_logging
   product: windows
 detection:
+  selection:
+    EventID: 4104
   selection_creation_time:
     ScriptBlock|contains:
       - '.CreationTime ='
@@ -16,7 +18,7 @@ detection:
   selection_last_access_time:
     ScriptBlock|contains:
       - '.LastAccessTime ='
-  condition: selection_creation_time or selection_last_write_time or selection_last_access_time
+  condition: selection and (selection_creation_time or selection_last_write_time or selection_last_access_time)
 fields:
   - ScriptBlock
   - User

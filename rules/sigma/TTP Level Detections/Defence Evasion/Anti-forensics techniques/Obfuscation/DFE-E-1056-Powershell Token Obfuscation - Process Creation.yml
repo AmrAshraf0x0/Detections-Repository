@@ -7,25 +7,24 @@ tags:
     - attack.defense-evasion
     - attack.t1027.009
 logsource:
-    category: process_creation
+    category: script_block
     product: windows
 detection:
-    process_creation:
-        EventID: 4688
-        Channel: Security
     selection:
+        EventID: 4104
         # Examples:
         #   IN`V`o`Ke-eXp`ResSIOn (Ne`W-ob`ject Net.WebClient).DownloadString
         #   &('In'+'voke-Expressi'+'o'+'n') (.('New-Ob'+'jec'+'t') Net.WebClient).DownloadString
         #   &("{2}{3}{0}{4}{1}"-f 'e','Expression','I','nvok','-') (&("{0}{1}{2}"-f'N','ew-O','bject') Net.WebClient).DownloadString
-        - CommandLine|re: \w+`(\w+|-|.)`[\w+|\s]
+        - message|re: 
+            - '\w+`(\w+|-|.)`[\w+|\s]'
         # - CommandLine|re: '\((\'(\w|-|\.)+\'\+)+\'(\w|-|\.)+\'\)' TODO: fixme
-        - CommandLine|re: '"(\{\d\})+"\s*-f'
+            - '"(\{\d\})+"\s*-f'
         #   ${e`Nv:pATh}
-        - CommandLine|re: (?i)\$\{`?e`?n`?v`?:`?p`?a`?t`?h`?\}
+            - '(?i)\$\{`?e`?n`?v`?:`?p`?a`?t`?h`?\}'
     filter_main_envpath:
         CommandLine|contains: ${env:path}
-    condition: process_creation and (selection and not 1 of filter_main_*)
+    condition: selection and not 1 of filter_main_*
 falsepositives:
     - Unknown
 level: high
