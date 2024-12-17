@@ -21,7 +21,7 @@ fields:
   - LogonType
   - FailureReason
   - TargetUserName
-level: high
+level: medium
 tags:
   - attack.credential_access
   - attack.t1110.001 

@@ -13,6 +13,7 @@ logsource:
     product: windows
 detection:
     selection:
+        EventID: 4688
         CommandLine|contains: '::FromBase64String('
     condition: selection
 falsepositives:

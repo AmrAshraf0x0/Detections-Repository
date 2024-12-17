@@ -8,13 +8,9 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     CommandLine|contains: '.js'
     ParentImage|endswith: 
-      - '\cscript.exe'
-      - '\wscript.exe'
-  selection1:
-    CommandLine|contains: '.js'
-    NewProcessName|endswith: 
       - '\cscript.exe'
       - '\wscript.exe'
   condition: selection
