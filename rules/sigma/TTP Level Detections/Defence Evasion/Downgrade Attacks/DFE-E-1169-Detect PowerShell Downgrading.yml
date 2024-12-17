@@ -1,3 +1,4 @@
+# need to test the re
 title: Detect PowerShell Downgrading
 id: detect-powershell-downgrade
 status: Developed
@@ -8,7 +9,8 @@ logsource:
   product: windows
 detection:
   selection:
-    Image: '*\powershell.exe'
+    EventID: 4688
+    NewProcessName|contains: '\powershell.exe'
     CommandLine|re: 
       - '.*-Version\s+1.*'
       - '.*-Version\s+2.*'

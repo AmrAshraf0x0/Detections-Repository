@@ -11,12 +11,12 @@ detection:
     EventID: 4104
     ScriptBlockText|contains|any:
       # PowerDump related commands and keywords
-      - "lsass"
-      - "MiniDump"
-      - "Invoke-Mimikatz"
-      - "Write-MemoryDump"
-      - "DumpCreds"
-      - "Invoke-NinjaCopy"
+      - 'lsass'
+      - 'MiniDump'
+      - 'Invoke-Mimikatz'
+      - 'Write-MemoryDump'
+      - 'DumpCreds'
+      - 'Invoke-NinjaCopy'
   condition: selection
 fields:
   - EventID

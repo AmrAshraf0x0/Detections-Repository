@@ -8,10 +8,10 @@ logsource:
   product: windows
 detection:
   selection:
-    Image: '*\powershell.exe'
-    CommandLine:
-      - '*Set-MpPreference*DisableRealtimeMonitoring*True*'
-      - '*Stop-Service*WinDefend*'
+    NewProcessName|contains: '\powershell.exe'
+    CommandLine|contains|re:
+      - 'Set-MpPreference*DisableRealtimeMonitoring*True'
+      - 'Stop-Service*WinDefend'
   condition: selection
 fields:
   - Image

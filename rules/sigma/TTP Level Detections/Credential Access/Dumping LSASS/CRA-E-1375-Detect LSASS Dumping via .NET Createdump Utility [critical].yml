@@ -11,9 +11,9 @@ detection:
     EventID: 4688
     NewProcessName|endswith: '\createdump.exe'
     CommandLine|contains|all:
-      - "-u"
-      - "-f"
-      - "lsa"
+      - '-u'
+      - '-f'
+      - 'lsa'
   condition: selection
 fields:
   - CommandLine

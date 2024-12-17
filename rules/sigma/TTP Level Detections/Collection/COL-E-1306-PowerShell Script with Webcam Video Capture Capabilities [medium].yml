@@ -10,16 +10,16 @@ detection:
   suspicious_webcam_script:
     EventID: 4104
     ScriptBlockText|contains:
-      - "*NewFrameEventHandler*"
-      - "*VideoCaptureDevice*"
-      - "*DirectX.Capture.Filters*"
-      - "*VideoCompressors*"
-      - "*Start-WebcamRecorder*"
-      - "*capCreateCaptureWindowA*"
-      - "*capCreateCaptureWindow*"
-      - "*capGetDriverDescription*"
-      - "*avicap32.dll*"
-      - "*avicap32*"
+      - 'NewFrameEventHandler'
+      - 'VideoCaptureDevice'
+      - 'DirectX.Capture.Filters'
+      - 'VideoCompressors'
+      - 'Start-WebcamRecorder'
+      - 'capCreateCaptureWindowA'
+      - 'capCreateCaptureWindow'
+      - 'capGetDriverDescription'
+      - 'avicap32.dll'
+      - 'avicap32'
   condition: suspicious_webcam_script
 fields:
   - EventID

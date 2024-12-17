@@ -11,9 +11,9 @@ detection:
     EventID: 4688
     NewProcessName|endswith: '\wmic.exe'
     CommandLine|contains|all:
-      - "shadowcopy"
-      - "call"
-      - "create"
+      - 'shadowcopy'
+      - 'call'
+      - 'create'
   condition: selection
 fields:
   - CommandLine

@@ -9,12 +9,13 @@ logsource:
   product: windows
 detection:
   selection:
+    # this selection needs research the log source, but the other will detect the same
     EventID: 5004
     ProviderName: 'Microsoft-Windows-Windows Defender'
     Message:
-      - '*Real-time protection feature has been disabled*'
-      - '*Antivirus settings have been disabled*'
-      - '*Defender Antivirus service stopped*'
+      - 'Real-time protection feature has been disabled'
+      - 'Antivirus settings have been disabled'
+      - 'Defender Antivirus service stopped'
 
   selection2:
     EventID: 5001

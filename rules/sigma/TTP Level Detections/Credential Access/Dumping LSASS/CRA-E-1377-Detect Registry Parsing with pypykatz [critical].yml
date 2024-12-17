@@ -12,8 +12,8 @@ detection:
     NewProcessName|contains:
       - '\python'
     CommandLine|contains|all:
-      - "live"
-      - "lsa"
+      - 'live'
+      - 'lsa'
   condition: selection 
 fields:
   - CommandLine

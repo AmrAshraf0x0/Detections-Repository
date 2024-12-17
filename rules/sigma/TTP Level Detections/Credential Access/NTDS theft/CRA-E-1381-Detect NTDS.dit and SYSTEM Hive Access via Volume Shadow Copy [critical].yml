@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4663
-    ObjectName|contains|any:
+    ObjectName|contains:
       - '\Windows\NTDS\NTDS.dit'
       - '\Windows\System32\config\SYSTEM'
   exclusion:

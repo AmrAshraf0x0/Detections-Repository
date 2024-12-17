@@ -9,11 +9,13 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    Image: '*\rpcping.exe'
+    NewProcessName|contains: '\rpcping.exe'
     CommandLine|contains|all:
-      - "-s"
-      - "-a privacy"
-      - "-u NTLM"
+      - '-s'
+      - '-a'
+      - 'privacy'
+      - '-u'
+      - 'NTLM'
   condition: selection
 fields:
   - CommandLine

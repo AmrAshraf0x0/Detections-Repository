@@ -8,8 +8,9 @@ logsource:
   product: windows
 detection:
   selection:
-    Image: '*\bcdedit.exe'
-    CommandLine:
+    EventID: 4688
+    NewProcessName|contains: '\bcdedit.exe'
+    CommandLine|contains|re:
       - '*bcdedit*set*{current}*bootdebug*on*'
   condition: selection
 fields:

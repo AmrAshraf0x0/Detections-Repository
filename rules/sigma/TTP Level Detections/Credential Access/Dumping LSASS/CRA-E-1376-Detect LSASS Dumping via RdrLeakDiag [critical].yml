@@ -12,9 +12,9 @@ detection:
     NewProcessName|endswith:
       - '\rdrleakdiag.exe'
     CommandLine|contains|all:
-      - "/p"
-      - "/o"
-      - "dmp"
+      - '/p'
+      - '/o'
+      - 'dmp'
   condition: selection
 fields:
   - CommandLine

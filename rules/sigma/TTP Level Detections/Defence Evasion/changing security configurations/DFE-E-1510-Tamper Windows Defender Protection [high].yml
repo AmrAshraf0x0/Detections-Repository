@@ -1,3 +1,4 @@
+# new values for this event ID should be checked on testing
 title: Tamper Windows Defender Protection
 description: Detects registry modifications to disable Windows Defender Tamper Protection.
 author: Amr Ashraf
@@ -10,8 +11,8 @@ logsource:
 detection:
   selection:
     EventID: 4657
-    ObjectName: 'HKLM\SOFTWARE\Microsoft\Windows Defender\Features'
-    ObjectValueName: 'TamperProtection'
+    ObjectName|contains: 'SOFTWARE\Microsoft\Windows Defender\Features'
+    ObjectValueName|contains: 'TamperProtection'
     NewValue: '0'
   condition: selection
 falsepositives:

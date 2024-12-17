@@ -8,6 +8,7 @@ logsource:
   product: windows
 detection:
   selection_scriptblock:
+    EventID: 4104
     ScriptBlock|contains:
       - 'Clear-EventLog'
       - 'Get-EventLog'

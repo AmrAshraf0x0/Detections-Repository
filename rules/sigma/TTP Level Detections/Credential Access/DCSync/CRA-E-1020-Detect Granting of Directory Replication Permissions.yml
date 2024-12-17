@@ -10,10 +10,10 @@ logsource:
 detection:
   selection:
     EventID: 4662
-    Properties:                                  # Properties often contain replication permission keywords
-      - "*Replicating Directory Changes*"
-      - "*Replicating Directory Changes All*"
-      - "*Replicating Directory Changes In Filtered Set*"
+    Properties|contains:                                  # Properties often contain replication permission keywords
+      - "'Replicating Directory Changes"
+      - "'Replicating Directory Changes All"
+      - "'Replicating Directory Changes In Filtered Set"
   condition: selection
 fields:
   - SubjectUserName

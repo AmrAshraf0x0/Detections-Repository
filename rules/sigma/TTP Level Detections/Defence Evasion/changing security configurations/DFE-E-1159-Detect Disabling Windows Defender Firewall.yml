@@ -1,3 +1,4 @@
+# needs testing as it may generate FP
 title: Detect Disabling Windows Defender Firewall
 id: detect-disabling-windows-defender-firewall-logs
 status: Developed

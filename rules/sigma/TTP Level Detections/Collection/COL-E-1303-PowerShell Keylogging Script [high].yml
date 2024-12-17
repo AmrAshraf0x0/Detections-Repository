@@ -10,28 +10,21 @@ detection:
   suspicious_keylogging_script:
     EventID: 4104
     ScriptBlockText|contains:
-      - "*GetAsyncKeyState*"
-      - "*NtUserGetAsyncKeyState*"
-      - "*GetKeyboardState*"
-      - "*Get-Keystrokes*"
-      - "*SetWindowsHookA*"
-      - "*SetWindowsHookW*"
-      - "*SetWindowsHookEx*"
-      - "*SetWindowsHookExA*"
-      - "*NtUserSetWindowsHookEx*"
-      - "*GetForegroundWindow*"
-      - "*GetWindowTextA*"
-      - "*GetWindowTextW*"
-      - "*WM_KEYBOARD_LL*"
-      - "*WH_MOUSE_LL*"
-  allowed_users:
-    SecurityID:
-      - "S-1-5-18"
-  allowed_script_blocks:
-    ScriptBlockText|contains:
-      - "*sentinelbreakpoints*"
-      - "*Set-PSBreakpoint*"
-  condition: suspicious_keylogging_script and not allowed_users and not allowed_script_blocks
+      - 'GetAsyncKeyState'
+      - 'NtUserGetAsyncKeyState'
+      - 'GetKeyboardState'
+      - 'Get-Keystrokes'
+      - 'SetWindowsHookA'
+      - 'SetWindowsHookW'
+      - 'SetWindowsHookEx'
+      - 'SetWindowsHookExA'
+      - 'NtUserSetWindowsHookEx'
+      - 'GetForegroundWindow'
+      - 'GetWindowTextA'
+      - 'GetWindowTextW'
+      - 'WM_KEYBOARD_LL'
+      - 'WH_MOUSE_LL'
+  condition: suspicious_keylogging_script
 fields:
   - ScriptBlockText
   - SecurityID

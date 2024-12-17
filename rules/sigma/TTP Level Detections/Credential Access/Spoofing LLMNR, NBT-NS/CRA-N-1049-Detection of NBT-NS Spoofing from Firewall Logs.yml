@@ -1,3 +1,4 @@
+# needs to be tested for FP
 title: Detection of NBT-NS Spoofing from Firewall Logs
 description: Detects unsolicited NBT-NS responses logged in firewall traffic, which may indicate an attacker attempting to spoof name resolution to intercept traffic.
 status: Developed

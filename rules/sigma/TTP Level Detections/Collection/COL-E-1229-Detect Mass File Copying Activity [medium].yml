@@ -14,8 +14,6 @@ detection:
       - 'powershell.exe'
     CommandLine|contains:
       - '/mir'
-      - '/e'
-      - '/s'
       - 'Copy-Item -Recurse'
   condition: selection
 fields:

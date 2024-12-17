@@ -1,3 +1,4 @@
+# needs to be tested for FP to adjust
 title: High Volume of LDAP Requests to Domain Controller
 description: Detects high volume of LDAP requests to a Domain Controller, potentially indicating LDAP enumeration or NTDS extraction attempt.
 author: Amr Ashraf
@@ -8,7 +9,7 @@ logsource:
 detection:
   selection:
     DestinationPort: 389
-    EventType: "connection"  # Adjust according to the firewall's event type for connection events
+    EventType: 'connection'  # Adjust according to the firewall's event type for connection events
   timeframe: 1m
   condition: selection | count() by SourceIP > 100
 fields:

@@ -8,8 +8,9 @@ logsource:
   product: windows
 detection:
   selection:
-    Image: '*\regsvr32.exe'
-    CommandLine: '*scrobj.dll*'
+    EventID: 4688
+    NewProcessName|contains: '\regsvr32.exe'
+    CommandLine|contains: 'scrobj.dll'
   condition: selection
 fields:
   - Image

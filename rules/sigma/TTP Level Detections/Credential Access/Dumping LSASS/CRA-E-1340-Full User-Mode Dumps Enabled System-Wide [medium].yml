@@ -9,19 +9,15 @@ logsource:
     product: windows
 detection:
     selection:
-        RegistryKey|contains:
-            - "HKLM\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\\LocalDumps\\DumpType"
-            - "\\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\\LocalDumps\\DumpType"
-        RegistryValue: 
-            - "2"
-            - "0x00000002"
+        EventID: 13
+        TargetObject|contains:
+            - 'SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps\DumpType'
+            - 'SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps\DumpType'
+        Details|contains: 
+            - '2'
     filter:
-        ProcessImage:
-            - "?:\\Windows\\system32\\svchost.exe"
-        UserID:
-            - "S-1-5-18"
-            - "S-1-5-19"
-            - "S-1-5-20"
+        Image:
+            - '\Windows\system32\svchost.exe'
     condition: selection and not filter
 fields:
     - RegistryKey

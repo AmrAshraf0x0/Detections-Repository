@@ -1,3 +1,4 @@
+# FP testingRequired
 title: Suspicious Full Access to LSASS Memory
 description: Detects processes with high access rights (0x1fffff) attempting to access lsass.exe, which can indicate credential dumping attempts. Known legitimate processes are whitelisted to reduce false positives.
 author: Amr Ashraf
@@ -9,8 +10,7 @@ logsource:
   product: windows
 detection:
   selection:
-    ObjectType: "Process"
-    ObjectName: "C:\\Windows\\System32\\lsass.exe"
+    TargetImage: "C:\\Windows\\System32\\lsass.exe"
     AccessMask: 
       - '0x1038'
       - '0x1438'

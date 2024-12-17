@@ -14,15 +14,6 @@ detection:
     selection:
         EventID: 104
         Provider_Name: 'Microsoft-Windows-Eventlog'
-    filter_main_covered:
-        # The channels below are already covered on another rule
-        Channel:
-            - 'Microsoft-Windows-PowerShell/Operational'
-            - 'Microsoft-Windows-Sysmon/Operational'
-            - 'PowerShellCore/Operational'
-            - 'Security'
-            - 'System'
-            - 'Windows PowerShell'
     condition: selection and not 1 of filter_main_*
 falsepositives:
     - Rollout of log collection agents (the setup routine often includes a reset of the local Eventlog)

@@ -9,10 +9,20 @@ logsource:
   product: windows
 detection:
   selection:
-    CommandLine|contains:
-      - 'dir c: /b /s .docx'
-      - 'for /R c:\ %f in (*.docx) do copy /Y %f'
-  condition: selection
+    EventID: 4688
+    CommandLine|contains|all:
+      - 'dir '
+      - 'c:'
+      - '/b' 
+      - '/s'
+      - ' .docx'
+  selection_1|contains|all:
+      - 'for ''
+      - '/R' 
+      - 'c:\'
+      - 'in'
+      - '.docx'
+  condition: selection or selection_1
 falsepositives:
   - Legitimate scripts or administrative tasks scanning for and copying files.
 tags:

@@ -13,19 +13,19 @@ detection:
       - '\powershell.exe'
       - '\pwsh.exe'
     CommandLine|contains|any:
-      - "Set-Content"
-      - "sc" # Alias for Set-Content
-      - "Add-Content"
-      - "Out-File"
+      - 'Set-Content'
+      - ' sc ' # Alias for Set-Content
+      - 'Add-Content'
+      - 'Out-File'
   executable_extensions:
     CommandLine|contains|any:
-      - ".exe"
-      - ".dll"
-      - ".bat"
-      - ".cmd"
-      - ".ps1"
-      - ".vbs"
-      - ".js"
+      - '.exe'
+      - '.dll'
+      - '.bat'
+      - '.cmd'
+      - '.ps1'
+      - '.vbs'
+      - '.js'
   condition: selection and executable_extensions
 fields:
   - CommandLine

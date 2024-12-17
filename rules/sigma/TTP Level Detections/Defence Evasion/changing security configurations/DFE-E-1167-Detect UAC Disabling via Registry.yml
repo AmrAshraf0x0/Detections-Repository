@@ -1,3 +1,4 @@
+# new values for this event ID should be checked on testing
 title: Detect UAC Disabling via Registry
 id: detect-uac-disabling
 status: Developed
@@ -9,8 +10,8 @@ logsource:
 detection:
   selection:
     EventID: 4657
-    RegistryKey: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
-    RegistryValueName: 'EnableLUA'
+    ObjectName|contains: 'SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
+    ObjectValueName: 'EnableLUA'
     NewValue: '0'
   condition: selection
 fields:

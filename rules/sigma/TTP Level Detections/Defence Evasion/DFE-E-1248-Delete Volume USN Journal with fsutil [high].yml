@@ -7,7 +7,8 @@ logsource:
   product: windows
 detection:
   selection:
-    ProcessName: "fsutil.exe"
+    EventID: 4688
+    NewProcessName|contains: "fsutil.exe"
     CommandLine|contains:
       - "usn"
       - "deletejournal"

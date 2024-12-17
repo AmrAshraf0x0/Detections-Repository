@@ -11,8 +11,8 @@ detection:
     EventID: 4688
     NewProcessName|endswith: '\procdump.exe'
     CommandLine|contains:
-      - "-ma"
-      - "lsass.exe"
+      - '-ma'
+      - 'lsass.exe'
   condition: selection
 fields:
   - CommandLine

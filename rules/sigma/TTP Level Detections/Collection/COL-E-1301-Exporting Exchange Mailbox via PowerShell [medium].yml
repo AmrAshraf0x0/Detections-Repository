@@ -10,12 +10,12 @@ detection:
   selection:
     EventID: 4688
     NewProcessName:
-      - "powershell.exe"
-      - "pwsh.exe"
-      - "powershell_ise.exe"
+      - 'powershell.exe'
+      - 'pwsh.exe'
+      - 'powershell_ise.exe'
     CommandLine|contains:
-      - "*MailboxExportRequest*"
-      - "*-Mailbox*-ContentFilter*"
+      - 'MailboxExportRequest'
+      - '-Mailbox*-ContentFilter'
   condition: selection
 fields:
   - NewProcessName

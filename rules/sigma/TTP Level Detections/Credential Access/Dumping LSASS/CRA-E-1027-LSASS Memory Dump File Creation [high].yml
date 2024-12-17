@@ -12,7 +12,7 @@ logsource:
 detection:
     selection:
         EventID: 11
-        TargetFilename|contains: 
+        TargetFilename|contains|all: 
             - 'lsass'
             - 'dmp'
     condition: selection

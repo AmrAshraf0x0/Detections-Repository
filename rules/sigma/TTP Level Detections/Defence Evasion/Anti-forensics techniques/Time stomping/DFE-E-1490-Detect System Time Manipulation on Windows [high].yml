@@ -8,6 +8,7 @@ logsource:
   product: windows
 detection:
   selection_set_date:
+    EventID: 4104
     ScriptBlockText|contains|all:
       - 'Set-Date '
       - 'Date'

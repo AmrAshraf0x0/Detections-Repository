@@ -7,7 +7,7 @@ logsource:
   product: windows
 detection:
   selection:
-    ProcessName|startswith: "procdump"
+    NewProcessName|startswith: "procdump"
     CommandLine|contains: "lsass"
   condition: selection
 fields:

@@ -8,11 +8,11 @@ logsource:
 detection:
   selection:
     ProcessName:
-      - "cat"
-      - "grep"
+      - 'cat'
+      - 'grep'
     CommandLine|contains:
-      - ".bash_history"
-      - "password"
+      - '.bash_history'
+      - 'password'
   condition: selection
 fields:
   - ProcessName

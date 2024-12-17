@@ -9,7 +9,7 @@ detection:
   selection:
     EventID: 4688
     NewProcessName: "SoundRecorder.exe"
-    CommandLine|contains: "/FILE"
+    CommandLine|contains: '/FILE'
   condition: selection
 fields:
   - EventID

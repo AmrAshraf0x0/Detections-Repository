@@ -1,3 +1,4 @@
+# test req
 title: Detect DiskShadow Script Execution
 status: Developed
 description: Detects the use of `diskshadow.exe` with a script file (`/s`), often used to manage Volume Shadow Copies and potentially access sensitive files.
@@ -10,7 +11,7 @@ detection:
   selection:
     EventID: 4688
     NewProcessName|endswith: '\diskshadow.exe'
-    CommandLine|contains: "/s"
+    CommandLine|contains: '/s'
   condition: selection
 fields:
   - CommandLine

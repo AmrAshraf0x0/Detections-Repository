@@ -8,34 +8,34 @@ logsource:
   product: windows
 detection:
   selection:
-    process_name:
-      - "chrome.exe"
-      - "msedge.exe"
-      - "brave.exe"
-      - "browser.exe"
-      - "dragon.exe"
-      - "vivaldi.exe"
-    process_args:
-      - "--headless*"
-      - "data:text/html;base64,*"
-    parent_process_name:
-      - "cmd.exe"
-      - "powershell.exe"
-      - "wscript.exe"
-      - "cscript.exe"
-      - "mshta.exe"
-      - "conhost.exe"
-      - "msiexec.exe"
-      - "explorer.exe"
-      - "rundll32.exe"
-      - "winword.exe"
-      - "excel.exe"
-      - "onenote.exe"
-      - "hh.exe"
-      - "powerpnt.exe"
-      - "forfiles.exe"
-      - "pcalua.exe"
-      - "wmiprvse.exe"
+    NewProcessName|contains:
+      - 'chrome.exe'
+      - 'msedge.exe'
+      - 'brave.exe'
+      - 'browser.exe'
+      - 'dragon.exe'
+      - 'vivaldi.exe'
+    CommandLine|contains:
+      - '--headless'
+      - 'data:text/html;base64,'
+    ParentProcessName|contains:
+      - 'cmd.exe'
+      - 'powershell.exe'
+      - 'wscript.exe'
+      - 'cscript.exe'
+      - 'mshta.exe'
+      - 'conhost.exe'
+      - 'msiexec.exe'
+      - 'explorer.exe'
+      - 'rundll32.exe'
+      - 'winword.exe'
+      - 'excel.exe'
+      - 'onenote.exe'
+      - 'hh.exe'
+      - 'powerpnt.exe'
+      - 'forfiles.exe'
+      - 'pcalua.exe'
+      - 'wmiprvse.exe'
   condition: selection
 fields:
   - process_name

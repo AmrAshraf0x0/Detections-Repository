@@ -1,3 +1,4 @@
+# needs to be tested
 title: Detect Clearing Command-Line Logs in PowerShell
 id: detect-clearing-commandline-logs-powershell
 status: Developed
@@ -9,12 +10,13 @@ logsource:
   product: windows
 detection:
   selection:
-    Image: '*\powershell.exe'
-    CommandLine:
-      - '*Clear-History*'
-      - '*Remove-EventLog*'
-      - '*LogLevel* Off*'
-      - '*Clear-Content*'
+    EventID: 4688
+    NewProcessName|contains: '\powershell.exe'
+    CommandLine|contains|re:
+      - 'Clear-History'
+      - 'Remove-EventLog'
+      - 'LogLevel* Off'
+      - 'Clear-Content'
   condition: selection
 fields:
   - Image

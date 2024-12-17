@@ -1,3 +1,4 @@
+# Needs to be tested likly will generate FP
 title: Suspicious Memory Access on Browser Process
 description: Detects unusual memory access on browser processes, which may indicate credential theft or data-stealing malware.
 status: Developed
@@ -7,10 +8,11 @@ logsource:
   product: windows
 detection:
   selection:
-    TargetImage:
-      - '*\\chrome.exe'
-      - '*\\firefox.exe'
-      - '*\\msedge.exe'
+    EventID: 4663
+    ObjectName|contains:
+      - ''\\chrome.exe'
+      - ''\\firefox.exe'
+      - ''\\msedge.exe'
     GrantedAccess: '0x1fffff'  # Full access, often associated with memory dumping
   condition: selection
 fields:

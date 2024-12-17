@@ -10,12 +10,12 @@ detection:
   selection:
     EventID: 4688
     CommandLine|contains|all:
-      - "mklink"
-      - \\?\GLOBALROOT\Device'
+      - 'mklink'
+      - '\\?\GLOBALROOT\Device'
   selection1:
     CommandLine|contains|any:
-      - "/D"
-      - "/H"
+      - '/D'
+      - '/H'
       - 'VolumeShadow'
   condition: selection and selection1
 fields:

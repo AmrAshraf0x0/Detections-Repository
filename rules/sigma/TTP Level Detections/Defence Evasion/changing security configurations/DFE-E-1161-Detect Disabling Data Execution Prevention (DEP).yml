@@ -1,3 +1,4 @@
+# new values for this event ID should be checked on testing
 title: Detect Disabling Data Execution Prevention (DEP)
 id: detect-dep-disabling
 status: Developed
@@ -9,8 +10,8 @@ logsource:
 detection:
   selection:
     EventID: 4657
-    RegistryKey: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management'
-    RegistryValueName: 'DisableDEP'
+    ObjectName|contains: 'SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management'
+    ObjectValueName|contains: 'DisableDEP'
     NewValue: '1'
   condition: selection
 fields:

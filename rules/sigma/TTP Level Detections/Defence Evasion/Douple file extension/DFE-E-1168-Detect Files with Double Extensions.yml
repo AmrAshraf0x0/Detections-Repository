@@ -8,15 +8,14 @@ logsource:
   product: windows
 detection:
   selection:
-    EventID: 4663
-    ObjectType: 'File'
-    ObjectName|re: 
+    EventID: 11
+    TargetFileName|re: 
       - '^.*\.[a-zA-Z0-9]{1,4}\.[a-zA-Z0-9]{1,4}$'
   exclusion:
-    ObjectName|re: 
-      - '^.*\.tar\.gz$'
-      - '^.*\.config\.ini$'
-      - '^.*\.log\.txt$'
+    TargetFileName|contains: 
+      - '.tar.gz'
+      - '.config.ini'
+      - '.log.txt'
   condition: selection and not exclusion
 fields:
   - EventID

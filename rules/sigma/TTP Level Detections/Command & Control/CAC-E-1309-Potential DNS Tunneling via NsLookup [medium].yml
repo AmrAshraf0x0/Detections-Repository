@@ -11,10 +11,10 @@ detection:
     EventID: 4688
     NewProcessName: 'nslookup.exe'
     CommandLine|contains:
-      - "-querytype=*"
-      - "-qt=*"
-      - "-q=*"
-      - "-type=*"
+      - '-querytype='
+      - '-qt='
+      - '-q='
+      - '-type='
   aggregation:
     host_id:
       count: 10

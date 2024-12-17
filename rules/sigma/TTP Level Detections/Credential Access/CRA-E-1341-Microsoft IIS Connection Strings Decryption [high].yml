@@ -9,11 +9,12 @@ logsource:
     product: windows
 detection:
     selection:
+        EventID: 4688
         NewProcessName|endswith: 
-            - "\\aspnet_regiis.exe"
+            - '\aspnet_regiis.exe'
         CommandLine|contains:
-            - "connectionStrings"
-            - "-pdf"
+            - 'connectionStrings'
+            - '-pdf'
     condition: selection
 fields:
     - Image

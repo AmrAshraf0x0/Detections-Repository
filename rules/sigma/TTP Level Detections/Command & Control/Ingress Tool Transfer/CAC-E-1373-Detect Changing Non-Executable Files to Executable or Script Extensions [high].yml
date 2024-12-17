@@ -1,3 +1,4 @@
+# need to check if we can match a string twice for detection
 title: Detect Changing Non-Executable Files to Executable or Script Extensions
 status: Developed
 description: Detects file operations where a non-executable file (e.g., .txt) is copied, moved, or renamed to an executable or script extension (e.g., .exe, .ps1, .bat).
@@ -8,18 +9,19 @@ logsource:
   product: windows
 detection:
   file_operations:
+    EventID: 4688
     NewProcessName|endswith:
       - '\cmd.exe'
       - '\powershell.exe'
       - '\pwsh.exe'
     CommandLine|contains|any:
-      - "copy"
-      - "move"
-      - "Copy-Item"
-      - "Move-Item"
-      - "Rename-Item"
-      - "mv"
-      - "cp"
+      - ' copy '
+      - ' move '
+      - 'Copy-Item'
+      - 'Move-Item'
+      - 'Rename-Item'
+      - ' mv '
+      - ' cp '
   source_extensions:
     CommandLine|re:
       - '\.(txt|log|csv|json|xml|ini|jpg|png|jpeg|html)$'

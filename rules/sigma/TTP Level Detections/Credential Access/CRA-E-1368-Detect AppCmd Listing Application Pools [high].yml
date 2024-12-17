@@ -9,12 +9,12 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    Image: 'C:\Windows\System32\inetsrv\appcmd.exe'
+    NewProcessName|contains: 'appcmd.exe'
     CommandLine|contains|any:
-      - "list apppool /@t:*"
-      - "list apppool /@text:*"
-      - "list apppool /text:*"
-      - "list apppool /config"
+      - 'list apppool /@t:*'
+      - 'list apppool /@text:*'
+      - 'list apppool /text:*'
+      - 'list apppool /config'
   condition: selection
 fields:
   - CommandLine

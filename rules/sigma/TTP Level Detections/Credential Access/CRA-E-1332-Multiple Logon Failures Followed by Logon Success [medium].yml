@@ -1,3 +1,4 @@
+# needs to be simplified and tested
 title: Multiple Logon Failures Followed by Logon Success
 status: Developed
 date: 2024-12-01
@@ -31,7 +32,7 @@ detection:
     sequence
     [selection_failed_logon and not exclusion_failed_logon] with runs=5
     [selection_successful_logon and not exclusion_successful_logon]
-  timeframe: 5s
+  timeframe: 1m
 fields:
   - EventID
   - LogonType

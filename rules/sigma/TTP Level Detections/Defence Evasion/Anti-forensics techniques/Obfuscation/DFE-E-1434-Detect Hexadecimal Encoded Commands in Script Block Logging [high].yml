@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4104
-    ScriptBlockText|regex: '(\\x[0-9a-fA-F]{2}){3,}' # Hex sequences like \x41\x42\x43
+    ScriptBlockText|contains|re: '(\\x[0-9a-fA-F]{2}){3,}' # Hex sequences like \x41\x42\x43
   condition: selection
 fields:
   - EventID

@@ -12,9 +12,12 @@ detection:
     EventID: 4688
     NewProcessName|endswith: '\ntdsutil.exe'
     CommandLine|contains:
-      - "ac i ntds"
-      - "ifm"
-      - "create full"
+      - 'ac '
+      - ' i ' 
+      - 'ntds'
+      - 'ifm'
+      - 'create'
+      -  'full'
   condition: selection
 fields:
   - CommandLine

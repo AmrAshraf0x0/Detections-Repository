@@ -8,13 +8,14 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     CommandLine|contains: ':'
   exclusion:
     CommandLine|endswith:
       - ':Zone.Identifier'
-    CommandLine|contains:
       - '::'
       - ':\'
+      - ': '
     ParentProcessName|contains:	
       - 'compattelrunner.exe'
   condition: selection and not exclusion

@@ -8,10 +8,11 @@ logsource:
   product: windows
 detection:
   selection:
-    Image:
-      - '*\streams.exe'
-      - '*\ads.exe'
-      - '*\ads_tool.exe'
+    EventID: 4688
+    NewProcessName|contains:
+      - '\streams.exe'
+      - '\ads.exe'
+      - '\ads_tool.exe'
   condition: selection
 fields:
   - Image

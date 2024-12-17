@@ -7,10 +7,11 @@ logsource:
   product: windows
 detection:
   selection:
-    ImageName: "vaultcli.dll"
+    EventID: 7
+    ImaheLoaded|contains: 'vaultcli.dll'
   exclusion:
-    ProcessName:
-      - "vaultcmd.exe"  # Legitimate process for managing credential vaults
+    NewProcessName:
+      - 'vaultcmd.exe'  # Legitimate process for managing credential vaults
   condition: selection and not exclusion
 fields:
   - ImageName

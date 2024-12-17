@@ -1,3 +1,4 @@
+# need to check DNS logs
 title: Connection to Commonly Abused Free SSL Certificate Providers
 description: Identifies unusual processes connecting to domains secured with known free SSL certificates. Adversaries may use such connections to conceal command and control traffic.
 status: Developed
@@ -8,24 +9,24 @@ logsource:
   product: windows
 detection:
   selection:
-    network_protocol: "dns"
-    dns_question_name:
-      - "*.letsencrypt.org"
-      - "*.sslforfree.com"
-      - "*.zerossl.com"
-      - "*.freessl.org"
-    process_executable:
-      - "C:\\Windows\\System32\\*.exe"
-      - "C:\\Windows\\System\\*.exe"
-      - "C:\\Windows\\SysWOW64\\*.exe"
-      - "C:\\Windows\\Microsoft.NET\\Framework*\\*.exe"
-      - "C:\\Windows\\explorer.exe"
-      - "C:\\Windows\\notepad.exe"
+    network_protocol: 'dns'
+    dns_question_name|contains:
+      - '.letsencrypt.org'
+      - '.sslforfree.com'
+      - '.zerossl.com'
+      - '.freessl.org'
+    process_executable|re:
+      - 'C:\\Windows\\System32\\*.exe'
+      - 'C:\\Windows\\System\\*.exe'
+      - 'C:\\Windows\\SysWOW64\\*.exe'
+      - 'C:\\Windows\\Microsoft.NET\\Framework*\\*.exe'
+      - 'C:\\Windows\\explorer.exe'
+      - 'C:\\Windows\\notepad.exe'
   filter:
-    process_name:
-      - "svchost.exe"
-      - "MicrosoftEdge*.exe"
-      - "msedge.exe"
+    process_name|re:
+      - 'svchost.exe'
+      - 'MicrosoftEdge*.exe'
+      - 'msedge.exe'
   condition: selection and not filter
 fields:
   - process_name

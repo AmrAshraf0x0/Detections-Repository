@@ -10,15 +10,12 @@ detection:
   suspicious_mailbox_collection:
     EventID: 4104
     ScriptBlockText|contains:
-      - "*Microsoft.Office.Interop.Outlook*"
-      - "*Interop.Outlook.olDefaultFolders*"
-      - "*::olFolderInBox*"
-      - "*Microsoft.Exchange.WebServices.Data.Folder*"
-      - "*Microsoft.Exchange.WebServices.Data.FileAttachment*"
-  allowed_users:
-    SecurityID:
-      - "S-1-5-18"
-  condition: suspicious_mailbox_collection and not allowed_users
+      - 'Microsoft.Office.Interop.Outlook'
+      - 'Interop.Outlook.olDefaultFolders'
+      - '::olFolderInBox'
+      - 'Microsoft.Exchange.WebServices.Data.Folder'
+      - 'Microsoft.Exchange.WebServices.Data.FileAttachment'
+  condition: suspicious_mailbox_collection
 fields:
   - EventID
   - ScriptBlockText

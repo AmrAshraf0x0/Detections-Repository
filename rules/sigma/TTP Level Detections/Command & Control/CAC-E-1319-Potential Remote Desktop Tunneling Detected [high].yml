@@ -8,15 +8,17 @@ logsource:
   product: windows
 detection:
   selection:
-    command_line|contains:
-      - ":3389"
-    command_line|contains|all:
-      - "-L"
-      - "-P"
-      - "-R"
-      - "-pw"
-      - "-ssh"
-  condition: selection
+    EventID: 4688
+    CommandLine|contains:
+      - ':3389'
+  selection_1:
+    CommandLine|contains:
+      - '-L'
+      - '-P'
+      - '-R'
+      - '-pw'
+      - '-ssh'
+  condition: selection and selection_1
 fields:
   - process_name
   - process_path

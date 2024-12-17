@@ -8,8 +8,8 @@ logsource:
 detection:
   selection:
     EventID: 4663
-    FileName: "ntds.dit"
-    ProcessName: "ntdsutil.exe"
+    ObjectName: 'ntds.dit'
+    ProcessName|contains: 'ntdsutil.exe'
   condition: selection
 fields:
   - FileName

@@ -8,8 +8,9 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     CommandLine|contains|all:
-      - 'scp'
+      - ' scp '
       - '@'
   condition: selection
 fields:

@@ -10,8 +10,8 @@ detection:
   selection:
     EventID: 4104
     ScriptBlockText|contains:
-      - "WinPwn"
-      - "samfile"
+      - 'WinPwn'
+      - 'samfile'
   condition: selection
 fields:
   - EventID

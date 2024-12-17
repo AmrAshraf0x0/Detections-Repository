@@ -5,13 +5,15 @@ date: 2024-12-06
 status: developed
 severity: medium
 logsource:
-  category: process_creation
+  category: script_block
   product: windows
 detection:
   selection:
+    EventID: 4104
     CommandLine|contains:
-      - 'Get-ChildItem -Recurse -Include *.doc'
-      - 'Copy-Item'
+      - 'Get-ChildItem'
+      - '-Recurse'
+      - ''.doc'
   condition: selection
 falsepositives:
   - Legitimate administrative or backup activities.

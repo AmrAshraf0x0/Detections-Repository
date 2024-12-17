@@ -1,3 +1,4 @@
+# new values for this event ID should be checked on testing
 title: Enable Remote Desktop Protocol (RDP)
 description: Detects registry changes to enable RDP by modifying fDenyTSConnections.
 author: Amr Ashraf
@@ -10,8 +11,8 @@ logsource:
 detection:
   selection:
     EventID: 4657
-    ObjectName: 'HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server'
-    ObjectValueName: 'fDenyTSConnections'
+    ObjectName|contains: 'SYSTEM\CurrentControlSet\Control\Terminal Server'
+    ObjectValueName|contains: 'fDenyTSConnections'
     NewValue: '0'
   condition: selection
 falsepositives:

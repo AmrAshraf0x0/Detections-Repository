@@ -9,8 +9,8 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    NewProcessName: "CertReq.exe"
-    CommandLine|contains: "-Post"
+    NewProcessName: 'CertReq.exe'
+    CommandLine|contains: '-Post'
   condition: selection
 fields:
   - EventID

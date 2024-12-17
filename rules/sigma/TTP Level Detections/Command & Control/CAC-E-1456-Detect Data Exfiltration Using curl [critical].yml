@@ -11,7 +11,7 @@ detection:
     EventID: 4688
     NewProcessName|endswith: '\curl.exe'
     CommandLine|contains|all:
-      - '-F'
+      - '-F '
       - 'file=@'
   condition: selection_curl_upload
 fields:

@@ -13,12 +13,11 @@ logsource:
 detection:
   selection_1:
     EventID: 4688
-    ProcessName: 
-      - 'C:\\Windows\\System32\\rundll32.exe'
-    CommandLine|contains: 
+    NewProcessName: 
+      - 'C:\Windows\System32\rundll32.exe'
+    CommandLine|contains|all: 
       - 'comsvcs.dll' 
       - 'MiniDump'
-      - 'id'
   condition: selection
 fields:
   - EventID

@@ -10,13 +10,10 @@ detection:
   suspicious_screenshot_script:
     EventID: 4104
     ScriptBlockText|contains:
-      - "*CopyFromScreen*"
-      - "*System.Drawing.Bitmap*"
-      - "*Drawing.Bitmap*"
-  allowed_users:
-    SecurityID:
-      - "S-1-5-18"
-  condition: suspicious_screenshot_script and not allowed_users
+      - 'CopyFromScreen'
+      - 'System.Drawing.Bitmap'
+      - 'Drawing.Bitmap'
+  condition: suspicious_screenshot_script
 fields:
   - EventID
   - ScriptBlockText

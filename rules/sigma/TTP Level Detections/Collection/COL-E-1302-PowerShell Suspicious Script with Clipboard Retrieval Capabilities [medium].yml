@@ -9,23 +9,20 @@ logsource:
 detection:
   suspicious_clipboard_access:
     script_content:
-      - "*Windows.Clipboard*"
-      - "*Windows.Forms.Clipboard*"
-      - "*Windows.Forms.TextBox*"
-      - "*]::GetText*"
-      - "*.Paste()*"
-      - "*Get-Clipboard*"
-  allowed_users:
-    user_id:
-      - "S-1-5-18"
+      - 'Windows.Clipboard'
+      - 'Windows.Forms.Clipboard'
+      - 'Windows.Forms.TextBox'
+      - ']::GetText'
+      - '.Paste()'
+      - 'Get-Clipboard'
   allowed_scripts:
     file_path:
-      - "C:\\Program Files\\WindowsPowerShell\\Modules\\*.ps1"
-      - "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\*.ps1"
+      - 'C:\\Program Files\\WindowsPowerShell\\Modules\\*.ps1'
+      - 'C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\*.ps1'
     file_name:
-      - "Convert-ExcelRangeToImage.ps1"
-      - "Read-Clipboard.ps1"
-  condition: suspicious_clipboard_access and not allowed_users and not allowed_scripts
+      - 'Convert-ExcelRangeToImage.ps1'
+      - 'Read-Clipboard.ps1'
+  condition: suspicious_clipboard_access and not allowed_scripts
 fields:
   - process_name
   - command_line

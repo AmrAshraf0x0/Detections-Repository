@@ -8,9 +8,9 @@ logsource:
   product: windows
 detection:
   selection:
-    registry_path:
-      - "HKLM\\SYSTEM\\*ControlSet*\\Services\\PortProxy\\v4tov4\\*"
-      - "\\REGISTRY\\MACHINE\\SYSTEM\\*ControlSet*\\Services\\PortProxy\\v4tov4\\*"
+    TargetObject|contains:
+      - "SYSTEM\\*ControlSet*\\Services\\PortProxy\\v4tov4\\*"
+      - "SYSTEM\\*ControlSet*\\Services\\PortProxy\\v4tov4\\*"
       - "MACHINE\\SYSTEM\\*ControlSet*\\Services\\PortProxy\\v4tov4\\*"
   condition: selection
 fields:

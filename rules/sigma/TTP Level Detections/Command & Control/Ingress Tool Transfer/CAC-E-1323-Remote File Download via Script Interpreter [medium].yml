@@ -18,6 +18,7 @@ detection:
       - '.ps1'
       - '.bat'
       - '.vbs'
+  timeframe: 1m
   condition: selection_process and selection_file
 fields:
   - EventID

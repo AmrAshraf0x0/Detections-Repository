@@ -11,8 +11,8 @@ detection:
     EventID: 4688
     NewProcessName|endswith: '\powershell.exe'
     CommandLine|contains|all:
-      - "win32_shadowcopy"
-      - ".Create("
+      - 'win32_shadowcopy'
+      - '.Create('
   condition: selection
 fields:
   - CommandLine

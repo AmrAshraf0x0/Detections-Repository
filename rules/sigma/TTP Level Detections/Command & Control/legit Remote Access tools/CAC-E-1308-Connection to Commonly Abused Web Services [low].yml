@@ -1,3 +1,4 @@
+#Need to check how DNS logs looks like in LR
 title: Connection to Commonly Abused Web Services
 description: Identifies processes outside known legitimate locations communicating with commonly abused web services, which can be used for command and control (C2) or exfiltration.
 status: Developed
@@ -8,42 +9,36 @@ logsource:
   product: windows
 detection:
   suspicious_connection:
-    dns_question_name:
-      - "raw.githubusercontent.*"
-      - "pastebin.*"
-      - "drive.google.com"
-      - "*.onedrive.org"
-      - "*.ngrok.io"
-      - "*.discordapp.com"
-      - "*.slack.com"
-      - "*.api.telegram.org"
-      - "*.cdn.discordapp.com"
-      - "transfer.sh"
-      - "*.sharepoint.com"
-      - "graph.microsoft.com"
-      - "*.zulipchat.com"
-      - "*.dropbox.com"
-      - "*.gofile.io"
-      - "*.file.io"
-      - "api.notion.com"
-      - "*.t.me"
-    process_name: "*"
-    dns_protocol: "dns"
-    not_user_ids:
-      - "S-1-5-18"
-      - "S-1-5-19"
-      - "S-1-5-20"
+    dns_question_name|contains:
+      - 'raw.githubusercontent.'
+      - 'pastebin.'
+      - 'drive.google.com'
+      - '.onedrive.org'
+      - '.ngrok.io'
+      - '.discordapp.com'
+      - '.slack.com'
+      - '.api.telegram.org'
+      - '.cdn.discordapp.com'
+      - 'transfer.sh'
+      - '.sharepoint.com'
+      - 'graph.microsoft.com'
+      - '.zulipchat.com'
+      - '.dropbox.com'
+      - '.gofile.io'
+      - '.file.io'
+      - 'api.notion.com'
+      - '.t.me'
   allowed_processes:
     process_executable:
-      - "C:\\Program Files\\*.exe"
-      - "C:\\Program Files (x86)\\*.exe"
-      - "C:\\Windows\\System32\\*.exe"
+      - 'C:\\Program Files\\*.exe'
+      - 'C:\\Program Files (x86)\\*.exe'
+      - 'C:\\Windows\\System32\\*.exe'
     process_name:
-      - "Discord.exe"
-      - "Dropbox.exe"
-      - "Microsoft.SharePoint.exe"
-      - "Obsidian.exe"
-      - "Slack.exe"
+      - 'Discord.exe'
+      - 'Dropbox.exe'
+      - 'Microsoft.SharePoint.exe'
+      - 'Obsidian.exe'
+      - 'Slack.exe'
   condition: suspicious_connection and not allowed_processes
 fields:
   - process_name

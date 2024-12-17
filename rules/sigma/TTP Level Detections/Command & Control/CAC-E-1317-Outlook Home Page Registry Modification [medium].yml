@@ -8,14 +8,14 @@ logsource:
   product: windows
 detection:
   selection:
-    registry_path:
-      - "HKCU\\SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
-      - "HKEY_USERS\\SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
-      - "HKU\\SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
-      - "\\REGISTRY\\USER\\*\\SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
-      - "USER\\SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
-    registry_value: "URL"
-    registry_data: "*http*"
+    EventID: 13
+    TragetObject|contains|re:
+      - "SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
+      - "SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
+      - "SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
+      - "SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
+      - "SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
+    Details|contains: "http"
   condition: selection
 fields:
   - registry_path

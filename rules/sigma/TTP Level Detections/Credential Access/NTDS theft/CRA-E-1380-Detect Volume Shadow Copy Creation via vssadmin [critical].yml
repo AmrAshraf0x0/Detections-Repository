@@ -11,9 +11,9 @@ detection:
     EventID: 4688
     NewProcessName|endswith: '\vssadmin.exe'
     CommandLine|contains|all:
-      - "create"
-      - "shadow"
-      - "/for="
+      - 'create'
+      - 'shadow'
+      - '/for='
   condition: selection
 fields:
   - CommandLine

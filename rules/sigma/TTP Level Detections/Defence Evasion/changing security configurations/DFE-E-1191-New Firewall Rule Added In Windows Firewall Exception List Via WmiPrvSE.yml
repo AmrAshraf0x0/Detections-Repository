@@ -20,7 +20,7 @@ detection:
             - 2071 # A rule has been added to the Windows Defender Firewall exception list. (Windows 11)
             - 2097
         Action: 3 # Allow
-        ModifyingApplication|endswith: :\Windows\System32\wbem\WmiPrvSE.exe
+        ModifyingApplication|contains: WmiPrvSE.exe
     condition: firewall_as and selection
 falsepositives:
     - Administrator scripts or activity.

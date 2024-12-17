@@ -8,7 +8,8 @@ logsource:
   product: windows
 detection:
   selection:
-    process_name:
+    EventID: 4688
+    NewProcessName|contains:
       - "AeroAdmin.exe"
       - "AnyDesk.exe"
       - "AteraAgent.exe"

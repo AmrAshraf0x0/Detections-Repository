@@ -1,3 +1,4 @@
+#logic needs testing
 title: RDP Sensitive Settings Changed
 description: |
     Detects tampering of RDP Terminal Service/Server sensitive settings.

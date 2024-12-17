@@ -12,7 +12,7 @@ logsource:
 detection:
     selection:
         EventID: 13
-        RegistryKey|contains: 'SilentProcessExit'
+        TargetObject|contains: 'SilentProcessExit'
     condition: selection
 falsepositives:
     - Unlikely

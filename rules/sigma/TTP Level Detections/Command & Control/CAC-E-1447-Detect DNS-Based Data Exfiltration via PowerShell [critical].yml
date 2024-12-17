@@ -12,7 +12,6 @@ detection:
     ScriptBlockText|contains|all:
       - 'Resolve-DnsName'
       - '[System.Text.Encoding]::UTF8.GetBytes'
-      - '[Convert]::ToBase64String'
   condition: selection_dns_exfiltration
 fields:
   - EventID

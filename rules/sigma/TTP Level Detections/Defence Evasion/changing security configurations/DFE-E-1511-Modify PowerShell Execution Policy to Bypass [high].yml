@@ -1,3 +1,4 @@
+# new values for this event ID should be checked on testing
 title: Modify PowerShell Execution Policy to Bypass
 description: Detects registry changes to modify PowerShell execution policy to bypass restrictions.
 author: Amr Ashraf
@@ -10,8 +11,8 @@ logsource:
 detection:
   selection:
     EventID: 4657
-    ObjectName: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
-    ObjectValueName: 'ExecutionPolicy'
+    ObjectName|contains: 'SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
+    ObjectValueName|contains: 'ExecutionPolicy'
     NewValue: 'Bypass'
   condition: selection
 falsepositives:

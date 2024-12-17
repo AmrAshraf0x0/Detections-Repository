@@ -17,18 +17,16 @@ detection:
   selection:
     EventID: 4688
     CommandLine|contains:
-      - "\\ntds.dit"
-      - "\\config\\SAM"
-      - "\\*\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy"
-      - "/system32/config/SAM"
-      - "\\User Data\\"
+      - '\ntds.dit'
+      - '\config\SAM'
+      - '\*\GLOBALROOT\Device\HarddiskVolumeShadowCopy'
+      - '\system32\config\SAM'
+      - '\User Data\'
     OriginalFileName|endswith:
-      - "Cmd.Exe"
-      - "PowerShell.EXE"
-      - "XCOPY.EXE"
-      - "esentutl.exe"
-    CommandLine|re:
-      - "(?i).*\\b(copy|xcopy|Copy-Item|move|cp|mv)\\b.*"
+      - 'Cmd.Exe'
+      - 'PowerShell.EXE'
+      - 'XCOPY.EXE'
+      - 'esentutl.exe'
   condition: selection
 fields:
   - CommandLine

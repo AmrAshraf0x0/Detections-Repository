@@ -11,27 +11,27 @@ detection:
       - '\powershell.exe'
       - '\pwsh.exe'
     CommandLine|contains|all:
-      - "http" # Ensures web-related activity
+      - 'http' # Ensures web-related activity
   cmdlets_and_aliases:
     CommandLine|contains|any:
-      - "Invoke-WebRequest"
-      - "iwr" # Alias for Invoke-WebRequest
-      - "Net.WebClient"
-      - "Http.HttpClient"
-      - "wget" # Common alias
-      - "curl" # Common alias
-      - "Get-Content"
-      - "gc" # Abbreviation for Get-Content
+      - 'Invoke-WebRequest'
+      - ' iwr' # Alias for Invoke-WebRequest
+      - 'Net.WebClient'
+      - 'Http.HttpClient'
+      - 'wget' # Common alias
+      - 'curl' # Common alias
+      - 'Get-Content'
+      - ' gc ' # Abbreviation for Get-Content
   image_extensions:
     CommandLine|contains|any:
-      - ".jpg"
-      - ".jpeg"
-      - ".png"
-      - ".gif"
-      - ".bmp"
-      - ".svg"
-      - ".exe"
-      - ".ps1"
+      - '.jpg'
+      - '.jpeg'
+      - '.png'
+      - '.gif'
+      - '.bmp'
+      - '.svg'
+      - '.exe'
+      - '.ps1'
   condition: selection and cmdlets_and_aliases and image_extensions
 fields:
   - CommandLine

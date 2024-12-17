@@ -9,11 +9,11 @@ detection:
   selection:
     EventID: 4688 
     NewProcessName|endswith:
-      - "\MpCmdRun.exe"
+      - '\MpCmdRun.exe'
     CommandLine|contains:
-      - "-DownloadFile"
-      - "-url"
-      - "-path"
+      - '-DownloadFile'
+      - '-url'
+      - '-path'
   condition: selection
 fields:
   - NewProcessName
@@ -31,5 +31,5 @@ tags:
 description: |
   Identifies the use of the Windows Defender configuration utility (MpCmdRun.exe) being abused to download a remote file. This activity could indicate malicious intent if used outside its intended administrative purpose.
 references:
-  - "https://twitter.com/mohammadaskar2/status/1301263551638761477"
-  - "https://www.bleepingcomputer.com/news/microsoft/microsoft-defender-can-ironically-be-used-to-download-malware/"
+  - 'https://twitter.com/mohammadaskar2/status/1301263551638761477'
+  - 'https://www.bleepingcomputer.com/news/microsoft/microsoft-defender-can-ironically-be-used-to-download-malware/'
