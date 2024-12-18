@@ -9,10 +9,10 @@ logsource:
 detection:
   selection:
     EventID: 4657  # Registry modification
-    RegistryKey|contains:
-      - 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\Authentication Packages'
-      - 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\Notification Packages'
-      - 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\Security Packages'
+    ObjectName|contains:
+      - 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Authentication Packages'
+      - 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Notification Packages'
+      - 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Security Packages'
   condition: selection
 fields:
   - EventID

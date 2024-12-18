@@ -10,8 +10,8 @@ detection:
   selection_netsh_trace:
     EventID: 4688
     NewProcessName|endswith: '\netsh.exe'
-    CommandLine|contains|all:
-      - 'trace start'
+    CommandLine|contains|re|all:
+      - 'trace *start'
       - 'capture=yes'
       - 'tracefile='
   condition: selection_netsh_trace

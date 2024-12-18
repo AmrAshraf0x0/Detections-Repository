@@ -16,12 +16,13 @@ detection:
         Channel: Security
     selection:
         CommandLine|contains|all:
-            - \..\
-            - mshtml
+            - '\..\'
+            - 'mshtml'
+    selection_1:
         CommandLine|contains:
             - '#135'
-            - RunHTMLApplication
-    condition: process_creation and selection
+            - 'RunHTMLApplication'
+    condition: process_creation and selection and selection_1
 falsepositives:
     - Unlikely
 level: high

@@ -7,8 +7,9 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName: "vssadmin.exe"
-      CommandLine|contains:
+    - EventID: 4688
+    - NewProcessName|contains: "vssadmin.exe"
+      CommandLine|contains|all:
         - "delete"
         - "shadows"
   condition: selection

@@ -22,19 +22,12 @@ detection:
               - \wmic.exe
               - \vssadmin.exe
               - \diskshadow.exe
-        - OriginalFileName:
-              - PowerShell.EXE
-              - pwsh.dll
-              - wmic.exe
-              - VSSADMIN.EXE
-              - diskshadow.exe
     selection1_cli:
         CommandLine|contains|all:
             - shadow    # will match "delete shadows" and "shadowcopy delete" and "shadowstorage"
             - delete
     selection2_img:
         - NewProcessName|endswith: \wbadmin.exe
-        - OriginalFileName: WBADMIN.EXE
     selection2_cli:
         CommandLine|contains|all:
             - delete
@@ -42,7 +35,6 @@ detection:
             - quiet   # will match -quiet or /quiet
     selection3_img:
         - NewProcessName|endswith: \vssadmin.exe
-        - OriginalFileName: VSSADMIN.EXE
     selection3_cli:
         CommandLine|contains|all:
             - resize

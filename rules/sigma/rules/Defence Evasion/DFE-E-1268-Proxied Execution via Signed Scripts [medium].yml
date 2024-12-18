@@ -7,10 +7,11 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName: 
+    - EventID: 4688
+    - NewProcessName: 
       - "cscript.exe"
       - "wscript.exe"
-      CommandLine|contains:
+    - CommandLine|contains:
         - ".vbs"
         - "script:http"
   condition: selection

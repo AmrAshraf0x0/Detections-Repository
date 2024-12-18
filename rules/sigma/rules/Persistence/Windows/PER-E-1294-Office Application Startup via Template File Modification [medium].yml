@@ -7,11 +7,10 @@ logsource:
   product: windows
 detection:
   selection:
-    - FilePath|contains:
-        - "\\AppData\\Roaming\\Microsoft\\Templates\\Normal.dotm"
-        - "\\AppData\\Roaming\\Microsoft\\Excel\\XLSTART\\PERSONAL.XLSB"
-  filter:
-    - Subtype|contains: "delete"
+    - EventID: 11
+    - TargetFileName|contains:
+        - '\AppData\Roaming\Microsoft\Templates\Normal.dotm'
+        - '\AppData\Roaming\Microsoft\Excel\XLSTART\PERSONAL.XLSB'
   condition: selection and not filter
 fields:
   - FilePath

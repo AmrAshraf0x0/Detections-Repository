@@ -7,14 +7,15 @@ logsource:
   product: windows
 detection:
   selection:
+    - EventID: 4688
     - NewProcessName:
-        - "net.exe"
-        - "net1.exe"
-    - CommandLine|contains:
-        - "use \\\\*\\$"
-        - "use \\\\*/$"
+        - 'net.exe'
+        - 'net1.exe'
+    - CommandLine|contains|re:
+        - 'use *\\*\$'
+        - 'use *\\*/$'
   filter:
-      CreatorProcessName|contains: "net.exe"
+      ParentProcessName|contains: 'net.exe'
   condition: selection and not filter
 fields:
   - NewProcessName

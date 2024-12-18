@@ -22,7 +22,6 @@ detection:
             - SYSTEM\CurrentControlSet\Services\
             - ' ImagePath '
             - ' -d '
-        NewProcessName|endswith: \reg.exe
     condition: process_creation and (all of selection*)
 falsepositives:
     - Unknown

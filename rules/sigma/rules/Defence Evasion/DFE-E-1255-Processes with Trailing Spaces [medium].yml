@@ -7,7 +7,7 @@ logsource:
   product: unix
 detection:
   selection:
-    - ProcessName|endswith: " "
+    - Image|endswith: " "
   condition: selection
 fields:
   - ProcessName

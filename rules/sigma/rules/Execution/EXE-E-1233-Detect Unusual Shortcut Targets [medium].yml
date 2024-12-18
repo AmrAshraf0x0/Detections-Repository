@@ -1,3 +1,4 @@
+# need to check log source for that
 title: Detect Unusual Shortcut Targets
 status: Developed
 description: Detects shortcuts pointing to unexpected or malicious executables/scripts.
@@ -15,9 +16,9 @@ detection:
       - 'cscript.exe'
       - 'wscript.exe'
     FilePath|contains:
-      - '%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup'
-      - '%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup'
-      - '%USERPROFILE%\\Desktop'
+      - '%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup'
+      - '%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs\Startup'
+      - '%USERPROFILE%\Desktop'
   condition: selection
 fields:
   - FileName

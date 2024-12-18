@@ -8,15 +8,16 @@ logsource:
   product: windows
 detection:
   selection_net_commands:
-    CommandLine|contains:
-      - 'net localgroup'
-      - 'net group /domain'
-      - 'net group "enterprise admins" /domain'
-      - 'net group "domain admins" /domain'
-      - 'net groups "Account Operators"'
-      - 'net groups "Exchange Organization Management"'
-      - 'net group "BUILTIN\Backup Operators"'
-      - 'net group /domai "Domain Admins"'
+    EventID: 4688
+    CommandLine|contains|re:
+      - 'net * localgroup'
+      - 'net *group */domain'
+      - 'net *group *"enterprise admins" */domain'
+      - 'net *group *"domain admins" */domain'
+      - 'net *groups *"Account Operators"'
+      - 'net *groups *"Exchange Organization Management"'
+      - 'net *group *"BUILTIN\Backup Operators"'
+      - 'net *group */domai *"Domain Admins"'
   selection_powershell_commands:
     CommandLine|contains:
       - 'get-ADPrincipalGroupMembership'

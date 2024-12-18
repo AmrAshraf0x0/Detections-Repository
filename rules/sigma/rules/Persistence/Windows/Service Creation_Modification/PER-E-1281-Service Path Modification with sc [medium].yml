@@ -7,10 +7,11 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName: "sc.exe"
-      CommandLine|contains:
-        - "config"
-        - "binPath"
+    - EventID: 4688
+    - NewProcessName: 'sc.exe'
+    - CommandLine|contains|all:
+        - 'config'
+        - 'binPath'
   condition: selection
 fields:
   - ProcessName

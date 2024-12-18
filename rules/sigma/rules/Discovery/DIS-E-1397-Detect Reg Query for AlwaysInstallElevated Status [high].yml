@@ -12,13 +12,10 @@ detection:
     NewProcessName|endswith: '\reg.exe'
     CommandLine|contains:
       - "AlwaysInstallElevated"
-  selection_hkcu:
+  selection_hk:
     CommandLine|contains|all:
-      - 'HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer'
-  selection_hklm:
-    CommandLine|contains|all:
-      - 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer'
-  condition: selection and (selection_hkcu or selection_hklm)
+      - 'SOFTWARE\Policies\Microsoft\Windows\Installer'
+  condition: selection and selection_hk
 fields:
   - CommandLine
   - Image

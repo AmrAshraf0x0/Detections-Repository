@@ -11,8 +11,10 @@ detection:
     EventID: 4104
     ScriptBlockText|contains|all:
       - 'get-wmiobject'
-      - '-class ds_computer'
-      - '-namespace root\directory\ldap'
+      - '-class'
+      - 'ds_computer'
+      - '-namespace'
+      - 'root\directory\ldap'
   condition: selection
 fields:
   - EventID

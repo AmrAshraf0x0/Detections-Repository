@@ -28,7 +28,7 @@ detection:
               - '-544'
               - '-551'
               - '-555'
-        - ObjectName|contains: 'admin'
+       # - ObjectName|contains: 'admin'
     filter:
         SubjectUserName|endswith: '$'
     condition: selection and selection_object and not filter

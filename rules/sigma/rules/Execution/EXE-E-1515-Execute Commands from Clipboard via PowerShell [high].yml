@@ -12,7 +12,8 @@ detection:
     EventID: 4104
     CommandLine|contains|all:
       - 'Get-Clipboard'
-      - 'iex'
+      - ' iex'
+      - '|iex'
   condition: selection
 falsepositives:
   - Developers using clipboard during legitimate tasks

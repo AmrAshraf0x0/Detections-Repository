@@ -10,16 +10,18 @@ detection:
     - NewProcessName|endswith:
         - '\net.exe'
         - '\net1.exe'
-      CommandLine|contains:
-        - ' localgroup administrators'
+      CommandLine|contains|re:
+        - ' localgroup *administrators'
         - ' user'
         - ' accounts'
+  selection_!:
     - NewProcessName|endswith:
         - '\cmd.exe'
-      CommandLine|contains:
-        - 'wmic useraccount get'
-        - 'whoami /all'
-        - 'net user'
+      CommandLine|contains|re:
+        - 'wmic *useraccount *get'
+        - 'whoami */all'
+        - 'net *user'
+  selection_2:
     - NewProcessName|endswith:
         - '\powershell.exe'
       CommandLine|contains:
@@ -28,7 +30,7 @@ detection:
   exclusion:
     - ParentImage|endswith:
         - '\mmc.exe'
-  condition: selection and not exclusion
+  condition: (selection or selection_1 or selection_2) and not exclusion
 fields:
   - Image
   - CommandLine

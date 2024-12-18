@@ -15,19 +15,13 @@ detection:
         Channel: Security
     selection_img:
         - NewProcessName|endswith: \schtasks.exe
-        - OriginalFileName: schtasks.exe
     selection_time:
         CommandLine|contains:
             - ' ONLOGON '
             - ' ONSTART '
             - ' ONCE '
             - ' ONIDLE '
-    filter_privs:
-        CommandLine|contains:
-            - NT AUT   # This covers the usual NT AUTHORITY\SYSTEM
-            - ' SYSTEM' # SYSTEM is a valid value for schtasks hence it gets it's own value with space
-            - HIGHEST
-    condition: process_creation and (all of selection_* and not 1 of filter_*)
+    condition: process_creation and (all of selection_*)
 falsepositives:
     - Legitimate processes that run at logon. Filter according to your environment
 level: high

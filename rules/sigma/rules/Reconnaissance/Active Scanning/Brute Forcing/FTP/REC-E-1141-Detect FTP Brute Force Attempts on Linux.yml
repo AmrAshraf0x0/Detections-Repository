@@ -9,9 +9,9 @@ logsource:
 detection:
   selection:
     SyslogProgram: 'vsftpd'              # Adjust to match the FTP server in use
-    message:
-      - '*FAILED LOGIN*'
-      - '*Login incorrect*'
+    message|contains:
+      - 'FAILED LOGIN'
+      - 'Login incorrect'
   condition: selection | count() by source_ip > 15 within 5m
 fields:
   - source_ip

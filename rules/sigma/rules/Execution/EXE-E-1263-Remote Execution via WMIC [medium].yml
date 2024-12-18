@@ -7,11 +7,12 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName: "wmic.exe"
-      CommandLine|contains:
+    - EventID: 4688
+    - NewProcessName|contains: "wmic.exe"
+      CommandLine|contains|re:
         - "/node:"
         - "-node:"
-        - "process call"
+        - "process *call"
   condition: selection
 fields:
   - ProcessName

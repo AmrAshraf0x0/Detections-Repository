@@ -7,7 +7,8 @@ logsource:
   product: windows
 detection:
   selection:
-    - RegistryPath|contains:
+    - EventID: 4657
+    - ObjectName|contains:
         - '\\root\\subscription\\__eventfilter'
         - '\\root\\subscription\\__eventconsumer'
         - '\\root\\subscription\\__filtertoconsumerbinding'

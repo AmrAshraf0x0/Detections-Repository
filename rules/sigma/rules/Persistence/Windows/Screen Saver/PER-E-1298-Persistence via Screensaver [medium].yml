@@ -7,11 +7,11 @@ logsource:
   product: windows
 detection:
   selection:
-    - RegistryPath|contains: "\\Control Panel\\Desktop\\SCRNSAVE.EXE"
+    EventID: 4657
+    ObjectName|contains: '\Control Panel\Desktop\SCRNSAVE.EXE'
   exclusion:
-    - ProcessName: "rundll32.exe"
-      ParentProcessName: "explorer.exe"
-      CommandLine|contains: "shell32.dll,Control_RunDLL desk.cpl,ScreenSaver"
+    - ProcessName|contains: 'rundll32.exe'
+    - CommandLine|contains: 'shell32.dll,Control_RunDLL desk.cpl,ScreenSaver'
   condition: selection and not exclusion
 fields:
   - RegistryPath

@@ -8,11 +8,11 @@ logsource:
 detection:
   selection:
     EventID: 4657
-    RegistryKey|contains: 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\KnownDLLs'
+    ObjectName|contains: 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\KnownDLLs'
   condition: selection
 fields:
  - EventID
- - RegistryKey
+ - ObjectName
  - RegistryValue
  - OldValue
  - NewValue

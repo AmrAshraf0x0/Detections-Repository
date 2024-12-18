@@ -1,3 +1,4 @@
+# testing Req
 title: Control Panel Items Execution
 status: Developed
 description: Detects the use of Control Panel items as execution payloads via control.exe or rundll32.exe. Adversaries can leverage this technique to execute arbitrary commands or evade detection.
@@ -7,10 +8,10 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName: 
+    - EventID: 4688
+    - NewProcessName: 
       - "control.exe"
       - "rundll32.exe"
-      
     - CommandLine|contains: ".cpl"
   condition: selection
 fields:

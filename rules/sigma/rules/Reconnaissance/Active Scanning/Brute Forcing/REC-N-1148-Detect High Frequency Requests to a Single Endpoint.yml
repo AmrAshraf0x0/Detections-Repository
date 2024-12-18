@@ -8,7 +8,7 @@ logsource:
   product: firewall
 detection:
   timeframe: 10m
-  condition: grouped by Request | count(Request) > 999
+  condition: grouped by Request | count(Request) > 999 # needs to review the logs to specify what field to group by "don't deploy"
 fields:
   - Src
   - User

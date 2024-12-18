@@ -8,8 +8,9 @@ logsource:
 detection:
   selection:
     EventID: 5861
-    Operation: 'Create'
-    TargetInstance|contains: 'Win32_Service'
+    Message|contains|all: 
+      - 'Create'
+      - 'Win32_Service'
   condition: selection
 fields:
  - EventID

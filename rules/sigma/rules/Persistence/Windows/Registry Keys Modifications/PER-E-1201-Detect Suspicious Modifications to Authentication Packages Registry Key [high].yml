@@ -9,8 +9,8 @@ logsource:
 detection:
   selection:
     EventID: 4657  # Registry modification event
-    RegistryKey: 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa'
-    RegistryValueName: 'Authentication Packages'
+    ObjectName: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa'
+    ObjectValueName: 'Authentication Packages'
   condition: selection
 fields:
   - EventID

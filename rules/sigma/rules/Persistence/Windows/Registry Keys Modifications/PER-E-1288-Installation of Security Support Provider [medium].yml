@@ -7,9 +7,10 @@ logsource:
   product: windows
 detection:
   selection:
-    - RegistryPath|contains:
-        - "\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\Security Packages"
-        - "\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\OSConfig\\Security Packages"
+    - EventID: 4657
+    - ObjectName|contains:
+        - '\SYSTEM\CurrentControlSet\Control\Lsa\Security Packages'
+        - '\SYSTEM\CurrentControlSet\Control\Lsa\OSConfig\Security Packages'
   condition: selection
 fields:
   - RegistryPath

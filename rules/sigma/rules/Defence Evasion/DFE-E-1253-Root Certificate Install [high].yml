@@ -7,13 +7,15 @@ logsource:
   product: windows
 detection:
   selection:
-    RegistryPath|contains:
-      - "\\Software\\Microsoft\\SystemCertificates\\Root\\Certificates\\"
-      - "\\Software\\Microsoft\\SystemCertificates\\AuthRoot\\Certificates\\"
-      - "\\Software\\Policies\\Microsoft\\SystemCertificates\\Root\\Certificates\\"
-      - "\\Software\\Policies\\Microsoft\\SystemCertificates\\AuthRoot\\Certificates\\"
-    RegistryPath|endswith: "\\Blob"
-  condition: selection
+    EventID: 4657
+    ObjectName|contains:
+      - '\Software\Microsoft\SystemCertificates\Root\Certificates\'
+      - '\Software\Microsoft\SystemCertificates\AuthRoot\Certificates\'
+      - '\Software\Policies\Microsoft\SystemCertificates\Root\Certificates\'
+      - '\Software\Policies\Microsoft\SystemCertificates\AuthRoot\Certificates\'
+  selection_1:
+    ObjectName|endswith: '\Blob'
+  condition: selection and selection_1
 fields:
   - RegistryPath
   - ProcessName

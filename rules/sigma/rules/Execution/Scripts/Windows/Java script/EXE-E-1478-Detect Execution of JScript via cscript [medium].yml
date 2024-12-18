@@ -1,3 +1,4 @@
+# needs FP Testing
 title: Detect Execution of JScript via cscript
 status: Developed
 description: Detects the execution of JScript files using the `cscript` command, commonly used for script execution.

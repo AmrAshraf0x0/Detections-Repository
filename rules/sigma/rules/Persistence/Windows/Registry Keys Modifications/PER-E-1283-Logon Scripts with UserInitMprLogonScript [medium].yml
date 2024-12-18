@@ -7,7 +7,8 @@ logsource:
   product: windows
 detection:
   selection:
-    - RegistryPath|contains: "\\Environment\\UserInitMprLogonScript"
+    - EventID: 4657
+    - ObjectName|contains: '\Environment\UserInitMprLogonScript'
   condition: selection
 fields:
   - RegistryPath

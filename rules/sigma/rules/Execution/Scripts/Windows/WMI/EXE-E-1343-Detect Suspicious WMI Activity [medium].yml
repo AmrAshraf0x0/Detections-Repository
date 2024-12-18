@@ -7,20 +7,17 @@ logsource:
   product: windows
 detection:
   selection:
+    - EventID: 4688
     - NewProcessName|endswith:
         - '\wmic.exe'
         - '\wmiprvse.exe'
         - '\winmgmt.exe'
-      CommandLine|contains:
+      CommandLine|contains|re:
         - ' /node:'
         - ' /user:'
-        - ' process call create'
-        - ' path win32_process'
-        - ' call create'
-    - ParentImage|endswith:
-        - '\powershell.exe'
-        - '\cmd.exe'
-        - '\mshta.exe'
+        - ' process *call *create'
+        - ' path *win32_process'
+        - ' call *create'
   condition: selection
 fields:
   - Image

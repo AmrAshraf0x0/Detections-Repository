@@ -9,14 +9,12 @@ logsource:
 detection:
   selection:
     - EventID: 4688
-    - NewProcessName|re: 
-      - '.*\\AppData\\.*'
-      - '.*\\Temp\\.*'
-      - '.*\\Downloads\\.*'
-      - '.*\\Public\\.*'
-      - '.*\\ProgramData\\.*'
-    - ParentImage|endswith:
-      - '\explorer.exe'
+    - NewProcessName|contains: 
+      - '\Temp\'
+      - '\Downloads\'
+      - '\Public\'
+      - '\ProgramData\'
+    - ParentProcessName|endswith:
       - '\cmd.exe'
       - '\powershell.exe'
       - '\services.exe'

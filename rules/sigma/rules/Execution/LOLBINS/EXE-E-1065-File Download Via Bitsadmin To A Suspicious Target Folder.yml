@@ -18,7 +18,6 @@ detection:
         Channel: Security
     selection_img:
         - NewProcessName|endswith: \bitsadmin.exe
-        - OriginalFileName: bitsadmin.exe
     selection_flags:
         CommandLine|contains:
             - ' /transfer '
@@ -26,14 +25,14 @@ detection:
             - ' /addfile '
     selection_folder:
         CommandLine|contains:
-            - :\Perflogs
-            - :\ProgramData\
-            - :\Temp\
-            - :\Users\Public\
-            - :\Windows\
-            - \AppData\Local\Temp\
-            - \AppData\Roaming\
-            - \Desktop\
+            - '\Perflogs'
+            - '\ProgramData\'
+            - '\Temp\'
+            - '\Users\Public\'
+            - '\Windows\'
+            - '\AppData\Local\Temp\'
+            - '\AppData\Roaming\'
+            - '\Desktop\'
             - '%ProgramData%'
             - '%public%'
     condition: process_creation and (all of selection_*)

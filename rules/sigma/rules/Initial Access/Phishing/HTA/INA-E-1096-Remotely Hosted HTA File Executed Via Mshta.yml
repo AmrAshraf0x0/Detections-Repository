@@ -16,12 +16,11 @@ detection:
         Channel: Security
     selection_img:
         - NewProcessName|endswith: \mshta.exe
-        - OriginalFileName: MSHTA.EXE
     selection_cli:
         CommandLine|contains:
-            - http://
-            - https://
-            - ftp://
+            - 'http://'
+            - 'https://'
+            - 'ftp://'
     condition: process_creation and (all of selection_*)
 falsepositives:
     - Unknown

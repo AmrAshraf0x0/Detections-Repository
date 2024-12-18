@@ -8,8 +8,8 @@ logsource:
 detection:
   selection:
     EventID: 4657
-    RegistryKey|contains: 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\'
-    RegistryValue: 'ImagePath'
+    ObjectName|contains: 'HKLM\SYSTEM\CurrentControlSet\Services\'
+    ObjectValueName|contains: 'ImagePath'
   condition: selection
 fields:
  - EventID

@@ -7,7 +7,8 @@ logsource:
   product: windows
 detection:
   selection:
-    - RegistryPath|contains: "\\Software\\Microsoft\\NetSh\\"
+    - EventID: 4657
+    - ObjectName|contains: '\Software\Microsoft\NetSh\'
   condition: selection
 fields:
   - RegistryPath

@@ -1,3 +1,4 @@
+# may need more filters
 title: Suspicious ADS File Creation
 status: Developed
 description: Detects suspicious creation or modification of NTFS Alternate Data Streams (ADS), especially those involving `.dll` or `.exe` files.
@@ -7,15 +8,16 @@ logsource:
   product: windows
 detection:
   selection:
-    FileName|contains: ":"
-    FileName|endswith:
+    EventID: 11
+    TargetFileName|contains: ":"
+    TargetFileName|endswith:
       - ".dll"
       - ".exe"
   filter:
-    FileName|contains: ":Zone.Identifier"
+    TargetFileName|contains: ":Zone.Identifier"
   condition: selection and not filter
 fields:
-  - FileName
+  - TargetFileName
   - FilePath
   - FileAccess
   - User

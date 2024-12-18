@@ -20,33 +20,26 @@ detection:
               - \powershell.exe
               - \pwsh.exe
               - \cmd.exe
-        - OriginalFileName:
-              - PowerShell.EXE
-              - pwsh.dll
-              - Cmd.Exe
     selection_user:
-        SubjectUserName|contains: # covers many language settings
-            - AUTHORI
-            - AUTORI
         SubjectLogonId: '0x3e7'
     filter_main_generic:
         ParentProcessName|contains:
-            - :\Program Files (x86)\
-            - :\Program Files\
-            - :\ProgramData\
-            - :\Windows\System32\
-            - :\Windows\SysWOW64\
-            - :\Windows\Temp\   # Installers
-            - :\Windows\WinSxS\
+            - '\Program Files (x86)\'
+            - '\Program Files\'
+            - '\ProgramData\'
+            - '\Windows\System32\'
+            - '\Windows\SysWOW64\'
+            - '\Windows\Temp\ '  # Installers
+            - '\Windows\WinSxS\'
     filter_optional_manageengine:
-        ParentProcessName|endswith: :\ManageEngine\ADManager Plus\pgsql\bin\postgres.exe
+        ParentProcessName|endswith: '\ManageEngine\ADManager Plus\pgsql\bin\postgres.exe'
         NewProcessName|endswith: \cmd.exe
     filter_optional_asgard:
-        CommandLine|contains: :\WINDOWS\system32\cmd.exe /c "
-        CurrentDirectory|contains: :\WINDOWS\Temp\asgard2-agent\
+        CommandLine|contains: '\WINDOWS\system32\cmd.exe /c '
+        CurrentDirectory|contains: '\WINDOWS\Temp\asgard2-agent\'
     filter_optional_ibm_spectrumprotect:
-        CommandLine|contains: :\IBM\SpectrumProtect\webserver\scripts\
-        ParentProcessName|contains: :\IBM\SpectrumProtect\webserver\scripts\
+        CommandLine|contains: '\IBM\SpectrumProtect\webserver\scripts\'
+        ParentProcessName|contains: '\IBM\SpectrumProtect\webserver\scripts\'
     filter_main_parent_null:
         ParentProcessName: null
     filter_main_parent_empty:

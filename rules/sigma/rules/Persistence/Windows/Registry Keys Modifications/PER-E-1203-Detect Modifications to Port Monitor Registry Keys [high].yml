@@ -9,12 +9,12 @@ logsource:
 detection:
   selection:
     EventID: 4657  # Registry modification
-    RegistryKey|contains:
-      - 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Print\\Monitors\\'
+    ObjectName|contains:
+      - 'HKLM\SYSTEM\CurrentControlSet\Control\Print\Monitors\'
     RegistryValueName: 'Driver'
   condition: selection
 fields:
-  - RegistryKey
+  - ObjectName
   - RegistryValueName
   - User
   - ComputerName

@@ -15,7 +15,6 @@ detection:
         Channel: Security
     selection_img:
         - NewProcessName|endswith: \rundll32.exe
-        - OriginalFileName: RUNDLL32.EXE
     selection_cli:
         CommandLine|contains|all:
             - pcwutl

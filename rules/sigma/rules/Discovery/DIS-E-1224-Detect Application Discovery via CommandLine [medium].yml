@@ -7,10 +7,12 @@ logsource:
   product: windows
 detection:
   selection:
-    CommandLine|contains:
+    EventID: 4688
+    CommandLine|contains|re:
       - 'tasklist'
-      - 'wmic process list'
+      - 'wmic *process *list'
   selection2:
+    EventID: 4688
     NewProcessName|endswith:
       - 'powershell.exe'
       - 'python.exe'

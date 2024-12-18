@@ -7,16 +7,17 @@ logsource:
   product: windows
 detection:
   selection:
-    - RegistryPath|contains:
-        - "\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Windows\\AppInit_Dlls"
-        - "\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Windows\\AppInit_Dlls"
+    - EventID: 4657 
+    - ObjectName|contains:
+        - 'SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_Dlls'
+        - '\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_Dlls'
   filter:
-    - ProcessPath|contains:
-        - "\\system32\\msiexec.exe"
-        - "\\syswow64\\msiexec.exe"
+    - ProcessName|contains:
+        - '\system32\msiexec.exe'
+        - '\syswow64\msiexec.exe'
   condition: selection and not filter
 fields:
-  - RegistryPath
+  - ObjectName
   - RegistryKey
   - RegistryValue
   - RegistryData

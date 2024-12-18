@@ -27,27 +27,27 @@ detection:
             - '/e:Jscript '
             - '/e:vbscript '
     selection_proc_original:
-        OriginalFileName:
-            - cscript.exe
-            - mshta.exe
-            - wscript.exe
+        NewProcessName|endswith:
+            - \cscript.exe
+            - \mshta.exe
+            - \wscript.exe
     selection_folders_1:
         CommandLine|contains:
-            - :\Perflogs\
-            - :\Users\Public\
+            - \Perflogs\
+            - \Users\Public\
             - \AppData\Local\Temp
             - \AppData\Roaming\Temp
             - \Temporary Internet
             - \Windows\Temp
     selection_folders_2:
         - CommandLine|contains|all:
-              - :\Users\
+              - \Users\
               - \Favorites\
         - CommandLine|contains|all:
-              - :\Users\
+              - \Users\
               - \Favourites\
         - CommandLine|contains|all:
-              - :\Users\
+              - \Users\
               - \Contacts\
     condition: process_creation and (1 of selection_proc_* and 1 of selection_folders_*)
 falsepositives:

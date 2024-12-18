@@ -7,8 +7,9 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName: "wmic.exe"
-      CommandLine|contains:
+    - EventID: 4688
+    - NewProcessName: "wmic.exe"
+      CommandLine|contains|all:
         - "shadowcopy"
         - "delete"
   condition: selection

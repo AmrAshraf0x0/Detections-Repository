@@ -26,38 +26,38 @@ detection:
             - ' /addfile '
     selection_extension:
         CommandLine|contains:
-            - .7z
-            - .asax
-            - .ashx
-            - .asmx
-            - .asp
-            - .aspx
-            - .bat
-            - .cfm
-            - .cgi
-            - .chm
-            - .cmd
-            - .dll
-            - .gif
-            - .jpeg
-            - .jpg
-            - .jsp
-            - .jspx
-            - .log
-            - .png
-            - .ps1
-            - .psm1
-            - .rar
-            - .scf
-            - .sct
-            - .txt
-            - .vbe
-            - .vbs
-            - .war
-            - .wsf
-            - .wsh
-            - .xll
-            - .zip
+            - '.7z'
+            - '.asax'
+            - '.ashx'
+            - '.asmx'
+            - '.asp'
+            - '.aspx'
+            - '.bat'
+            - '.cfm'
+            - '.cgi'
+            - '.chm'
+            - '.cmd'
+            - '.dll'
+            - '.gif'
+            - '.jpeg'
+            - '.jpg'
+            - '.jsp'
+            - '.jspx'
+            - '.log'
+            - '.png'
+            - '.ps1'
+            - '.psm1'
+            - '.rar'
+            - '.scf'
+            - '.sct'
+            - '.txt'
+            - '.vbe'
+            - '.vbs'
+            - '.war'
+            - '.wsf'
+            - '.wsh'
+            - '.xll'
+            - '.zip'
     condition: process_creation and (all of selection_*)
 falsepositives:
     - Unknown

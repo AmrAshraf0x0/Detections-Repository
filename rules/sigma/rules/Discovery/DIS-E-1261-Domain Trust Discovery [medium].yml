@@ -7,11 +7,13 @@ logsource:
   product: windows
 detection:
   selection:
+    - EventID: 4688
     - ProcessName: "dsquery.exe"
-      CommandLine|contains: "(objectClass=trustedDomain)"
-    - ProcessName: "nltest.exe"
-      CommandLine|contains: "domain_trusts"
-  condition: selection
+    - CommandLine|contains: "(objectClass=trustedDomain)"
+  selection_1:
+    - NewProcessName: "nltest.exe"
+    - CommandLine|contains: "domain_trusts"
+  condition: selection and selection_1
 fields:
   - ProcessName
   - CommandLine

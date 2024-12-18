@@ -11,6 +11,7 @@ logsource:
     product: windows
 detection:
     selection1:
+        EventID: 4688
         CommandLine|contains: ' /lockscreenurl:'
     selection1_filter:
         CommandLine|contains:
@@ -18,8 +19,10 @@ detection:
             - '.jpeg'
             - '.png'
     selection_reg:
+        EventID: 4688
         CommandLine|contains|all:
-            - 'reg delete'
+            - 'reg'
+            - 'delete'
             - '\PersonalizationCSP'
     condition: ( selection1 and not selection1_filter ) or selection_reg
 fields:

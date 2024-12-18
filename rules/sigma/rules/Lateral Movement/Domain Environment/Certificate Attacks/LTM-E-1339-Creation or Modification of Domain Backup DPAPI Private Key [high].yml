@@ -1,19 +1,17 @@
-title: Creation or Modification of Domain Backup DPAPI Private Key
+title: Creation of Domain Backup DPAPI Private Key
 status: Developed
 author: Amr Ashraf
 date: 2024-12-01
 description: |
-    Detects the creation or modification of Domain Backup DPAPI private keys on Windows systems. Adversaries may extract
+    Detects the creation of Domain Backup DPAPI private keys on Windows systems. Adversaries may extract
     the DPAPI domain backup key from a Domain Controller (DC) to decrypt any domain user master key file, exposing user secrets.
 logsource:
     category: file_event
     product: windows
 detection:
     selection:
-        EventType:
-            - creation
-            - modification
-        FileName:
+        EventID: 11
+        TargetFileName|contains|re:
             - "ntds_capi_*.pfx"
             - "ntds_capi_*.pvk"
     condition: selection

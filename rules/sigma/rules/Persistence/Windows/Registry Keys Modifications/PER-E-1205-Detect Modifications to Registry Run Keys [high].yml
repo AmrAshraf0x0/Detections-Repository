@@ -9,13 +9,13 @@ logsource:
 detection:
   selection:
     EventID: 4657  # Registry modification event
-    RegistryKey|contains:
-      - 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
-      - 'HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
-      - 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce'
-      - 'HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce'
-      - 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run'
-      - 'HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run'
+    ObjectName|contains:
+      - 'HKCU\Software\Microsoft\Windows\CurrentVersion\Run'
+      - 'HKLM\Software\Microsoft\Windows\CurrentVersion\Run'
+      - 'HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce'
+      - 'HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce'
+      - 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run'
+      - 'HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run'
   condition: selection
 fields:
   - RegistryKey

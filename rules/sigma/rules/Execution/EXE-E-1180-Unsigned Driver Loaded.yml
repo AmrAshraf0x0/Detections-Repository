@@ -12,7 +12,9 @@ detection:
         EventID: 6
     filter:
         Signed: 'true'
-        SignatureStatus: 'Expired'
+        SignatureStatus: 
+            - 'Expired' # to avoid FPs
+            - 'Valid'
     condition: selection and not filter
 falsepositives:
     - 'Expired/revoked certs'

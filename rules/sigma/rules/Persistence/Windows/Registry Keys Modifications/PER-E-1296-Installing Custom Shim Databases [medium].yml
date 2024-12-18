@@ -7,12 +7,14 @@ logsource:
   product: windows
 detection:
   selection:
-    - RegistryPath|contains: "\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Custom\\"
-      RegistryPath|endswith: ".sdb"
+    EventID: 4657
+    - ObjectName|contains: 
+      - '\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\'
+      - '.sdb'
   filter1:
-      ProcessName|contains: "sdbinst.exe"
+      ProcessName|contains: 'sdbinst.exe'
   filter2:
-      ParentProcessName|contains: "msiexec.exe"
+      ParentProcessName|contains: 'msiexec.exe'
   condition: selection and not (filter1 or filter2)
 fields:
   - RegistryPath

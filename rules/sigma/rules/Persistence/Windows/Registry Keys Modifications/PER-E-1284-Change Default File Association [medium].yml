@@ -9,9 +9,10 @@ detection:
   timeframe: 1s
   selection:
     registry_change:
-      - RegistryPath|contains:
-          - "\\SOFTWARE\\Classes\\"
-          - "\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\GlobalAssocChangedCounter"
+      - EventID: 4657
+      - ObjectName|contains:
+          - '\SOFTWARE\Classes\'
+          - '\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\GlobalAssocChangedCounter'
   condition: selection
 fields:
   - RegistryPath

@@ -1,3 +1,4 @@
+# Needs to be tested for FP and functionality
 title: Detect Network Logon Script Modifications
 id: detect-network-logon-script-modification
 status: Developed
@@ -8,13 +9,13 @@ logsource:
   product: windows
 detection:
   selection:
-    - FilePath|startswith:
+    - EventID: 4663 
+    - ObjectName|startswith:
         - '\\\\*\\NETLOGON'
-        - '\\\\*\\SYSVOL'
-      EventID: 4663
-      AccessMask: '0x2'  # Write permissions
+        - '\\\\*\\SYSVOL'   
+    - AccessMask: '0x2'  # Write permissions
   filter:
-    - FileName|endswith:
+    - ObjectName|endswith:
         - '.bat'
         - '.cmd'
         - '.vbs'

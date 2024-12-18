@@ -7,8 +7,8 @@ logsource:
   product: windows
 detection:
   selection:
-    - Hive: "HKLM"
-      RegistryPath|contains: "\\ControlSet\\Control\\Lsa\\Authentication Packages"
+    - Hive: 'HKLM'
+      RegistryPath|contains: '\ControlSet\Control\Lsa\Authentication Packages'
   condition: selection
 fields:
   - Hive

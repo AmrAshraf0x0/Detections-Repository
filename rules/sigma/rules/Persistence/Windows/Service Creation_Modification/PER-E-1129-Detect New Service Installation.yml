@@ -1,3 +1,4 @@
+# needs FP testing for whitelisting
 title: Detect New Service Installation
 description: Detects the creation of new services in Windows.
 status: Developed

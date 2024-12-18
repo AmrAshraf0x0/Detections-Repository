@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    NewProcessName|endswith: '\\SetSPN.exe'
+    NewProcessName|endswith: '\SetSPN.exe'
   condition: selection
 fields:
   - Image

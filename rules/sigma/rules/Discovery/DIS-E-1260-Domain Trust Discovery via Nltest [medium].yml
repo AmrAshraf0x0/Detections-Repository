@@ -7,8 +7,9 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName: "nltest.exe"
-      CommandLine|contains: "domain_trusts"
+    - EventID: 4688
+    - NewProcessName: "nltest.exe"
+    - CommandLine|contains: "domain_trusts"
   condition: selection
 fields:
   - ProcessName

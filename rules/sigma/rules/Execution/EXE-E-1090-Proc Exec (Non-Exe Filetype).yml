@@ -1,21 +1,18 @@
 title: Proc Exec (Non-Exe Filetype)
-description: Checks whether the image specified in a process creation event doesn't refer to an .exe file.
+description: Checks whether the Image specified in a process creation event doesn't refer to an .exe file.
 status: Developed
 author: Amr Ashraf
 date: 2024/11/09
 logsource:
     product: windows
-    service: sysmon
-    definition: 'Sysmon needs to be installed and configured.'
 detection:
     selection:
-        Channel: Microsoft-Windows-Sysmon/Operational
-        EventID: 1
+        EventID: 4688
     filter_exes:
-        Image|endswith: '.exe'
+        NewProcessName|endswith: '.exe'
     filter_system_processes:
-        - Image: 'C:\Windows\System32\scrnsave.scr'
-        - Image: 'C:\Windows\SysWOW64\scrnsave.scr'
+        - NewProcessName: 'C:\Windows\System32\scrnsave.scr'
+        - NewProcessName: 'C:\Windows\SysWOW64\scrnsave.scr'
     condition: selection and not (filter_exes or filter_system_processes)
 falsepositives:
     - 'normal system usage'

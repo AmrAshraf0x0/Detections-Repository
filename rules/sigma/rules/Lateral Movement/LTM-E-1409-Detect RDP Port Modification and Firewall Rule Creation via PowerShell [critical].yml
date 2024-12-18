@@ -13,16 +13,16 @@ detection:
       - '\powershell.exe'
       - '\pwsh.exe'
     CommandLine|contains|all:
-      - 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
+      - 'SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
       - 'PortNumber'
   selection_firewall:
   EventID: 4688
   NewProcessName|endswith:
       - '\powershell.exe'
       - '\pwsh.exe'
-    CommandLine|contains|all:
+    CommandLine|contains|re|all:
       - 'New-NetFirewallRule'
-      - '-Direction Inbound'
+      - '-Direction *Inbound'
       - '-LocalPort'
   condition: selection or selection_firewall
 fields:

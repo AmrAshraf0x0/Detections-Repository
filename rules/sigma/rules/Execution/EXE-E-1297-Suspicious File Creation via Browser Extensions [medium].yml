@@ -7,19 +7,20 @@ logsource:
   product: any
 detection:
   selection:
-    - FileName|endswith:
-        - ".exe"
-        - ".dll"
-        - ".ps1"
-        - ".vbs"
-        - ".bat"
-    - FilePath|contains:
+    EventID: 11
+    - TargetFileName|endswith:
+        - '.exe'
+        - '.dll'
+        - '.ps1'
+        - '.vbs'
+        - '.bat'
+    - TargetFileName|contains:
         # Windows paths
-        - "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions"
-        - "\\Program Files\\Mozilla Firefox\\plugins"
-        - "\\Program Files\\Internet Explorer\\Plugins"
+        - '\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions'
+        - '\\Program Files\\Mozilla Firefox\\plugins'
+        - '\\Program Files\\Internet Explorer\\Plugins'
   filter:
-    - Subtype|contains: "delete"
+    - Subtype|contains: 'delete'
   condition: selection and not filter
 fields:
   - FileName

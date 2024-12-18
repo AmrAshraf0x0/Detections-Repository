@@ -8,7 +8,7 @@ logsource:
   product: windows
 detection:
   selection:
-    EventID: 
+    EventID: 4688
     NewProcessName|endswith:
       - '\PDQDeployConsole.exe'
   condition: selection

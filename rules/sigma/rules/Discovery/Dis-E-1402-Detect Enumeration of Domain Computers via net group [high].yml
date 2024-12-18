@@ -1,6 +1,6 @@
 title: Detect Enumeration of Domain Computers via net group
 status: Developed
-description: Detects the use of the `net group` command to enumerate domain computers using the "Domain Computers" group. This is often indicative of reconnaissance activities in Active Directory.
+description: Detects the use of the `net group` command to enumerate domain computers using the 'Domain Computers' group. This is often indicative of reconnaissance activities in Active Directory.
 author: Amr Ashraf
 date: 2024-12-06
 logsource:
@@ -8,12 +8,13 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     NewProcessName|endswith: 
       - '\net.exe'
       - '\net1.exe'
     CommandLine|contains|all:
-      - "group"
-      - "/domain"
+      - 'group'
+      - '/domain'
   condition: selection
 fields:
   - CommandLine

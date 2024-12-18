@@ -11,6 +11,7 @@ logsource:
     category: file_event
 detection:
     selection:
+        EventID: 11
         Image|endswith:
             # Microsoft Office Programs Dropping Executables
             - '\eqnedt32.exe'

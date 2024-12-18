@@ -26,7 +26,6 @@ detection:
         Channel: Security
     selection_img:
         - NewProcessName|endswith: \cmstp.exe
-        - OriginalFileName: CMSTP.EXE
     selection_cli:
         CommandLine|contains:
             - /s

@@ -7,8 +7,9 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName: "attrib.exe"
-      CommandLine|contains: "+h"
+    - EventID: 4688
+    - NewProcessName: "attrib.exe"
+    - CommandLine|contains: "+h"
   condition: selection
 fields:
   - ProcessName

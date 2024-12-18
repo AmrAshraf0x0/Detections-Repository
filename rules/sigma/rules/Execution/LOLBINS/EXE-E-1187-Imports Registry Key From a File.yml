@@ -1,3 +1,4 @@
+# needs FP testing
 title: Imports Registry Key From a File
 description: Detects the import of the specified file to the registry with regedit.exe.
 status: Developed
@@ -14,17 +15,13 @@ detection:
         EventID: 4688
         NewProcessName|endswith: \regedit.exe
         CommandLine|contains:
-            - ' /i '
-            - ' /s '
-            - .reg
+            - '.reg'
     filter_1:
         CommandLine|contains|windash:
             - ' -e '
             - ' -a '
             - ' -c '
-    filter_2:
-        CommandLine|re: :[^ \\]       # to avoid intersection with ADS rule
-    condition: selection_process_creation and not all of filter
+    condition: selection_process_creation and not filter_1
 fields:
     - ParentProcessName
     - CommandLine

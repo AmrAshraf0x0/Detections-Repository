@@ -8,13 +8,17 @@ logsource:
   product: windows
 detection:
   selection:
+    - EventID: 4688
     - NewProcessName|endswith:
         - '\wmic.exe'
       CommandLine|contains:
         - '/FORMAT:*'
         - '.xsl'
+  selection_1:
+    - EventID: 4688
     - NewProcessName|endswith:
         - '\powershell.exe'
+        - 'pwsh.exe'
       CommandLine|contains:
         - 'TransformNode'
         - 'Load'
@@ -22,8 +26,7 @@ detection:
   filter:
     - CommandLine|contains:
         - 'C:\Windows\System32\wbem'
-        - 'legitimate-script.xsl'
-  condition: selection and not filter
+  condition: (selection or selection_1) and not filter
 fields:
   - Image
   - CommandLine

@@ -10,9 +10,9 @@ detection:
   selection:
     EventID: 4663  # File creation event
     ObjectName|contains:
-      - '%AppData%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup'
-      - '%ProgramData%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup'
-    Access: 'WRITE'
+      - '%AppData%\Microsoft\Windows\Start Menu\Programs\Startup'
+      - '%ProgramData%\Microsoft\Windows\Start Menu\Programs\Startup'
+    Access: '0x2' # write
   condition: selection
 fields:
   - ObjectName

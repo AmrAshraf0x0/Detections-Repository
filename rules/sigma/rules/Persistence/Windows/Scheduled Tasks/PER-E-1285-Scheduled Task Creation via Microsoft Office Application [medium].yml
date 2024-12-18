@@ -7,12 +7,13 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName:
+    - EventID: 7
+    - Image|contains:
         - "excel.exe"
         - "winword.exe"
         - "powerpnt.exe"
         - "outlook.exe"
-      ImageName: "taskschd.dll"
+      ImageLoaded: "taskschd.dll"
   condition: selection
 fields:
   - ProcessName

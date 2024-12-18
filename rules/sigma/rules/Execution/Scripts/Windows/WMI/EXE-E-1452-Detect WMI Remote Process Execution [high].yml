@@ -8,8 +8,10 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     CommandLine|contains|all:
-      - 'wmic /user:'
+      - 'wmic '
+      - '/user:'
       - '/node:'
       - 'process'
   condition: selection

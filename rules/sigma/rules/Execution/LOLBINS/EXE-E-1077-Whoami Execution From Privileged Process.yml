@@ -15,13 +15,7 @@ detection:
         EventID: 4688
         Channel: Security
     selection_img:
-        - OriginalFileName: whoami.exe
         - NewProcessName|endswith: \whoami.exe
-    selection_user:
-        SubjectUserName|contains:
-            - AUTHORI
-            - AUTORI
-            - TrustedInstaller
     condition: process_creation and (all of selection_*)
 falsepositives:
     - Unknown

@@ -1,3 +1,4 @@
+# Needs FP testing for whitelisting "don't deploy"
 title: Successful Overpass the Hash Attempt
 description: Detects successful logon with logon type 9 (NewCredentials) which matches the Overpass the Hash behavior of e.g Mimikatz's sekurlsa::pth module.
 status: Developed

@@ -12,10 +12,10 @@ detection:
     NewProcessName|endswith|any:
       - '\powershell.exe'
       - '\pwsh.exe'
-    CommandLine|contains|all:
+    CommandLine|contains|all|re:
       - 'New-PSDrive'
-      - '-PSProvider filesystem'
-      - '-Root \\'
+      - '-PSProvider *filesystem'
+      - '-Root *\\'
   condition: selection
 fields:
   - EventID

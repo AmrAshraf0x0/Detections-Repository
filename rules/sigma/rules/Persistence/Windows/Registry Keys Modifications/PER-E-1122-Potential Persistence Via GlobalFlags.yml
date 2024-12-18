@@ -18,16 +18,16 @@ detection:
         Channel: Security
     selection_global_flag:
         ObjectName|contains|all:
-            - \Microsoft\Windows NT\CurrentVersion\
-            - \Image File Execution Options\
-            - \GlobalFlag
+            - '\Microsoft\Windows NT\CurrentVersion\'
+            - '\Image File Execution Options\'
+            - '\GlobalFlag'
     selection_silent_process:
         ObjectName|contains|all:
-            - \Microsoft\Windows NT\CurrentVersion\
-            - \SilentProcessExit\
+            - '\Microsoft\Windows NT\CurrentVersion\'
+            - '\SilentProcessExit\'
         ObjectName|contains:
-            - \ReportingMode
-            - \MonitorProcess
+            - '\ReportingMode'
+            - '\MonitorProcess'
     condition: registry_set and (1 of selection_*)
 falsepositives:
     - Unknown

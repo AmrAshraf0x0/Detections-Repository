@@ -11,7 +11,8 @@ detection:
     EventID: 4688
     NewProcessName|endswith: '\cmd.exe'
     CommandLine|contains|all:
-      - 'for /l'
+      - 'for' 
+      - '/l'
       - 'ping'
       - '-n '
   condition: selection

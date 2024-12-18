@@ -11,8 +11,8 @@ detection:
     EventID: 4688
     NewProcessName|endswith: '\reg.exe'
     CommandLine|contains|all:
-      - "HKLM\\SYSTEM\\CurrentControlSet\\Control"
-      - "SystemStartOptions"
+      - 'HKLM\SYSTEM\CurrentControlSet\Control'
+      - 'SystemStartOptions'
   condition: selection
 fields:
   - CommandLine

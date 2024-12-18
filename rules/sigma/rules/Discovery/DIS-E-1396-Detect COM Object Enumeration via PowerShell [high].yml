@@ -9,15 +9,15 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    CommandLine|contains|all:
-      - "New-PSDrive"
-      - "-PSProvider registry"
-      - "HKEY_CLASSES_ROOT"
+    CommandLine|contains|all|re:
+      - 'New-PSDrive'
+      - '-PSProvider *registry'
+      - 'HKEY_CLASSES_ROOT'
   selection2:
-    CommandLine|contains|any:
-      - "Get-ChildItem -Path HKCR:\\CLSID"
-      - "[activator]::CreateInstance"
-      - "Get-Member"
+    CommandLine|contains|re:
+      - 'Get-ChildItem *-Path *CLSID'
+      - '[activator]::CreateInstance'
+      - 'Get-Member'
   condition: selection and selection2
 fields:
   - CommandLine

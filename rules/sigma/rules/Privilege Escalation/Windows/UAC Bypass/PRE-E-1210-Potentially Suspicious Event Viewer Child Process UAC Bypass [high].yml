@@ -19,9 +19,9 @@ detection:
         ParentProcessName|endswith: \eventvwr.exe
     filter_main_generic:
         NewProcessName|endswith:
-            - :\Windows\System32\mmc.exe
-            - :\Windows\System32\WerFault.exe
-            - :\Windows\SysWOW64\WerFault.exe
+            - \Windows\System32\mmc.exe
+            - \Windows\System32\WerFault.exe
+            - \Windows\SysWOW64\WerFault.exe
     condition: process_creation and (selection and not 1 of filter_main_*)
 falsepositives:
     - Unknown

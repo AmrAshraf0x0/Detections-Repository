@@ -7,13 +7,14 @@ logsource:
   product: windows
 detection:
   selection:
-    - RegistryPath|contains:
-        - "\\Software\\Microsoft\\Office\\"
-        - "\\Outlook\\Today\\UserDefinedUrl"
-        - "\\Excel\\Options\\Open"
-        - "\\PowerPoint\\AddIns"
-        - "\\Addins\\"
-        - "\\VBE\\Addins\\"
+    - EventID: 4657
+    - ObjectName|contains:
+        - '\Software\Microsoft\Office\'
+        - '\Outlook\Today\UserDefinedUrl'
+        - '\Excel\Options\Open'
+        - '\PowerPoint\AddIns'
+        - '\Addins\'
+        - '\VBE\Addins\'
   condition: selection
 fields:
   - RegistryPath

@@ -7,52 +7,53 @@ logsource:
   product: windows
 detection:
   selection_parent_process:
-    ParentImage|endswith:
-      - "\\ScreenConnect.ClientService.exe"
-      - "\\ScreenConnect.WindowsClient.exe"
-      - "\\ScreenConnect.WindowsBackstageShell.exe"
-      - "\\ScreenConnect.WindowsFileManager.exe"
+    EventID: 4688
+    ParentProcessName|endswith:
+      - '\ScreenConnect.ClientService.exe'
+      - '\ScreenConnect.WindowsClient.exe'
+      - '\ScreenConnect.WindowsBackstageShell.exe'
+      - '\ScreenConnect.WindowsFileManager.exe'
   selection_child_processes:
     NewProcessName|endswith:
-      - "\\powershell.exe"
-      - "\\cmd.exe"
-      - "\\net.exe"
-      - "\\schtasks.exe"
-      - "\\sc.exe"
-      - "\\rundll32.exe"
-      - "\\msiexec.exe"
-      - "\\mshta.exe"
-      - "\\certutil.exe"
-      - "\\bistadmin.exe"
-      - "\\certreq.exe"
-      - "\\wscript.exe"
-      - "\\cscript.exe"
-      - "\\curl.exe"
-      - "\\ssh.exe"
-      - "\\scp.exe"
-      - "\\wevtutil.exe"
-      - "\\wget.exe"
-      - "\\wmic.exe"
+      - '\powershell.exe'
+      - '\cmd.exe'
+      - '\net.exe'
+      - '\schtasks.exe'
+      - '\sc.exe'
+      - '\rundll32.exe'
+      - '\msiexec.exe'
+      - '\mshta.exe'
+      - '\certutil.exe'
+      - '\bistadmin.exe'
+      - '\certreq.exe'
+      - '\wscript.exe'
+      - '\cscript.exe'
+      - '\curl.exe'
+      - '\ssh.exe'
+      - '\scp.exe'
+      - '\wevtutil.exe'
+      - '\wget.exe'
+      - '\wmic.exe'
   suspicious_args:
     CommandLine|contains:
-      - "-enc"
-      - "-ec"
-      - "-e"
-      - "*downloadstring*"
-      - "*Reflection.Assembly*"
-      - "*http*"
-      - "/c"
-      - "/add"
-      - "/create"
-      - "-create"
-      - "/i"
-      - "-i"
-      - "/q"
-      - "/quiet"
-      - "/qn"
-      - "-q"
-      - "-quiet"
-      - "-qn"
+      - '-enc'
+      - '-ec'
+      - '-e'
+      - '*downloadstring*'
+      - '*Reflection.Assembly*'
+      - '*http*'
+      - '/c'
+      - '/add'
+      - '/create'
+      - '-create'
+      - '/i'
+      - '-i'
+      - '/q'
+      - '/quiet'
+      - '/qn'
+      - '-q'
+      - '-quiet'
+      - '-qn'
   condition: selection_parent_process and (selection_child_processes or suspicious_args)
 fields:
   - ParentImage
@@ -71,5 +72,5 @@ description: |
   Detects suspicious child processes being spawned by ScreenConnect client processes. This may indicate unauthorized
   abuse of the ScreenConnect remote access software for malicious purposes.
 references:
-  - "https://attack.mitre.org/techniques/T1219/"
-  - "https://www.huntress.com/blog/slashandgrab-screen-connect-post-exploitation-in-the-wild-cve-2024-1709-cve-2024-1708"
+  - 'https://attack.mitre.org/techniques/T1219/'
+  - 'https://www.huntress.com/blog/slashandgrab-screen-connect-post-exploitation-in-the-wild-cve-2024-1709-cve-2024-1708'

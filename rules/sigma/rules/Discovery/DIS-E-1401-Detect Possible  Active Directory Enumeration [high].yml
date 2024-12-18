@@ -1,3 +1,4 @@
+# FP testing REQ
 title: Detect Possible  Active Directory Enumeration
 status: Developed
 description: Detects the execution of AdFind.exe to enumerate Active Directory objects, such as subnets. AdFind.exe is a known tool used by attackers during reconnaissance.
@@ -10,8 +11,8 @@ detection:
   selection:
     EventID: 4688
     CommandLine|contains|all:
-      - "-f"
-      - "(objectcategory=subnet)"
+      - '-f'
+      - '(objectcategory=subnet)'
   condition: selection
 fields:
   - CommandLine

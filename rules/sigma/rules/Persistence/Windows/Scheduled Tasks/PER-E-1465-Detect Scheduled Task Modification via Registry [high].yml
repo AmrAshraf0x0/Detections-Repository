@@ -1,3 +1,4 @@
+# needs FP and Functionality testing
 title: Detect Scheduled Task Modification via Registry
 status: Developed
 description: Detects registry modifications associated with scheduled task persistence, such as altering `HKEY_CURRENT_USER\Software\Classes\mscfile\shell\open\command`.
@@ -10,7 +11,7 @@ detection:
   selection:
     EventID: 4657
     TargetObject|contains|any:
-      - 'HKEY_CURRENT_USER\Software\Classes\mscfile\shell\open\command'
+      - 'Software\Classes\mscfile\shell\open\command'
   condition: selection
 fields:
   - EventID

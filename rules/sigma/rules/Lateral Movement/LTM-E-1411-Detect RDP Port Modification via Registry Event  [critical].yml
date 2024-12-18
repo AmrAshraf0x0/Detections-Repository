@@ -9,8 +9,8 @@ logsource:
 detection:
   selection:
     EventID: 4657
-    RegistryKey|contains: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
-    RegistryValueName: 'PortNumber'
+    ObjectName|contains: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
+    ObjectValueName: 'PortNumber'
   condition: selection
 fields:
   - EventID

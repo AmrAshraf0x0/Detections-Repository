@@ -14,10 +14,9 @@ detection:
       - '\pwsh.exe'
     CommandLine|contains|all:
       - 'Invoke-WebRequest'
-      - '-Method Put'
-    CommandLine|contains|any:
+      - '-Method '
+      - 'Put'
       - '-InFile'
-      - '-ContentType'
   condition: selection
 fields:
   - EventID

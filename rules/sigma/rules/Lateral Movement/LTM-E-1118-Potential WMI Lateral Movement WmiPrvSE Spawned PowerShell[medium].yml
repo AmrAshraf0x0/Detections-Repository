@@ -12,15 +12,13 @@ logsource:
     product: windows
 detection:
     selection_parent:
-        CreatorProcessName|endswith: '\WmiPrvSE.exe'
+        EventID: 4688
+        ParentProcessName|endswith: '\WmiPrvSE.exe'
     selection_img:
         - NewProcessName|endswith:
               - '\powershell.exe'
               - '\pwsh.exe'
-       # - OriginalFileName:
-       #       - 'PowerShell.EXE'
-       #      - 'pwsh.dll'
-    condition: all of selection
+    condition: all of selection*
 falsepositives:
     - AppvClient
     - CCM

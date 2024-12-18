@@ -8,6 +8,7 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4104
     ScriptBlock|contains:
       - 'Get-ADPrincipalGroupMembership'
       - 'Find-LocalAdminAccess'

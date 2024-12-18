@@ -1,3 +1,4 @@
+# check for other commandline options to improve
 title: Detect Deletion of USN Journal Using FSUtil
 status: Developed
 description: Detects the use of `fsutil` to delete the Update Sequence Number (USN) journal, which can be used to hinder forensic investigations.
@@ -8,6 +9,7 @@ logsource:
   product: windows
 detection:
   selection_command:
+    EventID: 4688
     CommandLine|contains|all:
       - 'fsutil'
       - 'usn'

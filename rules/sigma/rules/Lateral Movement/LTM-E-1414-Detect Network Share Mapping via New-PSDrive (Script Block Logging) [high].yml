@@ -9,10 +9,10 @@ logsource:
 detection:
   selection:
     EventID: 4104
-    ScriptBlockText|contains|all:
+    ScriptBlockText|contains|all|re:
       - 'New-PSDrive'
-      - '-PSProvider filesystem'
-      - '-Root \\'
+      - '-PSProvider *filesystem'
+      - '-Root *\\'
   condition: selection
 fields:
   - EventID

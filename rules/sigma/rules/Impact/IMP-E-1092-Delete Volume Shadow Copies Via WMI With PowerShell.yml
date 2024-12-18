@@ -11,16 +11,16 @@ logsource:
     category: ps_classic_start
 detection:
     ps_classic_start:
-        EventID: 400
-        Channel: Windows PowerShell
+        EventID: 4104
     selection:
         Data|contains|all:
             - Get-WmiObject
             - Win32_ShadowCopy
+    selection_1:
         Data|contains:
             - Delete()
             - Remove-WmiObject
-    condition: ps_classic_start and selection
+    condition: ps_classic_start and selection and selection_1
 falsepositives:
     - Legitimate Administrator deletes Shadow Copies using operating systems utilities for legitimate reason
 level: high

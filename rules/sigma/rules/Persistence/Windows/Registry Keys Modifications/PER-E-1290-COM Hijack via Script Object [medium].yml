@@ -7,9 +7,11 @@ logsource:
   product: windows
 detection:
   selection:
-    - RegistryPath|contains: "\\_Classes\\CLSID\\{"
-      RegistryPath|endswith: "\\InprocServer32"
-      RegistryData|contains: "scrobj"
+    - EventID: 4657
+    - ObjectName|contains: 
+      - '\_Classes\CLSID\{'
+      - '\InprocServer32'
+      - 'scrobj'
   condition: selection
 fields:
   - RegistryPath

@@ -1,3 +1,4 @@
+# needs FP testing
 title: Detect Creation and Execution of Batch Script
 status: Developed
 description: Detects the creation and subsequent execution of batch scripts written to disk within a short time frame, which may indicate malicious activity.

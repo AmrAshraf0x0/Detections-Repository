@@ -1,3 +1,4 @@
+# needs more testing "don't deploy"
 title: WMI Persistence
 description: Detects suspicious WMI event filter and command line event consumer based on WMI and Security Logs.
 tags:

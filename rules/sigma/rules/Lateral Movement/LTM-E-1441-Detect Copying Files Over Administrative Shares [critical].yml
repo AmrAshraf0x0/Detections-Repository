@@ -10,16 +10,16 @@ detection:
   selection_copy_admin_share:
     EventID: 4688
     CommandLine|contains|all:
-      - 'copy'
+      - ' copy '
       - '\\'
       - 'C$'
   selection_copy_admin_share1:
     EventID: 4688
     CommandLine|contains|all:
-      - 'cp'
+      - ' cp '
       - '\\'
       - 'C$'
-  condition: selection_copy_admin_share and selection_copy_admin_share1
+  condition: selection_copy_admin_share or selection_copy_admin_share1
 fields:
   - EventID
   - CommandLine

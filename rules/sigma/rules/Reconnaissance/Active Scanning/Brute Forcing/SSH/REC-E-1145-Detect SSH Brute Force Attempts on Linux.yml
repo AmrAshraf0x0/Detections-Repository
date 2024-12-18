@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     SyslogProgram: 'sshd'
-    message:
+    message|re:
       - '*Failed password for*'
       - '*Authentication failure*'
   condition: selection | count() by source_ip > 15 within 1m

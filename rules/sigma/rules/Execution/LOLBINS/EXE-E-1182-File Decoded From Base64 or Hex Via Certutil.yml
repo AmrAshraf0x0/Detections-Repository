@@ -15,7 +15,6 @@ detection:
         Channel: Security
     selection_img:
         - NewProcessName|endswith: \certutil.exe
-        - OriginalFileName: CertUtil.exe
     selection_cli:
         CommandLine|contains|windash:
             - '-decode ' # Decode Base64

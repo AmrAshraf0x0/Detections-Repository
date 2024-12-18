@@ -9,23 +9,23 @@ logsource:
 detection:
   selection_discovery_commands:
     EventID: 4688
-    CommandLine|contains|any:
+    CommandLine|contains|re:
       - 'whoami'
-      - 'wmic useraccount get'
+      - 'wmic *useraccount *get'
       - 'quser'
       - 'qwinsta'
-      - 'query user'
-      - 'query session'
-      - 'net user'
-      - 'net localgroup'
-      - 'dsquery user'
-      - 'Get-WmiObject -Class Win32_UserAccount'
+      - 'query *user'
+      - 'query *session'
+      - 'net *user'
+      - 'net *localgroup'
+      - 'dsquery *user'
+      - 'Get-WmiObject *-Class *Win32_UserAccount'
       - 'hostname'
       - 'systeminfo'
-      - 'tasklist /SVC'
-      - 'netstat -an'
-      - 'ipconfig /all'
-      - 'arp -a'
+      - 'tasklist */SVC'
+      - 'netstat *-an'
+      - 'ipconfig */all'
+      - 'arp *-a'
   condition: selection_discovery_commands
 fields:
   - EventID

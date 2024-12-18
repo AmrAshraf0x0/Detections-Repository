@@ -15,6 +15,7 @@ logsource:
     category: file_event
 detection:
     selection:
+        EventID: 11
         Image|endswith:
             - '\powershell.exe'
             - '\pwsh.exe'

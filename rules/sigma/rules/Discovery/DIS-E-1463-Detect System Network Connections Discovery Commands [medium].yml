@@ -7,13 +7,15 @@ logsource:
   category: process_creation
   product: windows
 detection:
+  Pro_Cre:
+    EventID: 4688
   selection_netstat:
     CommandLine|contains: 'netstat'
   selection_net_use:
-    CommandLine|contains: 'net use'
+    CommandLine|contains|re: 'net *use'
   selection_net_sessions:
-    CommandLine|contains: 'net sessions'
-  condition: selection_netstat or selection_net_use or selection_net_sessions
+    CommandLine|contains|re: 'net *sessions'
+  condition: Pro_Cre and (selection_netstat or selection_net_use or selection_net_sessions)
 fields:
   - EventID
   - CommandLine

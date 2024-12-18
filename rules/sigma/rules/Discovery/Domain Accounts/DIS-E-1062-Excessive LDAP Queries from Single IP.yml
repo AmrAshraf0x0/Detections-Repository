@@ -1,3 +1,4 @@
+# needs ENV test to adjust
 title: Excessive LDAP Queries from Single IP
 description: Detects when a large number of LDAP queries are made from a single IP address in a short time, which could indicate LDAP enumeration or brute force attacks.
 status: Developed

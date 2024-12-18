@@ -1,3 +1,4 @@
+# Needs FP testing for whitelisting "don't deploy"
 title: Detection of Pass-the-Hash Authentication
 description: Detects the use of NTLM authentication with a network logon type (Type 3) from suspicious IP addresses or machines, which could indicate a Pass-the-Hash attack.
 status: Developed

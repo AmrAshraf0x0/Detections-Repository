@@ -11,8 +11,9 @@ detection:
     EventID: 4688
     NewProcessName|endswith: '\reg.exe'
     CommandLine|contains|all:
-      - "hklm\\software\\microsoft\\windows\\softwareinventorylogging"
-      - "/v collectionstate"
+      - 'hklm\software\microsoft\windows\softwareinventorylogging'
+      - '/v '
+      - 'collectionstate'
   condition: selection
 fields:
   - CommandLine

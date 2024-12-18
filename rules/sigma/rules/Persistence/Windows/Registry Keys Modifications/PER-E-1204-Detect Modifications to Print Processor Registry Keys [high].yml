@@ -9,13 +9,13 @@ logsource:
 detection:
   selection:
     EventID: 4657  # Registry modification
-    RegistryKey|contains:
-      - 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Print\\Environments\\'
-    RegistryValueName: 'Driver'
+    ObjectName|contains:
+      - 'HKLM\SYSTEM\CurrentControlSet\Control\Print\Environments\'
+    ObjectValueName: 'Driver'
   condition: selection
 fields:
   - EventID
-  - RegistryKey
+  - ObjectName
   - RegistryValueName
   - User
   - ComputerName

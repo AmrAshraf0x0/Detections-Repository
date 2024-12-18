@@ -17,9 +17,9 @@ detection:
   selection_sc_query:
     EventID: 4688
     NewProcessName|endswith: '\sc.exe'
-    CommandLine|contains|any:
+    CommandLine|contains|re:
       - "query"
-      - "query state= all"
+      - "query *state= all"
   condition: selection_tasklist or selection_sc_query
 fields:
   - CommandLine

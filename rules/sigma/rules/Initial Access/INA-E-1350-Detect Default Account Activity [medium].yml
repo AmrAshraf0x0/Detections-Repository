@@ -8,7 +8,7 @@ logsource:
 detection:
   selection:
     - TargetUserName|contains:
-        - 'administrator'
+        # - 'administrator' this could create FPs in environments wher  Admins are using Local Admin
         - 'guest'
         - 'test'
     - TargetDomainName|contains: 'WORKGROUP'
@@ -17,10 +17,6 @@ detection:
         - 4625  # Failed logon
         - 4720  # User account creation
         - 4722  # User account enabled
-  filter:
-    - TargetUserName|startswith:
-        - 'valid-admin'
-        - 'authorized-root'
   condition: selection and not filter
 fields:
   - EventID

@@ -7,10 +7,11 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName: "certutil.exe"
-      CommandLine|contains: "encode"
-    - ProcessName: "certutil.exe"
-      CommandLine|contains: "decode"
+    - EventID: 4688
+    - NewProcessName: "certutil.exe"
+    - CommandLine|contains: 
+        - "decode"
+        - "encode"
   condition: selection
 fields:
   - ProcessName

@@ -8,8 +8,11 @@ logsource:
   product: windows
 detection:
   selection:
+    EventID: 4688
     CommandLine|contains|all:
-      - 'wmic process get'
+      - 'wmic '
+      - 'process' 
+      - ' get'
   condition: selection
 fields:
   - EventID

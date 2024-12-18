@@ -7,10 +7,10 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName: "mshta.exe"
-      CommandLine|contains: "javascript"
+    - NewProcessName|contains: 'mshta.exe'
+      CommandLine|contains: 'javascript'
   network_activity:
-    - ProcessName: "mshta.exe"
+    - NewProcessName|contains: 'mshta.exe'
   condition: selection and network_activity
 fields:
   - ProcessName

@@ -11,6 +11,7 @@ logsource:
     category: process_creation
 detection:
     schtasks:
+        EventID: 4688
         NewProcessName|endswith: '\schtasks.exe'
     option:
         CommandLine|contains|all:

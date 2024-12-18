@@ -10,6 +10,7 @@ logsource:
     category: file_event
 detection:
     selection:
+        EventID: 11
         Image|endswith: '\mstsc.exe'
         TargetFilename|contains: '\Microsoft\Windows\Start Menu\Programs\Startup\'
     condition: selection

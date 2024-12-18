@@ -7,14 +7,15 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName:
-        - "net.exe"
-        - "net1.exe"
+    EventID: 4688
+    - NewProcessName:
+        - 'net.exe'
+        - 'net1.exe'
     - CommandLine|contains:
-        - "user"
-        - "/ad"
+        - 'user'
+        - '/ad'
   filter:
-    - ParentProcessName|contains: "net.exe"
+    - ParentProcessName|contains: 'net.exe'
   condition: selection and not filter
 fields:
   - ProcessName

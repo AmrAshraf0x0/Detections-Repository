@@ -8,7 +8,7 @@ logsource:
 detection:
   selection:
     EventID: 4657
-    RegistryKey|contains: 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\'
+    ObjectName|contains: 'SYSTEM\CurrentControlSet\Services\'
   condition: selection
 fields:
  - EventID

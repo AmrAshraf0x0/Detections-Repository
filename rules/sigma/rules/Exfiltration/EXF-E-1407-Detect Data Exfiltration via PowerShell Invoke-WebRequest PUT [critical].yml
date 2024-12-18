@@ -12,12 +12,13 @@ detection:
     ScriptBlockText|contains|all:
       - 'New-Item'
       - 'Invoke-WebRequest'
-      - '-Method Put'
+      - '-Method'
+      - ' Put'
   selection_content:
     ScriptBlockText|contains|any:
       - '-ContentType "application/octet-stream"'
       - '-InFile'
-  condition: selection and selection_content
+  condition: selection or selection_content
 fields:
   - EventID
   - ScriptBlockText

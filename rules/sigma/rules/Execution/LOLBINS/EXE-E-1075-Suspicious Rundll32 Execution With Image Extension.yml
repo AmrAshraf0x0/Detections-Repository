@@ -15,7 +15,6 @@ detection:
         Channel: Security
     selection_img:
         - NewProcessName|endswith: \rundll32.exe
-        - OriginalFileName: RUNDLL32.exe
     selection_cli:
         CommandLine|contains:
             - .bmp

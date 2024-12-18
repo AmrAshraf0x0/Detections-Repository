@@ -13,10 +13,10 @@ detection:
     selection_network_connection:
         EventID: 5156
         DestinationPort: 445
-        ApplicationName|endswith:
+        Application|endswith:
             - \wscript.exe
             - \cscript.exe
-        DestinationAddress|cidr:
+        DestAddress|cidr:
             - 127.0.0.0/8
             - 10.0.0.0/8
             - 172.16.0.0/12

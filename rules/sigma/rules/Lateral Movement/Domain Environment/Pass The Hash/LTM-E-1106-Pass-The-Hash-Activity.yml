@@ -1,3 +1,4 @@
+# Needs FP testing for whitelisting "don't deploy"
 title: Pass the Hash Activity
 description: Detects the attack technique pass the hash which is used to move laterally inside the network
 status: Developed

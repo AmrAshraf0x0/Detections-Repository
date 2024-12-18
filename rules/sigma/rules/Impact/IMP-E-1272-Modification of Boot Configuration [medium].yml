@@ -7,7 +7,8 @@ logsource:
   product: windows
 detection:
   selection:
-    - ProcessName: "bcdedit.exe"
+    - EventID: 4688
+    - NewProcessName|contains: "bcdedit.exe"
       CommandLine|contains:
         - "set"
         - "bootstatuspolicy ignoreallfailures"

@@ -7,18 +7,19 @@ logsource:
   product: windows
 detection:
   selection:
-    RegistryPath|contains:
-      - "\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\"
-      - "\\Software\\Wow6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\"
+    EventID: 4657
+    ObjectName|contains:
+      - '\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\'
+      - '\Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\'
   selection1: 
-    RegistryPath|contains:
-      - "\\sethc.exe\\"
-      - "\\utilman.exe\\"
-      - "\\narrator.exe\\"
-      - "\\osk.exe\\"
-      - "\\magnify.exe\\"
-      - "\\displayswitch.exe\\"
-      - "\\atbroker.exe\\"
+    ObjectName|contains:
+      - '\sethc.exe\'
+      - '\utilman.exe\'
+      - '\narrator.exe\'
+      - '\osk.exe\'
+      - '\magnify.exe\'
+      - '\displayswitch.exe\'
+      - '\atbroker.exe\'
   condition: selection and selection1
 fields:
   - RegistryPath

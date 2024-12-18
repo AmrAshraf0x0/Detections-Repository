@@ -11,7 +11,7 @@ detection:
     EventID: 4657
     ObjectName|contains: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
     ObjectValueName: 'UserAuthentication'
-    RegistryValueData: '0'
+    NewValue: '0'
   condition: selection
 fields:
   - EventID

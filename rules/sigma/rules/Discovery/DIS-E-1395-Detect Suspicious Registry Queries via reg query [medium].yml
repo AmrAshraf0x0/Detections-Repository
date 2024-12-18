@@ -11,17 +11,17 @@ detection:
     EventID: 4688
     NewProcessName|endswith: '\reg.exe'
     CommandLine|contains|any:
-      - "HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
-      - "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
-      - "HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"
-      - "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ShellServiceObjectDelayLoad"
-      - "HKLM\\system\\currentcontrolset\\services"
-      - "HKLM\\SOFTWARE\\Microsoft\\Active Setup\\Installed Components"
-      - "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run"
-      - "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run"
+      - 'Software\Microsoft\Windows\CurrentVersion\Run'
+      - 'Software\Microsoft\Windows\CurrentVersion\Run'
+      - 'Software\Microsoft\Windows NT\CurrentVersion\Winlogon'
+      - 'SOFTWARE\Microsoft\Windows\CurrentVersion\ShellServiceObjectDelayLoad'
+      - 'system\currentcontrolset\services'
+      - 'SOFTWARE\Microsoft\Active Setup\Installed Components'
+      - 'SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run'
+      - 'SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run'
   selection1:
     CommandLine|contains:
-      - "query"
+      - 'query'
   condition: selection and selection1
 fields:
   - CommandLine

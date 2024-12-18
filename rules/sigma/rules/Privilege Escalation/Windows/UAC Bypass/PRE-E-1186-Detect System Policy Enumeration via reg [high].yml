@@ -8,7 +8,8 @@ logsource:
   product: windows
 detection:
   selection:
-    Image: '*\reg.exe'
+    EventID: 4688
+    NewProcessName|contains: 'reg.exe'
     CommandLine|re: 
       - '.*query\s+HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Policies\\\\System.*'
   condition: selection

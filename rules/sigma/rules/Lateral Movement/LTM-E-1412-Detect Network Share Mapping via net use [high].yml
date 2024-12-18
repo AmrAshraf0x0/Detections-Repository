@@ -10,8 +10,8 @@ detection:
   selection:
     EventID: 4688
     NewProcessName|endswith: '\cmd.exe'
-    CommandLine|contains|all:
-      - 'net use'
+    CommandLine|contains|all|re:
+      - 'net *use'
       - '\\'
       - '/u:'
   condition: selection

@@ -30,7 +30,6 @@ detection:
         ParentProcessName|endswith: \wsreset.exe
     filter:
         - NewProcessName|endswith: \conhost.exe
-        - OriginalFileName: CONHOST.EXE
     condition: process_creation and (selection and not filter)
 falsepositives:
     - Unknown sub processes of Wsreset.exe

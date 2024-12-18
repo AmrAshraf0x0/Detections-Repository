@@ -12,7 +12,7 @@ detection:
     ScriptBlockText|contains|all:
       - '[System.Activator]::CreateInstance'
       - '[type]::GetTypeFromProgID("Excel.Application"'
-  condition: selection_com_object and selection_activate_app
+  condition: selection_com_object
 fields:
   - EventID
   - ScriptBlockText

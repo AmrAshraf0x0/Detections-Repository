@@ -9,15 +9,15 @@ logsource:
 detection:
   selection:
     EventID: 4104
-    ScriptBlockText|contains|all:
-      - "New-PSDrive"
-      - "-PSProvider registry"
-      - "HKEY_CLASSES_ROOT"
+    ScriptBlockText|contains|all|re:
+      - 'New-PSDrive'
+      - '-PSProvider *registry'
+      - 'HKEY_CLASSES_ROOT'
   selection2:
-    ScriptBlockText|contains|any:
-      - "Get-ChildItem -Path HKCR:\\CLSID"
-      - "[activator]::CreateInstance"
-      - "Get-Member"
+    ScriptBlockText|contains|re:
+      - 'Get-ChildItem *-Path *CLSID'
+      - '[activator]::CreateInstance'
+      - 'Get-Member'
   condition: selection or selection2
 fields:
   - EventID

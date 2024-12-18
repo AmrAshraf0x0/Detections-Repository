@@ -8,9 +8,10 @@ logsource:
     category: file_event
 detection:
     selection:
-        TargetFilename|endswith: '.pfx'
+        EventID: 11
+        TargetFileName|endswith: '.pfx'
     filter_main_windows_tmp_key:
-        TargetFilename|contains|all:
+        TargetFileName|contains|all:
             - '\Templates\Windows\Windows_TemporaryKey.pfx'
             - '\CMake\'
     condition: selection and not 1 of filter_main_*

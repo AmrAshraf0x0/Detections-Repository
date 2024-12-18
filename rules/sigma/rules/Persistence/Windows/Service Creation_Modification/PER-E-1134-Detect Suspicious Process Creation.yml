@@ -8,15 +8,15 @@ logsource:
 detection:
   selection1:
     EventID: 4688
-    Image: 'C:\\Windows\\System32\\sc.exe'
+    NewProcessName|contains: 'C:\\Windows\\System32\\sc.exe'
     CommandLine|contains: 'create'
   selection2:
     EventID: 4688
-    Image: 'powershell.exe'
+    NewProcessName|contains: 'powershell.exe'
     CommandLine|contains: 'New-Service'
   selection3:
     EventID: 4688
-    Image: 'services.exe'
+    NewProcessName|contains: 'services.exe'
     CommandLine|contains: 'create'
   condition: selection1 or selection2 or selection3
 fields:

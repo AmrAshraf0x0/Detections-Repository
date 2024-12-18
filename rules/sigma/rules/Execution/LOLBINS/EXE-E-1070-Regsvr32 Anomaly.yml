@@ -24,14 +24,12 @@ detection:
             - \powershell.exe
             - \pwsh.exe
             - \powershell_ise.exe
-    selection3:
-        NewProcessName|endswith: \regsvr32.exe
-        ParentProcessName|endswith: \cmd.exe
+            - \cmd.exe
     selection4a:
         CommandLine|contains|all:
             - '/i:'
             - http
-        CommandLine|endswith: scrobj.dll
+        CommandLine|contains: scrobj.dll
         NewProcessName|endswith: \regsvr32.exe
     selection4b:
         CommandLine|contains|all:
