@@ -24,22 +24,22 @@ detection:
     process_creation:
         EventID: 4688
     selection_sys: # Escalation to LOCAL_SYSTEM
-        CommandLine|contains|windash:
+        CommandLine|contains|re:
             # Note that you don't need to add the ".exe" part when using psexec/paexec
             # The "-" can also be replaced with "/"
             # The order of args isn't important
             # "cmd" can be replaced by "powershell", "pwsh" or any other console like software
-            - ' -s cmd'
-            - ' -s -i cmd'
-            - ' -i -s cmd'
+            - ' -s *cmd'
+            - ' -s *-i *cmd'
+            - ' -i *-s *cmd'
             # Pwsh (For PowerShell 7)
-            - ' -s pwsh'
-            - ' -s -i pwsh'
-            - ' -i -s pwsh'
+            - ' -s *pwsh'
+            - ' -s *-i *pwsh'
+            - ' -i *-s *pwsh'
             # PowerShell (For PowerShell 5)
-            - ' -s powershell'
-            - ' -s -i powershell'
-            - ' -i -s powershell'
+            - ' -s *powershell'
+            - ' -s *-i *powershell'
+            - ' -i *-s *powershell'
     condition: process_creation selection_sys
 falsepositives:
     - Admins that use PsExec or PAExec to escalate to the SYSTEM account for maintenance purposes (rare)
