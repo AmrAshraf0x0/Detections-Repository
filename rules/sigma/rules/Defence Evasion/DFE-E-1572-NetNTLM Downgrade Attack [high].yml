@@ -1,0 +1,47 @@
+title: NetNTLM Downgrade Attack
+status: Developed
+description: Detects NetNTLM downgrade attack
+references:
+    - https://web.archive.org/web/20171113231705/https://www.optiv.com/blog/post-exploitation-using-netntlm-downgrade-attacks
+    - https://www.ultimatewindowssecurity.com/wiki/page.aspx?spid=NSrpcservers
+author: Amr Ashraf
+date: 2024/12/23
+tags:
+    - attack.defense-evasion
+    - attack.t1562.001
+    - attack.t1112
+logsource:
+    product: windows
+    category: registry_event
+detection:
+    selection_regkey:
+        EventID: 13
+        TargetObject|contains|all:
+            - 'SYSTEM\'
+            - 'ControlSet'
+            - '\Control\Lsa'
+    selection_value_lmcompatibilitylevel:
+        EventID: 13
+        TargetObject|endswith: '\lmcompatibilitylevel'
+        Details:
+            - 'DWORD (0x00000000)'
+            - 'DWORD (0x00000001)'
+            - 'DWORD (0x00000002)'
+    selection_value_ntlmminclientsec:
+        EventID: 13
+        TargetObject|endswith: '\NtlmMinClientSec'
+        Details:
+            - 'DWORD (0x00000000)' # No Security
+            - 'DWORD (0x00000010)' # Only Integrity
+            - 'DWORD (0x00000020)' # Only confidentiality
+            - 'DWORD (0x00000030)' # Both Integrity and confidentiality
+    selection_value_restrictsendingntlmtraffic:
+        # Note: The obvious values with issues are 0x00000000 (allow all) and 0x00000001 (audit).
+        # 0x00000002 can be secure but only if "ClientAllowedNTLMServers" is properly configured
+        # Hence all values should be monitored and investigated
+        EventID: 13
+        TargetObject|endswith: '\RestrictSendingNTLMTraffic'
+    condition: selection_regkey and 1 of selection_value_*
+falsepositives:
+    - Services or tools that set the values to more restrictive values
+level: high

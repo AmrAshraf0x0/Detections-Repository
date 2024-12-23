@@ -1,0 +1,29 @@
+title: Terminal Server Client Connection History Cleared
+status: Developed
+description: Detects the deletion of registry keys containing the MSTSC connection history
+references:
+    - https://learn.microsoft.com/en-us/troubleshoot/windows-server/remote/remove-entries-from-remote-desktop-connection-computer
+    - http://woshub.com/how-to-clear-rdp-connections-history/
+    - https://www.trendmicro.com/en_us/research/23/a/vice-society-ransomware-group-targets-manufacturing-companies.html
+author: Amr Ashraf
+date: 2024/12/23
+tags:
+    - attack.defense-evasion
+    - attack.t1070
+    - attack.t1112
+logsource:
+    category: registry_delete
+    product: windows
+detection:
+    selection1:
+        EventID: 12
+        EventType: DeleteValue
+        TargetObject|contains: '\Microsoft\Terminal Server Client\Default\MRU'
+    selection2:
+        EventID: 12
+        EventType: DeleteKey
+        TargetObject|contains: '\Microsoft\Terminal Server Client\Servers\'
+    condition: 1 of selection*
+falsepositives:
+    - Unknown
+level: high
