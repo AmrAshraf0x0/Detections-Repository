@@ -12,7 +12,6 @@ logsource:
 detection:
     selection:
         EventID: 
-            - "8"
             - "10"
         TargetImage|endswith: '\lsass.exe'
         SourceImage|endswith: '\rundll32.exe'
