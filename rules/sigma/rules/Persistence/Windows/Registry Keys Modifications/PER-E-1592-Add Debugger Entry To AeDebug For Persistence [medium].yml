@@ -1,0 +1,24 @@
+title: Add Debugger Entry To AeDebug For Persistence
+status: Developed
+description: Detects when an attacker adds a new "Debugger" value to the "AeDebug" key in order to achieve persistence which will get invoked when an application crashes
+references:
+    - https://persistence-info.github.io/Data/aedebug.html
+    - https://learn.microsoft.com/en-us/windows/win32/debug/configuring-automatic-debugging
+author: Amr Ashraf  
+date: 2024/12/23
+tags:
+    - attack.persistence
+logsource:
+    category: registry_set
+    product: windows
+detection:
+    selection:
+        EventI: 13
+        TargetObject|contains: '\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug\Debugger'
+        Details|endswith: '.dll'
+    filter:
+        Details|contains: '"C:\WINDOWS\system32\vsjitdebugger.exe" -p %ld -e %ld -j 0x%p'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate use of the key to setup a debugger. Which is often the case on developers machines
+level: medium

@@ -1,0 +1,21 @@
+title: New BgInfo Custom VBScript Registry Configuration
+status: Developed
+description: Detects setting of a new registry value related to BgInfo configuration, which can be abused to execute custom VBScript via "BgInfo.exe"
+author: NasreddineAmr Ashraf
+date: 2024/12/23
+tags:
+    - attack.defense-evasion
+    - attack.t1112
+logsource:
+    category: registry_set
+    product: windows
+detection:
+    selection:
+        EventID: 13
+        EventType: SetValue
+        TargetObject|contains: '\Software\Winternals\BGInfo\UserFields\'
+        Details|startswith: '4' # WMI
+    condition: selection
+falsepositives:
+    - Legitimate VBScript
+level: medium
