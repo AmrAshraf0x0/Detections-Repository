@@ -1,0 +1,31 @@
+# FP test req
+title: WinAPI Library Calls Via PowerShell Scripts
+status: Developed
+description: Detects calls to WinAPI libraries from PowerShell scripts. Attackers can often leverage these APIs to avoid detection based on typical PowerShell function calls. Use this rule as a basis to hunt for interesting scripts.
+references:
+    - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse
+author: Amr Ashraf
+date: 2024-12-24
+tags:
+    - attack.execution
+    - attack.t1059.001
+    - attack.t1106
+    - detection.threat-hunting
+logsource:
+    product: windows
+    category: ps_script
+detection:
+    selection:
+        ScriptBlockText|contains:
+            - 'Advapi32.dll'
+            - 'kernel32.dll'
+            - 'KernelBase.dll'
+            - 'ntdll.dll'
+            - 'secur32.dll'
+            - 'user32.dll'
+        EventID: 4104
+    condition: selection
+falsepositives:
+    - Carbon PowerShell Module (https://github.com/webmd-health-services/Carbon)
+    - Chocolatey scripts
+level: medium

@@ -1,0 +1,47 @@
+title: Potential Encoded PowerShell Patterns In CommandLine
+status: Developed
+description: Detects specific combinations of encoding methods in PowerShell via the commandline
+references:
+    - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse?slide=65
+author: Amr Ashraf
+date: 2024-12-24
+tags:
+    - attack.defense-evasion
+    - attack.t1027
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - NewProcessName|endswith:
+              - '\powershell.exe'
+              - '\pwsh.exe'
+    selection_to_1:
+        CommandLine|contains:
+            - 'ToInt'
+            - 'ToDecimal'
+            - 'ToByte'
+            - 'ToUint'
+            - 'ToSingle'
+            - 'ToSByte'
+    selection_to_2:
+        CommandLine|contains:
+            - 'ToChar'
+            - 'ToString'
+            - 'String'
+    selection_gen_1:
+        CommandLine|contains|all:
+            - 'char'
+            - 'join'
+    selection_gen_2:
+        CommandLine|contains|all:
+            - 'split'
+            - 'join'
+    selection_event:
+        EventID: 4688
+    condition: selection_img and (all of selection_to_* or 1 of selection_gen_*) and selection_event
+falsepositives:
+    - Unknown
+level: low

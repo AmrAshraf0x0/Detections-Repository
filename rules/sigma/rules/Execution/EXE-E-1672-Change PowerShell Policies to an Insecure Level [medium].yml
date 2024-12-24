@@ -1,0 +1,31 @@
+title: Change PowerShell Policies to an Insecure Level
+status: Developed
+description: Detects changing the PowerShell script execution policy to a potentially insecure level using the "Set-ExecutionPolicy" cmdlet.
+references:
+    - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.4
+    - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4
+    - https://adsecurity.org/?p=2604
+author: Amr Ashraf
+date: 2024/12/24
+tags:
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    product: windows
+    category: ps_script
+detection:
+    selection_cmdlet:
+        ScriptBlockText|contains: 'Set-ExecutionPolicy'
+        EventID: 4104
+    selection_option:
+        ScriptBlockText|contains:
+            - 'Unrestricted'
+            - 'bypass'
+    filter_optional_chocolatey:
+        ScriptBlockText|contains:
+            - "(New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')"
+            - "(New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')"
+    condition: all of selection_* and not 1 of filter_optional_*
+falsepositives:
+    - Administrator script
+level: medium

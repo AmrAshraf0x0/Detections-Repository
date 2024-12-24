@@ -1,0 +1,23 @@
+title: PowerShell Create Local User
+status: Developed
+description: Detects creation of a local user via PowerShell
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1136.001/T1136.001.md
+author: Amr Ashraf
+date: 2024-12-24
+tags:
+    - attack.execution
+    - attack.t1059.001
+    - attack.persistence
+    - attack.t1136.001
+logsource:
+    product: windows
+    category: ps_script
+detection:
+    selection:
+        ScriptBlockText|contains: 'New-LocalUser'
+        EventID: 4104
+    condition: selection
+falsepositives:
+    - Legitimate user creation
+level: medium

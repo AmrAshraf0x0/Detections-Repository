@@ -1,0 +1,23 @@
+title: Invoke-Obfuscation VAR++ LAUNCHER OBFUSCATION
+status: Developed
+description: Detects Obfuscated Powershell via VAR++ LAUNCHER
+references:
+    - https://github.com/SigmaHQ/sigma/issues/1009 # (Task27)
+author: Amr Ashraf
+date: 2024/12/24
+tags:
+    - attack.defense-evasion
+    - attack.t1027
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    product: windows
+    category: ps_script
+detection:
+    selection_4104:
+        EventID: 4104
+        ScriptBlockText|re: '(?i)&&set.*(\{\d\}){2,}\\"\s+?-f.*&&.*cmd.*/c' # FPs with |\/r
+    condition: selection_4104
+falsepositives:
+    - Unknown
+level: high

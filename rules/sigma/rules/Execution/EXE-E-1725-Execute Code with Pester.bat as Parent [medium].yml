@@ -1,0 +1,31 @@
+title: Execute Code with Pester.bat as Parent
+status: Developed
+description: Detects code execution via Pester.bat (Pester - Powershell Modulte for testing)
+references:
+    - https://twitter.com/Oddvarmoe/status/993383596244258816
+    - https://twitter.com/_st0pp3r_/status/1560072680887525378
+author: Amr Ashraf
+date: 2024-12-24
+tags:
+    - attack.execution
+    - attack.t1059.001
+    - attack.defense-evasion
+    - attack.t1216
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_module:
+        ParentProcessName|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        ParentCommandLine|contains: '\WindowsPowerShell\Modules\Pester\'
+        EventID: 4688
+    selection_cli:
+        ParentCommandLine|contains:
+            - '{ Invoke-Pester -EnableExit ;'
+            - '{ Get-Help "'
+    condition: all of selection_*
+falsepositives:
+    - Legitimate use of Pester for writing tests for Powershell scripts and modules
+level: medium

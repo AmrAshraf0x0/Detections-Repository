@@ -1,0 +1,21 @@
+title: PowerShell PSAttack
+status: Developed
+description: Detects the use of PSAttack PowerShell hack tool
+references:
+    - https://adsecurity.org/?p=2921
+author: Amr Ashraf
+date: 2024/12/24
+tags:
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    product: windows
+    category: ps_script
+detection:
+    selection:
+        ScriptBlockText|contains: 'PS ATTACK!!!'
+        EventID: 4104
+    condition: selection
+falsepositives:
+    - Unknown
+level: high

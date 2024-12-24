@@ -1,0 +1,25 @@
+title: Suspicious PowerShell Download
+status: Developed
+description: Detects suspicious PowerShell download command
+references:
+    - https://www.trendmicro.com/en_us/research/22/j/lv-ransomware-exploits-proxyshell-in-attack.html
+author: Amr Ashraf
+date: 2024-12-24
+tags:
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    product: windows
+    category: ps_classic_start
+detection:
+    selection_webclient:
+        ScriptBlockText|contains: 'Net.WebClient'
+        EventID: 4104
+    selection_download:
+        ScriptBlockText|contains:
+            - '.DownloadFile('
+            - '.DownloadString('
+    condition: all of selection_*
+falsepositives:
+    - PowerShell scripts that download content from the Internet
+level: medium

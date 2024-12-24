@@ -1,0 +1,39 @@
+title: Suspicious Schtasks Execution AppData Folder
+status: Developed
+description: 'Detects the creation of a schtask that executes a file from C:\Users\<USER>\AppData\Local'
+references:
+    - https://thedfirreport.com/2022/02/21/qbot-and-zerologon-lead-to-full-domain-compromise/
+author: Amr Ashraf
+date: 2024-12-24
+tags:
+    - attack.execution
+    - attack.persistence
+    - attack.t1053.005
+    - attack.t1059.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        EventID: 4688
+        NewProcessName|endswith: '\schtasks.exe'
+        CommandLine|contains|all:
+            - '/Create'
+            - '/RU'
+            - '/TR'
+            - 'C:\Users\'
+            - '\AppData\Local\'
+        CommandLine|contains:
+            - 'NT AUT' # This covers the usual NT AUTHORITY\SYSTEM
+            - ' SYSTEM ' # SYSTEM is a valid value for schtasks hence it gets it's own value with space
+    filter:
+        # FP from test set in SIGMA
+        ParentProcessName|contains|all:
+            - '\AppData\Local\Temp\'
+            - 'TeamViewer_.exe'
+        NewProcessName|endswith: '\schtasks.exe'
+        CommandLine|contains: '/TN TVInstallRestore'
+    condition: selection and not filter
+falsepositives:
+    - Unknown
+level: high
