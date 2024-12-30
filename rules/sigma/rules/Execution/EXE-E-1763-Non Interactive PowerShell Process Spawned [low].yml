@@ -33,6 +33,14 @@ detection:
         ParentProcessName|contains: ':\Program Files\WindowsApps\Microsoft.WindowsTerminal_'
         ParentProcessName|endswith: '\WindowsTerminal.exe'
     condition: selection and not 1 of filter_main_* and not 1 of filter_optional_*
+VQL: |
+    LET ID_1763 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        NOT (ParentProcessName =~ ":\Windows\explorer\\.exe$" OR ParentProcessName =~ ":\Windows\System32\CompatTelRunner\\.exe$" OR ParentProcessName =~ ":\Windows\SysWOW64\explorer\\.exe$") AND
+        NOT (ParentProcessName =~ ":\$WINDOWS.~BT\Sources\SetupHost\\.exe") AND
+        NOT (ParentProcessName =~ "\\AppData\\Local\\Programs\\Microsoft VS Code\\Code\\.exe$" AND ParentCommandLine =~ " --ms-enable-electron-run-as-node ") AND
+        NOT (ParentProcessName =~ ":\Program Files\WindowsApps\Microsoft.WindowsTerminal_" AND ParentProcessName =~ "\\WindowsTerminal\\.exe$")
+    )
 falsepositives:
     - Likely. Many admin scripts and tools leverage PowerShell in their BAT or VB scripts which may trigger this rule often. It is best to add additional filters or use this to hunt for anomalies
 level: low

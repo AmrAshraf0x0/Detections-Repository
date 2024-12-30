@@ -21,6 +21,11 @@ detection:
               - '\powershell.exe'
               - '\pwsh.exe'
     condition: all of selection_*
+    VQL:
+        LET ID_1789 = (
+            ParentProcessName =~ "\\WmiPrvSE\\.exe$" AND
+            (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$")
+        )
 falsepositives:
     - AppvClient
     - CCM

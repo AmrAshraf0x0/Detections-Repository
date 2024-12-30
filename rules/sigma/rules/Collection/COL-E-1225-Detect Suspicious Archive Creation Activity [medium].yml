@@ -3,8 +3,13 @@ status: Developed
 description: Detects suspicious processes and file creations related to custom archive tools or large files with uncommon extensions occurring within a 1-minute timeframe.
 author: Amr Ashraf
 logsource:
-  category: process_creation
-  product: windows
+  category: 
+    - process_creation
+    - file_creation
+  Platform: windows
+  log_source: 
+    - Security.evtx
+    - Sysmon.evtx
 detection:
   process_activity:
     EventID: 4688
@@ -30,8 +35,14 @@ fields:
 level: medium
 tags:
   - attack.collection
-  - attack.exfiltration
-  - t1560.003
+  - attack.t1560.003
+  - attack.t1560.001
 falsepositives:
   - Legitimate data compression tools or internal utilities
   - Backup processes or database dumps
+triage:
+  - Verify the process and file creation events to ensure they are not part of legitimate administrative or maintenance activities.
+  - Check the command line arguments of the detected process for any unusual or unauthorized parameters.
+  - Investigate the source and destination of the created archive files to determine if they are being exfiltrated.
+  - Review the user account and machine involved in the activity for any signs of compromise or unauthorized access.
+  - Correlate with other security events and alerts to identify potential patterns or indicators of malicious activity.

@@ -55,6 +55,14 @@ detection:
       - '-quiet'
       - '-qn'
   condition: selection_parent_process and (selection_child_processes or suspicious_args)
+VQL: |
+  LET ID_1324 = (
+      ParentProcessName =~ "(?=.*\\ScreenConnect\\.ClientService\\.exe$|.*\\ScreenConnect\\.WindowsClient\\.exe$|.*\\ScreenConnect\\.WindowsBackstageShell\\.exe$|.*\\ScreenConnect\\.WindowsFileManager\\.exe$)" AND
+      (
+          NewProcessName =~ "(?=.*\\powershell\\.exe$|.*\\cmd\\.exe$|.*\\net\\.exe$|.*\\schtasks\\.exe$|.*\\sc\\.exe$|.*\\rundll32\\.exe$|.*\\msiexec\\.exe$|.*\\mshta\\.exe$|.*\\certutil\\.exe$|.*\\bistadmin\\.exe$|.*\\certreq\\.exe$|.*\\wscript\\.exe$|.*\\cscript\\.exe$|.*\\curl\\.exe$|.*\\ssh\\.exe$|.*\\scp\\.exe$|.*\\wevtutil\\.exe$|.*\\wget\\.exe$|.*\\wmic\\.exe$)" OR
+          CommandLine =~ "(?=.*-enc|.*-ec|.*-e|.*\\*downloadstring\\*|.*\\*Reflection\\.Assembly\\*|.*\\*http\\*|.*\\/c|.*\\/add|.*\\/create|.*-create|.*\\/i|.*-i|.*\\/q|.*\\/quiet|.*\\/qn|.*-q|.*-quiet|.*-qn)"
+      )
+  )
 fields:
   - ParentImage
   - Image

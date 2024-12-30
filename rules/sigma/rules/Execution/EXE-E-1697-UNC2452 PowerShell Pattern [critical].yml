@@ -27,6 +27,11 @@ detection:
             - 'wmic /node:'
             - 'process call create "rundll32 c:\windows'
         EventID: 4688
+    VQL: |
+        LET ID_1697 = (
+            CommandLine =~ "(?=.*Invoke-WMIMethod win32_process -name create -argumentlist)(?=.*rundll32 c:\\windows)" OR
+            CommandLine =~ "(?=.*wmic /node:)(?=.*process call create \"rundll32 c:\\windows)"
+        )
     condition: 1 of selection_*
 falsepositives:
     - Unlikely

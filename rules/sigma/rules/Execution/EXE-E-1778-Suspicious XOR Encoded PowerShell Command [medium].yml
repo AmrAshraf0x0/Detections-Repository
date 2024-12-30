@@ -40,3 +40,8 @@ detection:
 falsepositives:
     - Unknown
 level: medium
+VQL: |
+    LET ID_1778 = (
+        NewProcessName =~ "\\powershell\\.exe$|\\pwsh\\.exe$" AND
+        CommandLine =~ "(?=.*bxor)(?=.*ForEach|.*for\\(|.*for |.*-join |.*-join'|.*-join\"|.*-join`|.*::Join|.*\\[char\\])"
+    )

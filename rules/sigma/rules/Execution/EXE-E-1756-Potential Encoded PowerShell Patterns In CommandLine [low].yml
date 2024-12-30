@@ -42,6 +42,16 @@ detection:
     selection_event:
         EventID: 4688
     condition: selection_img and (all of selection_to_* or 1 of selection_gen_*) and selection_event
+VQL: |
+    LET ID_1756 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        (
+            (CommandLine =~ "(?=.*ToInt|.*ToDecimal|.*ToByte|.*ToUint|.*ToSingle|.*ToSByte)") OR
+            (CommandLine =~ "(?=.*ToChar|.*ToString|.*String)") OR
+            (CommandLine =~ "(?=.*char.*join)") OR
+            (CommandLine =~ "(?=.*split.*join)")
+        )
+    )
 falsepositives:
     - Unknown
 level: low

@@ -13,6 +13,11 @@ detection:
         - 'config'
         - 'binPath'
   condition: selection
+VQL: |
+    LET ID_1281 = (
+        (NewProcessName == "sc.exe") AND
+        (CommandLine =~ "(?=.*config)(?=.*binPath)")
+    )
 fields:
   - ProcessName
   - CommandLine

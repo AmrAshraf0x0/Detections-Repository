@@ -40,6 +40,11 @@ detection:
     selection_eventid:
         EventID: 4688
     condition: all of selection_*
+VQL: |
+    LET ID_1707 = (
+        NewProcessName =~ "\\hh\\.exe$" AND
+        CommandLine =~ "(?=.*\\.application|.*\\\\AppData\\\\Local\\\\Temp\\\\|.*\\\\Content\\.Outlook\\\\|.*\\\\Downloads\\\\|.*\\\\Users\\\\Public\\\\|.*\\\\Windows\\\\Temp\\\\)"
+    )
 falsepositives:
     - Unknown
 level: high

@@ -27,6 +27,12 @@ detection:
     selection_raw:
         CommandLine|contains: ' -raw'
     condition: all of selection_*
+VQL: |
+    LET ID_1757 = (
+        (CommandLine =~ "(?=.*iex |.*Invoke-Expression |.*Invoke-Command |.*icm )") AND
+        (CommandLine =~ "(?=.*cat |.*get-content |.*type )") AND
+        (CommandLine =~ " -raw")
+    )
 falsepositives:
     - Unknown
 level: medium

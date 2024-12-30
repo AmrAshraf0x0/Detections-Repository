@@ -27,3 +27,7 @@ tags:
   - attack.privilege_escalation
   - T1078.001
   - T1098
+VQL:
+  LET ID_1500 = (
+      CommandLine =~ "(?=.*net)(?=.*localgroup)(?=.*Administrators)(?=.*guest)"
+  )

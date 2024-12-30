@@ -32,6 +32,19 @@ detection:
             - 'http:'
             - 'https:'
     condition: all of selection_*
+    VQL: |
+        LET ID_1731 = (
+            ParentProcessName =~ "\\cmd\\.exe$" AND
+            ParentCommandLine =~ "/r" AND
+            (ParentCommandLine =~ "\\.bin$" OR
+             ParentCommandLine =~ "\\.ico$" OR
+             ParentCommandLine =~ "\\.lnk$" OR
+             ParentCommandLine =~ "\\.lo$" OR
+             ParentCommandLine =~ "\\.sv$" OR
+             ParentCommandLine =~ "\\.usb$") AND
+            (NewProcessName =~ "\\msiexec\\.exe$" AND CommandLine =~ "/q") AND
+            (CommandLine =~ "http:" OR CommandLine =~ "https:")
+        )
 falsepositives:
     - Unlikely
 level: high

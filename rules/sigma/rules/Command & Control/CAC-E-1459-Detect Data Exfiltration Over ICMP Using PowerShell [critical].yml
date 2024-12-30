@@ -33,3 +33,8 @@ tags:
   - attack.exfiltration
   - attack.t1048.003
   - attack.t1071.001
+VQL: |
+  LET ID_1459 = (
+      (ScriptBlockText =~ "(?=.*System\\.Net\\.Networkinformation\\.ping|.*Get-Content -Path|.*\\.Send\\()" OR
+      (CommandLine =~ "(?=.*powershell|.*System\\.Net\\.Networkinformation\\.ping)")
+  )

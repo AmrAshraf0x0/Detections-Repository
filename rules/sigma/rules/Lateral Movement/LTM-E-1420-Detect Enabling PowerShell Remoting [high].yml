@@ -29,3 +29,8 @@ tags:
   - attack.lateral_movement
   - attack.t1021
   - attack.t1569
+VQL: |
+  LET ID_1420 = (
+      (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+      CommandLine =~ "(?=.*Enable-PSRemoting.*-Force)"
+  )

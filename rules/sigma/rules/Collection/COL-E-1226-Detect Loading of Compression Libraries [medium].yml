@@ -4,7 +4,8 @@ description: Detects processes loading known compression libraries for archiving
 author: Amr Ashraf
 logsource:
   category: dll_loading
-  product: windows
+  platform: windows
+  log_source: Sysmon.evtx
 detection:
   selection:
     EventID: 7
@@ -24,8 +25,12 @@ fields:
 level: medium
 tags:
   - attack.collection
-  - attack.exfiltration
   - t1560.002
 falsepositives:
   - Legitimate applications using compression libraries
-
+triage:
+  - Investigate the process that loaded the compression library.
+  - Check the reputation and digital signature of the process.
+  - Determine if the process is expected to use compression libraries.
+  - Review the process execution history and related activities.
+  - Correlate with other security events to identify potential malicious behavior.

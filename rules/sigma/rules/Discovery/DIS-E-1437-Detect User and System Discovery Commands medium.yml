@@ -42,3 +42,7 @@ tags:
   - attack.discovery
   - attack.t1087.001
   - attack.t1016
+VQL:
+  LET ID_1437 = (
+    CommandLine =~ "(?=.*whoami|.*wmic.*useraccount.*get|.*quser|.*qwinsta|.*query.*user|.*query.*session|.*net.*user|.*net.*localgroup|.*dsquery.*user|.*Get-WmiObject.*-Class.*Win32_UserAccount|.*hostname|.*systeminfo|.*tasklist.*\\/SVC|.*netstat.*-an|.*ipconfig.*\\/all|.*arp.*-a)"
+  )

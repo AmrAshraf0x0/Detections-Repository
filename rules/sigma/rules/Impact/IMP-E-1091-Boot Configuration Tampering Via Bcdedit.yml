@@ -33,4 +33,9 @@ fields:
 falsepositives:
     - Unlikely
 level: high
+VQL:
+  LET ID_1091 = (
+    NewProcessName =~ "\\bcdedit\\.exe$" AND
+    CommandLine =~ "(?=.*set|.*bootstatuspolicy ignoreallfailures|.*recoveryenabled no)"
+  )
 

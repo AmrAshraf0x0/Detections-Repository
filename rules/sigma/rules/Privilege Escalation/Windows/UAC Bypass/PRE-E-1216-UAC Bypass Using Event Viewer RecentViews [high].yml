@@ -21,6 +21,11 @@ detection:
     selection_redirect:
         CommandLine|contains: '>'
     condition: process_creation and (all of selection_*)
+VQL: |
+  LET ID_1216 = (
+      CommandLine =~ "(?=.*\\Event Viewer\\RecentViews|.*\\EventV~1\\RecentViews)" AND
+      CommandLine =~ ">"
+  )
 falsepositives:
     - Unknown
 level: high

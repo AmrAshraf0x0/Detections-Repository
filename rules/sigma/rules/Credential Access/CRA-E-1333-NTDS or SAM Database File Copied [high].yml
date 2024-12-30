@@ -22,7 +22,7 @@ detection:
       - '\*\GLOBALROOT\Device\HarddiskVolumeShadowCopy'
       - '\system32\config\SAM'
       - '\User Data\'
-    OriginalFileName|endswith:
+    NewProcessName|endswith:
       - 'Cmd.Exe'
       - 'PowerShell.EXE'
       - 'XCOPY.EXE'
@@ -43,3 +43,8 @@ tags:
   - attack.t1003.002
   - attack.t1003.003
   - attack.ta0006
+VQL: |
+  LET ID_1333 = (
+      (CommandLine =~ "(?=.*\\ntds\\.dit|.*\\config\\SAM|.*\\*\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy|.*\\system32\\config\\SAM|.*\\User Data\\)" AND
+      (NewProcessName =~ "Cmd\\.Exe$" OR NewProcessName =~ "PowerShell\\.EXE$" OR NewProcessName =~ "XCOPY\\.EXE$" OR NewProcessName =~ "esentutl\\.exe$"))
+  )

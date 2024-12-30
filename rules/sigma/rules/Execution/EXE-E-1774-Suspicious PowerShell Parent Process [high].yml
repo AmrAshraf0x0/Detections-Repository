@@ -52,3 +52,10 @@ detection:
 falsepositives:
     - Other scripts
 level: high
+VQL: |
+    LET ID_1774 = (
+        (ParentProcessName =~ "(?=.*tomcat|.*\\\\amigo\\.exe$|.*\\\\browser\\.exe$|.*\\\\chrome\\.exe$|.*\\\\firefox\\.exe$|.*\\\\httpd\\.exe$|.*\\\\iexplore\\.exe$|.*\\\\jbosssvc\\.exe$|.*\\\\microsoftedge\\.exe$|.*\\\\microsoftedgecp\\.exe$|.*\\\\MicrosoftEdgeSH\\.exe$|.*\\\\mshta\\.exe$|.*\\\\nginx\\.exe$|.*\\\\outlook\\.exe$|.*\\\\php-cgi\\.exe$|.*\\\\regsvr32\\.exe$|.*\\\\rundll32\\.exe$|.*\\\\safari\\.exe$|.*\\\\services\\.exe$|.*\\\\sqlagent\\.exe$|.*\\\\sqlserver\\.exe$|.*\\\\sqlservr\\.exe$|.*\\\\vivaldi\\.exe$|.*\\\\w3wp\\.exe$)") AND
+        (NewProcessName =~ "(?=.*\\\\powershell\\.exe$|.*\\\\pwsh\\.exe$)") AND
+        (CommandLine =~ "(?=.*\\/c\\s+powershell|.*\\/c\\s+pwsh)") AND
+        (Description == "Windows PowerShell" OR Product == "PowerShell Core 6")
+    )

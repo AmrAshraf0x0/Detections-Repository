@@ -32,6 +32,13 @@ detection:
             - 'new EventSource("Microsoft.Windows.Sense.Client.Management"'
             - 'public static extern bool InstallELAMCertificateInfo(SafeFileHandle handle);'
     condition: all of selection_* and not 1 of filter_optional_*
+VQL: |
+    LET ID_1748 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        CommandLine =~ "(?=.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+.*\\+|.*\\{.*\\{.*\\{.*\\{.*\\{.*\\{.*\\{.*\\{.*\\{.*\\{|.*\\^.*\\^.*\\^.*\\^.*\\^|.*`.*`.*`.*`)" AND
+        NOT (ParentProcessName == "C:\\Program Files\\Amazon\\SSM\\ssm-document-worker.exe" OR
+             CommandLine =~ "(?=.*new EventSource\\(\"Microsoft\\.Windows\\.Sense\\.Client\\.Management\"|.*public static extern bool InstallELAMCertificateInfo\\(SafeFileHandle handle\\);)")
+    )
 falsepositives:
     - Amazon SSM Document Worker
     - Windows Defender ATP

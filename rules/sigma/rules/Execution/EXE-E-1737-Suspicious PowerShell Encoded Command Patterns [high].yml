@@ -38,6 +38,13 @@ detection:
             - 'C:\Packages\Plugins\Microsoft.GuestConfiguration.ConfigurationforWindows\'
             - '\gc_worker.exe'
     condition: all of selection_* and not 1 of filter_*
+    VQL: |
+        LET ID_1737 = (
+            (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+            (CommandLine =~ " -e " OR CommandLine =~ " -en " OR CommandLine =~ " -enc " OR CommandLine =~ " -enco") AND
+            (CommandLine =~ " JAB" OR CommandLine =~ " SUVYI" OR CommandLine =~ " SQBFAFgA" OR CommandLine =~ " aWV4I" OR CommandLine =~ " IAB" OR CommandLine =~ " PAA" OR CommandLine =~ " aQBlAHgA") AND
+            NOT ParentProcessName =~ "C:\\Packages\\Plugins\\Microsoft\\.GuestConfiguration\\.ConfigurationforWindows\\gc_worker\\.exe"
+        )
 falsepositives:
     - Other tools that work with encoded scripts in the command line instead of script files
 level: high

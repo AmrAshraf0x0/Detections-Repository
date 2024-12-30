@@ -31,3 +31,8 @@ tags:
 references:
     - https://blog.netspi.com/decrypting-iis-passwords-to-break-out-of-the-dmz-part-1/
     - https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/greenbug-espionage-telco-south-asia
+VQL:
+    LET ID_1341 = (
+        (NewProcessName =~ "\\aspnet_regiis\\.exe$") AND
+        CommandLine =~ "(?=.*connectionStrings|.*-pdf)"
+    )

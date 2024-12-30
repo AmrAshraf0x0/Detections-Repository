@@ -28,3 +28,7 @@ tags:
   - attack.execution
   - attack.lateral_movement
   - attack.t1059.003
+VQL:
+  LET ID_1452 = (
+    CommandLine =~ "(?=.*wmic\\s)(?=.*\\/user:)(?=.*\\/node:)(?=.*process)"
+  )

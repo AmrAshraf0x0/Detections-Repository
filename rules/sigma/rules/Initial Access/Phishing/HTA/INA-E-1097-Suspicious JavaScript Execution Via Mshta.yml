@@ -18,6 +18,11 @@ detection:
     selection_cli:
         CommandLine|contains: javascript
     condition: process_creation and (all of selection_*)
+    VQL:
+        LET ID_1097 = (
+            NewProcessName =~ "\\mshta\\.exe$" AND
+            CommandLine =~ "javascript"
+        )
 falsepositives:
     - Unknown
 level: high

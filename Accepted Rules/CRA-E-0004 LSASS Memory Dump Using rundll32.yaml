@@ -8,13 +8,13 @@ status: Developed
 author: Shahbaz Ahmad
 date: 10/11/2024
 logsource:
-  product: windows
   category: process_creation
+  Platform: windows
+  log_source: Security.evtx
 detection:
   selection_1:
     EventID: 4688
-    ProcessName: 
-      - 'C:\\Windows\\System32\\rundll32.exe'
+    NewProcessName|endswith: 'rundll32.exe'
     CommandLine|contains: 
       - 'comsvcs.dll' 
       - 'MiniDump'

@@ -30,3 +30,9 @@ tags:
 falsepositives:
   - Legitimate administrative or maintenance scripts
   - Authorized usage of signed scripts for IT operations
+
+VQL: |
+  LET ID_1268 = (
+      (NewProcessName =~ "cscript\\.exe$" OR NewProcessName =~ "wscript\\.exe$") AND
+      CommandLine =~ "(?=.*\\.vbs|.*script:http)"
+  )

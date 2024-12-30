@@ -27,3 +27,8 @@ tags:
   - attack.T1105
   - attack.T1218
   - attack.T1567
+VQL: |
+  LET ID_1307 = (
+      NewProcessName == "CertReq.exe" AND
+      CommandLine =~ "(?=.*-Post)"
+  )

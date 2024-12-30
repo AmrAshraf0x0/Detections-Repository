@@ -50,4 +50,11 @@ falsepositives:
     - Legitimate Administrator deletes Shadow Copies using operating systems utilities for legitimate reason
     - LANDesk LDClient Ivanti-PSModule (PS EncodedCommand)
 level: high
+VQL:
+  LET ID_1093 = (
+    (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$" OR NewProcessName =~ "\\wmic\\.exe$" OR NewProcessName =~ "\\vssadmin\\.exe$" OR NewProcessName =~ "\\diskshadow\\.exe$") AND
+    CommandLine =~ "(?=.*shadow|.*delete)" OR
+    (NewProcessName =~ "\\wbadmin\\.exe$" AND CommandLine =~ "(?=.*delete|.*catalog|.*quiet)") OR
+    (NewProcessName =~ "\\vssadmin\\.exe$" AND CommandLine =~ "(?=.*resize|.*shadowstorage|.*unbounded|.*/MaxSize=)")
+  )
 

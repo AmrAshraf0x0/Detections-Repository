@@ -18,6 +18,11 @@ detection:
         NewProcessName|endswith: sdclt.exe
         MandatoryLabel: S-1-16-12288
     condition: process_creation and selection
+VQL: |
+  LET ID_1221 = (
+      NewProcessName =~ "sdclt\\.exe$" AND
+      MandatoryLabel == "S-1-16-12288"
+  )
 falsepositives:
     - Unknown
 level: medium

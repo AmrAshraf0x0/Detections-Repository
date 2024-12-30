@@ -16,8 +16,8 @@ detection:
       - 'SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
       - 'PortNumber'
   selection_firewall:
-  EventID: 4688
-  NewProcessName|endswith:
+    EventID: 4688
+    NewProcessName|endswith:
       - '\powershell.exe'
       - '\pwsh.exe'
     CommandLine|contains|re|all:
@@ -38,3 +38,11 @@ tags:
   - attack.lateral_movement
   - attack.t1562
   - attack.t1021
+VQL:
+  LET ID_1409 = (
+    (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+    (
+      CommandLine =~ "(?=.*SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp)(?=.*PortNumber)" OR
+      CommandLine =~ "(?=.*New-NetFirewallRule)(?=.*-Direction.*Inbound)(?=.*-LocalPort)"
+    )
+  )

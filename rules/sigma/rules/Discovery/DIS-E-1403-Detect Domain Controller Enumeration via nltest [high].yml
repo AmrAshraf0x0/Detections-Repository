@@ -27,3 +27,8 @@ tags:
   - attack.discovery
   - attack.t1018
   - attack.execution
+VQL: |
+  LET ID_1403 = (
+      NewProcessName =~ "\\nltest\\.exe$" AND
+      CommandLine =~ "(?=.*\\/dclist:)"
+  )

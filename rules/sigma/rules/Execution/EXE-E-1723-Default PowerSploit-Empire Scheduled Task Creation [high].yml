@@ -39,3 +39,10 @@ detection:
 falsepositives:
     - Unlikely
 level: high
+VQL: |
+    LET ID_1723 = (
+        ParentProcessName =~ "\\powershell\\.exe$" OR ParentProcessName =~ "\\pwsh\\.exe$" AND
+        NewProcessName =~ "\\schtasks\\.exe$" AND
+        CommandLine =~ "(?=.*\\/Create)(?=.*powershell\\.exe -NonI)(?=.*\\/TN Updater \\/TR)" AND
+        CommandLine =~ "(?=.*\\/SC ONLOGON|.*\\/SC DAILY \\/ST|.*\\/SC ONIDLE|.*\\/SC HOURLY)"
+    )

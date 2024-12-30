@@ -27,3 +27,13 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+    LET ID_1715 = (
+        CommandLine =~ "\\$PSHome\\[\\s*\\d{1,3}\\s*\\]\\s*\\+\\s*\\$PSHome\\[" OR
+        CommandLine =~ "\\$ShellId\\[\\s*\\d{1,3}\\s*\\]\\s*\\+\\s*\\$ShellId\\[" OR
+        CommandLine =~ "\\$env:Public\\[\\s*\\d{1,3}\\s*\\]\\s*\\+\\s*\\$env:Public\\[" OR
+        CommandLine =~ "\\$env:ComSpec\\[(\\s*\\d{1,3}\\s*,){2}" OR
+        CommandLine =~ "\\*mdr\\*\\W\\s*\\)\\.Name" OR
+        CommandLine =~ "\\$VerbosePreference\\.ToString\\(" OR
+        CommandLine =~ "\\[String\\]\\s*\\$VerbosePreference"
+    )

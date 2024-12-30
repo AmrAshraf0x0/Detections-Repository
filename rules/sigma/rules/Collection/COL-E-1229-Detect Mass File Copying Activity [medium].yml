@@ -1,10 +1,12 @@
+# Needs FP testing
 title: Detect Mass File Copying Activity
 status: Developed
 description: Detects tools or scripts used for automated file copying, such as RoboCopy or rsync.
 author: Amr Ashraf
 logsource:
   category: process_creation
-  product: windows
+  platform: windows
+  log_source: Security.evtx
 detection:
   selection:
     EventID: 4688
@@ -12,9 +14,9 @@ detection:
       - 'robocopy.exe'
       - 'xcopy.exe'
       - 'powershell.exe'
-    CommandLine|contains:
+    CommandLine|contains|re:
       - '/mir'
-      - 'Copy-Item -Recurse'
+      - 'Copy-Item *-Recurse'
   condition: selection
 fields:
   - NewProcessName
@@ -23,6 +25,13 @@ level: medium
 tags:
   - attack.collection
   - attack.exfiltration
-  - t1119
+  - attack.t1119
+  - attack.t1052.001
 falsepositives:
   - Legitimate data transfers or backups
+triage:
+  - Verify the source and destination of the file copying activity.
+  - Check if the activity is scheduled or part of a known backup process.
+  - Investigate the user account that initiated the process.
+  - Review the command line arguments for any unusual or suspicious parameters.
+  - Correlate with other security events to identify potential malicious activity.

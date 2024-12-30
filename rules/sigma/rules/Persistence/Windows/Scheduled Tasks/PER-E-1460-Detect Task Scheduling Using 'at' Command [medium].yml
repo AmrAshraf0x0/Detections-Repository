@@ -24,3 +24,7 @@ level: medium
 tags:
   - attack.persistence
   - T1053.005
+VQL:
+  LET ID_1460 = (
+    NewProcessName =~ "\\\\at\\.exe$"
+  )

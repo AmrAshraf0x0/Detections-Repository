@@ -35,4 +35,9 @@ detection:
 falsepositives:
     - Some PowerShell installers were seen using similar combinations. Apply filters accordingly
 level: high
+VQL:
+    LET ID_1069 = (
+        CommandLine =~ "(?=.*\\.DownloadString\\(|.*\\.DownloadFile\\(|.*Invoke-WebRequest |.* iwr)" AND
+        CommandLine =~ "(?=.*;iex \\$|.*\\| IEX|.*\\|IEX |.*I`E`X|.*I`EX|.*IE`X|.*iex |.*IEX \\(|.*IEX\\(|.*Invoke-Expression)"
+    )
 

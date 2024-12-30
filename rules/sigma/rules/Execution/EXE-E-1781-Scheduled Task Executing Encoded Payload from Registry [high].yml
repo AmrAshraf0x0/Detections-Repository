@@ -39,3 +39,8 @@ detection:
 falsepositives:
     - Unlikely
 level: high
+VQL: |
+    LET ID_1781 = (
+        NewProcessName =~ "\\schtasks\\.exe$" AND
+        CommandLine =~ "(?=.*\\/Create)(?=.*FromBase64String|.*encodedcommand)(?=.*Get-ItemProperty|.* gp )(?=.*HKCU:|.*HKLM:|.*registry::|.*HKEY_)"
+    )

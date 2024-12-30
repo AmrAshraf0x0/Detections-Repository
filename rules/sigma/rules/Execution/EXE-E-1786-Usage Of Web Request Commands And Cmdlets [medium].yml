@@ -31,3 +31,7 @@ detection:
 falsepositives:
     - Use of Get-Command and Get-Help modules to reference Invoke-WebRequest and Start-BitsTransfer.
 level: medium
+VQL: |
+    LET ID_1786 = (
+        CommandLine =~ "(?=.*\\[System\\.Net\\.WebRequest\\]::create|.*curl |.*Invoke-RestMethod|.*Invoke-WebRequest|.*iwr |.*Net\\.WebClient|.*Resume-BitsTransfer|.*Start-BitsTransfer|.*wget |.*WinHttp\\.WinHttpRequest)"
+    )

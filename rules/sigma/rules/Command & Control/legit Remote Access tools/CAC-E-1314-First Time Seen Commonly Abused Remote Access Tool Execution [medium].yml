@@ -35,3 +35,7 @@ level: medium
 tags:
   - attack.command_and_control
   - attack.T1219
+VQL: |
+  LET ID_1314 = (
+      NewProcessName =~ "(?=.*AeroAdmin\\.exe|.*AnyDesk\\.exe|.*AteraAgent\\.exe|.*ISLLight\\.exe|.*ISLLightClient\\.exe|.*LogMeIn\\.exe|.*RemotePC\\.exe|.*rustdesk\\.exe|.*Supremo\\.exe|.*teamviewer\\.exe|.*UltraVNC\\.exe|.*vncviewer\\.exe)"
+  )

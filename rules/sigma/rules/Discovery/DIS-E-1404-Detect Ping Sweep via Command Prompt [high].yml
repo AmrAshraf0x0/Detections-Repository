@@ -30,3 +30,8 @@ tags:
   - attack.discovery
   - attack.t1018
   - attack.execution
+VQL: |
+  LET ID_1404 = (
+      NewProcessName =~ "\\cmd\\.exe$" AND
+      CommandLine =~ "(?=.*for)(?=.*\\/l)(?=.*ping)(?=.*-n )"
+  )

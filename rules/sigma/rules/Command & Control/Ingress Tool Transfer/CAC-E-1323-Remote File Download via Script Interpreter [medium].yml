@@ -39,3 +39,8 @@ references:
   - "https://attack.mitre.org/techniques/T1105/"
   - "https://attack.mitre.org/techniques/T1059/005/"
   - "https://www.mandiant.com/resources/vbscript-threats"
+VQL: |
+  LET ID_1323 = (
+      (NewProcessName =~ "\\wscript\\.exe$" OR NewProcessName =~ "\\cscript\\.exe$") AND
+      TargetFileName =~ "(?=.*\\.exe|.*\\.dll|.*\\.ps1|.*\\.bat|.*\\.vbs)"
+  )

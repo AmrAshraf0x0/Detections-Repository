@@ -26,3 +26,7 @@ level: high
 tags:
   - attack.execution
   - attack.t1218.011
+VQL:
+  LET ID_1453 = (
+    CommandLine =~ "(?=.*wmic |.*/node:|.*rundll32\\.exe)"
+  )

@@ -31,3 +31,7 @@ tags:
   - attack.discovery
   - attack.t1049
   - attack.t1016
+VQL: |
+  LET ID_1463 = (
+      CommandLine =~ "(?=.*netstat|.*net *use|.*net *sessions)"
+  )

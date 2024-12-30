@@ -21,6 +21,11 @@ detection:
     selection2:
         CommandLine|contains: ';document.write();GetObject("script'
     condition: process_creation and (1 of selection*)
+    VQL:
+        LET ID_1098 = (
+            CommandLine =~ "(?=.*rundll32)(?=.*javascript)(?=.*\\..\\..\\mshtml,)(?=.*RunHTMLApplication)" OR
+            CommandLine =~ ";document.write();GetObject\\(\"script"
+        )
 falsepositives:
     - Unlikely
 level: high

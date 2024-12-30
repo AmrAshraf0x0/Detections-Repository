@@ -29,3 +29,8 @@ tags:
   - attack.credential_access
   - attack.t1003.008
   - attack.execution
+VQL: |
+  LET ID_1368 = (
+      (NewProcessName =~ "appcmd\\.exe") AND
+      CommandLine =~ "(?=.*list apppool /@t:.*|.*list apppool /@text:.*|.*list apppool /text:.*|.*list apppool /config)"
+  )

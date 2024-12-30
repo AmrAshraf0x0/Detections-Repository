@@ -29,3 +29,8 @@ tags:
   - attack.execution
   - attack.obfuscation
   - attack.t1059.001
+VQL: |
+  LET ID_1425 = (
+      (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+      CommandLine =~ "(?=.*-EncodedCommand)"
+  )

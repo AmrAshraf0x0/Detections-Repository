@@ -32,6 +32,19 @@ detection:
             - '/s'
         EventID: 4688
     condition: selection
+    VQL: |
+        LET ID_1730 = (
+            ParentProcessName =~ "\\fodhelper\\.exe$" AND
+            (NewProcessName =~ "\\rundll32\\.exe$" OR
+             NewProcessName =~ "\\regsvr32\\.exe$") AND
+            CommandLine =~ "(?=.*odbcconf\\.exe)(?=.*regsvr)(?=.*shellexec_rundll)" AND
+            (CommandLine =~ "installdriver" OR
+             CommandLine =~ "setfiledsndir" OR
+             CommandLine =~ "vkipdse") AND
+            (CommandLine =~ "/a$" OR
+             CommandLine =~ "/f$" OR
+             CommandLine =~ "/s$")
+        )
 falsepositives:
     - Unlikely
 level: high

@@ -25,3 +25,8 @@ fields:
 falsepositives:
     - Legitimate usage of remote Powershell, e.g. for monitoring purposes.
 level: medium
+VQL:
+    LET ID_1788 = (
+        NewProcessName =~ "\\wsmprovhost\\.exe$" OR
+        ParentProcessName =~ "\\wsmprovhost\\.exe$"
+    )

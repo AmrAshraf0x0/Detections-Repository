@@ -37,3 +37,9 @@ tags:
   - attack.discovery
   - attack.persistence
   - attack.t1012
+VQL: |
+  LET ID_1395 = (
+      (NewProcessName =~ "\\reg\\.exe$") AND
+      CommandLine =~ "(?=.*Software\\Microsoft\\Windows\\CurrentVersion\\Run|.*Software\\Microsoft\\Windows\\CurrentVersion\\Run|.*Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon|.*SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ShellServiceObjectDelayLoad|.*system\\currentcontrolset\\services|.*SOFTWARE\\Microsoft\\Active Setup\\Installed Components|.*SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run|.*SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\Run)" AND
+      CommandLine =~ "query"
+  )

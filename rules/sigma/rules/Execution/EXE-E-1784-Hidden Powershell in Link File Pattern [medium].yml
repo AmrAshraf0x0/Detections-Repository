@@ -23,3 +23,9 @@ detection:
 falsepositives:
     - Legitimate commands in .lnk files
 level: medium
+VQL: |
+    LET ID_1784 = (
+        ParentProcessName == "C:\\Windows\\explorer\\.exe" AND
+        NewProcessName == "C:\\Windows\\System32\\cmd\\.exe" AND
+        CommandLine =~ "(?=.*powershell.*\\.lnk)"
+    )

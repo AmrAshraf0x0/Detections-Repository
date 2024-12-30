@@ -26,6 +26,12 @@ detection:
             - ' -noni'
         EventID: 4688
     condition: selection
+    VQL: |
+        LET ID_1780 = (
+            ParentProcessName == "C:\\WINDOWS\\System32\\svchost.exe" AND
+            ParentCommandLine =~ "(?=.*-k netsvcs)(?=.*-s Schedule)" AND
+            CommandLine =~ "(?=.* -windowstyle hidden|.* -w hidden|.* -ep bypass|.* -noni)"
+        )
 falsepositives:
     - Unknown
 level: high

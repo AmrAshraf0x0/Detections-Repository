@@ -25,6 +25,16 @@ detection:
             - '\vssadmin.exe'
         CommandLine|contains: '11111111'
         EventID: 4688
+    VQL: |
+        LET ID_1732 = (
+            NewProcessName =~ "\\bcdedit\\.exe$" OR
+            NewProcessName =~ "\\net\\.exe$" OR
+            NewProcessName =~ "\\net1\\.exe$" OR
+            NewProcessName =~ "\\netsh\\.exe$" OR
+            NewProcessName =~ "\\wevtutil\\.exe$" OR
+            NewProcessName =~ "\\vssadmin\\.exe$" AND
+            CommandLine =~ "11111111"
+        )
     condition: selection
 falsepositives:
     - Unlikely

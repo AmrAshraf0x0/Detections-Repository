@@ -44,3 +44,10 @@ tags:
   - attack.t1564
   - attack.t1059
   - attack.execution
+VQL:
+  LET ID_1373 = (
+    (NewProcessName =~ "\\cmd\\.exe$" OR NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+    (CommandLine =~ "(?=.* copy |.* move |.*Copy-Item|.*Move-Item|.*Rename-Item|.* mv |.* cp )") AND
+    (CommandLine =~ "\\.(txt|log|csv|json|xml|ini|jpg|png|jpeg|html)$") AND
+    (CommandLine =~ "\\.(exe|dll|bat|cmd|ps1|vbs|js)$")
+  )

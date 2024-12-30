@@ -36,3 +36,8 @@ tags:
   - attack.command_and_control
   - attack.t1071.001
   - attack.t1048.001
+VQL: |
+  LET ID_1460 = (
+      (ScriptBlockText =~ "(?=.*New-Object System\\.Net\\.WebClient|.*\\.UploadFile)" OR
+      (CommandLine =~ "(?=.*powershell|.*New-Object System\\.Net\\.WebClient|.*\\.UploadFile)")
+  )

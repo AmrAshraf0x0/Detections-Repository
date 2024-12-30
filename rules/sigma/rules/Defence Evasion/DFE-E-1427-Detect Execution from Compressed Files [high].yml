@@ -38,3 +38,8 @@ tags:
   - attack.obfuscation
   - attack.t1059
   - attack.t1027
+VQL: |
+  LET ID_1427 = (
+      (CommandLine =~ ".*\\.zip\\\\" OR CommandLine =~ ".*\\.rar\\\\" OR CommandLine =~ ".*\\.7z\\\\") AND
+      (CommandLine =~ ".*\\.exe$" OR CommandLine =~ ".*\\.dll$" OR CommandLine =~ ".*\\.js$" OR CommandLine =~ ".*\\.vbs$")
+  )

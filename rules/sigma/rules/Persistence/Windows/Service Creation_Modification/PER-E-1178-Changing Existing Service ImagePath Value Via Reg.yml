@@ -26,3 +26,7 @@ detection:
 falsepositives:
     - Unknown
 level: medium
+VQL:
+  LET ID_1178 = (
+    CommandLine =~ "(?=.*add\\s)(?=.*SYSTEM\\\\CurrentControlSet\\\\Services\\\\)(?=.*\\sImagePath\\s)(?=.*\\s-d\\s)"
+  )

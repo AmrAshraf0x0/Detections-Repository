@@ -29,3 +29,8 @@ detection:
 falsepositives:
     - In rare administrative cases, this function might be used to check network connectivity
 level: high
+VQL: |
+    LET ID_1767 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        CommandLine =~ "(?=.*Net\\.Sockets\\.TCPClient)(?=.*\\.GetStream\\()(?=.*\\.Write\\()"
+    )

@@ -37,3 +37,9 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL:
+    LET ID_1742 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        CommandLine =~ " -e" AND
+        CommandLine =~ "(?=.*SQBuAHYAbwBrAGUALQ|.*kAbgB2AG8AawBlAC0A|.*JAG4AdgBvAGsAZQAtA|.*SW52b2tlL|.*ludm9rZS|.*JbnZva2Ut)"
+    )

@@ -26,6 +26,11 @@ detection:
         filter_image:
                 ParentProcessName|endswith: '\sqlagent.exe'
         condition: selection_parent or (selection_image and not filter_image)
+        VQL: |
+            LET ID_1734 = (
+                (ParentProcessName =~ "\\sqlps\\.exe$") OR
+                (NewProcessName =~ "\\sqlps\\.exe$" AND NOT ParentProcessName =~ "\\sqlagent\\.exe$")
+            )
 falsepositives:
         - Direct PS command execution through SQLPS.exe is uncommon, childprocess sqlps.exe spawned by sqlagent.exe is a legitimate action.
 level: medium

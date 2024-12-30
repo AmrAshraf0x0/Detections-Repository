@@ -33,3 +33,8 @@ tags:
   - attack.exfiltration
   - attack.t1041
   - attack.execution
+VQL:
+  LET ID_1408 = (
+    (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+    CommandLine =~ "(?=.*Invoke-WebRequest|.*-Method |.*Put|.*-InFile)"
+  )

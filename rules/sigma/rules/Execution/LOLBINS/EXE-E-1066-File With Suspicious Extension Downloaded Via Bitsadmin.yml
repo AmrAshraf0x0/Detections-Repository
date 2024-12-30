@@ -62,4 +62,10 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL:
+    LET ID_1066 = (
+        (NewProcessName =~ "\\bitsadmin\\.exe$" OR OriginalFileName == "bitsadmin.exe") AND
+        CommandLine =~ "(?=.* /transfer |.* /create |.* /addfile )" AND
+        CommandLine =~ "(?=.*\\.7z|.*\\.asax|.*\\.ashx|.*\\.asmx|.*\\.asp|.*\\.aspx|.*\\.bat|.*\\.cfm|.*\\.cgi|.*\\.chm|.*\\.cmd|.*\\.dll|.*\\.gif|.*\\.jpeg|.*\\.jpg|.*\\.jsp|.*\\.jspx|.*\\.log|.*\\.png|.*\\.ps1|.*\\.psm1|.*\\.rar|.*\\.scf|.*\\.sct|.*\\.txt|.*\\.vbe|.*\\.vbs|.*\\.war|.*\\.wsf|.*\\.wsh|.*\\.xll|.*\\.zip)"
+    )
 

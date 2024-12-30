@@ -32,6 +32,11 @@ detection:
             - .tif
             - .tiff
     condition: process_creation and (all of selection_*)
+    VQL: |
+        LET ID_1075 = (
+            NewProcessName =~ "\\rundll32\\.exe$" AND
+            CommandLine =~ "(?=.*\\.bmp|.*\\.cr2|.*\\.eps|.*\\.gif|.*\\.ico|.*\\.jpeg|.*\\.jpg|.*\\.nef|.*\\.orf|.*\\.png|.*\\.raw|.*\\.sr2|.*\\.tif|.*\\.tiff)"
+        )
 falsepositives:
     - Unknown
 level: high

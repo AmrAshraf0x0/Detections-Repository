@@ -33,3 +33,8 @@ tags:
   - attack.discovery
   - attack.t1049
   - attack.execution
+VQL: |
+  LET ID_1464 = (
+      CommandLine =~ "(?=.*Get-NetTCPConnection)" AND
+      (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$")
+  )

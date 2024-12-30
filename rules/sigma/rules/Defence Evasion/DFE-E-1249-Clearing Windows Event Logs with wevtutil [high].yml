@@ -23,3 +23,8 @@ tags:
   - t1070
 falsepositives:
   - Legitimate administrative or maintenance tasks clearing event logs
+VQL: |
+  LET ID_1249 = (
+      NewProcessName =~ ".*wevtutil\\.exe.*" AND
+      CommandLine =~ ".*cl.*"
+  )

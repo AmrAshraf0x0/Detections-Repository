@@ -22,6 +22,12 @@ detection:
         NewProcessName|contains: \AppData\Local\Temp\
         NewProcessName|endswith: consent.exe
     condition: process_creation and selection
+VQL: |
+  LET ID_1217 = (
+      (MandatoryLabel == "S-1-16-12288" OR MandatoryLabel == "S-1-16-16384") AND
+      ParentProcessName =~ "\\ieinstal\\.exe$" AND
+      NewProcessName =~ "\\AppData\\Local\\Temp\\.*consent\\.exe$"
+  )
 falsepositives:
     - Unknown
 level: high

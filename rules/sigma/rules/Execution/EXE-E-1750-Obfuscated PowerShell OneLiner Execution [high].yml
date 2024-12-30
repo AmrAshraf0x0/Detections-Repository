@@ -24,6 +24,11 @@ detection:
             - 'Import-Module'
         EventID: 4688
     condition: selection
+VQL: |
+    LET ID_1750 = (
+        NewProcessName =~ "\\powershell\\.exe$" AND
+        CommandLine =~ "(?=.*http://127\\.0\\.0\\.1|.*%\\{\\(IRM \\$_\\)\\}|.*\\.SubString\\.ToString\\(\\)\\[67,72,64\\]-Join|.*Import-Module)"
+    )
 falsepositives:
     - Unknown
 level: high

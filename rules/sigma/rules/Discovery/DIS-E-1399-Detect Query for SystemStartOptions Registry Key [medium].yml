@@ -28,3 +28,8 @@ tags:
   - attack.discovery
   - attack.t1012
   - attack.execution
+VQL: |
+  LET ID_1399 = (
+      NewProcessName =~ "\\reg\\.exe$" AND
+      CommandLine =~ "(?=.*HKLM\\SYSTEM\\CurrentControlSet\\Control)(?=.*SystemStartOptions)"
+  )

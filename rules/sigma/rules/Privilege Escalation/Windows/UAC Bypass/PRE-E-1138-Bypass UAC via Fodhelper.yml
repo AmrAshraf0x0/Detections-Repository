@@ -24,6 +24,10 @@ detection:
     selection:
         ParentProcessName|endswith: \fodhelper.exe
     condition: process_creation and selection
+VQL: |
+    LET ID_1138 = (
+        ParentProcessName =~ "\\fodhelper\\.exe$"
+    )
 fields:
     - SubjectUserName
     - ComputerName

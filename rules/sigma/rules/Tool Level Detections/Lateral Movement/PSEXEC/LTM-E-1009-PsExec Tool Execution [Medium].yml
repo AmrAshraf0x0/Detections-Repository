@@ -26,6 +26,10 @@ detection:
     selection:
         NewProcessName|endswith: \PSEXESVC.exe
     condition: process_creation and selection
+VQL: |
+  LET ID_1009 = (
+      NewProcessName =~ "\\PSEXESVC\\.exe$"
+  )
 fields:
     - EventID
     - CommandLine

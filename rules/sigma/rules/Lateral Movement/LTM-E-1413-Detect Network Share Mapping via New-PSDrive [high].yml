@@ -33,3 +33,8 @@ tags:
   - attack.credential_access
   - attack.t1077
   - attack.t1021
+VQL:
+  LET ID_1413 = (
+    (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+    CommandLine =~ "(?=.*New-PSDrive)(?=.*-PSProvider.*filesystem)(?=.*-Root.*\\\\)"
+  )

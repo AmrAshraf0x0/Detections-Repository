@@ -23,3 +23,7 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+    LET ID_1716 = (
+        CommandLine =~ "cmd.{0,5}(?:/c|/r).+powershell.+(?:\\$\\{?input\\}?|noexit).+\""
+    )

@@ -26,3 +26,7 @@ level: medium
 tags:
   - attack.discovery
   - attack.t1018
+VQL:
+  LET ID_1451 = (
+    CommandLine =~ "(?=.*wmic\\s)(?=.*\\/node:)(?=.*service)"
+  )

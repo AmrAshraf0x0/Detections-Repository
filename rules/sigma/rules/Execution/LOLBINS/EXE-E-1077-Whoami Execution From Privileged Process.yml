@@ -16,6 +16,10 @@ detection:
         Channel: Security
     selection_img:
         - NewProcessName|endswith: \whoami.exe
+    VQL:
+        LET ID_1077 = (
+            (NewProcessName =~ "\\whoami\\.exe$")
+        )
     condition: process_creation and (all of selection_*)
 falsepositives:
     - Unknown

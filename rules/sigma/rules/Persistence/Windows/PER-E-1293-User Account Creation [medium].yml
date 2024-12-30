@@ -32,3 +32,9 @@ tags:
 falsepositives:
   - Legitimate administrative creation of user accounts
   - Authorized IT or system scripts creating accounts
+VQL:
+  LET ID_1293 = (
+      (NewProcessName =~ "(?=.*net\\.exe|.*net1\\.exe)" AND
+      CommandLine =~ "(?=.*user)(?=.*\\/ad)") AND
+      NOT (ParentProcessName =~ "(?=.*net\\.exe)")
+  )

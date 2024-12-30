@@ -28,3 +28,8 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+    LET ID_1714 = (
+        CommandLine =~ "(?=.*cmd)(?=.*&&)(?=.*clipboard\\]::)(?=.*-f)" AND
+        CommandLine =~ "(?=.*\\/c|.*\\/r)"
+    )

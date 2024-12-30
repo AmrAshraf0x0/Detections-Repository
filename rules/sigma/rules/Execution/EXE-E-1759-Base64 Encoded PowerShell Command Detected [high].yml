@@ -18,6 +18,10 @@ detection:
         CommandLine|contains: '::FromBase64String('
         EventID: 4688
     condition: selection
+VQL: |
+    LET ID_1759 = (
+        CommandLine =~ "::FromBase64String("
+    )
 falsepositives:
     - Administrative script libraries
 level: high

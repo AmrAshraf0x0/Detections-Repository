@@ -31,6 +31,18 @@ detection:
             - S-1-16-16384
         NewProcessName|endswith: \DismHost.exe
     condition: process_creation and (1 of selection*)
+VQL: |
+  LET ID_1219 = (
+      (
+          CommandLine =~ "^\"C:\\Windows\\system32\\wusa\\.exe\"  /quiet C:\\Users\\.*\\AppData\\Local\\Temp\\update\\.msu$" AND
+          (MandatoryLabel == "S-1-16-12288" OR MandatoryLabel == "S-1-16-16384")
+      ) OR (
+          ParentCommandLine == "\"C:\\Windows\\system32\\dism\\.exe\" /online /quiet /norestart /add-package /packagepath:\"C:\\Windows\\system32\\pe386\" /ignorecheck" AND
+          CommandLine =~ "(?=.*C:\\Users\\.*\\AppData\\Local\\Temp\\.*\\dismhost\\.exe)" AND
+          (MandatoryLabel == "S-1-16-12288" OR MandatoryLabel == "S-1-16-16384") AND
+          NewProcessName =~ "\\DismHost\\.exe$"
+      )
+  )
 falsepositives:
     - Unknown
 level: high

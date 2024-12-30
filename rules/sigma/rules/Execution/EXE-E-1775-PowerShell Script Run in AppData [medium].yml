@@ -31,3 +31,9 @@ detection:
 falsepositives:
     - Administrative scripts
 level: medium
+VQL: |
+    LET ID_1775 = (
+        (CommandLine =~ "(?=.*powershell\\.exe|.*\\\\powershell|.*\\\\pwsh|.*pwsh\\.exe)") AND
+        (CommandLine =~ "(?=.*\\/c\\s|.*\\\\AppData\\\\)") AND
+        (CommandLine =~ "(?=.*Local\\\\|.*Roaming\\\\)")
+    )

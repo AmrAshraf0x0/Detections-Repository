@@ -33,3 +33,8 @@ detection:
         EventID: 4688
     condition: 1 of selection_*
 level: high
+VQL: |
+    LET ID_1709 = (
+        (CommandLine =~ "(?=.*-Sta|.*-Nop|.*-Window|.*Hidden)" AND CommandLine =~ "(?=.*-Command|.*-EncodedCommand)") OR
+        CommandLine =~ "(?=.*sv o \\(New-Object IO\\.MemorySteam\\);sv d |.*mshta file\\.hta|.*GruntHTTP|.*-EncodedCommand cwB2ACAAbwAgA)"
+    )

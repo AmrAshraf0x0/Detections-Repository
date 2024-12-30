@@ -21,6 +21,12 @@ detection:
             - S-1-16-12288
             - S-1-16-16384
     condition: process_creation and selection
+    VQL: |
+      LET ID_1220 = (
+          ParentProcessName =~ "\\pkgmgr\\.exe$" AND
+          NewProcessName =~ "\\dism\\.exe$" AND
+          (MandatoryLabel == "S-1-16-12288" OR MandatoryLabel == "S-1-16-16384")
+      )
 falsepositives:
     - Unknown
 level: high

@@ -39,3 +39,8 @@ tags:
   - attack.discovery
   - attack.t1069.002
   - attack.t1557.002
+VQL: |
+  LET ID_1479 = (
+      CommandLine =~ "(?=.*net * localgroup|.*net *group */domain|.*net *group *\"enterprise admins\" */domain|.*net *group *\"domain admins\" */domain|.*net *groups *\"Account Operators\"|.*net *groups *\"Exchange Organization Management\"|.*net *group *\"BUILTIN\\Backup Operators\"|.*net *group */domai *\"Domain Admins\")" OR
+      CommandLine =~ "(?=.*get-ADPrincipalGroupMembership|.*Find-LocalAdminAccess|.*Invoke-EnumerateLocalAdmin|.*Find-GPOComputerAdmin|.*get-aduser|.*DoesNotRequirePreAuth)"
+  )

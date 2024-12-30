@@ -16,7 +16,6 @@ detection:
         Channel: Security
     selection_img:
         - NewProcessName|endswith: \netsh.exe
-        - OriginalFileName: netsh.exe
     selection_cli_1:
         # Example: netsh firewall set opmode disable
         CommandLine|contains|all:
@@ -35,3 +34,11 @@ detection:
 falsepositives:
     - Legitimate administration activity
 level: medium
+VQL: |
+    LET ID_1183 = (
+        (NewProcessName =~ "\\netsh\\.exe$") AND
+        (
+            CommandLine =~ "(?=.*firewall)(?=.*set)(?=.*opmode)(?=.*disable)" OR
+            CommandLine =~ "(?=.*advfirewall)(?=.*set)(?=.*state)(?=.*off)"
+        )
+    )

@@ -40,3 +40,9 @@ tags:
   - attack.execution
   - attack.defense_evasion
   - attack.t1059.001
+VQL: |
+  LET ID_1366 = (
+      (NewProcessName =~ "\\powershell\\.exe" OR NewProcessName =~ "\\pwsh\\.exe") AND
+      CommandLine =~ "(?=.*Set-Content|.* sc |.*Add-Content|.*Out-File)" AND
+      CommandLine =~ "(?=.*\\.exe|.*\\.dll|.*\\.bat|.*\\.cmd|.*\\.ps1|.*\\.vbs|.*\\.js)"
+  )

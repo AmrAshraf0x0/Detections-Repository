@@ -28,3 +28,8 @@ tags:
   - attack.t1003.003
   - attack.persistence
   - attack.discovery
+VQL:
+  LET ID_1386 = (
+    NewProcessName =~ "\\diskshadow\\.exe$" AND
+    CommandLine =~ "(?=.*\\/s)"
+  )

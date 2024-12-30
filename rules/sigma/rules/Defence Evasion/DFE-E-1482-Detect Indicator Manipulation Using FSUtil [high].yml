@@ -27,3 +27,8 @@ level: high
 tags:
   - attack.defense_evasion
   - attack.t1070.002
+VQL: |
+  LET ID_1482 = (
+      CommandLine =~ ".*fsutil.*file.*setZeroData" AND
+      NewProcessName =~ ".*\\\\fsutil\\.exe$"
+  )

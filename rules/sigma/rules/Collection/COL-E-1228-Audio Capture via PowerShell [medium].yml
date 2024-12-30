@@ -7,12 +7,14 @@ tags:
     - attack.t1123
 logsource:
     category: process_creation
-    product: windows
+    platform: windows
+    log_source: Security.evtx
 detection:
     selection_process_creation:
         EventID: 4688
         NewProcessName|endswith:
             - \powershell.exe
+            - \pwsh.exe
         CommandLine|contains:
             - 'WindowsAudioDevice-Powershell-Cmdlet'
             - 'Toggle-AudioDevice'
@@ -31,4 +33,10 @@ detection:
 falsepositives:
     - Legitimate audio capture by legitimate user.
 level: medium
+triage:
+    - Investigate the source of the PowerShell command.
+    - Check the user account that executed the command.
+    - Verify if the command is part of a legitimate administrative task.
+    - Look for other suspicious activities around the same timeframe.
+    - Review the system's audio device settings and changes.
 

@@ -68,3 +68,14 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+    LET ID_1745 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        (
+            CommandLine =~ "(?=.*VwBpAG4AMwAyAF8AUwBoAGEAZABvAHcAYwBvAHAAeQ|.*cAaQBuADMAMgBfAFMAaABhAGQAbwB3AGMAbwBwAHkA|.*XAGkAbgAzADIAXwBTAGgAYQBkAG8AdwBjAG8AcAB5A|.*V2luMzJfU2hhZG93Y29we|.*dpbjMyX1NoYWRvd2NvcH|.*XaW4zMl9TaGFkb3djb3B5)" OR
+            CommandLine =~ "(?=.*VwBpAG4AMwAyAF8AUwBjAGgAZQBkAHUAbABlAGQASgBvAGIA|.*cAaQBuADMAMgBfAFMAYwBoAGUAZAB1AGwAZQBkAEoAbwBiA|.*XAGkAbgAzADIAXwBTAGMAaABlAGQAdQBsAGUAZABKAG8AYg|.*V2luMzJfU2NoZWR1bGVkSm9i|.*dpbjMyX1NjaGVkdWxlZEpvY|.*XaW4zMl9TY2hlZHVsZWRKb2|.*XaW4zMl9TY2hlZHVsZWRKb2)" OR
+            CommandLine =~ "(?=.*VwBpAG4AMwAyAF8AUAByAG8AYwBlAHMAcw|.*cAaQBuADMAMgBfAFAAcgBvAGMAZQBzAHMA|.*XAGkAbgAzADIAXwBQAHIAbwBjAGUAcwBzA|.*V2luMzJfUHJvY2Vzc|.*dpbjMyX1Byb2Nlc3|.*XaW4zMl9Qcm9jZXNz|.*XaW4zMl9Qcm9jZXNz)" OR
+            CommandLine =~ "(?=.*VwBpAG4AMwAyAF8AVQBzAGUAcgBBAGMAYwBvAHUAbgB0A|.*cAaQBuADMAMgBfAFUAcwBlAHIAQQBjAGMAbwB1AG4AdA|.*XAGkAbgAzADIAXwBVAHMAZQByAEEAYwBjAG8AdQBuAHQA|.*V2luMzJfVXNlckFjY291bn|.*dpbjMyX1VzZXJBY2NvdW50|.*XaW4zMl9Vc2VyQWNjb3Vud|.*XaW4zMl9Vc2VyQWNjb3Vud)" OR
+            CommandLine =~ "(?=.*VwBpAG4AMwAyAF8ATABvAGcAZwBlAGQATwBuAFUAcwBlAHIA|.*cAaQBuADMAMgBfAEwAbwBnAGcAZQBkAE8AbgBVAHMAZQByA|.*XAGkAbgAzADIAXwBMAG8AZwBnAGUAZABPAG4AVQBzAGUAcg|.*V2luMzJfTG9nZ2VkT25Vc2Vy|.*dpbjMyX0xvZ2dlZE9uVXNlc|.*XaW4zMl9Mb2dnZWRPblVzZX|.*XaW4zMl9Mb2dnZWRPblVzZX)"
+        )
+    )

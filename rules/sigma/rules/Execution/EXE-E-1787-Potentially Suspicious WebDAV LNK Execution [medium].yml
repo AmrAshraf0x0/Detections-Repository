@@ -29,3 +29,14 @@ detection:
 falsepositives:
     - Unknown
 level: medium
+VQL: |
+    LET ID_1787 = (
+        ParentProcessName =~ "\\explorer\\.exe$" AND
+        (NewProcessName =~ "\\cmd\\.exe$" OR
+         NewProcessName =~ "\\cscript\\.exe$" OR
+         NewProcessName =~ "\\mshta\\.exe$" OR
+         NewProcessName =~ "\\powershell\\.exe$" OR
+         NewProcessName =~ "\\pwsh\\.exe$" OR
+         NewProcessName =~ "\\wscript\\.exe$") AND
+        CommandLine =~ "\\\\DavWWWRoot\\\\"
+    )

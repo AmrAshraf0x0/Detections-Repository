@@ -30,3 +30,8 @@ tags:
   - attack.t1027
   - attack.t1027.004
   - attack.t1500
+VQL: |
+  LET ID_1435 = (
+      NewProcessName =~ ".*\\\\csc\\.exe$" AND
+      CommandLine =~ ".*\\/out:.*"
+  )

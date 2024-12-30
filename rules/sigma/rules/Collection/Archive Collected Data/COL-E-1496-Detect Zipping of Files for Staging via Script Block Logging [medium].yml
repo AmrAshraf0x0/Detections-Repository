@@ -5,9 +5,11 @@ author: Amr Ashraf
 date: 2024-12-06
 logsource:
   category: script_block_logging
-  product: windows
+  Platform: windows
+  log_source: PowerShell Operational.evtx
 detection:
   selection:
+    EventID: 4104
     ScriptBlock|contains:
       - 'Compress-Archive'
   condition: selection
@@ -22,3 +24,9 @@ level: medium
 tags:
   - attack.collection
   - attack.t1074.001
+  - attack.t1560.001
+triage:
+  - Investigate the user account that executed the command to determine if it is expected behavior.
+  - Check the parent process to see if it is a legitimate administrative task.
+  - Review the command line arguments for any unusual or suspicious file paths.
+  - Correlate with other alerts or logs to identify potential data exfiltration activities.

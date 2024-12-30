@@ -25,3 +25,7 @@ detection:
 falsepositives:
     - Scripts or tools that download files
 level: medium
+VQL: |
+    LET ID_1751 = (
+        CommandLine =~ "(?=.*\\.DownloadString\\(|.*\\.DownloadFile\\(|.*Invoke-WebRequest|.*iwr)"
+    )

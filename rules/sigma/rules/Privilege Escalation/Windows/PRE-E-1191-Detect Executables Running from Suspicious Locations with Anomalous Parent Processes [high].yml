@@ -20,6 +20,11 @@ detection:
       - '\services.exe'
       - '\taskmgr.exe'
   condition: selection
+VQL: |
+    LET ID_1191 = (
+        (NewProcessName =~ "(?=.*\\Temp\\|.*\\Downloads\\|.*\\Public\\|.*\\ProgramData\\)") AND
+        (ParentProcessName =~ "\\cmd\\.exe$|\\powershell\\.exe$|\\services\\.exe$|\\taskmgr\\.exe$")
+    )
 fields:
   - EventID
   - Image

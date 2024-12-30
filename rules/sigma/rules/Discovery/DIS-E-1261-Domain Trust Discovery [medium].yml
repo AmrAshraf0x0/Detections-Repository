@@ -27,3 +27,8 @@ tags:
   - t1482
 falsepositives:
   - Legitimate administrative tasks querying domain trusts
+VQL:
+  LET ID_1261 = (
+    (ProcessName == "dsquery.exe" AND CommandLine =~ "(?=.*\\(objectClass=trustedDomain\\))") AND
+    (NewProcessName == "nltest.exe" AND CommandLine =~ "(?=.*domain_trusts)")
+  )

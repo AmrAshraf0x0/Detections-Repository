@@ -23,3 +23,7 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+    LET ID_1720 = (
+        CommandLine =~ "(?i)echo.*clip.*&&.*(Clipboard|i`?n`?v`?o`?k`?e`?)"
+    )

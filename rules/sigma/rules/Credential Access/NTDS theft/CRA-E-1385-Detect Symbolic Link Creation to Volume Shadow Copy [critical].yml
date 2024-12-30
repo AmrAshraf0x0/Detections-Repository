@@ -33,3 +33,8 @@ tags:
   - attack.t1003.003
   - attack.persistence
   - attack.discovery
+VQL: |
+  LET ID_1385 = (
+      (CommandLine =~ "(?=.*mklink)(?=.*\\\\\\?\\GLOBALROOT\\Device)") AND
+      (CommandLine =~ "(?=.*\\/D|.*\\/H|.*VolumeShadow)")
+  )

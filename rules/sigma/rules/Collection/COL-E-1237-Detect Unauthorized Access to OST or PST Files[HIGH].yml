@@ -1,10 +1,12 @@
+# FP testing Req
 title: Detect Unauthorized Access to OST or PST Files
 status: Developed
 description: Detects unauthorized access to Outlook data files (.ost or .pst) by processes that are not trusted, which may indicate potential data exfiltration or credential harvesting.
 author: Amr Ashraf
 logsource:
   category: file_access
-  product: windows
+  platform: windows
+  log_source: Security.evtx
 detection:
   selection:
     EventID: 4663 
@@ -25,8 +27,13 @@ fields:
 level: high
 tags:
   - attack.collection
-  - attack.exfiltration
-  - t1003.008
+  - attack.t1005
 falsepositives:
   - Backup or archiving software accessing these files
   - File repair tools or administrative actions
+triage:
+  - Verify the process accessing the OST or PST file.
+  - Check if the process is a known and trusted application.
+  - Investigate the user account associated with the process.
+  - Review recent activities on the system for any signs of compromise.
+  - Correlate with other security events to identify potential malicious behavior.

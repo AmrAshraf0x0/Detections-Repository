@@ -23,4 +23,9 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+  LET ID_1103 = (
+      CommandLine =~ "(?=.*>.*)" AND
+      (CommandLine =~ "(?=.*\\\\127\\.0\\.0\\.1\\\\admin\\$\\\\|.*\\\\localhost\\\\admin\\$\\\\)")
+  )
 

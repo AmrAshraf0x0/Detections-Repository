@@ -29,6 +29,12 @@ detection:
     selection_event:
         EventID: 4688
     condition: all of selection_*
+VQL: |
+    LET ID_1753 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        CommandLine =~ "(?=.*new-object|.*net\\.webclient\\)\\.|.*download)" AND
+        (CommandLine =~ "string\\(" OR CommandLine =~ "file\\(")
+    )
 falsepositives:
     - Unknown
 level: medium

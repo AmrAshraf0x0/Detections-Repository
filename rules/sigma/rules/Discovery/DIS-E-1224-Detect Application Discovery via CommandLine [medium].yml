@@ -33,3 +33,9 @@ tags:
   - t1010
 falsepositives:
   - Legitimate administrative or monitoring activities
+VQL:
+  LET ID_1224 = (
+    (CommandLine =~ "(?=.*tasklist|.*wmic *process *list)") OR
+    ((NewProcessName =~ "powershell\\.exe$" OR NewProcessName =~ "python\\.exe$") AND
+    (CommandLine =~ "(?=.*EnumWindows|.*Get-Process|.*FindWindow)"))
+  )

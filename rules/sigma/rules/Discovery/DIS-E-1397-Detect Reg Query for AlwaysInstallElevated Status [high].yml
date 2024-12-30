@@ -30,3 +30,9 @@ tags:
   - attack.privilege_escalation
   - attack.t1546.014
   - attack.discovery
+VQL:
+  LET ID_1397 = (
+    (NewProcessName =~ "\\reg\\.exe$" AND
+    CommandLine =~ "(?=.*AlwaysInstallElevated)" AND
+    CommandLine =~ "(?=.*SOFTWARE\\Policies\\Microsoft\\Windows\\Installer)")
+  )

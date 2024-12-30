@@ -29,3 +29,9 @@ level: high
 tags:
  - attack.persistence
  - attack.t1543.003
+VQL:
+  LET ID_1134 = (
+    (NewProcessName =~ "C:\\\\Windows\\\\System32\\\\sc\\.exe" AND CommandLine =~ "create") OR
+    (NewProcessName =~ "powershell\\.exe" AND CommandLine =~ "New-Service") OR
+    (NewProcessName =~ "services\\.exe" AND CommandLine =~ "create")
+  )

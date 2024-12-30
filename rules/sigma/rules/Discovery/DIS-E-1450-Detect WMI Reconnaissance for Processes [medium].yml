@@ -26,3 +26,7 @@ level: medium
 tags:
   - attack.discovery
   - attack.t1057
+VQL: |
+  LET ID_1450 = (
+      CommandLine =~ "(?=.*wmic\\ )(.*process)(.*\\ get)"
+  )

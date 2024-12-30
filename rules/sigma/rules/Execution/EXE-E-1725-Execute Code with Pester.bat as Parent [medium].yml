@@ -26,6 +26,12 @@ detection:
             - '{ Invoke-Pester -EnableExit ;'
             - '{ Get-Help "'
     condition: all of selection_*
+    VQL: |
+        LET ID_1725 = (
+            (ParentProcessName =~ "\\powershell\\.exe$" OR ParentProcessName =~ "\\pwsh\\.exe$") AND
+            ParentCommandLine =~ "\\WindowsPowerShell\\Modules\\Pester\\" AND
+            (ParentCommandLine =~ "\\{ Invoke-Pester -EnableExit ;" OR ParentCommandLine =~ "\\{ Get-Help \"")
+        )
 falsepositives:
     - Legitimate use of Pester for writing tests for Powershell scripts and modules
 level: medium

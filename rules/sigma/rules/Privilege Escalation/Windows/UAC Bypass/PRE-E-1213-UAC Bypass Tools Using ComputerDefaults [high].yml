@@ -24,3 +24,8 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL:
+  LET ID_1213 = (
+      NewProcessName == "C:\\Windows\\System32\\ComputerDefaults.exe" AND
+      NOT (ParentProcessName =~ ":\\\\Windows\\\\System32" OR ParentProcessName =~ ":\\\\Program Files")
+  )

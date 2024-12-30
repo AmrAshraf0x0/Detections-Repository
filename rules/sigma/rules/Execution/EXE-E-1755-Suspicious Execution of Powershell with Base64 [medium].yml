@@ -32,6 +32,12 @@ detection:
             - 'C:\Packages\Plugins\Microsoft.GuestConfiguration.ConfigurationforWindows\'
             - '\gc_worker.exe'
     condition: selection and not 1 of filter_*
+VQL: |
+    LET ID_1755 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        (CommandLine =~ "(?=.* -e |.* -en |.* -enc |.* -enco|.* -ec )") AND
+        NOT (CommandLine =~ " -Encoding " OR ParentProcessName =~ "C:\\Packages\\Plugins\\Microsoft\\.GuestConfiguration\\.ConfigurationforWindows\\|\\gc_worker\\.exe")
+    )
 falsepositives:
     - Unknown
 level: medium

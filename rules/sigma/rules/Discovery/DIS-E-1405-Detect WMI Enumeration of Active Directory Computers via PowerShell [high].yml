@@ -31,3 +31,7 @@ tags:
   - attack.discovery
   - attack.t1018
   - attack.execution
+VQL: |
+  LET ID_1405 = (
+      CommandLine =~ "(?=.*get-wmiobject)(?=.*-class)(?=.*ds_computer)(?=.*-namespace)(?=.*root\\directory\\ldap)"
+  )

@@ -30,3 +30,8 @@ tags:
   - attack.discovery
   - attack.t1018
   - attack.t1087
+VQL: |
+  LET ID_1402 = (
+      (NewProcessName =~ "\\net\\.exe$" OR NewProcessName =~ "\\net1\\.exe$") AND
+      CommandLine =~ "(?=.*group)(?=.*\\/domain)"
+  )

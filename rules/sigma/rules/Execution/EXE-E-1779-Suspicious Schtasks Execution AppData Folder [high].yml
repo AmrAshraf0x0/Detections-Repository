@@ -37,3 +37,9 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+    LET ID_1779 = (
+        NewProcessName =~ "\\schtasks\\.exe$" AND
+        CommandLine =~ "(?=.*\\/Create)(?=.*\\/RU)(?=.*\\/TR)(?=.*C:\\Users\\)(?=.*\\AppData\\Local\\)(?=.*NT AUT|.* SYSTEM )" AND
+        NOT (ParentProcessName =~ "(?=.*\\AppData\\Local\\Temp\\)(?=.*TeamViewer_.exe)" AND CommandLine =~ "(?=.*\\/TN TVInstallRestore)")
+    )

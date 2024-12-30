@@ -50,3 +50,10 @@ detection:
 falsepositives:
     - Other programs that use these command line option and accepts an 'All' parameter
 level: high
+VQL: |
+    LET ID_1708 = (
+        (Product =~ "SharpHound" OR Description =~ "SharpHound" OR Company =~ "(?=.*SpecterOps|.*evil corp)" OR NewProcessName =~ "(?=.*\\\\Bloodhound\\.exe|.*\\\\SharpHound\\.exe)") OR
+        CommandLine =~ "(?=.* -CollectionMethod All |.* --CollectionMethods Session |.* --Loop --Loopduration |.* --PortScanTimeout |.*\\.exe -c All -d |.*Invoke-Bloodhound|.*Get-BloodHoundData)" OR
+        CommandLine =~ "(?=.* -JsonFolder |.* -ZipFileName )" OR
+        CommandLine =~ "(?=.* DCOnly |.* --NoSaveCache )"
+    )

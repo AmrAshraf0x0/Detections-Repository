@@ -17,6 +17,10 @@ detection:
         NewProcessName|endswith: \cmd.exe
         ParentProcessName|endswith: \WmiPrvSE.exe
     condition: process_creation and selection
+    VQL:
+        LET ID_1076 = (
+            (NewProcessName =~ "\\cmd\\.exe$" AND ParentProcessName =~ "\\WmiPrvSE\\.exe$")
+        )
 falsepositives:
     - Unknown
 level: medium
