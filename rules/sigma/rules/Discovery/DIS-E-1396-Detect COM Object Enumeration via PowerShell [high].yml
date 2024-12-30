@@ -33,3 +33,8 @@ tags:
   - attack.persistence
   - attack.t1592.002
   - attack.execution
+VQL: |
+  LET ID_1396 = (
+      CommandLine =~ "(?=.*New-PSDrive)(?=.*-PSProvider.*registry)(?=.*HKEY_CLASSES_ROOT)" AND
+      CommandLine =~ "(?=.*Get-ChildItem.*-Path.*CLSID|.*[activator]::CreateInstance|.*Get-Member)"
+  )

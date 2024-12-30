@@ -29,3 +29,7 @@ level: high
 tags:
   - attack.persistence
   - T1053.005
+VQL:
+  LET ID_1463 = (
+    NewProcessName =~ "\\\\schtasks\\.exe$" AND CommandLine =~ "(?=.*\\/Create|.*\\/Run|.*\\/Delete)"
+  )

@@ -27,6 +27,14 @@ detection:
     - CommandLine|contains:
         - 'C:\Windows\System32\wbem'
   condition: (selection or selection_1) and not filter
+VQL: |
+  LET ID_1348 = (
+      (
+          (NewProcessName =~ "\\wmic\\.exe$" AND CommandLine =~ "(?=.*\\/FORMAT:.*|.*\\.xsl)") OR
+          (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "pwsh\\.exe$") AND
+          CommandLine =~ "(?=.*TransformNode|.*Load|.*\\.xsl)"
+      ) AND NOT CommandLine =~ "C:\\Windows\\System32\\wbem"
+  )
 fields:
   - Image
   - CommandLine

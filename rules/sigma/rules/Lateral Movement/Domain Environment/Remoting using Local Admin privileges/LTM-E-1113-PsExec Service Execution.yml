@@ -18,3 +18,7 @@ detection:
 falsepositives:
     - Legitimate administrative tasks
 level: medium
+VQL:
+  LET ID_1113 = (
+      NewProcessName =~ "(?=.*C:\\Windows\\PSEXESVC\\.exe)"
+  )

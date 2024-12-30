@@ -40,3 +40,8 @@ tags:
   - attack.lateral_movement
   - attack.t1105
   - attack.t1021
+VQL: |
+  LET ID_1442 = (
+      CommandLine =~ "(?=.*Copy-Item|.*New-Item -ItemType File|.*Move-Item|.*\\[System.IO.File\\]::Copy|.*\\[System.IO.File\\]::Move)" AND
+      (CommandLine =~ "(?=.*\\\\.*C\\$)" OR CommandLine =~ "(?=.*\\\\.*ADMIN\\$)")
+  )

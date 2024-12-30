@@ -12,6 +12,10 @@ detection:
     NewProcessName|endswith:
       - 'Radmin.exe'
   condition: selection
+VQL: |
+  LET ID_1492 = (
+      NewProcessName =~ "Radmin\\.exe$"
+  )
 fields:
   - CommandLine
   - Image

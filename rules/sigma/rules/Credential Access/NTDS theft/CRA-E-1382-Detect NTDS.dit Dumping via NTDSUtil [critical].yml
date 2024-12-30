@@ -34,3 +34,8 @@ tags:
   - attack.t1003.003
   - attack.execution
   - attack.persistence
+VQL:
+  LET ID_1382 = (
+    NewProcessName =~ "\\ntdsutil\\.exe$" AND
+    CommandLine =~ "(?=.*ac |.* i |.*ntds|.*ifm|.*create|.*full)"
+  )

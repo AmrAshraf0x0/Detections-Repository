@@ -22,6 +22,11 @@ detection:
             - ' -a '
             - ' -c '
     condition: selection_process_creation and not filter_1
+    VQL:
+        LET ID_1187 = (
+            (NewProcessName =~ "\\regedit\\.exe$" AND CommandLine =~ "(?=.*\\.reg)") AND
+            NOT (CommandLine =~ "(?=.* -e |.* -a |.* -c )")
+        )
 fields:
     - ParentProcessName
     - CommandLine

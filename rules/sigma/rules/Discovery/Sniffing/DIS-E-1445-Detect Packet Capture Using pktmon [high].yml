@@ -27,3 +27,7 @@ tags:
   - attack.collection
   - attack.t1040
   - attack.t1020
+VQL: |
+  LET ID_1445 = (
+      NewProcessName =~ "\\pktmon\\.exe$"
+  )

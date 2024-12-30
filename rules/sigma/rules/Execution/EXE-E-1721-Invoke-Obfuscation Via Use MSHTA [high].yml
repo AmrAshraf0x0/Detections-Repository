@@ -27,3 +27,7 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+    LET ID_1721 = (
+        CommandLine =~ "(?=.*set)(?=.*&&)(?=.*mshta)(?=.*vbscript:createobject)(?=.*\\.run)(?=.*\\(window\\.close\\))"
+    )

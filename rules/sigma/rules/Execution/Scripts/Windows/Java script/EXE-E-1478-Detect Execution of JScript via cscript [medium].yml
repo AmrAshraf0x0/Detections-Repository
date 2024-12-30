@@ -27,3 +27,8 @@ level: medium
 tags:
   - attack.execution
   - attack.t1059.007
+VQL:
+  LET ID_1478 = (
+    CommandLine =~ "\\.js" AND
+    (ParentImage =~ "\\cscript\\.exe$" OR ParentImage =~ "\\wscript\\.exe$")
+  )

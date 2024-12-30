@@ -24,3 +24,7 @@ level: medium
 tags:
   - attack.command_and_control
   - attack.t1105
+VQL: |
+  LET ID_1507 = (
+      CommandLine =~ "(?=.* scp )(?=.*@)"
+  )

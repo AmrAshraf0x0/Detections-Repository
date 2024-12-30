@@ -11,6 +11,10 @@ detection:
     EventID: 4688
     NewProcessName|endswith: '\SetSPN.exe'
   condition: selection
+VQL: |
+  LET ID_1002 = (
+      NewProcessName =~ "\\SetSPN\\.exe$"
+  )
 fields:
   - Image
   - CommandLine

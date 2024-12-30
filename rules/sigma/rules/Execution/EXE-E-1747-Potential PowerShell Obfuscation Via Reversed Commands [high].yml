@@ -55,3 +55,9 @@ detection:
 falsepositives:
     - Unlikely
 level: high
+VQL: |
+    LET ID_1747 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        CommandLine =~ "(?=.*hctac|.*kaerb|.*dnammoc|.*ekovn|.*eliFd|.*rahc|.*etirw|.*golon|.*tninon|.*eddih|.*tpircS|.*ssecorp|.*llehsrewop|.*esnopser|.*daolnwod|.*tneilCbeW|.*tneilc|.*ptth|.*elifotevas|.*46esab|.*htaPpmeTteG|.*tcejbO|.*maerts|.*hcaerof|.*retupmoc)" AND
+        NOT CommandLine =~ "(?=.* -EncodedCommand |.* -enc )"
+    )

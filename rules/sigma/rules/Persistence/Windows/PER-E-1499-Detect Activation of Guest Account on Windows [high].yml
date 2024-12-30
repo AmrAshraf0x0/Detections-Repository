@@ -26,3 +26,7 @@ level: high
 tags:
   - attack.privilege_escalation
   - aT1078.001
+VQL:
+  LET ID_1499 = (
+      CommandLine =~ "(?=.*net)(?=.*user)(?=.*guest)(?=.*\\/active:yes)"
+  )

@@ -32,3 +32,8 @@ tags:
   - attack.lateral_movement
   - attack.t1570
   - attack.t1021
+VQL: |
+  LET ID_1419 = (
+      (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+      CommandLine =~ "(?=.*\\[System.Activator\\]::CreateInstance.*\\[type\\]::GetTypeFromProgID\\(\"Excel.Application\".*)"
+  )

@@ -20,6 +20,11 @@ detection:
         ParentCommandLine|contains: '--headless'
         EventID: 4688
     condition: selection
+    VQL: |
+        LET ID_1702 = (
+            ParentProcessName =~ "\\conhost\\.exe$" AND
+            ParentCommandLine =~ "--headless"
+        )
 falsepositives:
     - Unknown
 level: medium

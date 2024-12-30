@@ -16,7 +16,8 @@ detection:
       - '/b' 
       - '/s'
       - ' .docx'
-  selection_1|contains|all:
+  selection_1:
+    CommandLine|contains|all:
       - 'for ''
       - '/R' 
       - 'c:\'

@@ -29,3 +29,8 @@ tags:
   - attack.t1003.003
   - attack.execution
   - attack.persistence
+VQL: |
+  LET ID_1380 = (
+      NewProcessName =~ "\\vssadmin\\.exe$" AND
+      CommandLine =~ "(?=.*create)(?=.*shadow)(?=.*\\/for=)"
+  )

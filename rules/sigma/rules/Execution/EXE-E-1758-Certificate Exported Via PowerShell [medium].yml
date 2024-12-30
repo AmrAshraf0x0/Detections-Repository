@@ -22,6 +22,10 @@ detection:
             - 'Export-Certificate '
         EventID: 4688
     condition: selection
+VQL: |
+    LET ID_1758 = (
+        CommandLine =~ "(?=.*Export-PfxCertificate |.*Export-Certificate )"
+    )
 falsepositives:
     - Legitimate certificate exports by administrators. Additional filters might be required.
 level: medium

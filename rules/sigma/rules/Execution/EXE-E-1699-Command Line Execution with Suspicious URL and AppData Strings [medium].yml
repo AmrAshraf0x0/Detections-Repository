@@ -24,6 +24,11 @@ detection:
             - '://'
             - '%AppData%'
     condition: selection
+    VQL: |
+        LET ID_1699 = (
+            NewProcessName =~ "\\cmd\\.exe$" AND
+            CommandLine =~ "(?=.*http)(?=.*://)(?=.*%AppData%)"
+        )
 fields:
     - CommandLine
     - ParentCommandLine

@@ -25,3 +25,7 @@ tags:
   - t1087
 falsepositives:
   - Legitimate administrative tasks
+VQL: |
+  LET ID_1195 = (
+      CommandLine =~ "(?=.*Get-GlobalAddressList|.*Get-AddressList|.*Export-AddressList)"
+  )

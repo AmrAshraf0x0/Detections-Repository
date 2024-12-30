@@ -13,6 +13,11 @@ detection:
         - "shadowcopy"
         - "delete"
   condition: selection
+  VQL:
+    LET ID_1275 = (
+        NewProcessName =~ "wmic\\.exe" AND
+        CommandLine =~ "(?=.*shadowcopy)(?=.*delete)"
+    )
 fields:
   - ProcessName
   - CommandLine

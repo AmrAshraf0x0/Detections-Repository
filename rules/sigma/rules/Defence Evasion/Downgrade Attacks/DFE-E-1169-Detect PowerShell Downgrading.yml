@@ -32,3 +32,15 @@ tags:
   - t1562.001
 falsepositives:
   - Legitimate administrative scripts using PowerShell 1.0 or 2.0 (rare)
+VQL:
+  LET ID_1169 = (
+    NewProcessName =~ "\\powershell\\.exe" AND
+    (
+      CommandLine =~ ".*-Version\\s+1.*" OR
+      CommandLine =~ ".*-Version\\s+2.*" OR
+      CommandLine =~ ".*-V\\s+1.*" OR
+      CommandLine =~ ".*-V\\s+2.*" OR
+      CommandLine =~ ".*powershell_ise.*-Version\\s+1.*" OR
+      CommandLine =~ ".*powershell_ise.*-Version\\s+2.*"
+    )
+  )

@@ -1,10 +1,12 @@
+# FP test Req
 title: Detect Creation of Multiple Compressed Files
 status: Developed
 description: Detects the creation of more than 3 compressed files within a 3-minute timeframe, which may indicate suspicious archiving activity.
 author: Amr Ashraf
 logsource:
-  category: file_event
-  product: windows
+  category: file_creation
+  platform: windows
+  log_source: Sysmon.evtx
 detection:
   selection:
     EventID: 11
@@ -23,11 +25,13 @@ fields:
 level: medium
 tags:
   - attack.collection
-  - attack.exfiltration
   - t1560
 falsepositives:
   - Legitimate bulk compression activities such as backups or software packaging
   - System maintenance scripts
-
-
-#discussion required
+triage:
+  - Verify the source of the compressed files creation.
+  - Check if the activity aligns with known legitimate processes or scheduled tasks.
+  - Investigate the user account and system involved in the activity.
+  - Look for other suspicious activities around the same timeframe.
+  - Consult with the user or system owner to confirm if the activity was expected.

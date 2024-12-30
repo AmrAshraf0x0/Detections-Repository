@@ -31,3 +31,8 @@ tags:
   - attack.collection
   - attack.t1040
   - attack.t1020
+VQL: |
+  LET ID_1444 = (
+      NewProcessName =~ "\\netsh\\.exe$" AND
+      CommandLine =~ "(?=.*trace *start|.*capture=yes|.*tracefile=)"
+  )

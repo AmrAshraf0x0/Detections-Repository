@@ -23,6 +23,13 @@ detection:
               - '6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZw'
         - EventID: 4688
     condition: selection
+    VQL: |
+        LET ID_1739 = (
+            CommandLine =~ "::FromBase64String" AND
+            CommandLine =~ "OgA6AEYAcgBvAG0AQgBhAHMAZQA2ADQAUwB0AHIAaQBuAGcA" OR
+            CommandLine =~ "oAOgBGAHIAbwBtAEIAYQBzAGUANgA0AFMAdAByAGkAbgBnA" OR
+            CommandLine =~ "6ADoARgByAG8AbQBCAGEAcwBlADYANABTAHQAcgBpAG4AZw"
+        )
 falsepositives:
     - Unknown
 level: high

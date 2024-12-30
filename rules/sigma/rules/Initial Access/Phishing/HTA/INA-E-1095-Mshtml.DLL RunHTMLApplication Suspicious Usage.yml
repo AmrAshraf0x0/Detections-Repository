@@ -23,6 +23,11 @@ detection:
             - '#135'
             - 'RunHTMLApplication'
     condition: process_creation and selection and selection_1
+    VQL:
+        LET ID_1095 = (
+            CommandLine =~ "(?=.*\\..\\..)(?=.*mshtml)" AND
+            CommandLine =~ "(?=.*#135|.*RunHTMLApplication)"
+        )
 falsepositives:
     - Unlikely
 level: high

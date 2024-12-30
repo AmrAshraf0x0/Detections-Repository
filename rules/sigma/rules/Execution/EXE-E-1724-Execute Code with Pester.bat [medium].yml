@@ -33,6 +33,12 @@ detection:
             - 'help'
             - '\?'
     condition: powershell_module or (cmd_execution and get_help)
+    VQL: |
+        LET ID_1724 = (
+            (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+            CommandLine =~ "(?=.*Pester)(?=.*Get-Help)" OR
+            (NewProcessName =~ "\\cmd\\.exe$" AND CommandLine =~ "(?=.*pester)(?=.*;)" AND CommandLine =~ "(?=.*help|.*\\?)")
+        )
 falsepositives:
     - Legitimate use of Pester for writing tests for Powershell scripts and modules
 level: medium

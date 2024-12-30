@@ -13,6 +13,7 @@ detection:
         - "/node:"
         - "-node:"
         - "process *call"
+  
   condition: selection
 fields:
   - ProcessName
@@ -28,3 +29,8 @@ tags:
   - t1047
 falsepositives:
   - Legitimate administrative tasks using WMIC for remote process execution
+VQL: |
+  LET ID_1263 = (
+      NewProcessName =~ "wmic\\.exe" AND
+      CommandLine =~ "(?=.*\\/node:|.*-node:|.*process \\*call)"
+  )

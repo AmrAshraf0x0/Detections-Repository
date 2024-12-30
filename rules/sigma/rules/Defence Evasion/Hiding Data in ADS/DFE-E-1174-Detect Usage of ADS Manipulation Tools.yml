@@ -25,3 +25,7 @@ tags:
   - detection.tools
 falsepositives:
   - Legitimate use by administrators
+VQL: |
+  LET ID_1174 = (
+      NewProcessName =~ "(?=.*\\streams\\.exe|.*\\ads\\.exe|.*\\ads_tool\\.exe)"
+  )

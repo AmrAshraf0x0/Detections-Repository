@@ -32,3 +32,8 @@ tags:
   - attack.command_and_control
   - attack.t1027
   - attack.t1041
+VQL: |
+  LET ID_1429 = (
+      (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+      CommandLine =~ "(?=.*Invoke-WebRequest|.*-Method POST)"
+  )

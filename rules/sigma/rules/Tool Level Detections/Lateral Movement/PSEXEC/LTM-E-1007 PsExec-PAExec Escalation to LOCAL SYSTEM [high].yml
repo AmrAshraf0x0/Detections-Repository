@@ -41,6 +41,10 @@ detection:
             - ' -s *-i *powershell'
             - ' -i *-s *powershell'
     condition: process_creation selection_sys
+VQL: |
+  LET ID_1007 = (
+      CommandLine =~ "(?=.* -s .*cmd|.* -s .* -i .*cmd|.* -i .* -s .*cmd|.* -s .*pwsh|.* -s .* -i .*pwsh|.* -i .* -s .*pwsh|.* -s .*powershell|.* -s .* -i .*powershell|.* -i .* -s .*powershell)"
+  )
 falsepositives:
     - Admins that use PsExec or PAExec to escalate to the SYSTEM account for maintenance purposes (rare)
     - Users that debug Microsoft Intune issues using the commands mentioned in the official documentation; see https://learn.microsoft.com/en-us/mem/intune/apps/intune-management-extension

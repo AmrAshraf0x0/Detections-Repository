@@ -23,3 +23,7 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+    LET ID_1717 = (
+        CommandLine =~ "cmd.{0,5}(?:/c|/r)(?:\\s|)\"set\\s[a-zA-Z]{3,6}.*(?:\\{\\d\\}){1,}\\\\\"\\s+?\\-f(?:.*\\)){1,}.*\""
+    )

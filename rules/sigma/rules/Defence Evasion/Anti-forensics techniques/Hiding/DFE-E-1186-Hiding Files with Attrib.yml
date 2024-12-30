@@ -30,3 +30,12 @@ falsepositives:
     - IgfxCUIService.exe hiding *.cui files via .bat script (attrib.exe a child of cmd.exe and igfxCUIService.exe is the parent of the cmd.exe)
     - Msiexec.exe hiding desktop.ini
 level: medium
+VQL: |
+    LET ID_1186 = (
+        (NewProcessName =~ "\\attrib\\.exe$") AND
+        (CommandLine =~ "(?=.*\\+h )") AND
+        NOT (CommandLine =~ "(?=.*\\desktop\\.ini )") AND
+        NOT (CommandLine =~ "(?=.*\\+R \\+H \\+S \\+A \\\\.*\\.cui)") AND
+        NOT (ParentCommandLine =~ "(?=.*C:\\\\WINDOWS\\\\system32\\\\.*\\.bat)") AND
+        NOT (ParentProcessName =~ "\\cmd\\.exe$")
+    )

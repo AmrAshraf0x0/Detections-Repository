@@ -24,3 +24,8 @@ falsepositives:
     - CCM
     - WinRM
 level: medium
+VQL:
+  LET ID_1118 = (
+    ParentProcessName =~ "\\WmiPrvSE\\.exe$" AND
+    (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$")
+  )

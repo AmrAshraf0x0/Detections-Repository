@@ -28,3 +28,8 @@ tags:
 falsepositives:
   - Legitimate administrative use of certutil for file management
   - Training or testing scenarios involving encode or decode operations
+VQL:
+  LET ID_1254 = (
+    NewProcessName == "certutil.exe" AND
+    CommandLine =~ "(?=.*decode|.*encode)"
+  )

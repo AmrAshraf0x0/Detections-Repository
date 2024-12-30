@@ -35,6 +35,11 @@ detection:
             - /ni
             - -ni
     condition: process_creation and (all of selection*)
+VQL: |
+    LET ID_1137 = (
+        (NewProcessName =~ "\\cmstp\\.exe$") AND
+        (CommandLine =~ "(?=.*\\s|.*-s|.*\\au|.*-au|.*\\ni|.*-ni)")
+    )
 fields:
     - SubjectUserName
     - ComputerName

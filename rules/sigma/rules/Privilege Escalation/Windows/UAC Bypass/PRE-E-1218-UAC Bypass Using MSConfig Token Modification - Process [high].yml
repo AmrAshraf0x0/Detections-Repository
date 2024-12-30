@@ -21,6 +21,12 @@ detection:
             - S-1-16-16384
         ParentProcessName|endswith: \AppData\Local\Temp\pkgmgr.exe
     condition: process_creation and selection
+VQL: |
+  LET ID_1218 = (
+      CommandLine == "\"C:\\Windows\\system32\\msconfig\\.exe\" -5" AND
+      (MandatoryLabel == "S-1-16-12288" OR MandatoryLabel == "S-1-16-16384") AND
+      ParentProcessName =~ "\\AppData\\Local\\Temp\\pkgmgr\\.exe$"
+  )
 falsepositives:
     - Unknown
 level: high

@@ -35,3 +35,10 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+    LET ID_1770 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        CommandLine =~ "Add-PSSnapin" AND
+        (CommandLine =~ "Microsoft\\.Exchange\\.Powershell\\.Snapin" OR CommandLine =~ "Microsoft\\.Exchange\\.Management\\.PowerShell\\.SnapIn") AND
+        NOT (ParentProcessName == "C:\\Windows\\System32\\msiexec\\.exe" AND CommandLine =~ "\\$exserver=Get-ExchangeServer \\(\\[Environment\\]::MachineName\\) -ErrorVariable exerr 2> \\$null")
+    )

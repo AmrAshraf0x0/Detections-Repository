@@ -29,3 +29,8 @@ tags:
   - attack.credential_access
   - attack.t1003.001
   - attack.execution
+VQL:
+  LET ID_1375 = (
+    NewProcessName =~ "\\createdump\\.exe$" AND
+    CommandLine =~ "(?=.*-u)(?=.*-f)(?=.*lsa)"
+  )

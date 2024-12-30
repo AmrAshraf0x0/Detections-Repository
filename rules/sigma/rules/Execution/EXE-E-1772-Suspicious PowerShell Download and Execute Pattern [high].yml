@@ -26,3 +26,7 @@ detection:
 falsepositives:
     - Software installers that pull packages from remote systems and execute them
 level: high
+VQL: |
+    LET ID_1772 = (
+        CommandLine =~ "(?=.*IEX\\s*\\(\\(New-Object\\s*Net\\.WebClient\\)\\.DownloadString|.*IEX\\s*\\(New-Object\\s*Net\\.WebClient\\)\\.DownloadString|.*IEX\\(\\(New-Object\\s*Net\\.WebClient\\)\\.DownloadString|.*IEX\\(New-Object\\s*Net\\.WebClient\\)\\.DownloadString|.*-command\\s*\\(New-Object\\s*System\\.Net\\.WebClient\\)\\.DownloadFile\\(|.*-c\\s*\\(New-Object\\s*System\\.Net\\.WebClient\\)\\.DownloadFile\\()"
+    )

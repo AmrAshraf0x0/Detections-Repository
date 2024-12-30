@@ -24,6 +24,11 @@ detection:
         filter:
                 ParentProcessName|endswith: '\smss.exe'
         condition: selection and not filter
+        VQL: |
+            LET ID_1735 = (
+                (NewProcessName =~ "\\sqltoolsps\\.exe$" OR ParentProcessName =~ "\\sqltoolsps\\.exe$") AND
+                NOT ParentProcessName =~ "\\smss\\.exe$"
+            )
 falsepositives:
         - Direct PS command execution through SQLToolsPS.exe is uncommon, childprocess sqltoolsps.exe spawned by smss.exe is a legitimate action.
 level: medium

@@ -38,3 +38,14 @@ detection:
     condition: selection_img and (all of selection_cli_* or selection_standalone) and not 1 of filter_optional_*
     EventID: 4688
 level: high
+VQL: |
+    LET ID_1738 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        (
+            (CommandLine =~ " -e" AND 
+                (CommandLine =~ " JAB" OR CommandLine =~ " SUVYI" OR CommandLine =~ " SQBFAFgA" OR CommandLine =~ " aQBlAHgA" OR CommandLine =~ " aWV4I" OR CommandLine =~ " IAA" OR CommandLine =~ " IAB" OR CommandLine =~ " UwB" OR CommandLine =~ " cwB")
+            ) OR
+            CommandLine =~ ".exe -ENCOD " OR CommandLine =~ " BA^J e-"
+        ) AND
+        NOT CommandLine =~ " -ExecutionPolicy remotesigned "
+    )

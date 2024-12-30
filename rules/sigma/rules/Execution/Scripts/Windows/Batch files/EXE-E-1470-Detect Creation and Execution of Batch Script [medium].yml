@@ -31,3 +31,8 @@ tags:
   - attack.execution
   - attack.persistence
   - attack.t1059.003
+VQL:
+  LET ID_1470 = (
+    TargetFilename =~ "\\.bat$" AND
+    CommandLine =~ "\\.bat"
+  )

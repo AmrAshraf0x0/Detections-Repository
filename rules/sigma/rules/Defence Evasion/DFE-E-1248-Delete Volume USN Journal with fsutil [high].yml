@@ -25,3 +25,8 @@ tags:
   - t1070
 falsepositives:
   - Legitimate administrative use of fsutil to manage USN Journals
+VQL:
+  LET ID_1248 = (
+    NewProcessName =~ "fsutil\\.exe" AND
+    CommandLine =~ "(?=.*usn)(?=.*deletejournal)"
+  )

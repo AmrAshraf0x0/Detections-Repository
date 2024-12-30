@@ -27,3 +27,8 @@ falsepositives:
   - Legitimate administrative actions performed by authorized users
 notes: |
   The Sysmon driver can be installed with various service names. This analytic should be updated to reflect the installed service name if Sysmon is configured with a different name.
+VQL: |
+  LET ID_1250 = (
+      NewProcessName =~ "fltmc\\.exe" AND
+      CommandLine =~ "(?=.*unload|.*sysmon)"
+  )

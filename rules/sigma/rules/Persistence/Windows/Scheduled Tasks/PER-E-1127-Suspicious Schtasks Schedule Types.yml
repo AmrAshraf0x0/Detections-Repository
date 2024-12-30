@@ -25,4 +25,8 @@ detection:
 falsepositives:
     - Legitimate processes that run at logon. Filter according to your environment
 level: high
+VQL:
+  LET ID_1127 = (
+    NewProcessName =~ "\\\\schtasks\\.exe$" AND CommandLine =~ "(?=.*ONLOGON|.*ONSTART|.*ONCE|.*ONIDLE)"
+  )
 

@@ -3,10 +3,11 @@ description: Detects the use of AudioDeviceCmdlets via PowerShell for capturing 
 author: Amr Ashraf
 date: 2024-12-06
 status: developed
-severity: medium
+level: medium
 logsource:
-  category: script_block
-  product: windows
+  category: script_block_logging
+  Platform: windows
+  log_source: PowerShell Operational.evtx
 detection:
   selection:
     EventID: 4104
@@ -21,3 +22,9 @@ fields:
   - CommandLine
   - ParentCommandLine
   - Image
+triage:
+  - Investigate the source of the PowerShell script execution.
+  - Check the user account that executed the script.
+  - Verify if the use of AudioDeviceCmdlets is legitimate or part of a known task.
+  - Look for other suspicious activities around the same timeframe.
+  - Correlate with other alerts to identify potential malicious behavior.

@@ -34,3 +34,8 @@ tags:
   - attack.lateral_movement
   - attack.t1570
   - attack.t1021
+VQL: |
+  LET ID_1415 = (
+      CommandLine =~ "(?=.*-accepteula.*-c)" AND
+      CommandLine =~ "(?=.*\\\\|.*-s|.*-u)"
+  )

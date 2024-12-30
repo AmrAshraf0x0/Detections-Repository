@@ -27,3 +27,8 @@ tags:
   - t1490
 falsepositives:
   - Legitimate administrative or troubleshooting use of `bcdedit`
+VQL:
+  LET ID_1272 = (
+    NewProcessName =~ "bcdedit\\.exe" AND
+    CommandLine =~ "(?=.*set|.*bootstatuspolicy ignoreallfailures|.*recoveryenabled no)"
+  )

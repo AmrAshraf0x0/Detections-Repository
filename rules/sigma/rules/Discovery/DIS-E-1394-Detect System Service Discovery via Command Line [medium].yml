@@ -34,3 +34,14 @@ level: medium
 tags:
   - attack.discovery
   - attack.t1007
+VQL: |
+  LET ID_1394 = (
+      (
+          (ParentProcessName =~ "\\powershell\\.exe$" OR ParentProcessName =~ "\\pwsh\\.exe$" OR ParentProcessName =~ "\\cmd\\.exe$") AND
+          NewProcessName =~ "\\tasklist\\.exe$"
+      ) OR
+      (
+          NewProcessName =~ "\\sc\\.exe$" AND
+          (CommandLine =~ "(?=.*query|.*query \\*state= all)")
+      )
+  )

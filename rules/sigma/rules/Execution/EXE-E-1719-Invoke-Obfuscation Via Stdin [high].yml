@@ -21,3 +21,7 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+    LET ID_1719 = (
+        CommandLine =~ "(?i)(set).*&&\\s?set.*(environment|invoke|\\$\\{?input).*&&.*\""
+    )

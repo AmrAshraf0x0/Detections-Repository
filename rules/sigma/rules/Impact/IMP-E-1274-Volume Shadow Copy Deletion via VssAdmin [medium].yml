@@ -13,6 +13,11 @@ detection:
         - "delete"
         - "shadows"
   condition: selection
+  VQL:
+    LET ID_1274 = (
+        NewProcessName =~ "vssadmin\\.exe" AND
+        CommandLine =~ "(?=.*delete)(?=.*shadows)"
+    )
 fields:
   - ProcessName
   - CommandLine

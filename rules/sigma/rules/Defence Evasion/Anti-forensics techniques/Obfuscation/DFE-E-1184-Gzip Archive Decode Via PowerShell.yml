@@ -21,3 +21,7 @@ detection:
 falsepositives:
     - Legitimate administrative scripts may use this functionality. Use "ParentImage" in combination with the script names and allowed users and applications to filter legitimate executions
 level: medium
+VQL: |
+    LET ID_1184 = (
+        CommandLine =~ "(?=.*GZipStream)(?=.*::Decompress)"
+    )

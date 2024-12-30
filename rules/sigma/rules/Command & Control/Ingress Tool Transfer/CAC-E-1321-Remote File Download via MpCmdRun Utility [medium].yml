@@ -33,3 +33,8 @@ description: |
 references:
   - 'https://twitter.com/mohammadaskar2/status/1301263551638761477'
   - 'https://www.bleepingcomputer.com/news/microsoft/microsoft-defender-can-ironically-be-used-to-download-malware/'
+VQL: |
+  LET ID_1321 = (
+      NewProcessName =~ "\\MpCmdRun\\.exe$" AND
+      CommandLine =~ "(?=.*-DownloadFile|.*-url|.*-path)"
+  )

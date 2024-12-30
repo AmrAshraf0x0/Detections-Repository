@@ -64,3 +64,18 @@ detection:
 falsepositives:
     - Unlikely
 level: high
+VQL: |
+    LET ID_1783 = (
+        ((NewProcessName =~ "\\powershell\\.exe$" OR
+          NewProcessName =~ "\\pwsh\\.exe$" OR
+          NewProcessName =~ "\\cmd\\.exe$") AND
+         CommandLine =~ "(?=.*Invoke-WebRequest|.*iwr |.*wget |.*curl )" AND
+         CommandLine =~ "(?=.* -ur|.* -me|.* -b|.* POST )") OR
+        (NewProcessName =~ "\\curl\\.exe$" AND
+         CommandLine =~ "--ur") OR
+        (CommandLine =~ "(?=.* -d |.* --data )") OR
+        (NewProcessName =~ "\\wget\\.exe$" AND
+         CommandLine =~ "(?=.*--post-data|.*--post-file)") AND
+        (CommandLine =~ "(?=.*Get-Content|.*GetBytes|.*hostname|.*ifconfig|.*ipconfig|.*net view|.*netstat|.*nltest|.*qprocess|.*sc query|.*systeminfo|.*tasklist|.*ToBase64String|.*whoami)" OR
+         CommandLine =~ "(?=.*type .* > .* C:\\)")
+    )

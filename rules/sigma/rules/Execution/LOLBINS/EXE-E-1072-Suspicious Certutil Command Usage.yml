@@ -39,6 +39,11 @@ detection:
             - ' /encode '
             - ' /exportPFX '
     condition: process_creation and (all of selection_*)
+    VQL: |
+        LET ID_1072 = (
+            NewProcessName =~ "\\certutil\\.exe$" AND
+            CommandLine =~ "(?=.* -decode |.* -decodehex |.* -urlcache |.* -verifyctl |.* -encode |.* -exportPFX |.* /decode |.* /decodehex |.* /urlcache |.* /verifyctl |.* /encode |.* /exportPFX )"
+        )
 fields:
     - CommandLine
     - ParentCommandLine

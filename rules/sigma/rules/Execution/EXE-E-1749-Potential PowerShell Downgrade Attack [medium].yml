@@ -31,3 +31,8 @@ detection:
 falsepositives:
     - Unknown
 level: medium
+VQL: |
+    LET ID_1749 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        CommandLine =~ "(?=.* -version 2 |.* -versio 2 |.* -versi 2 |.* -vers 2 |.* -ver 2 |.* -ve 2 |.* -v 2 )"
+)

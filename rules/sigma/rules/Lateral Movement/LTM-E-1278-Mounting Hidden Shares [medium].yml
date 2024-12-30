@@ -30,3 +30,9 @@ tags:
   - t1077
 falsepositives:
   - Legitimate administrative tasks or authorized software enumerating shares
+VQL:
+  LET ID_1278 = (
+    (NewProcessName =~ "net\\.exe$" OR NewProcessName =~ "net1\\.exe$") AND
+    CommandLine =~ "(?=.*use)(?=.*\\\\)" AND
+    NOT ParentProcessName =~ "net\\.exe$"
+  )

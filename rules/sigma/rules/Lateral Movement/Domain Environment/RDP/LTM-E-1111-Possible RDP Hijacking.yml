@@ -19,3 +19,7 @@ tags:
   - attack.lateral_movement
   - attack.t1563.002
   - attack.t1021.001
+VQL: |
+  LET ID_1111 = (
+      CommandLine =~ "(?=.*\\/dest.*rdp-tcp.*)"
+  )

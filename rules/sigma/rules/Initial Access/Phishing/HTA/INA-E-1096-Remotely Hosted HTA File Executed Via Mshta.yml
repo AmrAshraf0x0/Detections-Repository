@@ -22,6 +22,11 @@ detection:
             - 'https://'
             - 'ftp://'
     condition: process_creation and (all of selection_*)
+    VQL:
+        LET ID_1096 = (
+            NewProcessName =~ "\\mshta\\.exe$" AND
+            CommandLine =~ "(?=.*http://|.*https://|.*ftp://)"
+        )
 falsepositives:
     - Unknown
 level: high

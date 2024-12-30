@@ -39,4 +39,10 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL:
+    LET ID_1065 = (
+        NewProcessName =~ "\\bitsadmin\\.exe$" AND
+        CommandLine =~ "(?=.* /transfer |.* /create |.* /addfile )" AND
+        CommandLine =~ "(?=.*\\\\Perflogs|.*\\\\ProgramData\\\\|.*\\\\Temp\\\\|.*\\\\Users\\\\Public\\\\|.*\\\\Windows\\\\|.*\\\\AppData\\\\Local\\\\Temp\\\\|.*\\\\AppData\\\\Roaming\\\\|.*\\\\Desktop\\\\|.*%ProgramData%|.*%public%)"
+    )
 

@@ -50,6 +50,13 @@ detection:
               - \Users\
               - \Contacts\
     condition: process_creation and (1 of selection_proc_* and 1 of selection_folders_*)
+    VQL: |
+        LET ID_1071 = (
+            (NewProcessName =~ "(?=.*\\cscript\\.exe$|.*\\mshta\\.exe$|.*\\wscript\\.exe$)" AND
+            CommandLine =~ "(?=.* -ep bypass |.* -ExecutionPolicy bypass |.* -w hidden |.* /e:javascript |.* /e:Jscript |.* /e:vbscript )") AND
+            (CommandLine =~ "(?=.*\\Perflogs\\|.*\\Users\\Public\\|.*\\AppData\\Local\\Temp|.*\\AppData\\Roaming\\Temp|.*\\Temporary Internet|.*\\Windows\\Temp)" OR
+            CommandLine =~ "(?=.*\\Users\\.*\\Favorites\\|.*\\Users\\.*\\Favourites\\|.*\\Users\\.*\\Contacts\\)")
+        )
 falsepositives:
     - Unknown
 level: high

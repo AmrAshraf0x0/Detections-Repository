@@ -25,3 +25,8 @@ tags:
   - t1158
 falsepositives:
   - Legitimate administrative tasks using attrib.exe to manage file attributes
+VQL:
+  LET ID_1256 = (
+    NewProcessName =~ "attrib\\.exe$" AND
+    CommandLine =~ "(?=.*\\+h)"
+  )

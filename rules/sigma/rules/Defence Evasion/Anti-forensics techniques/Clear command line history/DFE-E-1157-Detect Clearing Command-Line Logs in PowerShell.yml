@@ -32,3 +32,8 @@ tags:
 falsepositives:
   - Legitimate administrative tasks using PowerShell
   - Scripts performing routine maintenance
+VQL: |
+  LET ID_1157 = (
+      NewProcessName =~ ".*\\\\powershell\\.exe$" AND
+      CommandLine =~ ".*Clear-History.*|.*Remove-EventLog.*|.*LogLevel.* Off.*|.*Clear-Content.*"
+  )

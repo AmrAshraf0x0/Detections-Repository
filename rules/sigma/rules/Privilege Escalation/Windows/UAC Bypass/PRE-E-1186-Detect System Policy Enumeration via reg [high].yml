@@ -27,3 +27,8 @@ tags:
 falsepositives:
   - Legitimate administrative actions
   - System monitoring or auditing tools
+VQL:
+  LET ID_1186 = (
+      NewProcessName =~ "reg\\.exe" AND
+      CommandLine =~ ".*query\\s+HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Policies\\\\System.*"
+  )

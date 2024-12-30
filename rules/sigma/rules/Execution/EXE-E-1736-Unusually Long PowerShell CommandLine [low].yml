@@ -21,6 +21,11 @@ detection:
     selection_length:
         CommandLine|re: '.{1000,}'
     condition: all of selection_*
+    VQL: |
+        LET ID_1736 = (
+            (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+            CommandLine =~ ".{1000,}"
+        )
 falsepositives:
     - Unknown
 level: low

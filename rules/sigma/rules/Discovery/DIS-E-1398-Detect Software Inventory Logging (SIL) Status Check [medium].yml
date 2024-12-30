@@ -29,3 +29,8 @@ tags:
   - attack.discovery
   - attack.t1012
   - attack.execution
+VQL: |
+  LET ID_1398 = (
+      (NewProcessName =~ "\\reg\\.exe$") AND
+      CommandLine =~ "(?=.*hklm\\software\\microsoft\\windows\\softwareinventorylogging)(?=.*\\/v )(?=.*collectionstate)"
+  )

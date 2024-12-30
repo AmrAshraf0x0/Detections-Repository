@@ -19,6 +19,11 @@ detection:
         CommandLine|contains|windash:
             - '-decode ' # Decode Base64
             - '-decodehex ' # Decode Hex
+    VQL:
+        LET ID_1182 = (
+            (NewProcessName =~ "\\certutil\\.exe$") AND
+            (CommandLine =~ "(?=.*-decode |.*-decodehex )")
+        )
     condition: process_creation and (all of selection_*)
 falsepositives:
     - Unknown

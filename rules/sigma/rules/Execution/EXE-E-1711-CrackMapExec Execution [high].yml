@@ -78,3 +78,13 @@ fields:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+    LET ID_1711 = (
+        (NewProcessName =~ "\\crackmapexec\\.exe$" AND CommandLine =~ "(?=.* -M pe_inject )") OR
+        (CommandLine =~ "(?=.* --local-auth|.* -u |.* -x )") OR
+        (CommandLine =~ "(?=.* --local-auth|.* -u |.* -p |.* -H 'NTHASH')") OR
+        (CommandLine =~ "(?=.* mssql |.* -u |.* -p |.* -M |.* -d )") OR
+        (CommandLine =~ "(?=.* smb |.* -u |.* -H |.* -M |.* -o )") OR
+        (CommandLine =~ "(?=.* smb |.* -u |.* -p |.* --local-auth)") OR
+        (CommandLine =~ "(?=.* --local-auth|.* -u |.* -p )" AND CommandLine =~ "(?=.* 10.|.* 192.168.|.* /24 )")
+    )

@@ -4,7 +4,8 @@ description: Detects suspicious processes or commands used to capture video or r
 author: Amr Ashraf
 logsource:
   category: process_creation
-  product: windows
+  Platform: windows
+  log_source: Security.evtx
 detection:
   selection1:
     - EventID: 4688
@@ -42,9 +43,13 @@ fields:
 level: high
 tags:
   - attack.collection
-  - attack.execution
-  - t1125
-  - defense.evasion
+  - attack.t1125
 falsepositives:
   - Legitimate screen recording, video conferencing, or administrative tasks.
   - Debugging or troubleshooting tools used by IT or developers.
+triage:
+  - Verify the process and command line arguments to confirm if the activity is legitimate or suspicious.
+  - Check the user context under which the process was executed.
+  - Investigate the source and intent of the process execution.
+  - Correlate with other security events to identify potential malicious activity.
+

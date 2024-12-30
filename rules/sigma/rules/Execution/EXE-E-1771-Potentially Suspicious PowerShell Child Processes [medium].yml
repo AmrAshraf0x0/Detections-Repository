@@ -56,3 +56,11 @@ detection:
 falsepositives:
     - False positives are to be expected from PowerShell scripts that might make use of additional binaries such as "mshta", "bitsadmin", etc. Apply additional filters for those scripts.
 level: medium
+VQL: |
+    LET ID_1771 = (
+        (ParentProcessName =~ "(?=.*\\\\powershell_ise\\.exe$|.*\\\\powershell\\.exe$|.*\\\\pwsh\\.exe$)") AND
+        (NewProcessName =~ "(?=.*\\\\bash\\.exe$|.*\\\\bitsadmin\\.exe$|.*\\\\certutil\\.exe$|.*\\\\cscript\\.exe$|.*\\\\forfiles\\.exe$|.*\\\\hh\\.exe$|.*\\\\mshta\\.exe$|.*\\\\regsvr32\\.exe$|.*\\\\rundll32\\.exe$|.*\\\\schtasks\\.exe$|.*\\\\scrcons\\.exe$|.*\\\\scriptrunner\\.exe$|.*\\\\sh\\.exe$|.*\\\\wmic\\.exe$|.*\\\\wscript\\.exe$)") AND
+        NOT (ParentCommandLine =~ "\\\\Program\\sFiles\\\\Amazon\\\\WorkspacesConfig\\\\Scripts\\\\" OR CommandLine =~ "\\\\Program\\sFiles\\\\Amazon\\\\WorkspacesConfig\\\\Scripts\\\\") AND
+        NOT (NewProcessName =~ "\\\\certutil\\.exe$" AND CommandLine =~ "-verifystore\\s") AND
+        NOT (NewProcessName =~ "\\\\wmic\\.exe$" AND CommandLine =~ "(?=.*qfe\\slist|.*diskdrive\\s|.*csproduct\\s|.*computersystem\\s|.*os\\s)")
+    )

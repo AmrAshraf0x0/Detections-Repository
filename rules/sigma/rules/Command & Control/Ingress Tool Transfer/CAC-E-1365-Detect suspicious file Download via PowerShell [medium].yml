@@ -46,3 +46,10 @@ level: medium
 tags:
   - attack.defense_evasion
   - attack.t1105
+VQL: |
+  LET ID_1365 = (
+      (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+      CommandLine =~ "(?=.*http)" AND
+      CommandLine =~ "(?=.*Invoke-WebRequest|.*iwr|.*Net\\.WebClient|.*Http\\.HttpClient|.*wget|.*curl|.*Get-Content|.*gc)" AND
+      CommandLine =~ "(?=.*\\.jpg|.*\\.jpeg|.*\\.png|.*\\.gif|.*\\.bmp|.*\\.svg|.*\\.exe|.*\\.ps1)"
+  )

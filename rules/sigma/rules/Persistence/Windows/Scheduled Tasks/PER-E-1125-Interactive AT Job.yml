@@ -20,4 +20,9 @@ detection:
 falsepositives:
     - Unlikely (at.exe deprecated as of Windows 8)
 level: high
+VQL:
+  LET ID_1125 = (
+      CommandLine =~ "(?=.*interactive)" AND
+      NewProcessName =~ "(?=.*\\at\\.exe)"
+  )
 

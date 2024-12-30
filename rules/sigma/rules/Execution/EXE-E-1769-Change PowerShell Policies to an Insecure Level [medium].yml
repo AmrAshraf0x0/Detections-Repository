@@ -34,3 +34,9 @@ detection:
 falsepositives:
     - Administrator scripts
 level: medium
+VQL: |
+    LET ID_1769 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        (CommandLine =~ "-executionpolicy " OR CommandLine =~ " -ep " OR CommandLine =~ " -exec ") AND
+        (CommandLine =~ "Bypass" OR CommandLine =~ "Unrestricted")
+    )

@@ -18,6 +18,10 @@ detection:
         CommandLine|contains: '(WCHAR)0x'
         EventID: 4688
     condition: selection
+VQL: |
+    LET ID_1765 = (
+        CommandLine =~ "(?=.*\\(WCHAR\\)0x)"
+    )
 falsepositives:
     - Unknown
 level: high

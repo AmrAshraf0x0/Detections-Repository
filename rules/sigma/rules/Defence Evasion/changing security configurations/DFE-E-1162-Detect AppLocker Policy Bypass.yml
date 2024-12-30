@@ -22,3 +22,8 @@ tags:
   - attack.t1218.010
 falsepositives:
   - Authorized use of Regsvr32 for legitimate tasks
+VQL: |
+  LET ID_1162 = (
+      NewProcessName =~ "(?=.*\\regsvr32\\.exe)" AND
+      CommandLine =~ "(?=.*scrobj\\.dll)"
+  )

@@ -19,3 +19,7 @@ detection:
 falsepositives:
     - Administrative script libraries
 level: high
+VQL: |
+    LET ID_1053 = (
+        CommandLine =~ "(?=.*::FromBase64String\\()"
+    )

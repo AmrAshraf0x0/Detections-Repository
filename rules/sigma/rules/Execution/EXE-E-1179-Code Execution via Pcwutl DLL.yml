@@ -19,7 +19,13 @@ detection:
         CommandLine|contains|all:
             - pcwutl
             - LaunchApplication
+    
     condition: process_creation and (all of selection_*)
 falsepositives:
     - Use of Program Compatibility Troubleshooter Helper
 level: medium
+VQL: |
+        LET ID_1179 = (
+            NewProcessName =~ "\\rundll32\\.exe$" AND
+            CommandLine =~ "(?=.*pcwutl|.*LaunchApplication)"
+        )

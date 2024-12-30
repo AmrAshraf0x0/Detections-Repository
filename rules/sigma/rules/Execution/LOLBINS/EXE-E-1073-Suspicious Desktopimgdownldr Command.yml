@@ -25,6 +25,11 @@ detection:
             - 'delete'
             - '\PersonalizationCSP'
     condition: ( selection1 and not selection1_filter ) or selection_reg
+    VQL: |
+        LET ID_1073 = (
+            (CommandLine =~ " /lockscreenurl:" AND NOT CommandLine =~ "(?=.*\\.jpg|.*\\.jpeg|.*\\.png)") OR
+            (CommandLine =~ "(?=.*reg|.*delete|.*\\PersonalizationCSP)")
+        )
 fields:
     - CommandLine
     - ParentCommandLine

@@ -11,6 +11,10 @@ detection:
     EventID: 4688
     NewProcessName|endswith:
       - '\PDQDeployConsole.exe'
+VQL: |
+  LET ID_1493 = (
+      NewProcessName =~ "\\PDQDeployConsole\\.exe$"
+  )
   condition: selection
 fields:
   - CommandLine

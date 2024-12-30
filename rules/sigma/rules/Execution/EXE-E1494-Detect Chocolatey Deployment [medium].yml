@@ -26,3 +26,8 @@ level: medium
 tags:
   - attack.execution
   - T1072
+VQL:
+    LET ID_1494 = (
+        CommandLine =~ "(?=.*choco install|.*7zip)" AND
+        NewProcessName =~ "\\Chocolatey\\\\choco\\.exe$"
+    )

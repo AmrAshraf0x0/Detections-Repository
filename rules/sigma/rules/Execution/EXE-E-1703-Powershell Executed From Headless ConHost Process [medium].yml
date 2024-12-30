@@ -24,6 +24,11 @@ detection:
     selection_event:
         EventID: 4688
     condition: all of selection_*
+    VQL: |
+        LET ID_1703 = (
+            (NewProcessName =~ "\\conhost\\.exe$") AND
+            CommandLine =~ "(?=.*--headless)(?=.*powershell)"
+        )
 falsepositives:
     - Unknown
 level: medium

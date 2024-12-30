@@ -16,6 +16,7 @@ detection:
         - '-i:'
         - '.sct'
   condition: selection
+
 fields:
   - ProcessName
   - CommandLine
@@ -29,3 +30,8 @@ tags:
   - t1117
 falsepositives:
   - Legitimate administrative usage of regsvr32 for script execution
+VQL: |
+  LET ID_1264 = (
+      NewProcessName =~ "regsvr32\\.exe" AND
+      CommandLine =~ "(?=.*scrobj|.*\\/i:|.*-i:|.*\\.sct)"
+  )

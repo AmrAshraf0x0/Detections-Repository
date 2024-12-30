@@ -26,3 +26,10 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL:
+  LET ID_1210 = (
+      ParentProcessName =~ "\\eventvwr\\.exe$" AND
+      NOT (NewProcessName =~ "\\Windows\\System32\\mmc\\.exe$" OR
+           NewProcessName =~ "\\Windows\\System32\\WerFault\\.exe$" OR
+           NewProcessName =~ "\\Windows\\SysWOW64\\WerFault\\.exe$")
+  )

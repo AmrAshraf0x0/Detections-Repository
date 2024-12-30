@@ -27,3 +27,7 @@ tags:
 falsepositives:
   - Legitimate administrative scripts or tools using unusual extensions
   - Rare legitimate software with non-standard extensions
+VQL: |
+  LET ID_1247 = (
+      NewProcessName !~ "\\.exe$"
+  )

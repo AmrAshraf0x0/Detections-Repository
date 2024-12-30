@@ -27,3 +27,8 @@ detection:
 falsepositives:
     - Legitimate use to pass password to different powershell commands
 level: medium
+VQL: |
+    LET ID_1746 = (
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        CommandLine =~ "ConvertTo-SecureString"
+    )

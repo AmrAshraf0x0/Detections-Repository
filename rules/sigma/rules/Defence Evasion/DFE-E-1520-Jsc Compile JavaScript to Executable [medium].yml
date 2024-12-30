@@ -24,3 +24,8 @@ fields:
   - CommandLine
   - ParentImage
   - ParentCommandLine
+VQL: |
+  LET ID_1520 = (
+      NewProcessName =~ ".*\\\\jsc\\.exe$" AND
+      CommandLine =~ ".*\\.js"
+  )

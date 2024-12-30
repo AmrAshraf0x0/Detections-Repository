@@ -50,6 +50,14 @@ detection:
         CommandLine|contains: 'L3NlcnZlcj1'  # base64 encoded '/server='
         EventID: 4688
     condition: 1 of selection_*
+    VQL: |
+        LET ID_1694 = (
+            NewProcessName =~ "(?=.*:\\ProgramData\\adobe\\Adobe\\.exe$|.*:\\ProgramData\\oracle\\local\\.exe$|.*\\revshell\\.exe$|.*\\infopagesbackup\\ncat\\.exe$|.*:\\ProgramData\\comms\\comms\\.exe$)" OR
+            CommandLine =~ "(?=.*-ExecutionPolicy Bypass -File)(?=.*\\msf\\.ps1)" OR
+            CommandLine =~ "(?=.*infopagesbackup)(?=.*\\ncat)(?=.*-e cmd\\.exe)" OR
+            CommandLine =~ "(?=.*system\\.Data\\.SqlClient\\.SqlDataAdapter\\($cmd\\); \\[void\\]\\$da\\.fill|.*-nop -w hidden -c \\$k=new-object|.*\\[Net\\.CredentialCache\\]::DefaultCredentials;IEX |.* -nop -w hidden -c \\$m=new-object net\\.webclient;\\$m|.*-noninteractive -executionpolicy bypass whoami|.*-noninteractive -executionpolicy bypass netstat -a)" OR
+            CommandLine =~ "L3NlcnZlcj0"
+        )
 falsepositives:
     - Unlikely
 level: critical

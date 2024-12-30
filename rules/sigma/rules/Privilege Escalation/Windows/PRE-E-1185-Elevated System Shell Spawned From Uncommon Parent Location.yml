@@ -45,6 +45,19 @@ detection:
     filter_main_parent_empty:
         ParentProcessName: ''
     condition: process_creation and (all of selection_* and not 1 of filter_main_* and not 1 of filter_optional_*)
+VQL: |
+    LET ID_1185 = (
+        (NewProcessName =~ "\\powershell\\.exe$|\\pwsh\\.exe$|\\cmd\\.exe$") AND
+        (SubjectLogonId == '0x3e7') AND
+        NOT (
+            ParentProcessName =~ "(?=.*\\Program Files \\(x86\\)\\|.*\\Program Files\\|.*\\ProgramData\\|.*\\Windows\\System32\\|.*\\Windows\\SysWOW64\\|.*\\Windows\\Temp\\ |.*\\Windows\\WinSxS\\)" OR
+            (ParentProcessName =~ "\\ManageEngine\\ADManager Plus\\pgsql\\bin\\postgres\\.exe$" AND NewProcessName =~ "\\cmd\\.exe$") OR
+            (CommandLine =~ "(?=.*\\WINDOWS\\system32\\cmd\\.exe /c )" AND CurrentDirectory =~ "(?=.*\\WINDOWS\\Temp\\asgard2-agent\\)") OR
+            (CommandLine =~ "(?=.*\\IBM\\SpectrumProtect\\webserver\\scripts\\)" AND ParentProcessName =~ "(?=.*\\IBM\\SpectrumProtect\\webserver\\scripts\\)") OR
+            ParentProcessName == null OR
+            ParentProcessName == ''
+        )
+    )
 falsepositives:
     - Unknown
 level: medium

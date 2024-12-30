@@ -39,3 +39,11 @@ detection:
 falsepositives:
     - Unknown
 level: medium
+VQL: |
+    LET ID_1782 = (
+        NewProcessName =~ "\\schtasks\\.exe$" AND
+        CommandLine =~ "(?=.*\\/Create)" AND
+        CommandLine =~ "(?=.*Get-ItemProperty|.* gp )" AND
+        CommandLine =~ "(?=.*HKCU:|.*HKLM:|.*registry::|.*HKEY_)" AND
+        NOT CommandLine =~ "(?=.*FromBase64String|.*encodedcommand)"
+    )

@@ -29,3 +29,8 @@ tags:
 falsepositives:
   - Legitimate administrative use of Control Panel items
   - Authorized software using Control Panel items
+VQL: |
+  LET ID_1257 = (
+      (NewProcessName =~ "control\\.exe$" OR NewProcessName =~ "rundll32\\.exe$") AND
+      CommandLine =~ "(?=.*\\.cpl)"
+  )

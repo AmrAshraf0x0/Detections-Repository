@@ -27,3 +27,9 @@ falsepositives:
     - Microsoft Operations Manager (MOM)
     - Other scripts
 level: medium
+VQL: |
+    LET ID_1768 = (
+        ParentProcessName =~ "\\wscript\\.exe$" OR ParentProcessName =~ "\\cscript\\.exe$" AND
+        (NewProcessName =~ "\\powershell\\.exe$" OR NewProcessName =~ "\\pwsh\\.exe$") AND
+        NOT (CurrentDirectory =~ "\\Health Service State\\")
+    )

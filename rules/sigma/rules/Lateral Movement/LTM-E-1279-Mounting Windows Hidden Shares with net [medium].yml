@@ -28,3 +28,9 @@ tags:
 falsepositives:
   - Legitimate administrative tasks mounting hidden admin shares
   - Authorized IT operations or scripts
+VQL:
+  LET ID_1279 = (
+    (NewProcessName =~ "net\\.exe$" OR NewProcessName =~ "net1\\.exe$") AND
+    CommandLine =~ "(?=.*use.*\\\\.*\\$|.*use.*\\\\.*\\/\\$)" AND
+    NOT ParentProcessName =~ "net\\.exe$"
+  )

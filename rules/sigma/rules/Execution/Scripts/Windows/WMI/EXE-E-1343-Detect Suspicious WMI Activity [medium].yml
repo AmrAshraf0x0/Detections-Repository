@@ -38,3 +38,8 @@ tags:
 falsepositives:
   - Legitimate administrative WMI usage for IT management
   - Scheduled tasks invoking WMI for monitoring purposes
+VQL:
+  LET ID_1343 = (
+    (NewProcessName =~ "\\wmic\\.exe$" OR NewProcessName =~ "\\wmiprvse\\.exe$" OR NewProcessName =~ "\\winmgmt\\.exe$") AND
+    CommandLine =~ "(?=.*\\/node:|.*\\/user:|.*process\\s*\\*call\\s*\\*create|.*path\\s*\\*win32_process|.*call\\s*\\*create)"
+  )

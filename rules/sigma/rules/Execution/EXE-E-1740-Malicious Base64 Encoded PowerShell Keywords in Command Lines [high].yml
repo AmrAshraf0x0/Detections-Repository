@@ -74,3 +74,44 @@ detection:
 falsepositives:
     - Unknown
 level: high
+VQL: |
+    LET ID_1 = (
+        -- NewProcessName ends with '\powershell.exe' or '\pwsh.exe'
+        (
+            NewProcessName =~ "(?=.*\\powershell\\.exe$|.*\\pwsh\\.exe$)"
+        ) AND
+        -- CommandLine contains ' hidden '
+        (
+            CommandLine =~ "(?=.* hidden )"
+        ) AND
+        -- CommandLine contains any of the specified base64-encoded malicious patterns
+        (
+            CommandLine =~ "(?=.*AGkAdABzAGEAZABtAGkAbgAgAC8AdAByAGEAbgBzAGYAZQByA|
+                            .*aXRzYWRtaW4gL3RyYW5zZmVy|
+                            .*IAaQB0AHMAYQBkAG0AaQBuACAALwB0AHIAYQBuAHMAZgBlAHIA|
+                            .*JpdHNhZG1pbiAvdHJhbnNmZX|
+                            .*YgBpAHQAcwBhAGQAbQBpAG4AIAAvAHQAcgBhAG4AcwBmAGUAcg|
+                            .*Yml0c2FkbWluIC90cmFuc2Zlc|
+                            .*AGMAaAB1AG4AawBfAHMAaQB6AGUA|
+                            .*JABjAGgAdQBuAGsAXwBzAGkAegBlA|
+                            .*JGNodW5rX3Npem|
+                            .*QAYwBoAHUAbgBrAF8AcwBpAHoAZQ|
+                            .*RjaHVua19zaXpl|
+                            .*Y2h1bmtfc2l6Z|
+                            .*AE8ALgBDAG8AbQBwAHIAZQBzAHMAaQBvAG4A|
+                            .*kATwAuAEMAbwBtAHAAcgBlAHMAcwBpAG8Abg|
+                            .*lPLkNvbXByZXNzaW9u|
+                            .*SQBPAC4AQwBvAG0AcAByAGUAcwBzAGkAbwBuA|
+                            .*SU8uQ29tcHJlc3Npb2|
+                            .*Ty5Db21wcmVzc2lvb|
+                            .*AE8ALgBNAGUAbQBvAHIAeQBTAHQAcgBlAGEAbQ|
+                            .*kATwAuAE0AZQBtAG8AcgB5AFMAdAByAGUAYQBtA|
+                            .*lPLk1lbW9yeVN0cmVhb|
+                            .*SQBPAC4ATQBlAG0AbwByAHkAUwB0AHIAZQBhAG0A|
+                            .*SU8uTWVtb3J5U3RyZWFt|
+                            .*Ty5NZW1vcnlTdHJlYW|
+                            .*AE8ALgBDAG8AbQBwAHIAZQBzAHMAaQBvAG4A|
+                            .*kATwAuAEMAbwBtAHAAcgBlAHMAcwBpAG8Abg)"
+        )
+    )
+

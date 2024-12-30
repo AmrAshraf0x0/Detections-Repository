@@ -24,6 +24,11 @@ detection:
             - 'OutFile'
             - '.dll'
     condition: selection
+VQL: |
+    LET ID_1752 = (
+        CommandLine =~ "(?=.*Invoke-WebRequest|.*IWR)" AND
+        CommandLine =~ "(?=.*http|.*OutFile|.*\\.dll)"
+    )
 falsepositives:
     - Unknown
 level: medium

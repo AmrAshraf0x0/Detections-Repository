@@ -23,3 +23,8 @@ tags:
   - attack.t1542.001
 falsepositives:
   - System recovery or legitimate troubleshooting activities
+VQL: |
+  LET ID_1164 = (
+      NewProcessName =~ ".*\\bcdedit\\.exe.*" AND
+      CommandLine =~ "(?=.*bcdedit.*set.*{current}.*bootdebug.*on.*)"
+  )

@@ -67,3 +67,26 @@ falsepositives:
     - Administrative scripts
     - Microsoft SCCM
 level: high
+VQL: |
+    LET ID_1785 = (
+        (ParentProcessName =~ "\\mshta\\.exe$" OR
+         ParentProcessName =~ "\\powershell\\.exe$" OR
+         ParentProcessName =~ "\\pwsh\\.exe$" OR
+         ParentProcessName =~ "\\rundll32\\.exe$" OR
+         ParentProcessName =~ "\\cscript\\.exe$" OR
+         ParentProcessName =~ "\\wscript\\.exe$" OR
+         ParentProcessName =~ "\\wmiprvse\\.exe$" OR
+         ParentProcessName =~ "\\regsvr32\\.exe$") AND
+        (NewProcessName =~ "\\schtasks\\.exe$" OR
+         NewProcessName =~ "\\nslookup\\.exe$" OR
+         NewProcessName =~ "\\certutil\\.exe$" OR
+         NewProcessName =~ "\\bitsadmin\\.exe$" OR
+         NewProcessName =~ "\\mshta\\.exe$") AND
+        NOT (CurrentDirectory =~ "\\\\ccmcache\\\\" OR
+             ParentCommandLine =~ "(?=.*\\Program Files\\Amazon\\WorkSpacesConfig\\Scripts\\setup-scheduledtask\\.ps1|.*\\Program Files\\Amazon\\WorkSpacesConfig\\Scripts\\set-selfhealing\\.ps1|.*\\Program Files\\Amazon\\WorkSpacesConfig\\Scripts\\check-workspacehealth\\.ps1|.*\\nessus_)" OR
+             CommandLine =~ "\\\\nessus_" OR
+             (ParentProcessName =~ "\\mshta\\.exe$" AND
+              NewProcessName =~ "\\mshta\\.exe$" AND
+              ParentCommandLine =~ "(?=.*C:\\MEM_Configmgr_|.*\\splash\\.hta|.*\\{1E460BD7-F1C3-4B2E-88BF-4E770A288AF5\\})" AND
+              CommandLine =~ "(?=.*C:\\MEM_Configmgr_|.*\\SMSSETUP\\BIN\\|.*\\autorun\\.hta|.*\\{1E460BD7-F1C3-4B2E-88BF-4E770A288AF5\\})"))
+    )

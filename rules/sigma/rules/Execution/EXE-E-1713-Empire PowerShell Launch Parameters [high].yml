@@ -25,6 +25,10 @@ detection:
             - ' -enc  SQB'
             - ' -nop -exec bypass -EncodedCommand '
     condition: selection
+VQL: |
+    LET ID_1713 = (
+        CommandLine =~ "(?=.* -NoP -sta -NonI -W Hidden -Enc |.* -noP -sta -w 1 -enc |.* -NoP -NonI -W Hidden -enc |.* -noP -sta -w 1 -enc|.* -enc  SQB|.* -nop -exec bypass -EncodedCommand )"
+    )
 falsepositives:
     - Other tools that incidentally use the same command line parameters
 level: high

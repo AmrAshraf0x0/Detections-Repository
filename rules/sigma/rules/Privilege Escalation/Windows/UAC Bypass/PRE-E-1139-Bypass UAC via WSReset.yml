@@ -31,6 +31,11 @@ detection:
     filter:
         - NewProcessName|endswith: \conhost.exe
     condition: process_creation and (selection and not filter)
+VQL: |
+    LET ID_1139 = (
+        (ParentProcessName =~ "\\wsreset\\.exe$") AND
+        NOT (NewProcessName =~ "\\conhost\\.exe$")
+    )
 falsepositives:
     - Unknown sub processes of Wsreset.exe
 level: high

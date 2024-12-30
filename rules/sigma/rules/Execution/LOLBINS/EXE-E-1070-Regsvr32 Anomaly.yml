@@ -74,6 +74,21 @@ detection:
     filter_legitimate:
         CommandLine|endswith: /s C:\Windows\System32\RpcProxy\RpcProxy.dll
     condition: process_creation and (1 of selection* and not 1 of filter*)
+    VQL: |
+        LET ID_1070 = (
+            (NewProcessName =~ "\\regsvr32\\.exe$" AND CommandLine =~ "\\Temp\\") OR
+            (NewProcessName =~ "\\regsvr32\\.exe$" AND ParentProcessName =~ "(?=.*\\powershell\\.exe$|.*\\pwsh\\.exe$|.*\\powershell_ise\\.exe$|.*\\cmd\\.exe$)") OR
+            (NewProcessName =~ "\\regsvr32\\.exe$" AND CommandLine =~ "(?=.* /i:.*http.*scrobj\\.dll)") OR
+            (NewProcessName =~ "\\regsvr32\\.exe$" AND CommandLine =~ "(?=.* /i:.*ftp.*scrobj\\.dll)") OR
+            (NewProcessName =~ "(?=.*\\cscript\\.exe$|.*\\wscript\\.exe$)" AND ParentProcessName =~ "\\regsvr32\\.exe$") OR
+            (NewProcessName =~ "\\EXCEL\\.EXE$" AND CommandLine =~ "..\\..\\..\\Windows\\System32\\regsvr32\\.exe ") OR
+            (NewProcessName =~ "\\regsvr32\\.exe$" AND ParentProcessName =~ "\\mshta\\.exe$") OR
+            (NewProcessName =~ "\\regsvr32\\.exe$" AND CommandLine =~ "(?=.*\\AppData\\Local|.*C:\\Users\\Public)") OR
+            (NewProcessName =~ "\\regsvr32\\.exe$" AND CommandLine =~ "(?=.*\\.jpg$|.*\\.jpeg$|.*\\.png$|.*\\.gif$|.*\\.bin$|.*\\.tmp$|.*\\.temp$|.*\\.txt$)") AND
+            NOT (CommandLine =~ "(?=.*\\AppData\\Local\\Microsoft\\Teams|.*\\AppData\\Local\\WebEx\\WebEx64\\Meetings\\atucfobj\\.dll)" OR
+                 CommandLine =~ "\\Program Files\\Box\\Box\\Temp\\" AND ParentProcessName == "C:\\Program Files\\Box\\Box\\FS\\streem.exe" OR
+                 CommandLine =~ "/s C:\\Windows\\System32\\RpcProxy\\RpcProxy\\.dll$")
+        )
 fields:
     - CommandLine
     - ParentCommandLine

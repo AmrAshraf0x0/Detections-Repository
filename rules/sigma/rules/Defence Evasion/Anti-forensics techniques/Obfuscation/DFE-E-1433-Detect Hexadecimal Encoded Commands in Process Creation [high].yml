@@ -27,3 +27,7 @@ tags:
   - attack.obfuscation
   - attack.t1059
   - attack.t1027
+VQL: |
+  LET ID_1433 = (
+      CommandLine =~ "(\\x[0-9a-fA-F]{2}){3,}"
+  )
