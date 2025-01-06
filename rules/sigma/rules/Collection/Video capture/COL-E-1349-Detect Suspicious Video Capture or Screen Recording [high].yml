@@ -13,7 +13,7 @@ detection:
         - '\powershell.exe'
       CommandLine|contains:
         - 'mciSendString'
-        - 'Get-Process *Camera*'
+        - 'Get-Process *Camera'
   selection2:
     - EventID: 4688
     - NewProcessName|endswith:
@@ -52,4 +52,4 @@ triage:
   - Check the user context under which the process was executed.
   - Investigate the source and intent of the process execution.
   - Correlate with other security events to identify potential malicious activity.
-
+  

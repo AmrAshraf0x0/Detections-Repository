@@ -29,4 +29,6 @@ tags:
   - attack.T1005
   - attack.T1114
   - attack.T1114.002
+VQL: |
+  LET ID_1301 = (NewProcessName == ("powershell.exe"|"pwsh.exe"|"powershell_ise.exe") AND CommandLine == ("*MailboxExportRequest*"|"*-Mailbox*-ContentFilter*"))
 

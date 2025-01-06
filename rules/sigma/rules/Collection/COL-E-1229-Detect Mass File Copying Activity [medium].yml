@@ -35,3 +35,5 @@ triage:
   - Investigate the user account that initiated the process.
   - Review the command line arguments for any unusual or suspicious parameters.
   - Correlate with other security events to identify potential malicious activity.
+VQL: |
+  LET ID_1229 = (NewProcessName =~ ("robocopy.exe"|"xcopy.exe"|"powershell.exe") AND CommandLine =~ ("/mir"|"Copy-Item -Recurse"))

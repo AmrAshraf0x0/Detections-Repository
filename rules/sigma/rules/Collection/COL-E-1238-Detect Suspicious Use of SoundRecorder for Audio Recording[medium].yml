@@ -23,3 +23,5 @@ tags:
 falsepositives:
   - Legitimate audio recording by authorized users or applications
   - Audio recording as part of troubleshooting or diagnostics
+VQL: |
+  LET ID_1238 = (NewProcessName =~ "SoundRecorder.exe" AND CommandLine =~ "/FILE")
