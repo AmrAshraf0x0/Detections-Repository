@@ -19,8 +19,3 @@ detection:
 falsepositives:
     - Unknown
 level: high
-
-VQL:
-LET ID_1060 = (
-    CommandLine =~ "(?=.* /INJECTRUNNING )"
-)

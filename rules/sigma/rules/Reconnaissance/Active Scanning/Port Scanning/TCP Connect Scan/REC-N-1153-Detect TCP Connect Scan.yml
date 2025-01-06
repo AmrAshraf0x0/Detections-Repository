@@ -1,4 +1,4 @@
-title: Detect TCP Connect Scan
+title: Detect TCP Connect Scan [aggregation]
 description: Detects high volume of TCP connection attempts to various ports, indicative of a TCP Connect Scan.
 status: Developed
 author: Amr Ashraf

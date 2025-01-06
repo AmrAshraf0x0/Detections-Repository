@@ -23,8 +23,3 @@ detection:
 falsepositives:
     - Unlikely
 level: high
-
-VQL:
-LET ID_1054 = (
-    CommandLine =~ "(?=.*TVqQAAMAAAAEAAAA|.*TVpQAAIAAAAEAA8A|.*TVqAAAEAAAAEABAA|.*TVoAAAAAAAAAAAAA|.*TVpTAQEAAAAEAAAA)"
-)

@@ -31,14 +31,3 @@ tags:
   - detection.process
 falsepositives:
   - Rare, as legitimate execution from ADS is uncommon
-VQL:
-  LET ID_1171 = (
-    CommandLine =~ ".*:.*" AND
-    NOT (
-      CommandLine =~ ":Zone\\.Identifier$" OR
-      CommandLine =~ "::" OR
-      CommandLine =~ ":\\\\" OR
-      CommandLine =~ ": $" OR
-      ParentProcessName =~ "compattelrunner\\.exe"
-    )
-  )

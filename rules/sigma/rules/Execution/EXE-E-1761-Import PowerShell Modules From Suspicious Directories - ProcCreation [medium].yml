@@ -34,8 +34,3 @@ detection:
 falsepositives:
     - Unknown
 level: medium
-
-VQL:
-LET ID_1761 = (
-    CommandLine =~ "(?=.*Import-Module \\\"\\$Env:Temp|.*Import-Module \\$Env:Temp|.*Import-Module \\$Env:Temp|.*Import-Module \\\"\\$Env:Appdata|.*Import-Module \\$Env:Appdata|.*Import-Module \\$Env:Appdata|.*Import-Module C:\\Users\\Public|.*ipmo \\\"\\$Env:Temp|.*ipmo \\$Env:Temp|.*ipmo \\$Env:Temp|.*ipmo \\\"\\$Env:Appdata|.*ipmo \\$Env:Appdata|.*ipmo \\$Env:Appdata|.*ipmo C:\\Users\\Public)"
-)

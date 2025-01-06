@@ -66,16 +66,3 @@ detection:
 falsepositives:
     - Unknown
 level: high
-
-VQL:
-LET ID_1043 = (
-    (CommandLine =~ "(?=.*ntds\\.dit)(?=.*system\\.hiv)") OR
-    (CommandLine =~ "(?=.*ac)(?=.* i )(?=.*ntds)(?=.*create)(?=.*full)") OR
-    (CommandLine =~ "(?=.*\\/c)(?=.*copy )(?=.*ntds\\.dit)") OR
-    (CommandLine =~ "(?=.*activate)(?=.*instance)(?=.*ntds)(?=.*create)(?=.*full)") OR
-    (CommandLine =~ "(?=.*powershell)(?=.*ntds\\.dit)") OR
-    (CommandLine =~ "ntds\\.dit" AND (
-        ParentProcessName =~ "(?=.*\\apache|.*\\tomcat|.*\\AppData\\|.*\\Temp\\|.*\\Public\\|.*\\PerfLogs\\)" OR
-        NewProcessName =~ "(?=.*\\apache|.*\\tomcat|.*\\AppData\\|.*\\Temp\\|.*\\Public\\|.*\\PerfLogs\\)"
-    ))
-)

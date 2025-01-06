@@ -11,9 +11,9 @@ detection:
   selection:
     EventID: 4104
     CommandLine|contains:
-      - 'Get-ChildItem'
-      - '-Recurse'
-      - ''.doc'
+      - "Get-ChildItem"
+      - "-Recurse"
+      - ".doc"
   condition: selection
 falsepositives:
   - Legitimate administrative or backup activities.

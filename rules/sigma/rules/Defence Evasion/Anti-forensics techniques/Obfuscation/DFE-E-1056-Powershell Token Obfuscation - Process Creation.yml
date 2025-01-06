@@ -16,7 +16,7 @@ detection:
         #   IN`V`o`Ke-eXp`ResSIOn (Ne`W-ob`ject Net.WebClient).DownloadString
         #   &('In'+'voke-Expressi'+'o'+'n') (.('New-Ob'+'jec'+'t') Net.WebClient).DownloadString
         #   &("{2}{3}{0}{4}{1}"-f 'e','Expression','I','nvok','-') (&("{0}{1}{2}"-f'N','ew-O','bject') Net.WebClient).DownloadString
-        - ScriptBlockText|re: 
+        - ScriptBlockText|contains|re: 
             - '\w+`(\w+|-|.)`[\w+|\s]'
             - '"(\{\d\})+"\s*-f'
         #   ${e`Nv:pATh}

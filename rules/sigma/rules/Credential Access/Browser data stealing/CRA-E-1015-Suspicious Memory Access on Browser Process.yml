@@ -10,10 +10,10 @@ detection:
   selection:
     EventID: 4663
     ObjectName|contains:
-      - ''\\chrome.exe'
-      - ''\\firefox.exe'
-      - ''\\msedge.exe'
-    GrantedAccess: '0x1fffff'  # Full access, often associated with memory dumping
+      - "\\chrome.exe"
+      - "\\firefox.exe"
+      - "\\msedge.exe"
+    GrantedAccess: "0x1fffff"  # Full access, often associated with memory dumping
   condition: selection
 fields:
   - TargetImage

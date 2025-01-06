@@ -9,9 +9,9 @@ logsource:
 detection:
   selection:
     SyslogProgram: 'xrdp-sesman'       # Common for RDP sessions managed by xrdp on Linux
-    message|re:
-      - '*authentication failure*'
-      - '*failed login*'
+    message|contains:
+      - 'authentication failure'
+      - 'failed login'
   condition: selection | count() by source_ip > 10 within 5m
 fields:
   - source_ip

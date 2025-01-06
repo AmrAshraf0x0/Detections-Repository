@@ -30,8 +30,3 @@ tags:
   - attack.obfuscation
   - attack.t1027
   - attack.t1105
-
-VQL:
-LET ID_1431 = (
-    CommandLine =~ "(?=.*\\u0068)(?=.*\\u0074)(?=.*\\u0070)"
-)

@@ -8,7 +8,7 @@ logsource:
 detection:
   selection:
     - EventID: 4688
-    - NewProcessName:
+    - NewProcessName|contains:
         - 'net.exe'
         - 'net1.exe'
     - CommandLine|contains|re:
@@ -28,9 +28,3 @@ tags:
 falsepositives:
   - Legitimate administrative tasks mounting hidden admin shares
   - Authorized IT operations or scripts
-VQL:
-  LET ID_1279 = (
-    (NewProcessName =~ "net\\.exe$" OR NewProcessName =~ "net1\\.exe$") AND
-    CommandLine =~ "(?=.*use.*\\\\.*\\$|.*use.*\\\\.*\\/\\$)" AND
-    NOT ParentProcessName =~ "net\\.exe$"
-  )

@@ -40,11 +40,6 @@ detection:
               - 'kARQBYACAAKABOAGUAdw'
               - 'JAEUAWAAgACgATgBlAHcA'
     condition: selection
-    VQL: |
-        LET ID_1741 = (
-            CommandLine =~ "(?=.*IEX \\(\\[|.*iex \\(\\[|.*iex \\(New|.*IEX \\(New|.*IEX\\(\\[|.*iex\\(\\[|.*iex\\(New|.*IEX\\(New|.*IEX\\(\\('|.*iex\\(\\(')" OR
-            CommandLine =~ "(?=.*SQBFAFgAIAAoAFsA|.*kARQBYACAAKABbA|.*JAEUAWAAgACgAWw|.*aQBlAHgAIAAoAFsA|.*kAZQB4ACAAKABbA|.*pAGUAeAAgACgAWw|.*aQBlAHgAIAAoAE4AZQB3A|.*kAZQB4ACAAKABOAGUAdw|.*pAGUAeAAgACgATgBlAHcA|.*SQBFAFgAIAAoAE4AZQB3A|.*kARQBYACAAKABOAGUAdw|.*JAEUAWAAgACgATgBlAHcA)"
-        )
 falsepositives:
     - Unknown
 level: high
