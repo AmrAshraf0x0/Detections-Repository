@@ -11,7 +11,7 @@ detection:
   selection:
     EventID: # For commands
     - "4688"
-    Commandline|contains|any:
+    Commandline|contains:
       - "net user /domain"
       - "net group /domain"
       - "Get-ADUser"
@@ -22,12 +22,12 @@ detection:
   selection1: # For PowerShell scriptblocks
     EventID: 
       - "4104"
-    ScriptBlockText|contains|any:
+    ScriptBlockText|contains:
       - "Get-ADUser"
       - "Search-ADAccount"
       - "Get-ADGroupMember"
   exclusion:
-    User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
+    User|contains: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
       - "$"
       - "tenable"
   condition: (selection OR selection1) AND NOT exclusion | count () by Commandline > 3 within 5m 

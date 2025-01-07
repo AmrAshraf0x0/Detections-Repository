@@ -26,7 +26,7 @@ detection:
       - '\tcpdump.exe'
       - '\NetworkMiner.exe'
       - '\SmartSniff.exe'
-    CommandLine|contains|any:
+    CommandLine|contains:
       - '-i'           # Interface selection flag
       - '--capture'    # Capture flag in some sniffing tools
       - '-p'           # Promiscuous mode in tcpdump
@@ -60,7 +60,7 @@ detection:
     EventID:
       - 4688   # Windows Event ID for Process Creation
       - 1      # Sysmon Event ID for Process Creation
-    CommandLine|contains|any:
+    CommandLine|contains:
       - '-i'         # Interface selection flag
       - '-p'         # Promiscuous mode in tcpdump
       - '-f'         # Capture filters

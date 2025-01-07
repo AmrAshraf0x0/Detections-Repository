@@ -10,7 +10,7 @@ detection:
   selection:
     EventID: 4688
     NewProcessName|contains: 'appcmd.exe'
-    CommandLine|contains|any:
+    CommandLine|contains:
       - 'list apppool /@t:*'
       - 'list apppool /@text:*'
       - 'list apppool /text:*'

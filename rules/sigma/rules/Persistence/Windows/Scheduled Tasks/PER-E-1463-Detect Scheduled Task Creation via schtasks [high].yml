@@ -10,7 +10,7 @@ detection:
   selection:
     EventID: 4688
     NewProcessName|endswith: '\schtasks.exe'
-    CommandLine|contains|any:
+    CommandLine|contains:
       - '/Create'
       - '/Run'
       - '/Delete'

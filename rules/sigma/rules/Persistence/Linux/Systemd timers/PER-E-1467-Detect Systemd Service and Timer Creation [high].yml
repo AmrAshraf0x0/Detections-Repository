@@ -8,7 +8,7 @@ logsource:
   product: linux
 detection:
   selection_service_creation:
-    TargetFilename|endswith|any:
+    TargetFilename|endswith:
       - '/etc/systemd/system/'
   condition: selection_service_creation
 fields:

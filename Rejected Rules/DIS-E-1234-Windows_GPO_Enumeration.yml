@@ -11,7 +11,7 @@ detection:
   selection:
     EventID:
       - "4688"
-    Commandline|contains|any:
+    Commandline|contains:
       - "gpresult"                            
       - "Get-GPO"   
       - "Get-DomainGPO" 
@@ -20,7 +20,7 @@ detection:
       - "Get-GPResultantSetOfPolicy"       
       - "Get-GPPermission"       
   exclusion:
-    User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
+    User|contains: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
       - "$"
   condition: selection AND NOT exclusion | count () by Commandline > 3 within 5m 
 fields:

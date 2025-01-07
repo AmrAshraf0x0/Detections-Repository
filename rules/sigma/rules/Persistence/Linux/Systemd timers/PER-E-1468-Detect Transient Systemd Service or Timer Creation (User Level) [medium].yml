@@ -11,7 +11,7 @@ detection:
     CommandLine|contains|all:
       - 'systemd-run'
       - '--user'
-    CommandLine|contains|any:
+    CommandLine|contains:
       - '--unit='
       - '--on-calendar='
   condition: selection_user_level

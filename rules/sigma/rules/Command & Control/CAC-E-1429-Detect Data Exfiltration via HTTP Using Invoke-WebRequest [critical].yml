@@ -9,7 +9,7 @@ logsource:
 detection:
   selection_web_request:
     EventID: 4688
-    NewProcessName|endswith|any:
+    NewProcessName|endswith:
       - '\powershell.exe'
       - '\pwsh.exe'
     CommandLine|contains|all:

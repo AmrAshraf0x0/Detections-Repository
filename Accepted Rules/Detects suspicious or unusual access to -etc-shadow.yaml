@@ -15,12 +15,12 @@ logsource:
   category: file_access
 detection:
   selection:
-    TargetFilename|any: 
+    TargetFilename: 
     - '/etc/shadow'
     AccessType: 'read'
 
   suspicious_commands:
-    CommandLine|contains|any:
+    CommandLine|contains:
       - "grep -v root /etc/shadow"
       - "cat /etc/shadow"
       - "awk '{print $1}' /etc/shadow"

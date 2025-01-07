@@ -45,7 +45,7 @@ detection:
       - '\plink.exe'
       - '\socat.exe'
       - '\ssh-agent.exe'
-    CommandLine|contains|any:
+    CommandLine|contains:
       - 'PortProxy'  # Netsh port forwarding configuration
       - '-L'         # Local forwarding for SSH/Plink/Netcat
       - '-R'         # Remote forwarding for SSH/Plink

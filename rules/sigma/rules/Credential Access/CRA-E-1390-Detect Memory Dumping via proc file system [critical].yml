@@ -11,7 +11,7 @@ detection:
     CommandLine|contains|all:
       - "/proc/"
       - "/mem"
-    CommandLine|contains|any:
+    CommandLine|contains:
       - "dd"
       - "cat"
       - "grep"

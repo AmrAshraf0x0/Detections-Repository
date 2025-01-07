@@ -15,7 +15,7 @@ detection:
       - '-Method'
       - ' Put'
   selection_content:
-    ScriptBlockText|contains|any:
+    ScriptBlockText|contains:
       - '-ContentType "application/octet-stream"'
       - '-InFile'
   condition: selection or selection_content

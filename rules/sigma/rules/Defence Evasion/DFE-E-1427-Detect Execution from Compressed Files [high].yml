@@ -10,13 +10,13 @@ logsource:
 detection:
   selection_archive_path:
     EventID: 4688
-    CommandLine|contains|any:
+    CommandLine|contains:
       - '.zip\'
       - '.rar\'
       - '.7z\'
   selection_executable:
     EventID: 4688
-    CommandLine|endswith|any:
+    CommandLine|endswith:
       - '.exe'
       - '.dll'
       - '.js'

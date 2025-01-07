@@ -15,7 +15,7 @@ detection:
       - "/getent"
       - "/groups"
       - "/usr/bin/id"
-    Commandline|contains|any:
+    Commandline|contains:
       - "/etc/group"
       - "/etc/passwd"
       - "getent group"

@@ -10,7 +10,7 @@ detection:
   selection_system_level:
     CommandLine|contains|all:
       - 'systemd-run'
-    CommandLine|contains|any:
+    CommandLine|contains:
       - '--unit='
       - '--on-calendar='
   condition: selection_system_level

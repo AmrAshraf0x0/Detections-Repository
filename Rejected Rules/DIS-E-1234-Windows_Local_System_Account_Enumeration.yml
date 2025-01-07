@@ -12,14 +12,14 @@ detection:
     EventID:
       - '4798'
   selection1:
-    Commandline|contains|any:
+    Commandline|contains:
       - "net user"
       - "net localgroup"
       - "Get-LocalUser"
       - "Get-WmiObject -Class Win32_UserAccount"
       - "Get-ADUser"
   exclusion:
-    User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
+    User|contains: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
       - "$"
       - "tenable"
   condition: (selection OR selection1) AND NOT exclusion | count () by Commandline > 3 within 5m 

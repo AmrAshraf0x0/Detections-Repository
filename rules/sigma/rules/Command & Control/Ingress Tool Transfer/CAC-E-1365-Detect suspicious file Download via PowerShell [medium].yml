@@ -13,7 +13,7 @@ detection:
     CommandLine|contains|all:
       - 'http' # Ensures web-related activity
   cmdlets_and_aliases:
-    CommandLine|contains|any:
+    CommandLine|contains:
       - 'Invoke-WebRequest'
       - ' iwr' # Alias for Invoke-WebRequest
       - 'Net.WebClient'
@@ -23,7 +23,7 @@ detection:
       - 'Get-Content'
       - ' gc ' # Abbreviation for Get-Content
   image_extensions:
-    CommandLine|contains|any:
+    CommandLine|contains:
       - '.jpg'
       - '.jpeg'
       - '.png'

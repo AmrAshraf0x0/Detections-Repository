@@ -14,7 +14,7 @@ detection:
       - '\\'
       - \ADMIN$'
   selection1:
-    CommandLine|contains|any:
+    CommandLine|contains:
       - '1>'
       - '2>&1'
   condition: selection and selection1

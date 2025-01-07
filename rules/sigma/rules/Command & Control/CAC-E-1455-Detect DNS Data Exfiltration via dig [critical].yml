@@ -12,7 +12,7 @@ detection:
     CommandLine|contains|all:
       - '@'
       - '-p'
-    CommandLine|contains|any:
+    CommandLine|contains:
       - 'base64'
       - 'echo'
   condition: selection

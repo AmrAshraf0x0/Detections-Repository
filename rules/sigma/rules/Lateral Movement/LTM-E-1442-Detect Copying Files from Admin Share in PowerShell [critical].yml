@@ -9,7 +9,7 @@ logsource:
 detection:
   selection_copy_cmdlets:
     EventID: 4688
-    CommandLine|contains|any:
+    CommandLine|contains:
       - 'Copy-Item'
       - 'New-Item -ItemType File'
       - 'Move-Item'

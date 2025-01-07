@@ -13,7 +13,7 @@ detection:
       - '-accepteula'
       - '-c'
   selection1:
-    CommandLine|contains|any:
+    CommandLine|contains:
       - '\\'
       - '-s'
       - '-u'

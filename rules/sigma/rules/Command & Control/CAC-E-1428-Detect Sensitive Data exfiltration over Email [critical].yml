@@ -9,7 +9,7 @@ logsource:
 detection:
   selection_mail_command:
     EventID: 4688
-    NewProcessName|endswith|any:
+    NewProcessName|endswith:
       - '\powershell.exe'
       - '\pwsh.exe'
     CommandLine|contains|all:

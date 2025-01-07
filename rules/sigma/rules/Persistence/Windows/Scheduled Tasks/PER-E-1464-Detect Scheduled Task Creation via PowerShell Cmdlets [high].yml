@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4104
-    ScriptBlockText|contains|any:
+    ScriptBlockText|contains:
       - 'New-ScheduledTaskAction'
       - 'Register-ScheduledTask'
       - 'Set-ScheduledTask'

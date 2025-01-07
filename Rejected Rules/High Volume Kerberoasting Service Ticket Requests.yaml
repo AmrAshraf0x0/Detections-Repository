@@ -18,7 +18,7 @@ detection:
     EventID: 4769
     TicketEncryptionType: '0x17'  # RC4 encryption
   suspicious_tools:
-    CommandLine|contains|any:
+    CommandLine|contains:
       - "Rubeus"
       - "Invoke-Kerberoast"
       - "Kerberoast"

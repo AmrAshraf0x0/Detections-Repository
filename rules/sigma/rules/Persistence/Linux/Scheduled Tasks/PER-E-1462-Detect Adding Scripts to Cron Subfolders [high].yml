@@ -8,7 +8,7 @@ logsource:
   product: linux
 detection:
   selection:
-    TargetFilename|startswith|any:
+    TargetFilename|startswith:
       - '/etc/cron.daily/'
       - '/etc/cron.hourly/'
       - '/etc/cron.monthly/'

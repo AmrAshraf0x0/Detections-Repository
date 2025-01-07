@@ -13,7 +13,7 @@ detection:
   selection_command_line:
     EventID: 4688
     CommandLine|contains: 'Get-NetTCPConnection'
-    NewProcessName|endswith|any:
+    NewProcessName|endswith:
       - '\powershell.exe'
       - '\pwsh.exe'
   condition: selection_script_block or selection_command_line

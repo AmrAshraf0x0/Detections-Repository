@@ -10,7 +10,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    Commandline|contains|any:
+    Commandline|contains:
       - "get-ADPrincipalGroupMembership"
       - "Find-LocalAdminAccess"
       - "Invoke-EnumerateLocalAdmin"
@@ -28,7 +28,7 @@ detection:
       - "ldifde.exe"
       - "adfind.exe"
   exclusion:
-    User|contains|any: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
+    User|contains: # Check against any service accounts which are authorized to perform local account enumeration to reduce rule fatigue
       - "$"
       - "tenable"
   condition: (selection OR selection1) AND NOT exclusion | count () by Commandline > 3 within 5m 

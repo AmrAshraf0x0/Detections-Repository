@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     Image|endswith: '/crontab'
-    CommandLine|contains|any:
+    CommandLine|contains:
       - 'crontab -l >'
       - 'crontab'
   condition: selection

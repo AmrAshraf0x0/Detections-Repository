@@ -12,13 +12,13 @@ detection:
     NewProcessName|contains: 
       - '\powershell.exe'
       - '\pwsh.exe'
-    CommandLine|contains|any:
+    CommandLine|contains:
       - 'Set-Content'
       - ' sc ' # Alias for Set-Content
       - 'Add-Content'
       - 'Out-File'
   executable_extensions:
-    CommandLine|contains|any:
+    CommandLine|contains:
       - '.exe'
       - '.dll'
       - '.bat'

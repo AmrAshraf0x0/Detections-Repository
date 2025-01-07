@@ -13,7 +13,7 @@ detection:
       - 'mklink'
       - '\\?\GLOBALROOT\Device'
   selection1:
-    CommandLine|contains|any:
+    CommandLine|contains:
       - '/D'
       - '/H'
       - 'VolumeShadow'

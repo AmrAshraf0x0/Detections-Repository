@@ -14,7 +14,7 @@ logsource:
   category: file_access
 detection:
   selection:
-    TargetFilename|any: 
+    TargetFilename: 
     - '/etc/passwd'
     AccessType: 
       - 'read'

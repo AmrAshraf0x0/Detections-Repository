@@ -9,7 +9,7 @@ logsource:
   product: linux
 detection:
   selection:
-    Commandline|contains|any:
+    Commandline|contains:
       - "ldapdomaindump" 
       - "ldapsearch"
       - "ldapwhoami"
@@ -19,7 +19,7 @@ detection:
       - "wbinfo -g"
       - "net ads search"
   selection1:
-    Commandline|contains|any:
+    Commandline|contains:
       - "cat /etc/sssd/sssd.conf"
       - "cat /etc/nsswitch.conf"
       - "ls -la /etc/krb5.conf"

@@ -10,7 +10,7 @@ logsource:
 detection:
   selection:
     EventID: 4657
-    TargetObject|contains|any:
+    TargetObject|contains:
       - 'Software\Classes\mscfile\shell\open\command'
   condition: selection
 fields:

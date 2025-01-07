@@ -13,7 +13,7 @@ detection:
       - '[activator]::CreateInstance'
       - '[type]::GetTypeFromProgID("MMC20.application"'
   selection1:
-    ScriptBlockText|contains|any:
+    ScriptBlockText|contains:
       - '.ExecuteShellCommand('
       - '.Document.ActiveView'
   condition: selection and selection1

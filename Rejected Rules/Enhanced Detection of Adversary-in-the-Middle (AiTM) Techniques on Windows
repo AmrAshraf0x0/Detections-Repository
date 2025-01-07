@@ -21,17 +21,17 @@ detection:
       - 7045     # Windows Service Creation
       - 4697     # Windows Security Event for Service Installation
       - 1        # Sysmon Process Creation
-    ServiceName|contains|any:
+    ServiceName|contains:
       - "proxy"
       - "relay"
       - "capture"
     Image|endswith: '\svchost.exe'
-    CommandLine|contains|any:
+    CommandLine|contains:
       - "proxy"
       - "relay"
       - "capture"
     ParentImage|endswith: '\services.exe'
-    User|not_contains|any:
+    User|not_contains:
       - "admin"
       - "known_service_account"  # Exclude legitimate service accounts
     ServiceType|not_contains: "0x10"  # Filter out interactive services
@@ -41,7 +41,7 @@ detection:
   # Detection 2: Suspicious DNS/LLMNR and Network Configuration Changes (Sysmon Event ID 13)
   registry_dns_modification:
     EventID: 13               # Sysmon Registry Modification Event
-    TargetObject|contains|any:
+    TargetObject|contains:
       - '\Software\Policies\Microsoft\Windows NT\DNSClient'
       - '\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters'   # Additional DNS key
       - '\Software\Policies\Microsoft\Windows\LLMNR'               # Additional LLMNR key
@@ -54,22 +54,22 @@ detection:
     EventID:
       - 4688                  # Windows Process Creation
       - 1                     # Sysmon Process Creation
-    CommandLine|contains|any:
+    CommandLine|contains:
       - "netsh interface"     # Network configuration changes
       - "powershell -command" # Check for PowerShell-based network commands
       - "Responder.py"        # Common AiTM tool
       - "Inveigh.ps1"         # Common AiTM tool
-    ParentImage|endswith|any:
+    ParentImage|endswith:
       - '\cmd.exe'
       - '\powershell.exe'
-    User|not_contains|any:
+    User|not_contains:
       - "admin"
       - "service_account"     # Exclude known service accounts
 
   # Detection 4: Network Connection Events for High-Risk Ports and Anomalous Outbound Connections (Sysmon Event ID 3)
   high_risk_ports:
     EventID: 3               # Sysmon Network Connection Detected
-    DestinationPort|contains|any:
+    DestinationPort|contains:
       - "1080"               # Common proxy port
       - "8888"               # Often used for reverse proxies
       - "8080"               # Alternative HTTP port

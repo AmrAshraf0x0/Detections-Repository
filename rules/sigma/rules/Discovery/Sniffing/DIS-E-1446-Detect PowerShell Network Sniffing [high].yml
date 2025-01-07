@@ -9,7 +9,7 @@ logsource:
 detection:
   selection_network_sniffing:
     EventID: 4104
-    ScriptBlockText|contains|any:
+    ScriptBlockText|contains:
       - 'New-NetEventSession'
       - 'Add-NetEventPacketCaptureProvider'
       - 'Start-NetEventSession'
