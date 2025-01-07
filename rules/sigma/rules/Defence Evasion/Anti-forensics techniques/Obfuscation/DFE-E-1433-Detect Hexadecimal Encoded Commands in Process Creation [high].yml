@@ -9,7 +9,7 @@ logsource:
 detection:
   selection:
     EventID: 4688
-    CommandLine|regex: '(\\x[0-9a-fA-F]{2}){3,}' # Hex sequences like \x41\x42\x43
+    CommandLine|re: '(\\x[0-9a-fA-F]{2}){3,}' # Hex sequences like \x41\x42\x43
   condition: selection
 fields:
   - EventID
@@ -27,7 +27,3 @@ tags:
   - attack.obfuscation
   - attack.t1059
   - attack.t1027
-VQL: |
-  LET ID_1433 = (
-      CommandLine =~ "(\\x[0-9a-fA-F]{2}){3,}"
-  )
