@@ -13,10 +13,10 @@ detection:
     EventID: 4688
     NewProcessName|contains: '\powershell.exe'
     CommandLine|contains|re:
-      - 'Clear-History'
-      - 'Remove-EventLog'
-      - 'LogLevel* Off'
-      - 'Clear-Content'
+      - '.*Clear-History.*'
+      - '.*Remove-EventLog.*'
+      - '.*LogLevel.* Off.*'
+      - '.*Clear-Content.*'
   condition: selection
 fields:
   - Image
@@ -32,8 +32,3 @@ tags:
 falsepositives:
   - Legitimate administrative tasks using PowerShell
   - Scripts performing routine maintenance
-VQL: |
-  LET ID_1157 = (
-      NewProcessName =~ ".*\\\\powershell\\.exe$" AND
-      CommandLine =~ ".*Clear-History.*|.*Remove-EventLog.*|.*LogLevel.* Off.*|.*Clear-Content.*"
-  )

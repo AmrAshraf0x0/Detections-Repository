@@ -14,9 +14,9 @@ detection:
       - 'robocopy.exe'
       - 'xcopy.exe'
       - 'powershell.exe'
-    CommandLine|contains|re:
+    CommandLine|contains:
       - '/mir'
-      - 'Copy-Item *-Recurse'
+      - 'Copy-Item -Recurse'
   condition: selection
 fields:
   - NewProcessName

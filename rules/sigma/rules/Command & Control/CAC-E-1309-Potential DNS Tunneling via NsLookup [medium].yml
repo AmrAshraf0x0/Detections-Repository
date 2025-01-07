@@ -1,4 +1,4 @@
-title: Potential DNS Tunneling via NsLookup
+title: Potential DNS Tunneling via NsLookup [aggregation]
 description: Identifies a large number of `nslookup.exe` executions with explicit query types from the same host, potentially indicating DNS tunneling used for command and control or exfiltration.
 status: Developed
 date: 2024-12-01

@@ -10,12 +10,12 @@ detection:
   selection:
     EventID: 13
     TragetObject|contains|re:
-      - "SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
-      - "SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
-      - "SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
-      - "SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
-      - "SOFTWARE\\Microsoft\\Office\\*\\Outlook\\Webview\\Inbox\\URL"
-    Details|contains: "http"
+      - 'SOFTWARE\Microsoft\Office\.*\Outlook\Webview\Inbox\URL'
+      - 'SOFTWARE\Microsoft\Office\.*\Outlook\Webview\Inbox\URL'
+      - 'SOFTWARE\Microsoft\Office\.*\Outlook\Webview\Inbox\URL'
+      - 'SOFTWARE\Microsoft\Office\.*\Outlook\Webview\Inbox\URL'
+      - 'SOFTWARE\Microsoft\Office\.*\Outlook\Webview\Inbox\URL'
+    Details|contains: 'http'
   condition: selection
 fields:
   - registry_path

@@ -1,4 +1,4 @@
-# RE needs review
+# syntax error
 title: Powershell Token Obfuscation - Process Creation
 description: Detects TOKEN OBFUSCATION technique from Invoke-Obfuscation
 status: Developed

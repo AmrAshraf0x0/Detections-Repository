@@ -1,7 +1,0 @@
-title: Kerberos Pre-authentication Disabled for User
-status: To be Done
-author: Amr Ashraf
-date: 2024-12-01
-description: |
-    Detects when Kerberos pre-authentication is disabled for a user account, which can enable offline password cracking attacks such as AS-REP roasting. This behavior is typically malicious and should not occur in a secure environment.
-

@@ -17,7 +17,7 @@ detection:
       - 'last'
       - 'finger'
       - 'cat /etc/passwd'
-      - 'awk -F: \'\{print $1\}\' /etc/passwd'
+      - 'awk -F: \'\{print $1\}\' /etc/passwd' # Syntax error
       - 'getent passwd'
       - 'groups'
       - 'cat /etc/group'

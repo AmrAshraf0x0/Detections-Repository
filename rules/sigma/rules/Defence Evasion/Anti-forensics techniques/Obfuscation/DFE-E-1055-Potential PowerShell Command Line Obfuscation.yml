@@ -12,9 +12,9 @@ logsource:
     category: script_block
     product: windows
 detection:
-    selection|re:
+    selection:
         - EventID: 4104
-        - ScriptBlockText|re: 
+        - ScriptBlockText|contains|re: 
             - '\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+'
             - '\{.*\{.*\{.*\{.*\{.*\{.*\{.*\{.*\{.*\{'
             - '\^.*\^.*\^.*\^.*\^'

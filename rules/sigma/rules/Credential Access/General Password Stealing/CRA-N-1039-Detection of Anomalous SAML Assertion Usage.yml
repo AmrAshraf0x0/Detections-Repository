@@ -1,5 +1,5 @@
 # Network Logs in windows data modeling required to be checked
-title: Detection of Anomalous SAML Assertion Usage
+title: Detection of Anomalous SAML Assertion Usage [aggregation]
 description: Detects unusual SAML assertion traffic that could indicate a potential SAML key theft or Golden SAML attack. 
 status: Developed
 author: Amr Ashraf

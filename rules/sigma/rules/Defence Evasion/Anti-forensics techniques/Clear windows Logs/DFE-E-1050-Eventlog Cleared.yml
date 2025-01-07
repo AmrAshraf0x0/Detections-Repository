@@ -13,8 +13,8 @@ logsource:
 detection:
     selection:
         EventID: 104
-        Provider_Name: 'Microsoft-Windows-Eventlog'
-    condition: selection and not 1 of filter_main_*
+        Provider_Name|contains: 'Microsoft-Windows-Eventlog'
+    condition: selection
 falsepositives:
     - Rollout of log collection agents (the setup routine often includes a reset of the local Eventlog)
     - System provisioning (system reset before the golden image creation)

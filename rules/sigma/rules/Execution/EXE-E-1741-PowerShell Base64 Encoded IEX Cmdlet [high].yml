@@ -13,7 +13,7 @@ logsource:
     product: windows
 detection:
     selection:
-        EventID: 4688
+        - EventID: 4688
         - CommandLine|base64offset|contains:
               - 'IEX (['
               - 'iex (['

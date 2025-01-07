@@ -20,9 +20,9 @@ detection:
     filter_main_msiexec:
         CommandLine|contains: '\desktop.ini '
     filter_optional_1:
-        CommandLine|contains|re: '+R +H +S +A \\\*.cui'
+        CommandLine|contains|re: '+R +H +S +A \\\.*.cui'
     filter_optional_2:
-        ParentCommandLine|contains|re: 'C:\\WINDOWS\\system32\\\*.bat'
+        ParentCommandLine|contains|re: 'C:\\WINDOWS\\system32\\\.*.bat'
     filter_optional_3:
         ParentProcessName|endswith: '\cmd.exe'
     condition: process_creation and (all of selection_* and not 1 of filter_main_* and not 1 of filter_optional_*)
@@ -30,12 +30,3 @@ falsepositives:
     - IgfxCUIService.exe hiding *.cui files via .bat script (attrib.exe a child of cmd.exe and igfxCUIService.exe is the parent of the cmd.exe)
     - Msiexec.exe hiding desktop.ini
 level: medium
-VQL: |
-    LET ID_1186 = (
-        (NewProcessName =~ "\\attrib\\.exe$") AND
-        (CommandLine =~ "(?=.*\\+h )") AND
-        NOT (CommandLine =~ "(?=.*\\desktop\\.ini )") AND
-        NOT (CommandLine =~ "(?=.*\\+R \\+H \\+S \\+A \\\\.*\\.cui)") AND
-        NOT (ParentCommandLine =~ "(?=.*C:\\\\WINDOWS\\\\system32\\\\.*\\.bat)") AND
-        NOT (ParentProcessName =~ "\\cmd\\.exe$")
-    )

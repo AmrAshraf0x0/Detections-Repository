@@ -7,7 +7,7 @@ logsource:
   product: windows
 detection:
   selection:
-    EventID: 4657
+    - EventID: 4657
     - ObjectName|contains: 
       - '\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Custom\'
       - '.sdb'

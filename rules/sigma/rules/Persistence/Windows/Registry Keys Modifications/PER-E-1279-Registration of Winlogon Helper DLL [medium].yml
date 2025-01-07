@@ -9,8 +9,8 @@ detection:
   selection:
     - EventID: 4657
     - ObjectName|contains:
-        - "\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\"
-        - "\Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Winlogon\"
+        - '\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\'
+        - '\Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Winlogon\'
   condition: selection
 fields:
   - RegistryPath

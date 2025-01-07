@@ -10,16 +10,16 @@ detection:
   selection:
     EventID: 4663
     ObjectName|contains|re:
-      - '\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data'
-      - '\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cookies'
-      - '\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default\\Login Data'
-      - '\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default\\Cookies'
-      - '\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\*\\cookies.sqlite'
+      - '\AppData\Local\Google\Chrome\User Data\Default\Login Data'
+      - '\AppData\Local\Google\Chrome\User Data\Default\Cookies'
+      - '\AppData\Local\Microsoft\Edge\User Data\Default\Login Data'
+      - '\AppData\Local\Microsoft\Edge\User Data\Default\Cookies'
+      - '\AppData\Roaming\Mozilla\Firefox\Profiles\.*\cookies.sqlite'
   filter_browsers:
     ProcessName|contains:
-      - '\\chrome.exe'
-      - '\\msedge.exe'
-      - '\\firefox.exe'
+      - '\chrome.exe'
+      - '\msedge.exe'
+      - '\firefox.exe'
   condition: selection and not filter_browsers
 fields:
   - TargetFilename
