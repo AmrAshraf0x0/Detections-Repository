@@ -1,5 +1,5 @@
 title: Wdigest CredGuard Registry Modification
-status: Developed
+status: Experimental
 description: |
   Detects potential malicious modification of the property value of IsCredGuardEnabled from
   HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest to disable Cred Guard on a system.

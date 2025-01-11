@@ -1,5 +1,5 @@
 title: Office Application Startup via Template Registry Modification
-status: Developed
+status: Experimental
 description: Detects modifications to Microsoft Office-related registry keys that adversaries can use to establish persistence by altering templates or add-ins.
 author: Amr Ashraf
 logsource:

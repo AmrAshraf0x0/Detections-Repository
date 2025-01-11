@@ -1,5 +1,5 @@
 title: Detect WMI Remote Process Execution
-status: Developed
+status: Experimental
 description: Detects the use of WMI to execute a process on a remote host.
 author: Amr Ashraf
 date: 2024-12-06

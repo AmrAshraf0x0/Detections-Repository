@@ -1,6 +1,6 @@
 title: Detect Mass Removal of Users from High-Privilege Groups
 id: detect-mass-user-removal-privileged-groups
-status: Developed
+status: Experimental
 description: Detects the removal of more than 4 users from Domain Admins or other high-privilege groups within 5 minutes.
 author: Amr Ashraf
 logsource:

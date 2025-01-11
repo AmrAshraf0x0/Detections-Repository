@@ -1,5 +1,5 @@
 title: Domain Trust Discovery
-status: Developed
+status: Experimental
 description: Detects commands used to enumerate a list of trusted domains, including the use of dsquery.exe and nltest.exe.
 author: Amr Ashraf
 logsource:

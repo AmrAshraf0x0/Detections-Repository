@@ -1,6 +1,6 @@
 title: Windows Local Groups Permissions Enumeration
 description: Detects commands used to enumerate local group permissions on Windows.
-status: Developed
+status: Experimental
 author: Yuliya Volkova
 date: 2024/11/11
 modified: 2024/11/12

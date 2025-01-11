@@ -1,5 +1,5 @@
 title: Detect WMI Reconnaissance for Remote Services
-status: Developed
+status: Experimental
 description: Detects the use of WMI to query remote services on a host.
 author: Amr Ashraf
 date: 2024-12-06

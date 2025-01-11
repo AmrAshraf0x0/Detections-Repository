@@ -1,6 +1,6 @@
 title: Detect XMAS Scan [aggregation]
 description: Detects packets with FIN, PSH, and URG flags set, indicative of an XMAS Scan.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/03
 logsource:

@@ -1,6 +1,6 @@
 title: Suspicious Rundll32 Execution With Image Extension
 description: Detects the execution of Rundll32.exe with DLL files masquerading as image files
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

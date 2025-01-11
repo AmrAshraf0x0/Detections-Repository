@@ -1,6 +1,6 @@
 title: Detect Changes to SID History Attribute
 id: detect-sid-history-modification
-status: Developed
+status: Experimental
 description: Detects modifications to the SIDHistory attribute of Active Directory user accounts, indicative of SID history injection.
 author: Amr Ashraf
 logsource:

@@ -1,5 +1,5 @@
 title: Detect Remote Command Execution with Output to Admin Share
-status: Developed
+status: Experimental
 description: Detects suspicious command execution where output is redirected to an administrative share, such as `ADMIN$`, which may indicate lateral movement or data exfiltration attempts.
 author: Amr Ashraf
 date: 2024-12-06

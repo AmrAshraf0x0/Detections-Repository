@@ -1,7 +1,7 @@
 # new values for this event ID should be checked on testing
 title: Detect UAC Disabling via Registry
 id: detect-uac-disabling
-status: Developed
+status: Experimental
 description: Detects attempts to disable User Account Control (UAC) by modifying registry settings.
 author: Amr Ashraf
 logsource:

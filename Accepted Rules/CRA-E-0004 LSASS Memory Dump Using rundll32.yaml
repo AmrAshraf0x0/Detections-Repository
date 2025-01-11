@@ -4,7 +4,7 @@ references:
   - https://attack.mitre.org/techniques/T1003/001/
   - https://redcanary.com/threat-detection-report/techniques/lsass-memory/
 
-status: Developed
+status: Experimental
 author: Shahbaz Ahmad
 date: 10/11/2024
 logsource:

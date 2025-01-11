@@ -1,5 +1,5 @@
 title: Modification of Logon Scripts from Registry
-status: Developed
+status: Experimental
 description: Detects modifications to the logon script path in the Windows Registry, which may indicate an attempt to establish persistence or lateral movement.
 author: Amr Ashraf
 logsource:

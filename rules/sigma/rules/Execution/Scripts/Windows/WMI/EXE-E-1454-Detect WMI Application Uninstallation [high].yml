@@ -1,5 +1,5 @@
 title: Detect WMI Application Uninstallation
-status: Developed
+status: Experimental
 description: Detects the use of WMI to uninstall applications.
 author: Amr Ashraf
 date: 2024-12-06

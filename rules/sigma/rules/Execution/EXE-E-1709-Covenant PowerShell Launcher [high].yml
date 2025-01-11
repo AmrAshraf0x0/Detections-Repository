@@ -1,5 +1,5 @@
 title: HackTool - Covenant PowerShell Launcher
-status: Developed
+status: Experimental
 description: Detects suspicious command lines used in Covenant launchers
 references:
     - https://posts.specterops.io/covenant-v0-5-eee0507b85ba

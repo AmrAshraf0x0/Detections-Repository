@@ -1,5 +1,5 @@
 title: Headless Process Launched Via Conhost
-status: Developed
+status: Experimental
 description: |
     Detects the launch of a child process via "conhost.exe" with the "--headless" flag.
     The "--headless" flag hides the windows from the user upon execution.

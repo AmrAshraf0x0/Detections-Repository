@@ -1,6 +1,6 @@
 title: Detect ACK Scan [aggregation]
 description: Detects TCP packets with only the ACK flag set, indicative of an ACK Scan used to map firewall rules.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/03
 logsource:

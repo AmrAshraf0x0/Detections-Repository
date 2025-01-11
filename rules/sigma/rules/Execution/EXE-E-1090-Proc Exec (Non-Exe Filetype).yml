@@ -1,6 +1,6 @@
 title: Proc Exec (Non-Exe Filetype)
 description: Checks whether the Image specified in a process creation event doesn't refer to an .exe file.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 logsource:

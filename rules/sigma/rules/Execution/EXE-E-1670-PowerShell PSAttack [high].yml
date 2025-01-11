@@ -1,5 +1,5 @@
 title: PowerShell PSAttack
-status: Developed
+status: Experimental
 description: Detects the use of PSAttack PowerShell hack tool
 references:
     - https://adsecurity.org/?p=2921

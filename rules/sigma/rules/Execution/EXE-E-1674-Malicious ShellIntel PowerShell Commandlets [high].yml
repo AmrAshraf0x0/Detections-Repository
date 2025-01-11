@@ -1,5 +1,5 @@
 title: Malicious ShellIntel PowerShell Commandlets
-status: Developed
+status: Experimental
 description: Detects Commandlet names from ShellIntel exploitation scripts.
 references:
     - https://github.com/Shellntel/scripts/

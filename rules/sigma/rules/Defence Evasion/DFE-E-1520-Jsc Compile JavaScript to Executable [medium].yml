@@ -2,7 +2,7 @@ title: Jsc Compile JavaScript to Executable
 description: Detects the use of jsc.exe to compile JavaScript code into an executable.
 author: Amr Ashraf
 date: 2024-12-06
-status: developed
+status: Experimental
 severity: medium
 logsource:
   category: process_creation

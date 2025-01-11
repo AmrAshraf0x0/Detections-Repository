@@ -1,5 +1,5 @@
 title: Detect Adding Scripts to Cron Subfolders
-status: Developed
+status: Experimental
 description: Detects scripts being added to `/etc/cron.daily`, `/etc/cron.hourly`, `/etc/cron.weekly`, and `/etc/cron.monthly` folders, potentially indicating malicious persistence.
 author: Amr Ashraf
 date: 2024-12-06

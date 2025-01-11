@@ -1,6 +1,6 @@
 title: Eventlog Cleared
 description: One of the Windows Eventlogs has been cleared. e.g. caused by "wevtutil cl" command execution
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

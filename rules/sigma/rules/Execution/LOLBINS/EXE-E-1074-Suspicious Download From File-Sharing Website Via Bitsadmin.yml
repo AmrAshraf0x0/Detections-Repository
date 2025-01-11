@@ -1,6 +1,6 @@
 title: Suspicious Download From File-Sharing Website Via Bitsadmin
 description: Detects usage of bitsadmin downloading a file from a suspicious domain
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

@@ -1,7 +1,7 @@
 # new values for this event ID should be checked on testing
 title: Detect Disabling Data Execution Prevention (DEP)
 id: detect-dep-disabling
-status: Developed
+status: Experimental
 description: Detects attempts to disable DEP by modifying memory management registry keys.
 author: Amr Ashraf
 logsource:

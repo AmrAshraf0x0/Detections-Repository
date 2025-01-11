@@ -3,7 +3,7 @@ description: Detects Mimikatz or related processes loading DLLs often associated
 references:
   - https://attack.mitre.org/techniques/T1003/
   - https://threathunterplaybook.com/hunts/windows/170105-LSASSMemoryReadAccess/notebook.html
-status: Developed
+status: Experimental
 author: Shahbaz Ahmad
 date: 10/11/2024
 logsource:

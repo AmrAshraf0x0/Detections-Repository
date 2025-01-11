@@ -1,6 +1,6 @@
 title: Detect Additions to the Startup Folder
 id: detect-startup-folder-additions
-status: Developed
+status: Experimental
 description: Detects suspicious file additions to the Windows Startup folder.
 author: Amr Ashraf
 logsource:

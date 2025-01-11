@@ -1,6 +1,6 @@
 # needs FP testing
 title: Detect Execution from Compressed Files
-status: Developed
+status: Experimental
 description: Detects the execution of executables directly from compressed files, which may indicate suspicious activity or the use of obfuscated payloads.
 author: Amr Ashraf
 date: 2024-12-06

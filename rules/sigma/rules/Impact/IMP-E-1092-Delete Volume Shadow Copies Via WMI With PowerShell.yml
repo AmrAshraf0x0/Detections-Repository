@@ -1,6 +1,6 @@
 title: Delete Volume Shadow Copies Via WMI With PowerShell
 description: Shadow Copies deletion using operating systems utilities via PowerShell
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

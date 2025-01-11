@@ -1,5 +1,5 @@
 title: Registration of Winlogon Helper DLL
-status: Developed
+status: Experimental
 description: Detects modifications to the Winlogon registry key, which may be used to establish persistence by registering a helper DLL.
 author: Amr Ashraf
 logsource:

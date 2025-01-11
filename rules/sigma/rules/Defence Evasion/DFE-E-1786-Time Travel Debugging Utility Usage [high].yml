@@ -1,5 +1,5 @@
 title: Time Travel Debugging Utility Usage
-status: Developed
+status: Experimental
 description: Detects usage of Time Travel Debugging Utility. Adversaries can execute malicious processes and dump processes, such as lsass.exe, via tttracer.exe.
 references:
     - https://lolbas-project.github.io/lolbas/Binaries/Tttracer/

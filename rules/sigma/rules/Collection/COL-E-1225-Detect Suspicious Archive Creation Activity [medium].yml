@@ -1,5 +1,5 @@
 title: Detect Suspicious Archive Creation Activity
-status: Developed
+status: Experimental
 description: Detects suspicious processes and file creations related to custom archive tools or large files with uncommon extensions occurring within a 1-minute timeframe.
 author: Amr Ashraf
 logsource:

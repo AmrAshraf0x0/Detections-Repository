@@ -1,5 +1,5 @@
 title: Detect PowerDump Usage via Script Block Logging
-status: Developed
+status: Experimental
 description: Detects the usage of PowerDump or PowerView tools via script block logging. These tools are often used for credential dumping and Active Directory enumeration.
 author: Amr Ashraf
 date: 2024-12-06

@@ -1,5 +1,5 @@
 title: Potential DLL Sideloading Using Coregen
-status: Developed
+status: Experimental
 description: Detect usage of the "coregen.exe" (Microsoft CoreCLR Native Image Generator) binary to sideload arbitrary DLLs.
 references:
     - https://lolbas-project.github.io/lolbas/OtherMSBinaries/Coregen/

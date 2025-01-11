@@ -1,5 +1,5 @@
 title: Installing Custom Shim Databases
-status: Developed
+status: Experimental
 description: Detects the installation of custom Application Compatibility Shim databases, which attackers may use for persistence or privilege escalation.
 author: Amr Ashraf
 logsource:

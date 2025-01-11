@@ -1,6 +1,6 @@
 title: Suspicious Redirection to Local Admin Share
 description: Detects a suspicious output redirection to the local admins share, this technique is often found in malicious scripts or hacktool stagers
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

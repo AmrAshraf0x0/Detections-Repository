@@ -1,5 +1,5 @@
 title: Office Application Startup via Template File Modification
-status: Developed
+status: Experimental
 description: Detects modifications to default Microsoft Office templates, such as `Normal.dotm` and `PERSONAL.XLSB`, which adversaries can alter to establish persistence.
 author: Amr Ashraf
 logsource:

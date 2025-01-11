@@ -1,5 +1,5 @@
 title: Command Line Execution with Suspicious URL and AppData Strings
-status: Developed
+status: Experimental
 description: Detects a suspicious command line execution that includes an URL and AppData string in the command line parameters as used by several droppers (js/vbs > powershell)
 references:
     - https://www.hybrid-analysis.com/sample/3a1f01206684410dbe8f1900bbeaaa543adfcd07368ba646b499fa5274b9edf6?environmentId=100

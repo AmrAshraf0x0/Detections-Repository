@@ -3,7 +3,7 @@ title: Active Directory Certificate Services Denied Certificate Enrollment Reque
 description: |
     Detects denied requests by Active Directory Certificate Services.
     Example of these requests denial include issues with permissions on the certificate template or invalid signatures.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

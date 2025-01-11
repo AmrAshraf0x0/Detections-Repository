@@ -1,5 +1,5 @@
 title: Detect Enumeration of Domain Computers via net group
-status: Developed
+status: Experimental
 description: Detects the use of the `net group` command to enumerate domain computers using the 'Domain Computers' group. This is often indicative of reconnaissance activities in Active Directory.
 author: Amr Ashraf
 date: 2024-12-06

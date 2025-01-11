@@ -1,6 +1,6 @@
 title: Malicious Named Pipe Created
 description: Detects the creation of a named pipe seen used by known APTs or malware.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

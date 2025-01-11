@@ -1,5 +1,5 @@
 title: UAC Bypass Using ChangePK and SLUI
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 description: Detects an UAC bypass that uses changepk.exe and slui.exe (UACMe 61)

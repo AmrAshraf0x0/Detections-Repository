@@ -1,7 +1,7 @@
 # new values for this event ID should be checked on testing
 title: Detect Disabling ASLR
 id: detect-disabling-aslr
-status: Developed
+status: Experimental
 description: Detects attempts to disable Address Space Layout Randomization (ASLR) by modifying registry keys.
 author: Amr Ashraf
 date: 2024-11-24

@@ -1,6 +1,6 @@
 title: Detect Windows Defender Disabling Using PS
 id: detect-windows-defender-disabling
-status: Developed
+status: Experimental
 description: Detects attempts to disable Windows Defender through PowerShell or registry changes.
 author: Amr Ashraf
 logsource:

@@ -1,6 +1,6 @@
 title: AD Privileged Users or Groups Reconnaissance
 description: Detect priv users or groups recon based on 4661 eventid and known privileged users or groups SIDs
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

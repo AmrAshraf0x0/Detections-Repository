@@ -3,7 +3,7 @@ title: Modify PowerShell Execution Policy to Bypass
 description: Detects registry changes to modify PowerShell execution policy to bypass restrictions.
 author: Amr Ashraf
 date: 2024-12-06
-status: developed
+status: Experimental
 logsource:
   category: windows
   product: windows

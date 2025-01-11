@@ -1,5 +1,5 @@
 title: Potential Encoded PowerShell Patterns In CommandLine
-status: Developed
+status: Experimental
 description: Detects specific combinations of encoding methods in PowerShell via the commandline
 references:
     - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse?slide=65

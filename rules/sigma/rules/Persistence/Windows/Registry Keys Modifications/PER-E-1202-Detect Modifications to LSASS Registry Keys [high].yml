@@ -1,6 +1,6 @@
 title: Detect Modifications to LSASS Registry Keys
 id: detect-lsass-registry-modification
-status: Developed
+status: Experimental
 description: Detects suspicious modifications to LSASS-related registry keys, indicating potential abuse for persistence or privilege escalation.
 author: Amr Ashraf
 logsource:

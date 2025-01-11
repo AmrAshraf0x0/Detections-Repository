@@ -1,6 +1,6 @@
 title: Potential File Transfer via CertReq
 description: Identifies CertReq making an HTTP POST request, which could be abused by adversaries to download files or upload data to a remote URL.
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

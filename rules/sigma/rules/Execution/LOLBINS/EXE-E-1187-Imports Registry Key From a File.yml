@@ -1,7 +1,7 @@
 # needs FP testing
 title: Imports Registry Key From a File
 description: Detects the import of the specified file to the registry with regedit.exe.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

@@ -1,5 +1,5 @@
 title: Detect LSASS Memory Dumping via ProcDump
-status: Developed
+status: Experimental
 description: Detects the use of Sysinternals ProcDump to dump the memory of lsass.exe, a technique often used for offline credential theft attacks.
 author: Amr Ashraf
 date: 2024-12-06

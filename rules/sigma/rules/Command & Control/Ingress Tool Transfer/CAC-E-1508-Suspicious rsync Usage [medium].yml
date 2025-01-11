@@ -1,5 +1,5 @@
 title: Suspicious rsync Usage
-status: Developed
+status: Experimental
 description: Detects potentially suspicious usage of rsync for file transfer.
 author: Amr Ashraf
 date: 2024-12-06

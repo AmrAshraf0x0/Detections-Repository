@@ -1,5 +1,5 @@
 title: Detect Data Exfiltration via HTTP Using Invoke-WebRequest
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell to exfiltrate sensitive data via HTTP using the `Invoke-WebRequest` cmdlet. This behavior may indicate attempts to exfiltrate sensitive data outside the network.
 author: Amr Ashraf
 date: 2024-12-06

@@ -1,6 +1,6 @@
 title: Outlook Home Page Registry Modification
 description: Detects modifications to registry keys associated with abuse of the Outlook Home Page functionality, which adversaries can exploit for persistence or command and control.
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

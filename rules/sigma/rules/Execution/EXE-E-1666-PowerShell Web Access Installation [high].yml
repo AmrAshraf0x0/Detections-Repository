@@ -1,5 +1,5 @@
 title: PowerShell Web Access Installation
-status: Developed
+status: Experimental
 description: Detects the installation and configuration of PowerShell Web Access, which could be used for remote access and potential abuse
 references:
     - https://docs.microsoft.com/en-us/powershell/module/powershellwebaccess/install-pswawebapplication

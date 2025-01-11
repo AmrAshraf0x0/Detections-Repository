@@ -1,5 +1,5 @@
 title: Adding the Hidden File Attribute via attrib
-status: Developed
+status: Experimental
 description: Detects the use of attrib.exe to add the *hidden* attribute to files. Adversaries can use this technique to hide files and evade detection.
 author: Amr Ashraf
 logsource:

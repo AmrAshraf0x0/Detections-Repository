@@ -1,5 +1,5 @@
 title: Detect Suspicious Modifications to Winlogon Registry Keys
-status: Developed
+status: Experimental
 description: Detects modifications to critical Winlogon registry keys used for helper DLLs.
 author: Amr Ashraf
 logsource:

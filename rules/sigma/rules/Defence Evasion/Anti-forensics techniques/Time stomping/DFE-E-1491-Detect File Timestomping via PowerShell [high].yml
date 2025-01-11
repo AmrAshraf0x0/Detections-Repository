@@ -1,5 +1,5 @@
 title: Detect File Timestomping via PowerShell
-status: Developed
+status: Experimental
 description: Detects attempts to modify file creation, last modified, or last access timestamps using PowerShell commands.
 author: Amr Ashraf
 date: 2024-12-06

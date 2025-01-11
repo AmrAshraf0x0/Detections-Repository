@@ -1,5 +1,5 @@
 title: PowerShell Web Download
-status: Developed
+status: Experimental
 description: Detects suspicious ways to download files or content using PowerShell
 references:
     - https://github.com/VirtualAlllocEx/Payload-Download-Cradles/blob/88e8eca34464a547c90d9140d70e9866dcbc6a12/Download-Cradles.cmd

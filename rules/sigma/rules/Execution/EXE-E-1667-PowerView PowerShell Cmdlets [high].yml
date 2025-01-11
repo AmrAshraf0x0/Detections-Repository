@@ -1,5 +1,5 @@
 title: PowerView PowerShell Cmdlets
-status: Developed
+status: Experimental
 description: Detects Cmdlet names from PowerView of the PowerSploit exploitation framework.
 references:
     - https://powersploit.readthedocs.io/en/stable/Recon/README

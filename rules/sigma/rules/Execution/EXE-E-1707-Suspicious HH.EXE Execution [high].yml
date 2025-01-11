@@ -1,5 +1,5 @@
 title: Suspicious HH.EXE Execution
-status: Developed
+status: Experimental
 description: Detects a suspicious execution of a Microsoft HTML Help (HH.exe)
 references:
     - https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/chm-badness-delivers-a-banking-trojan/

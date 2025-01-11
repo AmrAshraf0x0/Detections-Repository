@@ -3,7 +3,7 @@ description: Detects Task Manager (taskmgr.exe) accessing lsass.exe and creating
 references:
   - https://attack.mitre.org/techniques/T1003/001/
   - https://github.com/mdecrevoisier/EVTX-to-MITRE-Attack/blob/master/TA0006-Credential%20Access/T1003-Credential%20dumping/ID11-LSASS%20credentials%20dump%20via%20Task%20Manager.evtx
-status: Developed
+status: Experimental
 author: Shahbaz Ahmad
 date: 12/11/2024
 logsource:

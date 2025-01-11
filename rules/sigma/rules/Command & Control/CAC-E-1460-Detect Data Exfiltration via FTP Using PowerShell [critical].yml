@@ -1,5 +1,5 @@
 title: Detect Data Exfiltration via FTP Using PowerShell
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell scripts to upload files to an FTP server, commonly used by ransomware such as MAZE for data exfiltration.
 author: Amr Ashraf
 date: 2024-12-06

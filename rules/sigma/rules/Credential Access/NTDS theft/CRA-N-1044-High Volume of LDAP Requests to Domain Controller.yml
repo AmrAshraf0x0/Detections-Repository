@@ -2,7 +2,7 @@
 title: High Volume of LDAP Requests to Domain Controller
 description: Detects high volume of LDAP requests to a Domain Controller, potentially indicating LDAP enumeration or NTDS extraction attempt.
 author: Amr Ashraf
-status: Developed
+status: Experimental
 logsource:
   category: firewall
   product: any

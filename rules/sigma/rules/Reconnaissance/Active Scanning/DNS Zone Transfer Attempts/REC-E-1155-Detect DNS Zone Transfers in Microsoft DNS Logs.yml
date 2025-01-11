@@ -1,7 +1,7 @@
 # Needs FP testing
 title: Detect DNS Zone Transfers in Microsoft DNS Logs
 id: detect-dns-zone-transfer-msdns
-status: Developed
+status: Experimental
 description: Detects zone transfer attempts, completions, and denials in Microsoft DNS logs using Event IDs 6522, 6523, and 6527.
 author: Amr Ashraf
 date: 2024-11-24

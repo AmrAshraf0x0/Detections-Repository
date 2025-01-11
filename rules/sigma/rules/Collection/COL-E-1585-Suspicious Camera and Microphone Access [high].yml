@@ -1,5 +1,5 @@
 title: Suspicious Camera and Microphone Access
-status: Developed
+status: Experimental
 description: Detects Processes accessing the camera and microphone from suspicious folder
 references:
     - https://medium.com/@7a616368/can-you-track-processes-accessing-the-camera-and-microphone-7e6885b37072

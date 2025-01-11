@@ -1,5 +1,5 @@
 title: Remote Access Using Local Administrator Privileges
-status: Developed
+status: Experimental
 description: Detects potential unauthorized remote access using local administrator accounts, which could indicate lateral movement or privilege escalation attempts.
 author: Arthur Thomas
 date: 14/11/2024

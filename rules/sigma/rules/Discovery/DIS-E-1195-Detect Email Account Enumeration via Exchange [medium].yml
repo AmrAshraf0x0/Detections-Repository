@@ -1,6 +1,6 @@
 title: Detect Email Account Enumeration via Exchange
 id: detect-email-account-enumeration-exchange
-status: Developed
+status: Experimental
 description: Detects email account enumeration using Exchange commands or APIs, such as `Get-GlobalAddressList`.
 author: Amr Ashraf
 logsource:

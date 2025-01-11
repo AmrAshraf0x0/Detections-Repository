@@ -1,6 +1,6 @@
 title: Windows Domain Groups Permissions Enumeration
 description: Detects commands used to enumerate domain group permissions on Windows.
-status: Developed
+status: Experimental
 author: Yuliya Volkova
 date: 2024/11/12
 modified: 2024/11/12

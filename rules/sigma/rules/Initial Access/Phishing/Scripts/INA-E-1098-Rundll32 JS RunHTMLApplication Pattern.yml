@@ -1,6 +1,6 @@
 title: Rundll32 JS RunHTMLApplication Pattern
 description: Detects suspicious command line patterns used when rundll32 is used to run JavaScript code
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

@@ -1,5 +1,5 @@
 title: Detect Loadable Kernel Module Insertion via insmod
-status: Developed
+status: Experimental
 description: Detects the use of `insmod` to load a kernel module, which can be leveraged for rootkit installation. Kernel module manipulation is a critical indicator of potential compromise.
 author: Amr Ashraf
 date: 2024-12-06

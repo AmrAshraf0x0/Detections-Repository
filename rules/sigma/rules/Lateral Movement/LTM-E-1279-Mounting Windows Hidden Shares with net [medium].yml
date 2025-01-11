@@ -1,5 +1,5 @@
 title: Mounting Windows Hidden Shares with net
-status: Developed
+status: Experimental
 description: Detects the use of `net.exe` or `net1.exe` to mount hidden Windows Admin network shares, which can indicate lateral movement or reconnaissance.
 author: Amr Ashraf
 logsource:

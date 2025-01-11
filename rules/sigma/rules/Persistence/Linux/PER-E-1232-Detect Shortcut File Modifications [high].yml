@@ -1,5 +1,5 @@
 title: Detect Shortcut File Modifications
-status: Developed
+status: Experimental
 description: Detects modifications to shortcut files (.lnk), especially in startup directories.
 author: Amr Ashraf
 logsource:

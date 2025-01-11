@@ -1,6 +1,6 @@
 # needs to be tested
 title: RegSvr32 Scriptlet Execution
-status: Developed
+status: Experimental
 description: Detects the execution of `regsvr32.exe` with parameters indicative of loading a script object (scrobj), which may be used for executing malicious scripts.
 author: Amr Ashraf
 logsource:

@@ -1,6 +1,6 @@
 title: Potential File Download via a Headless Browser
 description: Detects the use of a browser to download files from a remote URL, originating from a suspicious parent process. Adversaries may use headless browsers to bypass ingress tool transfer restrictions.
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

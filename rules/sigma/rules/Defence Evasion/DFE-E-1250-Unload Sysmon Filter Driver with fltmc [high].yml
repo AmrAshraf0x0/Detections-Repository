@@ -1,5 +1,5 @@
 title: Unload Sysmon Filter Driver with fltmc
-status: Developed
+status: Experimental
 description: Detects the unloading of the Sysinternals Sysmon filter driver via the `unload` command-line parameter.
 author: Amr Ashraf
 logsource:

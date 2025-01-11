@@ -1,5 +1,5 @@
 title: Potential WinAPI Calls Via PowerShell Scripts
-status: Developed
+status: Experimental
 description: Detects use of WinAPI functions in PowerShell scripts
 references:
     - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse

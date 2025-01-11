@@ -1,5 +1,5 @@
 title: Detect Shortcut Creation in Startup Directories
-status: Developed
+status: Experimental
 description: Detects creation of new shortcut files in startup directories, indicative of potential persistence mechanisms.
 author: Amr Ashraf
 logsource:

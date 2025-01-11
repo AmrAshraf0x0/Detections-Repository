@@ -1,5 +1,5 @@
 title: Detect User Discovery Commands on Linux
-status: Developed
+status: Experimental
 description: Detects the execution of commands commonly used to discover users and system owners on Linux or macOS systems.
 author: Amr Ashraf
 date: 2024-12-06

@@ -1,6 +1,6 @@
 title: Detect Service creation using PowerShell Script Block Logging
 description: Detects the execution of PowerShell scripts and commands using script block logging.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 logsource:
   product: windows

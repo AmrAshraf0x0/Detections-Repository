@@ -1,5 +1,5 @@
 title: Bad Opsec Powershell Code Artifacts
-status: Developed
+status: Experimental
 description: |
     focuses on trivial artifacts observed in variants of prevalent offensive ps1 payloads, including
     Cobalt Strike Beacon, PoshC2, Powerview, Letmein, Empire, Powersploit, and other attack payloads

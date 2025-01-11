@@ -1,6 +1,6 @@
 title: Script Interpreter Execution From Suspicious Folder
 description: Detects a suspicious script execution in temporary folders or folders accessible by environment variables
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

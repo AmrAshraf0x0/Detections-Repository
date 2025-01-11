@@ -1,5 +1,5 @@
 title: Volume Shadow Copy Deletion via WMIC
-status: Developed
+status: Experimental
 description: Detects the use of `wmic.exe` for shadow copy deletion on endpoints, a tactic commonly associated with ransomware or other destructive attacks.
 author: Amr Ashraf
 logsource:

@@ -1,6 +1,6 @@
 title: Potential Persistence Via Logon Scripts - Registry
 description: Detects creation of "UserInitMprLogonScript" registry value which can be used as a persistence method by malicious actors
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

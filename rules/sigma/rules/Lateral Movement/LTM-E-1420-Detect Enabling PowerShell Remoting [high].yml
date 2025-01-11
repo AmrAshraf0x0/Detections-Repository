@@ -1,5 +1,5 @@
 title: Detect Enabling PowerShell Remoting
-status: Developed
+status: Experimental
 description: Detects the use of `Enable-PSRemoting` to enable PowerShell remoting, which may indicate attempts to configure remote access or facilitate lateral movement.
 author: Amr Ashraf
 date: 2024-12-06

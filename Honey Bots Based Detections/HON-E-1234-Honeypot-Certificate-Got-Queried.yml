@@ -1,6 +1,6 @@
 title: Detection of LDAP Queries for Honeypot Certificate
 description: Detects LDAP queries for a honeypot certificate, which could indicate an attempt to interact with or misuse the certificate for malicious purposes.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 logsource:
   category: network_traffic

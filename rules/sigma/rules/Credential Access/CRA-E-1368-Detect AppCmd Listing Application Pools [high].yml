@@ -1,5 +1,5 @@
 title: Detect AppCmd Listing Application Pools
-status: Developed
+status: Experimental
 description: Detects the usage of AppCmd.exe commands that list IIS application pools and may reveal service account credentials.
 author: Amr Ashraf
 date: 2024-12-06

@@ -1,5 +1,5 @@
 title: Suspicious PowerShell IEX Execution Patterns
-status: Developed
+status: Experimental
 description: Detects suspicious ways to run Invoke-Execution using IEX alias
 references:
     - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-expression?view=powershell-7.2

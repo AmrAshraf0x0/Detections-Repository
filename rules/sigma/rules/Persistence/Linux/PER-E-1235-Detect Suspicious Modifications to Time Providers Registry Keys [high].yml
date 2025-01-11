@@ -1,5 +1,5 @@
 title: Detect Suspicious Modifications to Time Providers Registry Keys
-status: Developed
+status: Experimental
 description: Detects modifications to registry keys used to configure Windows Time Providers.
 author: Amr Ashraf
 logsource:

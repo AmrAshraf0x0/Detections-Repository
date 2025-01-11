@@ -1,6 +1,6 @@
 title: Detect High Volume of AS-REP Requests (Potential Roasting)
 description: Detects a high volume of AS-REP requests within a short time frame, potentially indicating AS-REP roasting.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/07
 logsource:

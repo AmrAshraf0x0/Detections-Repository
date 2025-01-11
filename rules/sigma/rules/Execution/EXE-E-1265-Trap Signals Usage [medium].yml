@@ -1,5 +1,5 @@
 title: Trap Signals Usage
-status: Developed
+status: Experimental
 description: Detects the use of the `trap` command, which allows programs and shells to specify commands that execute upon receiving interrupt signals. This can be used for persistence or malicious execution.
 author: Amr Ashraf
 logsource:

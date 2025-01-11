@@ -1,5 +1,5 @@
 title: Detect Clearing Logs Using wevtutil
-status: Developed
+status: Experimental
 description: Detects the use of `wevtutil` to clear Windows Event Logs, which may indicate an attempt to cover tracks or remove forensic evidence.
 author: Amr Ashraf
 date: 2024-12-06

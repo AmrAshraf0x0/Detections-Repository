@@ -1,5 +1,5 @@
 title: New BgInfo Custom VBScript Registry Configuration
-status: Developed
+status: Experimental
 description: Detects setting of a new registry value related to BgInfo configuration, which can be abused to execute custom VBScript via "BgInfo.exe"
 author: NasreddineAmr Ashraf
 date: 2024/12/23

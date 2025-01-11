@@ -1,5 +1,5 @@
 title: Detect Suspicious Usage of Cat or Grep for Sensitive Files
-status: Developed
+status: Experimental
 description: Detects the execution of cat or grep commands targeting sensitive files or strings, such as .bash_history, password, or passwd. This may indicate reconnaissance or credential access attempts.
 author: Amr Ashraf
 logsource:

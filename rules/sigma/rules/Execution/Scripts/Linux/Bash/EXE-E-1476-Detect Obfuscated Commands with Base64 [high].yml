@@ -1,5 +1,5 @@
 title: Detect Obfuscated Commands with Base64
-status: Developed
+status: Experimental
 description: Detects base64-encoded commands that are decoded and executed via bash.
 author: Amr Ashraf
 date: 2024-12-06

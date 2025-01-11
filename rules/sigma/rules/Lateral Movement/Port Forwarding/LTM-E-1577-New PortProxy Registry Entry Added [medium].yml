@@ -1,5 +1,5 @@
 title: New PortProxy Registry Entry Added
-status: Developed
+status: Experimental
 description: Detects the modification of the PortProxy registry key which is used for port forwarding.
 references:
     - https://www.fireeye.com/blog/threat-research/2019/01/bypassing-network-restrictions-through-rdp-tunneling.html

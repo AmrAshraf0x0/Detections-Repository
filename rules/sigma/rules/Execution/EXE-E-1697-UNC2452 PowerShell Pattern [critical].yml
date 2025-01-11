@@ -1,5 +1,5 @@
 title: UNC2452 PowerShell Pattern
-status: Developed
+status: Experimental
 description: Detects a specific PowerShell command line pattern used by the UNC2452 actors as mentioned in Microsoft and Symantec reports
 references:
     - https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/solarwinds-raindrop-malware

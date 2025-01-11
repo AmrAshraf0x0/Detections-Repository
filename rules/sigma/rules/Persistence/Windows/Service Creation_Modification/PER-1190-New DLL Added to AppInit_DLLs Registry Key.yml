@@ -1,6 +1,6 @@
 title: New DLL Added to AppInit_DLLs Registry Key
 description: DLLs that are specified in the AppInit_DLLs value in the Registry key HKLM\Software\Microsoft\Windows NT\CurrentVersion\Windows are loaded by user32.dll into every process that loads user32.dll
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 references:

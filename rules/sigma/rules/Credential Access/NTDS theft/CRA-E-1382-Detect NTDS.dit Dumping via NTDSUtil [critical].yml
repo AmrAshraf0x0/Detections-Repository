@@ -1,6 +1,6 @@
 title: Detect NTDS.dit Dumping via NTDSUtil
 id: 2364e33d-ceab-4641-8468-bfb1d7cc2723
-status: Developed
+status: Experimental
 description: Detects the use of NTDSUtil to dump the Active Directory database (NTDS.dit) using the Install From Media (IFM) backup functionality.
 author: Amr Ashraf
 date: 2024-12-06

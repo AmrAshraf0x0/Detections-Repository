@@ -5,7 +5,7 @@ related:
       type: derived
     - id: fa91cc36-24c9-41ce-b3c8-3bbc3f2f67ba
       type: derived
-status: Developed
+status: Experimental
 description: Detects PsExec service execution via default service image name
 references:
     - https://www.jpcert.or.jp/english/pub/sr/ir_research.html

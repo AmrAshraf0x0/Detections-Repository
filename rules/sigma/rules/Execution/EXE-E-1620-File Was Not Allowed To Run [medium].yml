@@ -1,6 +1,6 @@
 # needs Tuning based on the environment "don't deploy"
 title: File Was Not Allowed To Run
-status: Developed
+status: Experimental
 description: Detect run not allowed files. Applocker is a very useful tool, especially on servers where unprivileged users have access. For example terminal servers. You need configure applocker and log collect to receive these events.
 references:
     - https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/applocker/what-is-applocker

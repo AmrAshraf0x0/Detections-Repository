@@ -1,5 +1,5 @@
 title: WMImplant Hack Tool
-status: Developed
+status: Experimental
 description: Detects parameters used by WMImplant
 references:
     - https://github.com/FortyNorthSecurity/WMImplant

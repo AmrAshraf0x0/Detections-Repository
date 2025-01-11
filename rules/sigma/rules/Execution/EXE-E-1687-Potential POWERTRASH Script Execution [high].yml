@@ -1,5 +1,5 @@
 title: Potential POWERTRASH Script Execution
-status: Developed
+status: Experimental
 description: Detects potential execution of the PowerShell script POWERTRASH
 references:
     - https://labs.withsecure.com/publications/fin7-target-veeam-servers

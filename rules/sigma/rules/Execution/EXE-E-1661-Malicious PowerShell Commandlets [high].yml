@@ -1,5 +1,5 @@
 title: Malicious PowerShell Commandlets
-status: Developed
+status: Experimental
 description: Detects Commandlet names from well-known PowerShell exploitation frameworks
 references:
     - https://adsecurity.org/?p=2921

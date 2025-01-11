@@ -1,5 +1,5 @@
 title: Detect Network Share Mapping via New-PSDrive (Script Block Logging)
-status: Developed
+status: Experimental
 description: Detects PowerShell script blocks that use the `New-PSDrive` command to map a network share. This activity may indicate lateral movement or unauthorized access attempts.
 author: Amr Ashraf
 date: 2024-12-06

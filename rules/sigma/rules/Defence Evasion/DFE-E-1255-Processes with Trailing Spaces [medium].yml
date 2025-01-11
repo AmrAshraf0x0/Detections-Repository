@@ -1,5 +1,5 @@
 title: Processes with Trailing Spaces
-status: Developed
+status: Experimental
 description: Identifies processes running with a trailing space, which can be used to look like an ordinary file while evading default file handlers.
 author: Amr Ashraf
 logsource:

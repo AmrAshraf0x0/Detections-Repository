@@ -1,5 +1,5 @@
 title: Detect Domain Account Manipulation Using PowerShell
-status: Developed
+status: Experimental
 description: Detects PowerShell script blocks used to create domain accounts and add them to high-privilege groups.
 author: Amr Ashraf
 date: 2024-12-06

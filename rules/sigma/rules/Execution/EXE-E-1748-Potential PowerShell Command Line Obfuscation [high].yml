@@ -1,5 +1,5 @@
 title: Potential PowerShell Command Line Obfuscation
-status: Developed
+status: Experimental
 description: Detects the PowerShell command lines with special characters
 references:
     - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse?slide=64

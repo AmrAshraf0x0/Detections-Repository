@@ -1,5 +1,5 @@
 title: Detect Hexadecimal Encoded Commands in Process Creation
-status: Developed
+status: Experimental
 description: Detects the use of hexadecimal-encoded commands within the command line, which may indicate obfuscation techniques used to evade detection.
 author: Amr Ashraf
 date: 2024-12-06

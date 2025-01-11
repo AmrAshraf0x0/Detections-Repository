@@ -1,6 +1,6 @@
 title: Detect Modifications to Registry Run Keys
 id: detect-registry-run-key-modifications
-status: Developed
+status: Experimental
 description: Detects suspicious modifications to registry Run keys, which may indicate persistence mechanisms.
 author: Amr Ashraf
 logsource:

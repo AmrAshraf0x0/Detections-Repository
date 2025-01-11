@@ -1,7 +1,7 @@
 title: Mshtml.DLL RunHTMLApplication Suspicious Usage
 description: |
     Detects execution of commands that leverage the "mshtml.dll" RunHTMLApplication export to run arbitrary code via different protocol handlers (vbscript, javascript, file, http...)
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

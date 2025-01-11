@@ -1,7 +1,7 @@
 # needs testing on an example attack
 title: Detect Volume Direct Access (PowerShell)
 id: 88f6327e-51ec-4bbf-b2e8-3fea534eab8b
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell to directly read the volume boot sector via the DOS device path specifier (e.g., `\.\C:`).
 author: Amr Ashraf
 date: 2024-12-06

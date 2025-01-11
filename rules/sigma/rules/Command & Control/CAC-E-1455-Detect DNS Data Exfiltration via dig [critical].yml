@@ -1,5 +1,5 @@
 title: Detect DNS Data Exfiltration via dig
-status: Developed
+status: Experimental
 description: Detects potential data exfiltration using the `dig` command with Base64-encoded subdomains, which is commonly used for DNS tunneling or exfiltration.
 author: Amr Ashraf
 date: 2024-12-06

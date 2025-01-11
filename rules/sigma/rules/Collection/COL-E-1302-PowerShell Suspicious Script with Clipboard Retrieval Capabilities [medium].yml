@@ -1,6 +1,6 @@
 title: PowerShell Suspicious Script with Clipboard Retrieval Capabilities
 description: Detects PowerShell scripts that can get the contents of the clipboard, which attackers can abuse to retrieve sensitive information such as credentials or messages.
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

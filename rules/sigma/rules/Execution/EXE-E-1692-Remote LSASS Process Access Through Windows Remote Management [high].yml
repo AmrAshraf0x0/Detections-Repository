@@ -1,5 +1,5 @@
 title: Remote LSASS Process Access Through Windows Remote Management
-status: Developed
+status: Experimental
 description: Detects remote access to the LSASS process via WinRM. This could be a sign of credential dumping from tools like mimikatz.
 references:
     - https://pentestlab.blog/2018/05/15/lateral-movement-winrm/

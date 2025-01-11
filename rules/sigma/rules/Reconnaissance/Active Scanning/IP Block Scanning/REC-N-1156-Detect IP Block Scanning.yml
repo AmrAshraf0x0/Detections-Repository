@@ -1,5 +1,5 @@
 title: Detect IP Block Scanning
-status: Developed
+status: Experimental
 description: Detects IP block scanning attempts based on a single source IP rapidly probing multiple destination IPs or ports in firewall logs.
 author: Amr Ashraf
 date: 2024-11-24

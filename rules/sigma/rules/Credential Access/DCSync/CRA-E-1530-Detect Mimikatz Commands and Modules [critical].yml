@@ -1,6 +1,6 @@
 title: Detect Mimikatz Commands and Modules
 description: Detects the execution of Mimikatz commands and modules, commonly used for credential dumping and privilege escalation.
-status: developed
+status: Experimental
 author: Amr Ashraf
 logsource:
   category: process_creation

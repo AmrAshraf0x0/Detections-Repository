@@ -1,5 +1,5 @@
 title: Potential Powershell ReverseShell Connection
-status: Developed
+status: Experimental
 description: Detects usage of the "TcpClient" class. Which can be abused to establish remote connections and reverse-shells. As seen used by the Nishang "Invoke-PowerShellTcpOneLine" reverse shell and other.
 references:
     - https://www.volexity.com/blog/2021/03/02/active-exploitation-of-microsoft-exchange-zero-day-vulnerabilities/

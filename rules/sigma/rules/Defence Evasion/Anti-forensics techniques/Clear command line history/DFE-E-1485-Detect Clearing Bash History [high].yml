@@ -1,5 +1,5 @@
 title: Detect Clearing Bash History
-status: Developed
+status: Experimental
 description: Detects attempts to clear or manipulate Bash history using various methods such as `rm`, `echo`, or `truncate`.
 author: Amr Ashraf
 date: 2024-12-06

@@ -1,5 +1,5 @@
 title: Suspicious Encoded And Obfuscated Reflection Assembly Load Function Call
-status: Developed
+status: Experimental
 description: Detects suspicious base64 encoded and obfuscated "LOAD" keyword used in .NET "reflection.assembly"
 references:
     - https://github.com/Neo23x0/Raccine/blob/20a569fa21625086433dcce8bb2765d0ea08dcb6/yara/mal_revil.yar

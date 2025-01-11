@@ -1,6 +1,6 @@
 title: PsExec Service Execution
 description: Detects launch of the PSEXESVC service, which means that this system was the target of a psexec remote execution
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/11
 tags:

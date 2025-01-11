@@ -1,6 +1,6 @@
 title: Windows GPO Enumeration
 description: Detects discovery of Group Policies typically using commands or PowerShell to query local or domain GPOs.
-status: Developed
+status: Experimental
 author: Yuliya Volkova
 date: 2024/11/12
 modified: 2024/11/12

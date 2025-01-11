@@ -1,5 +1,5 @@
 title: New BgInfo Custom WMI Query Registry Configuration
-status: Developed
+status: Experimental
 description: Detects setting of a new registry value related to BgInfo configuration, which can be abused to execute custom WMI query via "BgInfo.exe"
 author: Amr Ashraf
 date: 2024/12/23

@@ -1,5 +1,5 @@
 title: Persistence via NetSh Key
-status: Developed
+status: Experimental
 description: Detects the creation or modification of helper DLLs in the NetShell registry key, which are loaded into `netsh.exe` every time it executes. Attackers use this technique to establish persistence.
 author: Amr Ashraf
 logsource:

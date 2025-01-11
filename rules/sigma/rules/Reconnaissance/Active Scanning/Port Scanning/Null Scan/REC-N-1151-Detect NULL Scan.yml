@@ -1,6 +1,6 @@
 title: Detect NULL Scan [aggregation]
 description: Detects TCP packets with no flags set, indicative of a NULL Scan.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/03
 logsource:

@@ -1,7 +1,7 @@
 # need to check DNS logs
 title: Connection to Commonly Abused Free SSL Certificate Providers
 description: Identifies unusual processes connecting to domains secured with known free SSL certificates. Adversaries may use such connections to conceal command and control traffic.
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

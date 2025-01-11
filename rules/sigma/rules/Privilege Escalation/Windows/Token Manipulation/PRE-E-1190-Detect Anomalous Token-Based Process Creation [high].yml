@@ -1,7 +1,7 @@
 # needs FP testing "Don't deploy"
 title: Detect Anomalous Token-Based Process Creation
 id: detect-anomalous-token-process
-status: Developed
+status: Experimental
 description: Detects anomalous process creation using manipulated or stolen access tokens, minimizing false positives by filtering common administrative actions.
 author: Amr Ashraf
 logsource:

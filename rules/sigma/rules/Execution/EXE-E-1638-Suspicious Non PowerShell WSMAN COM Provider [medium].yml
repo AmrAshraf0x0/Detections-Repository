@@ -1,5 +1,5 @@
 title: Suspicious Non PowerShell WSMAN COM Provider
-status: Developed
+status: Experimental
 description: Detects suspicious use of the WSMAN provider without PowerShell.exe as the host application.
 references:
     - https://twitter.com/chadtilbury/status/1275851297770610688

@@ -1,6 +1,6 @@
 # FP testing Req
 title: Detect Unauthorized Access to OST or PST Files
-status: Developed
+status: Experimental
 description: Detects unauthorized access to Outlook data files (.ost or .pst) by processes that are not trusted, which may indicate potential data exfiltration or credential harvesting.
 author: Amr Ashraf
 logsource:

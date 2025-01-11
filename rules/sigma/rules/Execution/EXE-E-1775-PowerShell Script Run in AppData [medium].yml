@@ -1,5 +1,5 @@
 title: PowerShell Script Run in AppData
-status: Developed
+status: Experimental
 description: Detects a suspicious command line execution that invokes PowerShell with reference to an AppData folder
 references:
     - https://twitter.com/JohnLaTwC/status/1082851155481288706

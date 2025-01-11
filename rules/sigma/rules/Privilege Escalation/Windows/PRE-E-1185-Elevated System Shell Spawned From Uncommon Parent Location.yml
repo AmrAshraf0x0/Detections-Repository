@@ -1,6 +1,6 @@
 title: Elevated System Shell Spawned From Uncommon Parent Location
 description: Detects when a shell program such as the Windows command prompt or PowerShell is launched with system privileges from a uncommon parent location.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

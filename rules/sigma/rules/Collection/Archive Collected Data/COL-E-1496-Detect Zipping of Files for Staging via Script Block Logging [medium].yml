@@ -1,5 +1,5 @@
 title: Detect Zipping of Files for Staging via Script Block Logging
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell script block logging to identify attempts to zip files or folders, which may indicate data staging for exfiltration.
 author: Amr Ashraf
 date: 2024-12-06

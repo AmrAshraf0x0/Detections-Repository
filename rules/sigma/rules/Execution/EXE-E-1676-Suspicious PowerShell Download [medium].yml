@@ -1,5 +1,5 @@
 title: Suspicious PowerShell Download
-status: Developed
+status: Experimental
 description: Detects suspicious PowerShell download command
 references:
     - https://learn.microsoft.com/en-us/dotnet/api/system.net.webclient.downloadstring?view=net-8.0

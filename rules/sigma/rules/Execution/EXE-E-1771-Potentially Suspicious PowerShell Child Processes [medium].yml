@@ -1,5 +1,5 @@
 title: Potentially Suspicious PowerShell Child Processes
-status: Developed
+status: Experimental
 description: |
     Detects potentially suspicious child processes spawned by PowerShell.
     Use this rule to hunt for potential anomalies initiating from PowerShell scripts and commands.

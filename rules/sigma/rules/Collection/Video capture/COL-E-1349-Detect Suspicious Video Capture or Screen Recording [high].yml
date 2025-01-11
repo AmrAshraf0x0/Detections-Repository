@@ -1,5 +1,5 @@
 title: Detect Suspicious Video Capture or Screen Recording
-status: Developed
+status: Experimental
 description: Detects suspicious processes or commands used to capture video or record screens, often indicative of malicious data collection activities.
 author: Amr Ashraf
 logsource:

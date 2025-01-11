@@ -1,6 +1,6 @@
 title: PowerShell Mailbox Collection Script
 description: Detects PowerShell scripts containing methods and classes that can be used to collect data from local or remote mailboxes. This activity could indicate adversaries targeting user emails to collect sensitive information.
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

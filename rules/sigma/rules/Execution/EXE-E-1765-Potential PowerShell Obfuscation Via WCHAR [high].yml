@@ -1,5 +1,5 @@
 title: Potential PowerShell Obfuscation Via WCHAR
-status: Developed
+status: Experimental
 description: Detects suspicious encoded character syntax often used for defense evasion
 references:
     - https://twitter.com/0gtweet/status/1281103918693482496

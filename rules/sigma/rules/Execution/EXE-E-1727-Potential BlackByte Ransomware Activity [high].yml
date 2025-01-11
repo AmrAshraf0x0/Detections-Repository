@@ -1,5 +1,5 @@
 title: Potential BlackByte Ransomware Activity
-status: Developed
+status: Experimental
 description: Detects command line patterns used by BlackByte ransomware in different operations
 references:
     - https://redcanary.com/blog/blackbyte-ransomware/

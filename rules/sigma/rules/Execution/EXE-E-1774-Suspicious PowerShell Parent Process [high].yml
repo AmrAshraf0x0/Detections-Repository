@@ -1,5 +1,5 @@
 title: Suspicious PowerShell Parent Process
-status: Developed
+status: Experimental
 description: Detects a suspicious or uncommon parent processes of PowerShell
 references:
     - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse?slide=26

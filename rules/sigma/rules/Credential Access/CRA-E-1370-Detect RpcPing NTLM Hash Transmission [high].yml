@@ -1,5 +1,5 @@
 title: Detect RpcPing NTLM Hash Transmission
-status: Developed
+status: Experimental
 description: Detects the use of the rpcping command to test RPC connections and force the NTLM hash to be sent.
 author: Amr Ashraf
 date: 2024-12-06

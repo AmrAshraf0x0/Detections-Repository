@@ -1,5 +1,5 @@
 title: Invoke-Obfuscation Via Use Rundll32
-status: Developed
+status: Experimental
 description: Detects Obfuscated Powershell via use Rundll32 in Scripts
 references:
     - https://github.com/SigmaHQ/sigma/issues/1009

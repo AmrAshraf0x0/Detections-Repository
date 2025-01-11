@@ -1,5 +1,5 @@
 title: Detect Copying Files Over Administrative Shares
-status: Developed
+status: Experimental
 description: Detects the use of the `copy` command to access sensitive files over administrative shares, such as `C$`, which may indicate lateral movement or data exfiltration attempts.
 author: Amr Ashraf
 date: 2024-12-06

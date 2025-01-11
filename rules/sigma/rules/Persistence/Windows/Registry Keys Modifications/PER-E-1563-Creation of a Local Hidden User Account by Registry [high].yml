@@ -1,5 +1,5 @@
 title: Creation of a Local Hidden User Account by Registry
-status: Developed
+status: Experimental
 description: Sysmon registry detection of a local hidden user account.
 references:
     - https://twitter.com/SBousseaden/status/1387530414185664538

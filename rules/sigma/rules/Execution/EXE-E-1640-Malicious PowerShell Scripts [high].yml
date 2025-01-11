@@ -1,5 +1,5 @@
 title: Malicious PowerShell Scripts
-status: Developed
+status: Experimental
 description: Detects the execution of known offensive powershell scripts used for exploitation or reconnaissance
 references:
     - https://github.com/PowerShellMafia/PowerSploit

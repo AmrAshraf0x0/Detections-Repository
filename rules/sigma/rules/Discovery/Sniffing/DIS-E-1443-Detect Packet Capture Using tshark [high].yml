@@ -1,5 +1,5 @@
 title: Detect Packet Capture Using tshark
-status: Developed
+status: Experimental
 description: Detects the use of tshark.exe to perform packet capture, which may indicate network reconnaissance or data collection activities.
 author: Amr Ashraf
 date: 2024-12-06

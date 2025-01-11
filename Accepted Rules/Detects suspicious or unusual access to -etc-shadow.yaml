@@ -1,6 +1,6 @@
 title: Detects suspicious or unusual access to /etc/shadow
 id: 2-etc-ad
-status: Developed
+status: Experimental
 description: Detects unauthorized access attempts to the /etc/shadow file.
 references:
   - https://attack.mitre.org/techniques/T1003/008/

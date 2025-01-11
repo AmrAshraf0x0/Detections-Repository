@@ -1,6 +1,6 @@
 title: Whoami Execution From Privileged Process
 description: Detects the execution of "whoami.exe" by privileged accounts that are often abused by threat actors
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

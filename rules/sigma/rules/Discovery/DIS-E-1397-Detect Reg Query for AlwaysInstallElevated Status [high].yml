@@ -1,5 +1,5 @@
 title: Detect Reg Query for AlwaysInstallElevated Status
-status: Developed
+status: Experimental
 description: Detects the use of `reg query` commands to check the AlwaysInstallElevated registry key status. If AlwaysInstallElevated is enabled, it can allow privilege escalation via MSI package installation with SYSTEM-level privileges.
 author: Amr Ashraf
 date: 2024-12-06

@@ -1,7 +1,7 @@
 # Needs to be tested likly will generate FP
 title: Suspicious Memory Access on Browser Process
 description: Detects unusual memory access on browser processes, which may indicate credential theft or data-stealing malware.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 logsource:
   category: process_access

@@ -1,5 +1,5 @@
 title: Mshta Network Connections
-status: Developed
+status: Experimental
 description: Detects suspicious `mshta.exe` commands that make outbound network connections, potentially indicating command and control or malicious activity.
 author: Amr Ashraf
 logsource:

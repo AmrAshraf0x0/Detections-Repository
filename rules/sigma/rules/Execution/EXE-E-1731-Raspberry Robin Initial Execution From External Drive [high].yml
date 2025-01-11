@@ -1,5 +1,5 @@
 title: Raspberry Robin Initial Execution From External Drive
-status: Developed
+status: Experimental
 description: Detects the initial execution of the Raspberry Robin malware from an external drive using "Cmd.EXE".
 references:
     - https://redcanary.com/blog/raspberry-robin/

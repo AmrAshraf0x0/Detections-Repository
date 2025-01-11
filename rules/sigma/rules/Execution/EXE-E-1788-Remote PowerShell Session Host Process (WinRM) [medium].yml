@@ -1,5 +1,5 @@
 title: Remote PowerShell Session Host Process (WinRM)
-status: Developed
+status: Experimental
 description: Detects remote PowerShell sections by monitoring for wsmprovhost (WinRM host process) as a parent or child process (sign of an active PowerShell remote session).
 references:
     - https://threathunterplaybook.com/hunts/windows/190511-RemotePwshExecution/notebook.html

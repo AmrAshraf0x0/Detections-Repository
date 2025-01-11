@@ -1,5 +1,5 @@
 title: Detect PowerShell Writing to Executable or Script Files
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell commands, such as Set-Content, to write to files with executable or script extensions (e.g., .exe, .bat, .ps1, .vbs, .cmd).
 author: Amr Ashraf
 date: 2024-12-06

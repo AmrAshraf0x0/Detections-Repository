@@ -1,5 +1,5 @@
 title: Detect Suspicious Registry Queries via reg query
-status: Developed
+status: Experimental
 description: Detects the use of `reg query` commands to enumerate registry keys, often used for reconnaissance or persistence discovery.
 author: Amr Ashraf
 date: 2024-12-06

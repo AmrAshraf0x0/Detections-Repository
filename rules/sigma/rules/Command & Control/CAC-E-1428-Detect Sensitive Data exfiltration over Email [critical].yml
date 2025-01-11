@@ -1,5 +1,5 @@
 title: Detect Sensitive Data exfiltration over Email
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell to exfiltrate sensitive data embedded in a VBA macro file via email using the `Send-MailMessage` cmdlet.
 author: Amr Ashraf
 date: 2024-12-06

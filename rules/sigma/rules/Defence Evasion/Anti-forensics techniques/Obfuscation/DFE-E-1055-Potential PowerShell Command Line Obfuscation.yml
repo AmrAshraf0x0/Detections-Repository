@@ -1,6 +1,6 @@
 title: Potential PowerShell Command Line Obfuscation
 description: Detects the PowerShell command lines with special characters
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

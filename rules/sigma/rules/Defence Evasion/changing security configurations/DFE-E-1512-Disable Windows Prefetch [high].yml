@@ -3,7 +3,7 @@ title: Disable Windows Prefetch
 description: Detects registry changes to disable prefetch, potentially hiding execution artifacts.
 author: Amr Ashraf
 date: 2024-12-06
-status: developed
+status: Experimental
 logsource:
   category: windows
   product: windows

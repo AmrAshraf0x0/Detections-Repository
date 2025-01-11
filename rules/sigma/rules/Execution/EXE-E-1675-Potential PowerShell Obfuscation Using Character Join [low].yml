@@ -1,5 +1,5 @@
 title: Potential PowerShell Obfuscation Using Character Join
-status: Developed
+status: Experimental
 description: Detects specific techniques often seen used inside of PowerShell scripts to obfuscate Alias creation
 references:
     - Internal Research

@@ -1,5 +1,5 @@
 title: Potential Emotet Activity
-status: Developed
+status: Experimental
 description: Detects all Emotet like process executions that are not covered by the more generic rules
 references:
     - https://app.any.run/tasks/e13ab713-64cf-4b23-ad93-6dceaa5429ac/

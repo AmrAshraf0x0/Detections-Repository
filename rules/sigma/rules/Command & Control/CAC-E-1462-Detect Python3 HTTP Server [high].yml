@@ -1,5 +1,5 @@
 title: Detect Python3 HTTP Server
-status: Developed
+status: Experimental
 description: Detects the use of the Python3 `http.server` module to create a local HTTP server, which may be used for exfiltration or staging.
 author: Amr Ashraf
 date: 2024-12-06

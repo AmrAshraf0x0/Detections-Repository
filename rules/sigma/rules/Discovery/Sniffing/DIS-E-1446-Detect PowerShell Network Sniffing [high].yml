@@ -1,5 +1,5 @@
 title: Detect PowerShell Network Sniffing
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell built-in cmdlets for network sniffing, which may indicate unauthorized packet capture or reconnaissance.
 author: Amr Ashraf
 date: 2024-12-06

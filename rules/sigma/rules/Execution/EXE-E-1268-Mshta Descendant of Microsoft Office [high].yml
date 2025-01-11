@@ -1,5 +1,5 @@
 title: Mshta Descendant of Microsoft Office
-status: Developed
+status: Experimental
 description: Detects the execution of `mshta.exe` as a descendant of a Microsoft Office process, which may indicate malicious activity such as command and control or defense evasion.
 author: Amr Ashraf
 logsource:

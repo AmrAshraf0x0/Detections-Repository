@@ -1,5 +1,5 @@
 title: Detect Windows Internal Packet Capture Using netsh trace
-status: Developed
+status: Experimental
 description: Detects the use of `netsh trace start` to perform internal packet capture, which may indicate network reconnaissance or unauthorized monitoring.
 author: Amr Ashraf
 date: 2024-12-06

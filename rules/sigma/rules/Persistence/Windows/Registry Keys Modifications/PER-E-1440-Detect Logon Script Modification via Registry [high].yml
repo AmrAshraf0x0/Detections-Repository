@@ -1,5 +1,5 @@
 title: Detect Logon Script Modification via Registry
-status: Developed
+status: Experimental
 description: Detects changes to the HKCU\Environment\UserInitMprLogonScript registry key, which may indicate attempts to establish persistence via logon scripts.
 author: Amr Ashraf
 date: 2024-12-06

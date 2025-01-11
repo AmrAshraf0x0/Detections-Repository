@@ -1,6 +1,6 @@
 # test req
 title: Detect DiskShadow Script Execution
-status: Developed
+status: Experimental
 description: Detects the use of `diskshadow.exe` with a script file (`/s`), often used to manage Volume Shadow Copies and potentially access sensitive files.
 author: Amr Ashraf
 date: 2024-12-06

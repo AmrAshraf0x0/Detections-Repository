@@ -1,5 +1,5 @@
 title: Sysinternals Tools Execution
-status: Developed
+status: Experimental
 description: Detects the execution of some potentially unwanted tools such as PsExec, Procdump, etc. (part of the Sysinternals suite) via the creation of the "accepteula" registry key.
 references:
     - https://twitter.com/Moti_B/status/1008587936735035392

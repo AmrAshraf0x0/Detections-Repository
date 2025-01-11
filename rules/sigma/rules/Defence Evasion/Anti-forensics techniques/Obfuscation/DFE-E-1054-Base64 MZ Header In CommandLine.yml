@@ -1,6 +1,6 @@
 title: Base64 MZ Header In CommandLine
 description: Detects encoded base64 MZ header in the commandline
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

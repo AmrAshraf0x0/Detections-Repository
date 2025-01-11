@@ -1,5 +1,5 @@
 title: Detect RDP Port Modification and Firewall Rule Creation via PowerShell
-status: Developed
+status: Experimental
 description: Detects PowerShell activity that modifies the RDP port number in the registry and creates a new firewall rule to allow RDP traffic. This behavior may indicate an attempt to configure unauthorized remote access.
 author: Amr Ashraf
 date: 2024-12-06

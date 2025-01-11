@@ -1,6 +1,6 @@
 title: Detect Modifications to RC Scripts
 id: detect-rc-script-modifications
-status: Developed
+status: Experimental
 description: Detects suspicious modifications to RC scripts, which may indicate adversary persistence or privilege escalation on Unix-like systems.
 author: Amr Ashraf
 logsource:

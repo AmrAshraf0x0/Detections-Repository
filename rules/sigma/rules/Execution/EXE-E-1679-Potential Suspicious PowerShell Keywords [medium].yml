@@ -1,5 +1,5 @@
 title: Potential Suspicious PowerShell Keywords
-status: Developed
+status: Experimental
 description: Detects potentially suspicious keywords that could indicate the use of a PowerShell exploitation framework
 references:
     - https://posts.specterops.io/entering-a-covenant-net-command-and-control-e11038bcf462

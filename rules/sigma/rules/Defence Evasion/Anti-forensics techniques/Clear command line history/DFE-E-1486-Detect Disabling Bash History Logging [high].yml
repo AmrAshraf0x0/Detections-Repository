@@ -1,5 +1,5 @@
 title: Detect Disabling Bash History Logging
-status: Developed
+status: Experimental
 description: Detects attempts to disable Bash history logging or clear logging for current and future shell sessions.
 author: Amr Ashraf
 date: 2024-12-06

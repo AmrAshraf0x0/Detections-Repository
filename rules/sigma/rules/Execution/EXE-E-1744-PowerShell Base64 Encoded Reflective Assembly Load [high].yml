@@ -1,5 +1,5 @@
 title: PowerShell Base64 Encoded Reflective Assembly Load
-status: Developed
+status: Experimental
 description: Detects base64 encoded .NET reflective loading of Assembly
 references:
     - https://github.com/Neo23x0/Raccine/blob/20a569fa21625086433dcce8bb2765d0ea08dcb6/yara/mal_revil.yar

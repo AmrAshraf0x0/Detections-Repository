@@ -1,6 +1,6 @@
 title: Detect Wordlist Scanning Activity with Threshold
 id: detect-wordlist-scanning-threshold
-status: Developed
+status: Experimental
 description: Detects excessive 404 or 403 responses within a specific time frame, which may indicate wordlist-based scanning on web servers.
 author: Amr Ashraf
 logsource:

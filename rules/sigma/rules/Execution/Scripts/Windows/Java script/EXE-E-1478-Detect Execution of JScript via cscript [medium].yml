@@ -1,6 +1,6 @@
 # needs FP Testing
 title: Detect Execution of JScript via cscript
-status: Developed
+status: Experimental
 description: Detects the execution of JScript files using the `cscript` command, commonly used for script execution.
 author: Amr Ashraf
 date: 2024-12-06

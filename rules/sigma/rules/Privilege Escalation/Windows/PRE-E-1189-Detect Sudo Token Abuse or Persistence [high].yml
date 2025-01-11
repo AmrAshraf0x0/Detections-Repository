@@ -1,6 +1,6 @@
 title: Detect Sudo Token Abuse or Persistence
 id: detect-sudo-token-abuse
-status: Developed
+status: Experimental
 description: Detects attempts to persist elevated privileges via sudo caching mechanisms (e.g., sudo -s, sudo -i).
 author: Amr Ashraf
 logsource:

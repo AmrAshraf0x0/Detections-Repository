@@ -1,6 +1,6 @@
 # testing Req
 title: Control Panel Items Execution
-status: Developed
+status: Experimental
 description: Detects the use of Control Panel items as execution payloads via control.exe or rundll32.exe. Adversaries can leverage this technique to execute arbitrary commands or evade detection.
 author: Amr Ashraf
 logsource:

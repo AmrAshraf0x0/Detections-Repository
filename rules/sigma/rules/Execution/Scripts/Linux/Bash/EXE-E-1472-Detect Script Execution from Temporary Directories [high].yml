@@ -1,5 +1,5 @@
 title: Detect Script Execution from Temporary Directories
-status: Developed
+status: Experimental
 description: Detects the execution of scripts located in temporary directories such as /tmp, which is common in malicious activities.
 author: Amr Ashraf
 date: 2024-12-06

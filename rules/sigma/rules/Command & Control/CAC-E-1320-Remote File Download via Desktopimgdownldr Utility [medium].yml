@@ -1,6 +1,6 @@
 title: Remote File Download via Desktopimgdownldr Utility
 description: Detects the abuse of `desktopimgdownldr.exe` to download files via the `/lockscreenurl` parameter.
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

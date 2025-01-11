@@ -1,6 +1,6 @@
 title: Detect UDP Scan [aggregation]
 description: Detects UDP scanning by monitoring for high volumes of ICMP Destination Unreachable responses, indicative of closed UDP ports being probed.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/03
 logsource:

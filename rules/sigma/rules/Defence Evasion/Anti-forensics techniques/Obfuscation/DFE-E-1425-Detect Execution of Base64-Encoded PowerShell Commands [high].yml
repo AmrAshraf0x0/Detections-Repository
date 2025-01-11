@@ -1,5 +1,5 @@
 title: Detect Execution of Base64-Encoded PowerShell Commands
-status: Developed
+status: Experimental
 description: Detects the execution of PowerShell commands with the `-EncodedCommand` parameter, commonly used by adversaries for obfuscation and execution of malicious commands.
 author: Amr Ashraf
 date: 2024-12-06

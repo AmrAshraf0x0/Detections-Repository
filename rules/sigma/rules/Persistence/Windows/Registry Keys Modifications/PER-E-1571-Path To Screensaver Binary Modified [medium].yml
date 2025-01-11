@@ -1,5 +1,5 @@
 title: Path To Screensaver Binary Modified
-status: Developed
+status: Experimental
 description: Detects value modification of registry key containing path to binary used as screensaver.
 references:
     - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1546.002/T1546.002.md

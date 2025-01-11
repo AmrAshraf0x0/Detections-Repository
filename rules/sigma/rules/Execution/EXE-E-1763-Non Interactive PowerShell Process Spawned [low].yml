@@ -1,5 +1,5 @@
 title: Non Interactive PowerShell Process Spawned
-status: Developed
+status: Experimental
 description: Detects non-interactive PowerShell activity by looking at the "powershell" process with a non-user GUI process such as "explorer.exe" as a parent.
 references:
     - https://web.archive.org/web/20200925032237/https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190410151110.html

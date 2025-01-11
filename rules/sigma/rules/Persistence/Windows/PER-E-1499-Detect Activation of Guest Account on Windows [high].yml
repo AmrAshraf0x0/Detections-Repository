@@ -1,5 +1,5 @@
 title: Detect Activation of Guest Account on Windows
-status: Developed
+status: Experimental
 description: Detects the activation of the default Guest account, which is disabled by default in Windows environments, potentially indicating unauthorized access attempts.
 author: Amr Ashraf
 date: 2024-12-06

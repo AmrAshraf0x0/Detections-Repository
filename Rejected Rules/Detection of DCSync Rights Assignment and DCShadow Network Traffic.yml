@@ -1,6 +1,6 @@
 title: Detection of DCSync Rights Assignment and DCShadow Network Traffic
 id: 2c99737c-585d-4431-b61a-c911d86ff32f
-status: Developed
+status: Experimental
 description: Detects modifications to AD security descriptors that grant DCSync rights and monitors network traffic patterns associated with DCSync and DCShadow attacks.
 author: Danish Kumar
 date: 2024-11-14

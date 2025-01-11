@@ -1,5 +1,5 @@
 title: Detect Data Exfiltration Over ICMP Using PowerShell
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell to exfiltrate data over the ICMP protocol by sending file contents using the `ping` method.
 author: Amr Ashraf
 date: 2024-12-06

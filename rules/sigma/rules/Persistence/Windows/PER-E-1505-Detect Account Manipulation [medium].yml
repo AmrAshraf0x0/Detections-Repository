@@ -1,5 +1,5 @@
 title: Detect Account Manipulation 
-status: Developed
+status: Experimental
 description: Detects suspicious PowerShell script blocks used to rename or modify administrator account details.
 author: Amr Ashraf
 date: 2024-12-06

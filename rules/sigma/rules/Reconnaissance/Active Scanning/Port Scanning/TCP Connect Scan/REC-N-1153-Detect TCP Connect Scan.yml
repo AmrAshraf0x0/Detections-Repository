@@ -1,6 +1,6 @@
 title: Detect TCP Connect Scan [aggregation]
 description: Detects high volume of TCP connection attempts to various ports, indicative of a TCP Connect Scan.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/03
 logsource:

@@ -1,6 +1,6 @@
 title: PowerShell Keylogging Script
 description: Detects the use of Win32 API functions in PowerShell scripts that can capture user keystrokes. Attackers may use this technique to steal credentials or other sensitive information.
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

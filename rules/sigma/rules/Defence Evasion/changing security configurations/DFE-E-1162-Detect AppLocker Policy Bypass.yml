@@ -1,6 +1,6 @@
 title: Detect AppLocker Policy Bypass
 id: detect-applocker-policy-bypass
-status: Developed
+status: Experimental
 description: Detects attempts to bypass AppLocker using executables or scripts.
 author: Amr Ashraf
 logsource:

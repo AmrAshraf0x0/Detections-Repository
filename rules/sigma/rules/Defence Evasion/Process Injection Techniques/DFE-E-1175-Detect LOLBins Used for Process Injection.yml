@@ -1,7 +1,7 @@
 # Posible too many FPs
 title: Detect LOLBins Used for Process Injection
 id: detect-lolbins-injection
-status: Developed
+status: Experimental
 description: Detects use of legitimate binaries (LOLBins) like regsvr32.exe or msbuild.exe for process injection.
 author: Amr Ashraf
 logsource:

@@ -1,5 +1,5 @@
 title: Exchange PowerShell Snap-Ins Usage
-status: Developed
+status: Experimental
 description: Detects adding and using Exchange PowerShell snap-ins to export mailbox data. As seen used by HAFNIUM and APT27
 references:
     - https://www.volexity.com/blog/2021/03/02/active-exploitation-of-microsoft-exchange-zero-day-vulnerabilities/

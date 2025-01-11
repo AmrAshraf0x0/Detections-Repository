@@ -1,5 +1,5 @@
 title: Detect WMI Rundll32 Execution
-status: Developed
+status: Experimental
 description: Detects the use of WMI to execute a DLL function via rundll32.
 author: Amr Ashraf
 date: 2024-12-06

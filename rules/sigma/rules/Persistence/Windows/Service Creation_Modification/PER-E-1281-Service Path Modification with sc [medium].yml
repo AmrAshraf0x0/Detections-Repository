@@ -1,5 +1,5 @@
 title: Service Path Modification with sc
-status: Developed
+status: Experimental
 description: Detects the use of `sc.exe` to modify existing services, particularly by changing the service configuration or executable path (`binPath`). This may indicate attempts to establish persistence.
 author: Amr Ashraf
 logsource:

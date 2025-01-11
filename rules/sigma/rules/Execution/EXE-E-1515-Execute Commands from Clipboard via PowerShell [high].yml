@@ -2,7 +2,7 @@ title: Execute Commands from Clipboard via PowerShell
 description: Detects PowerShell usage for fetching commands from clipboard and executing them.
 author: Amr Ashraf
 date: 2024-12-06
-status: developed
+status: Experimental
 severity: high
 logsource:
   category: script_block

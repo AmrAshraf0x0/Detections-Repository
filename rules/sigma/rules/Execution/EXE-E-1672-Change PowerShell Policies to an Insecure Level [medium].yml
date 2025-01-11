@@ -1,5 +1,5 @@
 title: Change PowerShell Policies to an Insecure Level
-status: Developed
+status: Experimental
 description: Detects changing the PowerShell script execution policy to a potentially insecure level using the "Set-ExecutionPolicy" cmdlet.
 references:
     - https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.4

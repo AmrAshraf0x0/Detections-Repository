@@ -1,5 +1,5 @@
 title: Potential Persistence Via Logon Scripts
-status: Developed
+status: Experimental
 description: Detects creation of "UserInitMprLogonScript" registry value which can be used as a persistence method by malicious actors
 references:
     - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1037.001/T1037.001.md

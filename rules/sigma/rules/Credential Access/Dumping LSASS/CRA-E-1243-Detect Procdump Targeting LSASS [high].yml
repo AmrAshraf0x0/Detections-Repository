@@ -1,5 +1,5 @@
 title: Detect Procdump Targeting LSASS
-status: Developed
+status: Experimental
 description: Detects the execution of Procdump targeting the LSASS process, which may indicate credential dumping attempts.
 author: Amr Ashraf
 logsource:

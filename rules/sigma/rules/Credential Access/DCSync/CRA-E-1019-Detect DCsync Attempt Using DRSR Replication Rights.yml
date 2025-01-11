@@ -1,6 +1,6 @@
 title: Detect DCsync Attempt Using DRSR Replication Rights
 description: Detects possible DCsync attempts by monitoring for 4662 events related to directory replication operations.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/07
 logsource:

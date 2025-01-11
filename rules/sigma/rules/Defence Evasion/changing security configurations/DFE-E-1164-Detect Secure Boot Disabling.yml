@@ -1,6 +1,6 @@
 title: Detect Secure Boot Disabling
 id: detect-secure-boot-disabling
-status: Developed
+status: Experimental
 description: Detects attempts to disable Secure Boot from the firmware or OS-level changes.
 author: Amr Ashraf
 logsource:

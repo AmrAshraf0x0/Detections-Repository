@@ -1,6 +1,6 @@
 title: Suspicious Cmd Execution via WMI
 description: Detects suspicious command execution (cmd) via Windows Management Instrumentation (WMI) on a remote host. This could be indicative of adversary lateral movement.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

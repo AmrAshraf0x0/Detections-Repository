@@ -1,5 +1,5 @@
 title: Detect Scheduled Task Creation via schtasks
-status: Developed
+status: Experimental
 description: Detects the use of the `schtasks` command to create or modify scheduled tasks. This is often abused for persistence or execution.
 author: Amr Ashraf
 date: 2024-12-06

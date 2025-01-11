@@ -1,5 +1,5 @@
 title: Detect Memory Dumping via proc file system
-status: Developed
+status: Experimental
 description: Detects the use of shell commands or utilities (e.g., `dd`) to copy process memory from `/proc/$PID/mem` for credential or sensitive data extraction.
 author: Amr Ashraf
 date: 2024-12-06

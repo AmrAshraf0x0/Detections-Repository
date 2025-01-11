@@ -1,6 +1,6 @@
 title: PowerShell Scripts Installed as Services
 description: Detects powershell script installed as a Service
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

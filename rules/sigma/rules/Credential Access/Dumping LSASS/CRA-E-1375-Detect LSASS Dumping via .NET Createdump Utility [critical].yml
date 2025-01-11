@@ -1,5 +1,5 @@
 title: Detect LSASS Dumping via .NET Createdump Utility
-status: Developed
+status: Experimental
 description: Detects the use of the .NET `createdump` utility to create an LSASS memory dump, often used for credential theft attacks.
 author: Amr Ashraf
 date: 2024-12-06

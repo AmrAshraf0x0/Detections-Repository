@@ -1,6 +1,6 @@
 title: Detection of Access to Critical NTLM Hash Locations
 id: 123e4567-e89b-12d3-a456-426614174001
-status: Developed
+status: Experimental
 description: |
   Detects unauthorized access to sensitive locations storing NTLM hashes, such as the SAM database, NTDS.dit, LSASS process memory, and cached credentials.
 author: Danish Kumar

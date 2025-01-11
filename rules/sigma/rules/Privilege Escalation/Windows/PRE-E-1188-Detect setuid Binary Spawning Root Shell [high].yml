@@ -1,6 +1,6 @@
 title: Detect setuid Binary Spawning Root Shell
 id: detect-setuid-root-shell
-status: Developed
+status: Experimental
 description: Detects a shell process running as root (UID 0) spawned by a setuid binary.
 author: Amr Ashraf
 logsource:

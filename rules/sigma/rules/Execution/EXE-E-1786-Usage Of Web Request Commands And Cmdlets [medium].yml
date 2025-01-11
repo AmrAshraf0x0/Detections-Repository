@@ -1,5 +1,5 @@
 title: Usage Of Web Request Commands And Cmdlets
-status: Developed
+status: Experimental
 description: Detects the use of various web request commands with commandline tools and Windows PowerShell cmdlets (including aliases) via CommandLine
 references:
     - https://4sysops.com/archives/use-powershell-to-download-a-file-with-http-https-and-ftp/

@@ -1,6 +1,6 @@
 title: Pass-the-Hash (PtH) Attack Detection
 description: Detects potential Pass-the-Hash attacks by monitoring for suspicious NTLM authentication activity, elevated privileges or from unusual sources during lateral movement.
-status: Developed
+status: Experimental
 author: Arthur Thomas
 date: 11/11/2024
 references:

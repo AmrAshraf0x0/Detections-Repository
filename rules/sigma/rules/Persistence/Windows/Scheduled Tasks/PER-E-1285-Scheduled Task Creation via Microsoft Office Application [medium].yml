@@ -1,5 +1,5 @@
 title: Scheduled Task Creation via Microsoft Office Application
-status: Developed
+status: Experimental
 description: Detects the creation of a scheduled task via a Microsoft Office application by monitoring the loading of `taskschd.dll`, which may indicate persistence mechanisms.
 author: Amr Ashraf
 logsource:

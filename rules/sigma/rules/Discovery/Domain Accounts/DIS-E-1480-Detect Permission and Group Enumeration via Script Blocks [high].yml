@@ -1,5 +1,5 @@
 title: Detect Permission and Group Enumeration via Script Blocks
-status: Developed
+status: Experimental
 description: Detects suspicious PowerShell script blocks used for permission and group enumeration, leveraging commands like `Get-ADUser`, `Get-ADPrincipalGroupMembership`, and PowerView cmdlets.
 author: Amr Ashraf
 date: 2024-12-06

@@ -1,7 +1,7 @@
 # Needs to be tested for FP and functionality
 title: Detect Network Logon Script Modifications
 id: detect-network-logon-script-modification
-status: Developed
+status: Experimental
 description: Detects suspicious modifications to network logon scripts, which may indicate adversary persistence or lateral movement.
 author: Amr Ashraf
 logsource:

@@ -1,5 +1,5 @@
 title: Lace Tempest PowerShell Evidence Eraser
-status: Developed
+status: Experimental
 description: |
     Detects a PowerShell script used by Lace Tempest APT to erase evidence from victim servers by exploiting CVE-2023-47246 as reported by SysAid Team
 references:

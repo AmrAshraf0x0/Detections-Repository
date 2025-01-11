@@ -1,7 +1,7 @@
 # Needs FP testing for whitelisting "don't deploy"
 title: Detection of Lateral Movement via SMB Shares
 description: Detects suspicious SMB share access across multiple machines, potentially indicating lateral movement by an attacker.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/11
 logsource:

@@ -1,6 +1,6 @@
 title: Detect Suspicious Additions to SSH Authorized Keys
 id: detect-ssh-authorized-keys-addition
-status: Developed
+status: Experimental
 description: Detects suspicious additions to the SSH authorized_keys file by monitoring file modifications and focusing on the process and user context.
 author: Amr Ashraf
 logsource:

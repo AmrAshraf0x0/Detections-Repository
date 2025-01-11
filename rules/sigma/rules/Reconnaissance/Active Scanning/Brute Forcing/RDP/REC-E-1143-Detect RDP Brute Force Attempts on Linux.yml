@@ -1,6 +1,6 @@
 title: Detect RDP Brute Force Attempts on Linux
 description: Detects repeated failed RDP login attempts from the same source IP, indicative of a brute-force attack.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/03
 logsource:

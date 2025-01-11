@@ -1,7 +1,7 @@
 title: Manipulation of User Computer or Group Security Principals Across AD Through PS
 description: |
     Adversaries may create a domain account to maintain access to victim systems.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

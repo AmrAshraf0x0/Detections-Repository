@@ -1,5 +1,5 @@
 title: Detect Symbolic Link Creation to Volume Shadow Copy
-status: Developed
+status: Experimental
 description: Detects the use of the `mklink` command to create symbolic links to Volume Shadow Copies, often used for dumping sensitive files like NTDS.dit.
 author: Amr Ashraf
 date: 2024-12-06

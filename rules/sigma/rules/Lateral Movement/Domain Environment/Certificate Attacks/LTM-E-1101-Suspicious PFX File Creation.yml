@@ -1,5 +1,5 @@
 title: Suspicious PFX File Creation
-status: Developed
+status: Experimental
 description: A general detection for processes creating PFX files. This could be an indicator of an adversary exporting a local certificate to a PFX file.
 author: Amr Ashraf
 date: 2024/11/12

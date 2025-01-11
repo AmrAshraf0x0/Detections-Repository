@@ -1,5 +1,5 @@
 title: Detect Packet Capture Using pktmon
-status: Developed
+status: Experimental
 description: Detects the use of `pktmon.exe` to initiate packet capture, which may indicate network reconnaissance or unauthorized monitoring.
 author: Amr Ashraf
 date: 2024-12-06

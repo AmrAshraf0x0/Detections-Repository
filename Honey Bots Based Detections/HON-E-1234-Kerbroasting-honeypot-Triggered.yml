@@ -1,6 +1,6 @@
 title: Detect Kerberoasting Using Honeypot User Account
 description: Detects potential Kerberoasting attempts by monitoring for service ticket requests (TGS) made for a known honeypot user account.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/11
 logsource:

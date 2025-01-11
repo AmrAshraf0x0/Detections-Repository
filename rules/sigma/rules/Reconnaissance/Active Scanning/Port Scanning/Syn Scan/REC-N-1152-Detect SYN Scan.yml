@@ -1,6 +1,6 @@
 title: Detect SYN Scan [aggregation]
 description: Detects high volume of SYN packets without subsequent ACK packets, often indicating a SYN Scan.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/03
 logsource:

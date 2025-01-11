@@ -1,5 +1,5 @@
 title: Detect LSASS Dumping via RdrLeakDiag
-status: Developed
+status: Experimental
 description: Detects the use of the `rdrleakdiag.exe` tool to dump LSASS memory, a technique often used for credential theft.
 author: Amr Ashraf
 date: 2024-12-06

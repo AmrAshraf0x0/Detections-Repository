@@ -1,6 +1,6 @@
 title: Hiding Files with Attrib
 description: Detects usage of attrib.exe to hide files from users.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

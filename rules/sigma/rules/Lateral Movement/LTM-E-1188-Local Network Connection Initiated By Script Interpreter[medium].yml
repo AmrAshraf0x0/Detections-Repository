@@ -1,6 +1,6 @@
 title: Local Network Connection Initiated By Script Interpreter
 description: Detects a script interpreter (Wscript/Cscript) initiating a local network connection to download or execute a script hosted on a shared folder.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

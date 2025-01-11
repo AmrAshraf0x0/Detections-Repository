@@ -1,5 +1,5 @@
 title: Execute Code with Pester.bat as Parent
-status: Developed
+status: Experimental
 description: Detects code execution via Pester.bat (Pester - Powershell Modulte for testing)
 references:
     - https://twitter.com/Oddvarmoe/status/993383596244258816

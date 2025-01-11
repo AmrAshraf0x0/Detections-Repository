@@ -1,5 +1,5 @@
 title: Detect Obfuscated PowerShell Commands (Script Block Logging)
-status: Developed
+status: Experimental
 description: Detects heavily obfuscated PowerShell commands using techniques such as variable concatenation, encoded characters, and unusual method calls.
 author: Amr Ashraf
 date: 2024-12-06

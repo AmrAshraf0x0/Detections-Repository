@@ -1,6 +1,6 @@
 title: Code Execution via Pcwutl DLL
 description: Detects launch of executable by calling the LaunchApplication function from pcwutl.dll library.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

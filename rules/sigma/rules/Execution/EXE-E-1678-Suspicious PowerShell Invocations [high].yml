@@ -1,5 +1,5 @@
 title: Suspicious PowerShell Invocations
-status: Developed
+status: Experimental
 description: Detects suspicious PowerShell invocation command parameters
 references:
     - Internal Research

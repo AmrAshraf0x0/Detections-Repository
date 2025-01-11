@@ -1,6 +1,6 @@
 title: Regsvr32 Anomaly
 description: Detects various anomalies in relation to regsvr32.exe
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

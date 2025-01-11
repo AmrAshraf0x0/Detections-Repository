@@ -1,5 +1,5 @@
 title: Mounting Hidden Shares
-status: Developed
+status: Experimental
 description: Detects the enumeration of mounted shares using the built-in Windows tools `net.exe` or `net1.exe`. This behavior can be indicative of lateral movement or discovery activities.
 author: Amr Ashraf
 logsource:

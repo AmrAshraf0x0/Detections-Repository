@@ -1,5 +1,5 @@
 title: Removal Of SD Value to Hide Schedule Task
-status: Developed
+status: Experimental
 description: Remove SD (Security Descriptor) value in \Schedule\TaskCache\Tree registry hive to hide schedule task. This technique is used by Tarrask malware
 references:
     - https://www.microsoft.com/security/blog/2022/04/12/tarrask-malware-uses-scheduled-tasks-for-defense-evasion/

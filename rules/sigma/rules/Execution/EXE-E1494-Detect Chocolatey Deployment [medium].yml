@@ -1,5 +1,5 @@
 title: Detect Chocolatey Deployment
-status: Developed
+status: Experimental
 description: Detects the use of Chocolatey package manager to deploy software like 7-Zip, which could indicate unauthorized deployment.
 author: Amr Ashraf
 date: 2024-12-06

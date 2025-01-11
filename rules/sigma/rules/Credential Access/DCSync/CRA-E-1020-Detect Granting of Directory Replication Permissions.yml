@@ -1,6 +1,6 @@
 title: Detect Granting of Directory Replication Permissions
 description: Detects granting of sensitive directory replication permissions, such as "Replicating Directory Changes," which can enable DCsync attacks.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/07
 logsource:

@@ -1,6 +1,6 @@
 title: LSASS Memory Dump File Creation
 description: LSASS memory dump creation using operating systems utilities. Procdump will use process name in output file if no name is specified
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

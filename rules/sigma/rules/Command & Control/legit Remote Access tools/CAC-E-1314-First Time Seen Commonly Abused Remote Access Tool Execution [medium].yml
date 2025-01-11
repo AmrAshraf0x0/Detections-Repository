@@ -1,6 +1,6 @@
 title: First Time Seen Commonly Abused Remote Access Tool Execution
 description: Detects processes with names or code signatures resembling commonly abused remote access tools (RATs) being executed for the first time in the environment. Such tools can be used for command and control, persistence, or other malicious activities.
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

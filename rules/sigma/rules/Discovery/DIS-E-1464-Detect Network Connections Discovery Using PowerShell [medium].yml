@@ -1,5 +1,5 @@
 title: Detect Network Connections Discovery Using PowerShell
-status: Developed
+status: Experimental
 description: Detects the execution of the PowerShell cmdlet `Get-NetTCPConnection`, which is used to enumerate active TCP connections on the system.
 author: Amr Ashraf
 date: 2024-12-06

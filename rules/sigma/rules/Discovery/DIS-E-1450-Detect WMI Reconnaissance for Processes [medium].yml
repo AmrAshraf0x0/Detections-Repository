@@ -1,5 +1,5 @@
 title: Detect WMI Reconnaissance for Processes
-status: Developed
+status: Experimental
 description: Detects the use of WMI to enumerate processes on the host via `wmic process get`.
 author: Amr Ashraf
 date: 2024-12-06

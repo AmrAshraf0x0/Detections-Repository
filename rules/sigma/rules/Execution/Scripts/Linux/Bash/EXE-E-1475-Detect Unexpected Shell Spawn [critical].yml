@@ -1,5 +1,5 @@
 title: Detect Unexpected Shell Spawn
-status: Developed
+status: Experimental
 description: Detects the spawning of shells using utilities like awk, busybox, cpan, or emacs, which is indicative of restricted environment breakouts.
 author: Amr Ashraf
 date: 2024-12-06

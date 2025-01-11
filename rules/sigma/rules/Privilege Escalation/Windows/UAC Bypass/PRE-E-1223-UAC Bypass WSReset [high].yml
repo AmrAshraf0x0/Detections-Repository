@@ -1,5 +1,5 @@
 title: UAC Bypass WSReset
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 description: Detects the pattern of UAC Bypass via WSReset usable by default sysmon-config

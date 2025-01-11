@@ -1,5 +1,5 @@
 title: Detect Copying Files from Admin Share in PowerShell
-status: Developed
+status: Experimental
 description: Detects PowerShell commands and cmdlets used to copy files, which may indicate lateral movement or data exfiltration attempts.
 author: Amr Ashraf
 date: 2024-12-06

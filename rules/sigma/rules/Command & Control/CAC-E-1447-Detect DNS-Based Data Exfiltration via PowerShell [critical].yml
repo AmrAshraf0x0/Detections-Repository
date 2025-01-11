@@ -1,5 +1,5 @@
 title: Detect DNS-Based Data Exfiltration via PowerShell
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell to exfiltrate data via DNS subdomains, a common technique for covert data transfer or Command and Control (C2).
 author: Amr Ashraf
 date: 2024-12-06

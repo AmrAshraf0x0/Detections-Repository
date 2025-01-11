@@ -1,5 +1,5 @@
 title: Bypass UAC Using DelegateExecute
-status: Developed
+status: Experimental
 description: Bypasses User Account Control using a fileless method
 references:
     - https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexecutecommand

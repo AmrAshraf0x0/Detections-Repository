@@ -1,5 +1,5 @@
 title: COM Hijack via Script Object
-status: Developed
+status: Experimental
 description: Identifies COM hijacking using the script object host `scrobj.dll`, which allows for stealthy execution of scripts in legitimate processes. This technique can be used for persistence or defense evasion.
 author: Amr Ashraf
 logsource:

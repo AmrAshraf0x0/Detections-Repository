@@ -1,5 +1,5 @@
 title: PowerShell Download Pattern
-status: Developed
+status: Experimental
 description: Detects a Powershell process that contains download commands in its command line string
 references:
     - https://blog.redteam.pl/2020/06/black-kingdom-ransomware.html

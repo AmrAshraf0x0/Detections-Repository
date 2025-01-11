@@ -1,7 +1,7 @@
 # Needs FP testing to adjust
 title: Detection of Repeated Use of Same Kerberos Ticket from Different IPs
 description: Detects when the same Kerberos ticket (TicketID) is used from different IP addresses or machines, indicating potential ticket replay or misuse.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 logsource:
   category: authentication

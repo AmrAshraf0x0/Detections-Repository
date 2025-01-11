@@ -1,5 +1,5 @@
 title: Run Once Task Configuration in Registry
-status: Developed
+status: Experimental
 description: Rule to detect the configuration of Run Once registry key. Configured payload can be run by runonce.exe /AlternateShellStartup
 references:
     - https://twitter.com/pabraeken/status/990717080805789697

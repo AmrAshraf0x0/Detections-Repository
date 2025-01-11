@@ -1,5 +1,5 @@
 title: Detect Radmin Viewer Utility Execution
-status: Developed
+status: Experimental
 description: Detects the execution of Radmin Viewer utility which may indicate unauthorized remote access.
 author: Amr Ashraf
 date: 2024-12-06

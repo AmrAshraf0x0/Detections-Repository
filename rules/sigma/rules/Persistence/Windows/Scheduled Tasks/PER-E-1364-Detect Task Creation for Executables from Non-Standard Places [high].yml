@@ -1,7 +1,7 @@
 # needs FP testing
 title: Detect Task Creation for Executables from Non-Standard Places
 id: detect-task-creation-eventid
-status: Developed
+status: Experimental
 description: Detects task creation events in Windows where the task executes binaries from non-standard paths.
 author: Amr Ashraf
 logsource:

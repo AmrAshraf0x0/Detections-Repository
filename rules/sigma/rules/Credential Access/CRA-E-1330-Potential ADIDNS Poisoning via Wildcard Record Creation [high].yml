@@ -1,6 +1,6 @@
 # needs to check the log source
 title: Potential ADIDNS Poisoning via Wildcard Record Creation
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

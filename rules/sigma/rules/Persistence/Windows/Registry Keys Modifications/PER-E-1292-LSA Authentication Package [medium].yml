@@ -1,5 +1,5 @@
 title: LSA Authentication Package
-status: Developed
+status: Experimental
 description: Detects modifications to the LSA Authentication Package registry key, which adversaries can use as an auto-start mechanism for persistence.
 author: Amr Ashraf
 logsource:

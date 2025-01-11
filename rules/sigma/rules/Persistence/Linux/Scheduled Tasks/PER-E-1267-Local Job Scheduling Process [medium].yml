@@ -1,5 +1,5 @@
 title: Local Job Scheduling Process
-status: Developed
+status: Experimental
 description: Detects the execution of job scheduling processes, such as `cron`, `at`, and `launchd`, on Linux and macOS systems. These may be used to create pre-scheduled and periodic background jobs, potentially indicating persistence or execution attempts.
 author: Amr Ashraf
 logsource:

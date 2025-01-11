@@ -1,5 +1,5 @@
 title: UAC Bypass Using PkgMgr and DISM
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 description: Detects the pattern of UAC Bypass using pkgmgr.exe and dism.exe (UACMe 23)

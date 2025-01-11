@@ -1,5 +1,5 @@
 title: Detect System Network Connections Discovery Commands
-status: Developed
+status: Experimental
 description: Detects the execution of commands such as `netstat`, `net use`, and `net sessions` to list active network connections, shares, and sessions, which may indicate reconnaissance activity.
 author: Amr Ashraf
 date: 2024-12-06

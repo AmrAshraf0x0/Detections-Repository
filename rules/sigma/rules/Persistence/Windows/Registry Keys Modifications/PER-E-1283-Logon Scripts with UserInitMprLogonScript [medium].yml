@@ -1,5 +1,5 @@
 title: Logon Scripts with UserInitMprLogonScript
-status: Developed
+status: Experimental
 description: Detects modifications to the Windows logon script path stored in `HKCU\Environment\UserInitMprLogonScript`, potentially indicating persistence mechanisms. The rule also triggers when a user logs in and this logon script executes.
 author: Amr Ashraf
 logsource:

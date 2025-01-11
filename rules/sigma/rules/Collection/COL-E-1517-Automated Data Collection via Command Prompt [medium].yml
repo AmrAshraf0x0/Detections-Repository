@@ -2,7 +2,7 @@ title: Automated Data Collection via Command Prompt
 description: Detects automated data collection using Command Prompt to gather .docx files from the system.
 author: Amr Ashraf
 date: 2024-12-06
-status: developed
+status: Experimental
 severity: medium
 logsource:
   category: process_creation

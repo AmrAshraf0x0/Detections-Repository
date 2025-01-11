@@ -1,6 +1,6 @@
 title: Detect Files with Double Extensions
 id: detect-double-extensions-regex-exclusions
-status: Developed
+status: Experimental
 description: Detects files with double extensions, excluding known legitimate file types such as `.tar.gz` or `.config.ini`.
 author: Amr Ashraf
 logsource:

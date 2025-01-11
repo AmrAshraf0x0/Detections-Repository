@@ -1,5 +1,5 @@
 title: HackTool - Empire PowerShell Launch Parameters
-status: Developed
+status: Experimental
 description: Detects suspicious powershell command line parameters used in Empire
 references:
     - https://github.com/EmpireProject/Empire/blob/c2ba61ca8d2031dad0cfc1d5770ba723e8b710db/lib/common/helpers.py#L165

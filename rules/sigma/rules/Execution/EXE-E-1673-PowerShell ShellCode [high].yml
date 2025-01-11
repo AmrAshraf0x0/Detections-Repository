@@ -1,5 +1,5 @@
 title: PowerShell ShellCode
-status: Developed
+status: Experimental
 description: Detects Base64 encoded Shellcode
 references:
     - https://twitter.com/cyb3rops/status/1063072865992523776

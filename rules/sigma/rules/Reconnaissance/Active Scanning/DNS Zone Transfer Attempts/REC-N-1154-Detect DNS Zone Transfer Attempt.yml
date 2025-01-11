@@ -1,7 +1,7 @@
 # Not sure about the query field "needs testing against multible log sources"
 title: Detect DNS Zone Transfer Attempt
 id: example-dns-zone-transfer
-status: Developed
+status: Experimental
 description: Detects DNS Zone Transfer (AXFR) attempts in DNS server logs.
 author: Amr Ashraf
 date: 2024-11-24

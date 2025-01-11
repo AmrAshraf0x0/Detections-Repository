@@ -3,7 +3,7 @@ title: Tamper Windows Defender Protection
 description: Detects registry modifications to disable Windows Defender Tamper Protection.
 author: Amr Ashraf
 date: 2024-12-06
-status: developed
+status: Experimental
 logsource:
   category: windows
   product: windows

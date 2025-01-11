@@ -1,5 +1,5 @@
 title: Detect Software Inventory Logging (SIL) Status Check
-status: Developed
+status: Experimental
 description: Detects the use of `reg.exe` to query the status of Software Inventory Logging (SIL) via the registry. Adversaries may use this to identify software of interest on the target system.
 author: Amr Ashraf
 date: 2024-12-06

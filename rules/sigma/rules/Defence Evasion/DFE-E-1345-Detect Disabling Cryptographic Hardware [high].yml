@@ -1,6 +1,6 @@
 # new value field should be tested
 title: Detect Disabling Cryptographic Hardware
-status: Developed
+status: Experimental
 description: Detects attempts to disable cryptographic hardware acceleration, which may weaken encryption and indicate an attacker's attempt to degrade security.
 author: Amr Ashraf
 logsource:

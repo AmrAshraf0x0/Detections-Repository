@@ -1,5 +1,5 @@
 title: PrinterNightmare Mimikatz Driver Name
-status: Developed
+status: Experimental
 description: Detects static QMS 810 and mimikatz driver name used by Mimikatz as exploited in CVE-2021-1675 and CVE-2021-34527
 references:
     - https://github.com/gentilkiwi/mimikatz/commit/c21276072b3f2a47a21e215a46962a17d54b3760

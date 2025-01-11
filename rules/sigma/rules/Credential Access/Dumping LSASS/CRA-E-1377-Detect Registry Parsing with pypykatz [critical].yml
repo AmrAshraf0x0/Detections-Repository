@@ -1,5 +1,5 @@
 title: Detect Registry Parsing with pypykatz
-status: Developed
+status: Experimental
 description: Detects the execution of `pypykatz` to parse registry hives and obtain stored credentials, specifically targeting the `live lsa` functionality.
 author: Amr Ashraf
 date: 2024-12-06

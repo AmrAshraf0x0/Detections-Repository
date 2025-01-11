@@ -1,5 +1,5 @@
 title: Potential PowerShell Obfuscation Using Alias Cmdlets
-status: Developed
+status: Experimental
 description: Detects Set-Alias or New-Alias cmdlet usage. Which can be use as a mean to obfuscate PowerShell scripts
 references:
     - https://github.com/1337Rin/Swag-PSO

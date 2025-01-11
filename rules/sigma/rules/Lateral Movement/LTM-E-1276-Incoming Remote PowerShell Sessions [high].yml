@@ -1,6 +1,6 @@
 # "don't deploy"
 title: Incoming Remote PowerShell Sessions
-status: Developed
+status: Experimental
 description: Detects incoming lateral movement via Windows Remote Management (WinRM), characterized by incoming network connections to WinRM ports and subsequent execution of `wsmprovhost.exe`.
 author: Amr Ashraf
 logsource:

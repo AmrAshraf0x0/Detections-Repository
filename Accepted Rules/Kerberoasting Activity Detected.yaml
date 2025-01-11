@@ -1,6 +1,6 @@
 title: Kerberoasting Activity Detected
 id: 1-kb-ad
-status: Developed
+status: Experimental
 description: Detects potential Kerberoasting activity by monitoring for single and multiple TGS requests within a short timeframe.
 references:
   - https://www.trustedsec.com/blog/art_of_kerberoast

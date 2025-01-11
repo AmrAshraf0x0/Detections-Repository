@@ -1,6 +1,6 @@
 title: Detect Modifications to Print Processor Registry Keys
 id: detect-print-processor-registry-modification
-status: Developed
+status: Experimental
 description: Detects suspicious modifications to registry keys related to print processors, which may indicate persistence mechanisms.
 author: Amr Ashraf
 logsource:

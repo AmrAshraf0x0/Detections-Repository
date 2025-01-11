@@ -1,5 +1,5 @@
 title: Mimikatz DC Sync
-status: Developed
+status: Experimental
 description: Detects Mimikatz DC sync security events
 references:
     - https://twitter.com/gentilkiwi/status/1003236624925413376

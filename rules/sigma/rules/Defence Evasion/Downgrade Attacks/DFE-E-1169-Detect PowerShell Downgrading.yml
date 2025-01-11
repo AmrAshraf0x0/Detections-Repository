@@ -1,7 +1,7 @@
 # need to test the re
 title: Detect PowerShell Downgrading
 id: detect-powershell-downgrade
-status: Developed
+status: Experimental
 description: Detects attempts to downgrade PowerShell to older versions, such as 1.0 or 2.0, to bypass security features.
 author: Amr Ashraf
 logsource:

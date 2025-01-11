@@ -1,5 +1,5 @@
 title: Greenbug Espionage Group Indicators
-status: Developed
+status: Experimental
 description: Detects tools and process executions used by Greenbug in their May 2020 campaign as reported by Symantec
 references:
     - https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/greenbug-espionage-telco-south-asia

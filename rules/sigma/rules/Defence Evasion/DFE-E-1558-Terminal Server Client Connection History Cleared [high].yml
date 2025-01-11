@@ -1,5 +1,5 @@
 title: Terminal Server Client Connection History Cleared
-status: Developed
+status: Experimental
 description: Detects the deletion of registry keys containing the MSTSC connection history
 references:
     - https://learn.microsoft.com/en-us/troubleshoot/windows-server/remote/remove-entries-from-remote-desktop-connection-computer

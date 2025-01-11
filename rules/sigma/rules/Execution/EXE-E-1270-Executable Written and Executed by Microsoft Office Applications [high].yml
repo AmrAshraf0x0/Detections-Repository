@@ -1,6 +1,6 @@
 # needs FP testing
 title: Executable Written and Executed by Microsoft Office Applications
-status: Developed
+status: Experimental
 description: Identifies an executable file written by a Microsoft Office application.
 author: Amr Ashraf
 logsource:

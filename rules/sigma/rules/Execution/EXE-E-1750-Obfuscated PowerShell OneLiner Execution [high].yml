@@ -1,5 +1,5 @@
 title: Obfuscated PowerShell OneLiner Execution
-status: Developed
+status: Experimental
 description: Detects the execution of a specific OneLiner to download and execute powershell modules in memory.
 author: Amr Ashraf
 references:

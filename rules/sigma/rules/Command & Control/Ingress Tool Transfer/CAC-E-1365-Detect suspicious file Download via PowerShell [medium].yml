@@ -1,5 +1,5 @@
 title: Detect suspicious file Download via PowerShell
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell to download suspicious files using web-related cmdlets, their aliases, or unconventional methods like Get-Content, including abbreviated usage.
 author: Amr Ashraf
 date: 2024-12-06

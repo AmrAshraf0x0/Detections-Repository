@@ -3,7 +3,7 @@ title: RDP Sensitive Settings Changed
 description: |
     Detects tampering of RDP Terminal Service/Server sensitive settings.
     Such as allowing unauthorized users access to a system via the 'fAllowUnsolicited' or enabling RDP via 'fDenyTSConnections'...etc
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

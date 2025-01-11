@@ -1,6 +1,6 @@
 title: Suspicious Access to Browser Data Files
 description: Detects processes accessing sensitive browser data files, which could indicate potential data-stealing malware. Legitimate browser processes such as Chrome, Edge, and Firefox are whitelisted.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 logsource:

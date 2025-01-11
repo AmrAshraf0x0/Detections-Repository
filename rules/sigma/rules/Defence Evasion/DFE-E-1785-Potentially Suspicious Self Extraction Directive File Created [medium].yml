@@ -1,5 +1,5 @@
 title: Potentially Suspicious Self Extraction Directive File Created
-status: Developed
+status: Experimental
 description: |
     Detects the creation of a binary file with the ".sed" extension. The ".sed" extension stand for Self Extraction Directive files.
     These files are used by the "iexpress.exe" utility in order to create self extracting packages.

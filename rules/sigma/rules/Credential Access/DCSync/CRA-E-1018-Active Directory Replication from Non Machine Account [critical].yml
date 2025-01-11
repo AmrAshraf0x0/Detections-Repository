@@ -1,7 +1,7 @@
 # should be tested
 title: Active Directory Replication from Non Machine Account
 description: Detects potential abuse of Active Directory Replication Service (ADRS) from a non machine account to request credentials.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

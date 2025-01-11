@@ -1,5 +1,5 @@
 title: Detect Suspicious Loading of Vaultcli.dll
-status: Developed
+status: Experimental
 description: Detects the loading of the Vaultcli.dll library by processes other than vaultcmd.exe, which may indicate unauthorized access to Windows Credential Vaults.
 author: Amr Ashraf
 logsource:

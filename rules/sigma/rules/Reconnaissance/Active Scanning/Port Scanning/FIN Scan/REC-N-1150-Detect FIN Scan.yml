@@ -1,6 +1,6 @@
 title: Detect FIN Scan [aggregation]
 description: Detects TCP packets with only the FIN flag set, indicative of a FIN Scan.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/03
 logsource:

@@ -1,6 +1,6 @@
 # needs FP testing
 title: Remote PowerShell Sessions Network Connections
-status: Developed
+status: Experimental
 description: Detects basic PowerShell Remoting (WinRM) by monitoring for network inbound connections to ports 5985 OR 5986
 references:
     - https://threathunterplaybook.com/hunts/windows/190511-RemotePwshExecution/notebook.html

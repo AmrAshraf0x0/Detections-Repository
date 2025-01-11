@@ -3,7 +3,7 @@ title: Enable Remote Desktop Protocol (RDP)
 description: Detects registry changes to enable RDP by modifying fDenyTSConnections.
 author: Amr Ashraf
 date: 2024-12-06
-status: developed
+status: Experimental
 logsource:
   category: windows
   product: windows

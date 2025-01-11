@@ -1,6 +1,6 @@
 title: Exporting Exchange Mailbox via PowerShell
 description: Detects the use of the Exchange PowerShell cmdlet, New-MailBoxExportRequest, to export the contents of a primary mailbox or archive to a .pst file. This activity could indicate adversaries targeting user email to collect sensitive information.
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

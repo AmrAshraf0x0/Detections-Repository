@@ -1,6 +1,6 @@
 title: Detect Port Forwarding and Tunneling Techniques in Windows
 id: 9f2e7c3a-3fc6-4d91-b6c9-f34a8edb8271
-status: Developed
+status: Experimental
 description: Detects unauthorized SSH and netsh port forwarding configurations, SOCKS proxy usage, and related tunneling activity that may indicate attacker pivoting and C2 activity across Windows.
 author: Danish Kumar
 date: 2024-11-12

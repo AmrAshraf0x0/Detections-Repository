@@ -1,5 +1,5 @@
 title: Suspicious Run Key from Download
-status: Developed
+status: Experimental
 description: Detects the suspicious RUN keys created by software located in Download or temporary Outlook/Internet Explorer directories
 references:
     - https://app.any.run/tasks/c5bef5b7-f484-4c43-9cf3-d5c5c7839def/

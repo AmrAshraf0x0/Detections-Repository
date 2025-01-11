@@ -2,7 +2,7 @@ title: CRA-E-0009 Unauthorized Access to Certificate Registry Keys
 description: Detects attempts to access registry locations storing certificate information and associated private keys.
 references:
   - https://attack.mitre.org/techniques/T1649/
-status: Developed
+status: Experimental
 author: Shahbaz Ahmad
 date: 13/11/2024
 logsource:

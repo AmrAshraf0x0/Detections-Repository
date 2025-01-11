@@ -1,6 +1,6 @@
 title: High Volume Kerberoasting Service Ticket Requests
 id: 2-kb-ad
-status: Developed
+status: Experimental
 description: Detects high-volume Kerberoasting activity by monitoring for multiple TGS requests and association with common Kerberoasting tools.
 references:
   - https://www.trustedsec.com/blog/art_of_kerberoast

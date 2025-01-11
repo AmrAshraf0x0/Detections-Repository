@@ -1,5 +1,5 @@
 title: Detect Command Line Based Permission and Group Enumeration
-status: Developed
+status: Experimental
 description: Detects various command-line techniques used for permission and group enumeration in a domain or local environment, including tools like `net` commands and PowerShell cmdlets.
 author: Amr Ashraf
 date: 2024-12-06

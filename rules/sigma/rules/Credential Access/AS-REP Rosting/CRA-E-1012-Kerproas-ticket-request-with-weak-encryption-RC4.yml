@@ -1,6 +1,6 @@
 title: Kerproas-ticket-request-with-weak-encryption-RC4
 description: Detects AS-REP requests for accounts configured without pre-authentication, potentially indicating AS-REP roasting activity.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/07
 logsource:

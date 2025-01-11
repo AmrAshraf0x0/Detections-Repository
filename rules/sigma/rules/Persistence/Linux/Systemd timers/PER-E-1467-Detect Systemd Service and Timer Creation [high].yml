@@ -1,5 +1,5 @@
 title: Detect Systemd Service and Timer Creation
-status: Developed
+status: Experimental
 description: Detects the creation or modification of systemd service and timer files, which can be used for persistence or scheduled execution.
 author: Amr Ashraf
 date: 2024-12-06

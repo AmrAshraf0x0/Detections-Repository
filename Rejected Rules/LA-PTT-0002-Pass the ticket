@@ -1,6 +1,6 @@
 title: Potential Pass-the-Ticket Attack
 description: Detects potential Pass-the-Ticket attacks by identifying TGS requests or TGT renewals without a corresponding TGT request from the same account/client pair
-status: developed
+status: Experimental
 references: https://blog.netwrix.com/2022/09/28/how-to-detect-pass-the-ticket-attacks/
 author: Arthur Thomas
 date: 11/11/2024

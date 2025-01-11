@@ -1,5 +1,5 @@
 title: HTML Help HH.EXE Suspicious Child Process
-status: Developed
+status: Experimental
 description: Detects a suspicious child process of a Microsoft HTML Help (HH.exe)
 references:
     - https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/chm-badness-delivers-a-banking-trojan/

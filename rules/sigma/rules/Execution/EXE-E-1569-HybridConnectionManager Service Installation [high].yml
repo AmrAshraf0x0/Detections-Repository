@@ -1,5 +1,5 @@
 title: HybridConnectionManager Service Installation
-status: Developed
+status: Experimental
 description: Detects the installation of the Azure Hybrid Connection Manager service to allow remote code execution from Azure function.
 references:
     - https://twitter.com/Cyb3rWard0g/status/1381642789369286662

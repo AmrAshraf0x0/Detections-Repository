@@ -1,6 +1,6 @@
 # FP test Req
 title: Detect Creation of Multiple Compressed Files
-status: Developed
+status: Experimental
 description: Detects the creation of more than 3 compressed files within a 3-minute timeframe, which may indicate suspicious archiving activity.
 author: Amr Ashraf
 logsource:

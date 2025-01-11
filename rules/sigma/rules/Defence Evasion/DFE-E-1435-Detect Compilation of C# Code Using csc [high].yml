@@ -1,5 +1,5 @@
 title: Detect Compilation of C# Code Using csc
-status: Developed
+status: Experimental
 description: Detects the use of `csc.exe` to compile C# code, which may indicate attempts to execute malicious code delivered in source form.
 author: Amr Ashraf
 date: 2024-12-06

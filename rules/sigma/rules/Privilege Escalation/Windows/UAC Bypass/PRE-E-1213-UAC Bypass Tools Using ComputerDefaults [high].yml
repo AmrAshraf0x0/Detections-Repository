@@ -1,5 +1,5 @@
 title: UAC Bypass Tools Using ComputerDefaults
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 description: Detects tools such as UACMe used to bypass UAC with computerdefaults.exe (UACMe 59)

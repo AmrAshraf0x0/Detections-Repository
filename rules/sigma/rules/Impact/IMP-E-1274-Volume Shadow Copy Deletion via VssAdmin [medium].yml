@@ -1,5 +1,5 @@
 title: Volume Shadow Copy Deletion via VssAdmin
-status: Developed
+status: Experimental
 description: Detects suspicious use of `vssadmin.exe` to delete volume shadow copies, which may be indicative of destructive activity or attempts to disable recovery options.
 author: Amr Ashraf
 logsource:

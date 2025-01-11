@@ -1,5 +1,5 @@
 title: Malicious Nishang PowerShell Commandlets
-status: Developed
+status: Experimental
 description: Detects Commandlet names and arguments from the Nishang exploitation framework
 references:
     - https://github.com/samratashok/nishang

@@ -1,6 +1,6 @@
 title: Detect High Frequency Requests to a Single Endpoint [aggregation]
 description: Detects when a single endpoint receives more than 999 requests within a 10-minute timeframe, potentially indicating brute force or automated abuse.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/07
 logsource:

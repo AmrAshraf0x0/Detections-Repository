@@ -1,5 +1,5 @@
 title: Installation of Time Providers
-status: Developed
+status: Experimental
 description: Detects the installation or modification of Windows Time Providers in the registry, a technique attackers may use to establish persistence.
 author: Amr Ashraf
 logsource:

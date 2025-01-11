@@ -1,6 +1,6 @@
 title: Detect AS-REP Requests on Honeypot Accounts (AS-REP Roasting)
 description: Detects AS-REP requests for honeypot accounts configured without pre-authentication to catch AS-REP roasting attempts.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/07
 logsource:

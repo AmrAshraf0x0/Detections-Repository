@@ -1,6 +1,6 @@
 title: Suspicious AD Enumeration via PowerShell
 description: Suspicious AD Enumeration via PowerShell
-status: Developed
+status: Experimental
 author: Amr Ashraf
 logsource:
   product: windows

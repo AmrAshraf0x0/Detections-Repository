@@ -1,5 +1,5 @@
 title: Detect Linux Kernel Module Loading
-status: Developed
+status: Experimental
 description: Detects commands used to load kernel modules on Linux.
 author: Amr Ashraf
 logsource:

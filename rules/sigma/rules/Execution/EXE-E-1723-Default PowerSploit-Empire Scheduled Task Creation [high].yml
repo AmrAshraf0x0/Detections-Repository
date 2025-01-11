@@ -1,5 +1,5 @@
 title: HackTool - Default PowerSploit-Empire Scheduled Task Creation
-status: Developed
+status: Experimental
 description: Detects the creation of a schtask via PowerSploit or Empire Default Configuration.
 references:
     - https://github.com/0xdeadbeefJERKY/PowerSploit/blob/8690399ef70d2cad10213575ac67e8fa90ddf7c3/Persistence/Persistence.psm1

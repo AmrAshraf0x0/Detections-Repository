@@ -1,7 +1,7 @@
 # new value field needs to be tested
 title: PowerShell Logging Disabled Via Registry Key Tampering
 description: Detects changes to the registry for the currently logged-in user. In order to disable PowerShell module logging, script block logging or transcription and script execution logging
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

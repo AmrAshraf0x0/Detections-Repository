@@ -1,6 +1,6 @@
 # needs FP and Functionality testing
 title: Detect Scheduled Task Modification via Registry
-status: Developed
+status: Experimental
 description: Detects registry modifications associated with scheduled task persistence, such as altering `HKEY_CURRENT_USER\Software\Classes\mscfile\shell\open\command`.
 author: Amr Ashraf
 date: 2024-12-06

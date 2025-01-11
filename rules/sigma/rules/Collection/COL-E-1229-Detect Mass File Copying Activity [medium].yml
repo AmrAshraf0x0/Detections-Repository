@@ -1,6 +1,6 @@
 # Needs FP testing
 title: Detect Mass File Copying Activity
-status: Developed
+status: Experimental
 description: Detects tools or scripts used for automated file copying, such as RoboCopy or rsync.
 author: Amr Ashraf
 logsource:

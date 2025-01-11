@@ -1,5 +1,5 @@
 title: Detect SAM File Dumping via WinPwn
-status: Developed
+status: Experimental
 description: Detects the usage of WinPwn to dump the SAM file and retrieve NTLM hashes using the `samfile` command.
 author: Amr Ashraf
 date: 2024-12-06

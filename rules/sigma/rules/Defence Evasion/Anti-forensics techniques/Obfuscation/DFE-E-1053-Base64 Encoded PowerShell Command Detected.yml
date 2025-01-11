@@ -1,6 +1,6 @@
 title: Base64 Encoded PowerShell Command Detected
 description: Detects usage of the "FromBase64String" function in the commandline which is used to decode a base64 encoded string
-rstatus: Developed
+rstatus: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

@@ -1,6 +1,6 @@
 title: Potential Persistence Via GlobalFlags
 description: Detects registry persistence technique using the GlobalFlags and SilentProcessExit keys
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

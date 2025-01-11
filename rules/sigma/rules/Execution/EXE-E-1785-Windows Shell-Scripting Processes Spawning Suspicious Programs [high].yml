@@ -1,5 +1,5 @@
 title: Windows Shell-Scripting Processes Spawning Suspicious Programs
-status: Developed
+status: Experimental
 description: Detects suspicious child processes of a Windows shell and scripting processes such as wscript, rundll32, powershell, mshta...etc.
 references:
     - https://mgreen27.github.io/posts/2018/04/02/DownloadCradle.html

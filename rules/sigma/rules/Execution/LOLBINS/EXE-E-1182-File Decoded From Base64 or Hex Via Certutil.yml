@@ -1,6 +1,6 @@
 title: File Decoded From Base64 or Hex Via Certutil
 description: Detects the execution of certutil with either the "decode" or "decodehex" flags to decode base64 or hex encoded files. This can be abused by attackers to decode an encoded payload before execution
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

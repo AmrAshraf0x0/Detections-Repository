@@ -1,6 +1,6 @@
 title: DMP/HDMP File Creation
 description: Detects the creation of a file with the ".dmp"/".hdmp" extension. Often created by software during a crash. Memory dumps can sometimes contain sensitive information such as credentials. It's best to determine the source of the crash.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

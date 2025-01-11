@@ -1,6 +1,6 @@
 title: PowerShell Suspicious Script with Screenshot Capabilities
 description: Detects PowerShell scripts that include functionality to capture screenshots, a common feature in post-exploitation kits and remote access tools (RATs).
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

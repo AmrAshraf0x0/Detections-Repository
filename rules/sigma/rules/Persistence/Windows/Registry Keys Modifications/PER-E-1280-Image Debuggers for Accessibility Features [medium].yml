@@ -1,5 +1,5 @@
 title: Image Debuggers for Accessibility Features
-status: Developed
+status: Experimental
 description: Detects the use of the Debugger registry key to intercept and redirect the execution of common accessibility programs. This technique is often used by attackers for persistence, privilege escalation, or defense evasion.
 author: Amr Ashraf
 logsource:

@@ -1,5 +1,5 @@
 title: Detect Network Share Mapping via net use
-status: Developed
+status: Experimental
 description: Detects the use of `net use` to map a network share using explicit credentials, which may indicate lateral movement or unauthorized access attempts.
 author: Amr Ashraf
 date: 2024-12-06

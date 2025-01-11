@@ -1,5 +1,5 @@
 title: Detect COM Object Enumeration via PowerShell Script Block
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell to enumerate COM objects and their methods by querying the registry and CLSIDs. This technique may indicate reconnaissance or preparation for COM abuse.
 author: Amr Ashraf
 date: 2024-12-06

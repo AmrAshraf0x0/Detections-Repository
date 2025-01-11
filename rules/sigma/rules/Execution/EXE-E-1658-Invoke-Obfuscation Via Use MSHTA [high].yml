@@ -1,5 +1,5 @@
 title: Invoke-Obfuscation Via Use MSHTA
-status: Developed
+status: Experimental
 description: Detects Obfuscated Powershell via use MSHTA in Scripts
 references:
     - https://github.com/SigmaHQ/sigma/issues/1009 # (Task31)

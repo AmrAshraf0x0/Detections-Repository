@@ -1,5 +1,5 @@
 title: Detect Suspicious WMI Activity
-status: Developed
+status: Experimental
 description: Detects suspicious Windows Management Instrumentation (WMI) activity that may indicate discovery, lateral movement, or execution.
 author: Amr Ashraf
 logsource:

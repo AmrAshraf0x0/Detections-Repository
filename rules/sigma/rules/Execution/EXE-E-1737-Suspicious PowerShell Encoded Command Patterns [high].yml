@@ -1,5 +1,5 @@
 title: Suspicious PowerShell Encoded Command Patterns
-status: Developed
+status: Experimental
 description: Detects PowerShell command line patterns in combination with encoded commands that often appear in malware infection chains
 references:
     - https://app.any.run/tasks/b9040c63-c140-479b-ad59-f1bb56ce7a97/

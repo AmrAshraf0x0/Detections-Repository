@@ -1,6 +1,6 @@
 title: Suspicious Schtasks Schedule Types
 description: Detects scheduled task creations or modification on a suspicious schedule type
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

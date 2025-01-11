@@ -1,5 +1,5 @@
 title: Detect Use of Get-ADReplAccount for Active Directory Enumeration
-status: Developed
+status: Experimental
 description: Detects the use of `Get-ADReplAccount`, often leveraged for Active Directory enumeration and replication-related reconnaissance.
 author: Amr Ashraf
 date: 2024-12-06

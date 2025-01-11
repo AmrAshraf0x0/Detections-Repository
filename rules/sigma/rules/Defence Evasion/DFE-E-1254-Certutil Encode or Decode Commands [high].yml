@@ -1,5 +1,5 @@
 title: Certutil Encode or Decode Commands
-status: Developed
+status: Experimental
 description: Identifies the use of certutil.exe with encode or decode arguments, which may indicate attempts to obfuscate or transfer malicious files.
 author: Amr Ashraf
 logsource:

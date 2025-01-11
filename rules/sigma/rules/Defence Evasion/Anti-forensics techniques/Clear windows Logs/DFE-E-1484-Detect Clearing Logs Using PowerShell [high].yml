@@ -1,5 +1,5 @@
 title: Detect Clearing Logs Using PowerShell
-status: Developed
+status: Experimental
 description: Detects the use of `Clear-EventLog` PowerShell cmdlet to delete Windows Event Logs, which may indicate log tampering.
 author: Amr Ashraf
 date: 2024-12-06

@@ -1,5 +1,5 @@
 title: User Account Creation
-status: Developed
+status: Experimental
 description: Detects the creation of local users via the `net.exe` or `net1.exe` command, a tactic often used for persistence or credential access.
 author: Amr Ashraf
 logsource:

@@ -1,5 +1,5 @@
 title: Detect Clearing or Disabling PowerShell History
-status: Developed
+status: Experimental
 description: Detects attempts to clear or disable PowerShell history using various methods.
 author: Amr Ashraf
 date: 2024-12-06

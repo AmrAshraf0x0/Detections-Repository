@@ -1,6 +1,6 @@
 title: Detect Suspicious XDG Autostart Entries
 id: detect-xdg-autostart-entries
-status: Developed
+status: Experimental
 description: Detects creation or modification of XDG autostart entries, which may indicate persistence through `.desktop` files.
 author: Amr Ashraf
 logsource:

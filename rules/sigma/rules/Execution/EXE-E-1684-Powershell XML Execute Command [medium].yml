@@ -1,5 +1,5 @@
 title: Powershell XML Execute Command
-status: Developed
+status: Experimental
 description: |
     Adversaries may abuse PowerShell commands and scripts for execution.
     PowerShell is a powerful interactive command-line interface and scripting environment included in the Windows operating system. (Citation: TechNet PowerShell)

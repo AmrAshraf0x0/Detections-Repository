@@ -1,5 +1,5 @@
 title: ConvertTo-SecureString Cmdlet Usage Via CommandLine
-status: Developed
+status: Experimental
 description: Detects usage of the "ConvertTo-SecureString" cmdlet via the commandline. Which is fairly uncommon and could indicate potential suspicious activity
 references:
     - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse?slide=65

@@ -1,6 +1,6 @@
 title: Detect Suspicious Active Setup Registry Modifications
 id: detect-active-setup-registry-modification
-status: Developed
+status: Experimental
 description: Detects modifications to Active Setup registry keys, which may indicate persistence mechanisms.
 author: Amr Ashraf
 logsource:

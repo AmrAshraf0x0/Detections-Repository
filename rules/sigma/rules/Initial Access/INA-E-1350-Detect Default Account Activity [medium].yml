@@ -1,5 +1,5 @@
 title: Detect Default Account Activity
-status: Developed
+status: Experimental
 description: Detects suspicious activity involving default accounts, which may indicate exploitation or misuse of default credentials.
 author: Amr Ashraf
 logsource:

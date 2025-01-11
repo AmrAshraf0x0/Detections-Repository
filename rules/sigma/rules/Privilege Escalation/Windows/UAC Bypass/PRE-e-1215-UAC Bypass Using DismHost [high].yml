@@ -1,5 +1,5 @@
 title: UAC Bypass Using DismHost
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 description: Detects the pattern of UAC Bypass using DismHost DLL hijacking (UACMe 63)

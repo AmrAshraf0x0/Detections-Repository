@@ -1,5 +1,5 @@
 title: Potential UAC Bypass Via Sdclt
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 description: A General detection for sdclt being spawned as an elevated process. This could be an indicator of sdclt being used for bypass UAC techniques.

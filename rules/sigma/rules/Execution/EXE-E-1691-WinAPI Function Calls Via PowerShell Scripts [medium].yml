@@ -1,5 +1,5 @@
 title: WinAPI Function Calls Via PowerShell Scripts
-status: Developed
+status: Experimental
 description: Detects calls to WinAPI functions from PowerShell scripts. Attackers can often leverage these APIs to avoid detection based on typical PowerShell function calls. Use this rule as a basis to hunt for interesting scripts.
 references:
     - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse

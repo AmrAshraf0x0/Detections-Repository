@@ -1,7 +1,7 @@
 # FP testing required
 title: Suspicious DPAPI Backup Master Key Access
 description: Detects suspicious activity involving DPAPI to retrieve the backup master key on domain-joined machines, which could be used to decrypt secrets across all domain-joined devices.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/12
 logsource:

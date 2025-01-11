@@ -1,5 +1,5 @@
 title: Detect RDP User Authentication Disabling via Registry Modification
-status: Developed
+status: Experimental
 description: Detects modifications to the `UserAuthentication` registry value under the RDP-Tcp key. Disabling this setting can weaken RDP security and may indicate an attempt to configure unauthorized remote access.
 author: Amr Ashraf
 date: 2024-12-06

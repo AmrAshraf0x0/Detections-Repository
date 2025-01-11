@@ -1,5 +1,5 @@
 title: Detect Volume Shadow Copy Creation via PowerShell
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell to create a Volume Shadow Copy using the Get-WmiObject (gwmi) command and the win32_shadowcopy class.
 author: Amr Ashraf
 date: 2024-12-06

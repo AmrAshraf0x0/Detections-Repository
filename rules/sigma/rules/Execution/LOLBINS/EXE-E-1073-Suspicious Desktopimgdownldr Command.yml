@@ -1,6 +1,6 @@
 title: Suspicious Desktopimgdownldr Command
 description: Detects a suspicious Microsoft desktopimgdownldr execution with parameters used to download files from the Internet
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

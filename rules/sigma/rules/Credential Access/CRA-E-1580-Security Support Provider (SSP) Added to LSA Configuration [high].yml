@@ -1,5 +1,5 @@
 title: Security Support Provider (SSP) Added to LSA Configuration
-status: Developed
+status: Experimental
 description: |
     Detects the addition of a SSP to the registry. Upon a reboot or API call, SSP DLLs gain access to encrypted and plaintext passwords stored in Windows.
 references:

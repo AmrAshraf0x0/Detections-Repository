@@ -1,5 +1,5 @@
 title: Shell Open Registry Keys Manipulation
-status: Developed
+status: Experimental
 description: Detects the shell open key manipulation (exefile and ms-settings) used for persistence and the pattern of UAC Bypass using fodhelper.exe, computerdefaults.exe, slui.exe via registry keys (e.g. UACMe 33 or 62)
 references:
     - https://github.com/hfiref0x/UACME

@@ -1,6 +1,6 @@
 title: Detect Executables Running from Suspicious Locations with Anomalous Parent Processes
 id: detect-suspicious-executables
-status: Developed
+status: Experimental
 description: Detects executables running from suspicious locations with anomalous parent processes, which may indicate privilege escalation or lateral movement.
 author: Amr Ashraf
 logsource:

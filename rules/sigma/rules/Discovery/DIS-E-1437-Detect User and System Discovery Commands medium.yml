@@ -1,5 +1,5 @@
 title: Detect User and System Discovery Commands
-status: Developed
+status: Experimental
 description: Detects the use of commands commonly used to identify system owners, users, and active sessions on an endpoint. This behavior may indicate reconnaissance activity.
 author: Amr Ashraf
 date: 2024-12-06

@@ -1,5 +1,5 @@
 title: Detect Granting Admin Privileges to Guest Account
-status: Developed
+status: Experimental
 description: Detects the addition of the Guest account to the Administrators group, which may indicate privilege escalation.
 author: Amr Ashraf
 date: 2024-12-06

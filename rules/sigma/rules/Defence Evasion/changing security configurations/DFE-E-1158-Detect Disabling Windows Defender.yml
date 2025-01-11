@@ -1,6 +1,6 @@
 title: Detect Disabling Windows Defender
 id: detect-disabling-windows-defender-logs
-status: Developed
+status: Experimental
 description: Detects attempts to disable Windows Defender using event logs that indicate changes to Defender configuration or service status.
 author: Amr Ashraf
 date: 2024-11-24

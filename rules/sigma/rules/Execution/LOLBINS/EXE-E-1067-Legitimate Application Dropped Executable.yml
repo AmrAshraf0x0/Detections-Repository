@@ -1,6 +1,6 @@
 title: Legitimate Application Dropped Executable
 description: Detects programs on a Windows system that should not write executables to disk
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

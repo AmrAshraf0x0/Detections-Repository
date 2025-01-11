@@ -1,5 +1,5 @@
 title: Detect Zipping of Files for Staging
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell to zip files or folders and stage them, which may indicate data staging for exfiltration.
 author: Amr Ashraf
 date: 2024-12-06

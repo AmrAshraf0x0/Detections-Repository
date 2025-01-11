@@ -1,5 +1,5 @@
 title: Persistence via AppInit DLL
-status: Developed
+status: Experimental
 description: Detects registry modifications of the `AppInit_Dlls` key, which attackers can use to maintain persistence by injecting DLLs into processes that use `user32.dll`.
 author: Amr Ashraf
 logsource:

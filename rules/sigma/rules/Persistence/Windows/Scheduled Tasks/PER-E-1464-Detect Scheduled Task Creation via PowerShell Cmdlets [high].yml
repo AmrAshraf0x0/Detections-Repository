@@ -1,5 +1,5 @@
 title: Detect Scheduled Task Creation via PowerShell Cmdlets
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell cmdlets such as `New-ScheduledTaskAction` and `Register-ScheduledTask` to create or modify tasks. This can be abused for persistence.
 author: Amr Ashraf
 date: 2024-12-06

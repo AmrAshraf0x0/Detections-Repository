@@ -1,5 +1,5 @@
 title: Detect Data Exfiltration Using wget
-status: Developed
+status: Experimental
 description: Detects the use of `wget` with the `--post-file` option to upload files, which could indicate potential data exfiltration to external endpoints.
 author: Amr Ashraf
 date: 2024-12-06

@@ -4,7 +4,7 @@ tags:
 - attack.credential_access
 - attack.t1558.003
 author: Amr Ashraf
-status: Developed
+status: Experimental
 logsource:
   product: windows
   service: security

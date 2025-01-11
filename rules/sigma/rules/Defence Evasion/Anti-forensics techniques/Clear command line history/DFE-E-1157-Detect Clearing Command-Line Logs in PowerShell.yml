@@ -1,7 +1,7 @@
 # needs to be tested
 title: Detect Clearing Command-Line Logs in PowerShell
 id: detect-clearing-commandline-logs-powershell
-status: Developed
+status: Experimental
 description: Detects attempts to clear PowerShell command-line logs or manipulate logging settings for defense evasion.
 author: Amr Ashraf
 date: 2024-11-24

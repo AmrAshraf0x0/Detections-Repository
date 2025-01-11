@@ -1,5 +1,5 @@
 title: Detect System Service Discovery via Command Line
-status: Developed
+status: Experimental
 description: Detects the use of `tasklist.exe` and `sc query` commands to enumerate system services, often used during reconnaissance or privilege escalation attempts.
 author: Amr Ashraf
 date: 2024-12-06

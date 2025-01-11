@@ -1,5 +1,5 @@
 title: Change Default File Association
-status: Developed
+status: Experimental
 description: Detects changes to default file association handlers, which may be used to establish persistence or modify system behavior.
 author: Amr Ashraf
 logsource:

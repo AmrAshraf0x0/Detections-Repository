@@ -1,6 +1,6 @@
 title: Port Forwarding Rule Addition
 description: Detects modifications to registry keys associated with the creation of port forwarding rules, which adversaries can abuse to bypass network segmentation restrictions.
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

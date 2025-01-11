@@ -1,5 +1,5 @@
 title: Potential WPAD Spoofing via DNS Record Creation
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

@@ -1,6 +1,6 @@
 title: Detect System Policy Enumeration via reg
 id: detect-system-policy-enumeration-reg
-status: Developed
+status: Experimental
 description: Detects enumeration of system policies directly using reg.exe targeting the HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System registry key.
 author: Amr Ashraf
 logsource:

@@ -1,5 +1,5 @@
 title: Remote Execution via WMIC
-status: Developed
+status: Experimental
 description: Identifies the use of `wmic.exe` to run commands on remote hosts, which can be indicative of lateral movement or malicious activity.
 author: Amr Ashraf
 logsource:

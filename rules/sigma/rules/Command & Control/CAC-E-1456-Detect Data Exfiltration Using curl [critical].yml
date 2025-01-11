@@ -1,5 +1,5 @@
 title: Detect Data Exfiltration Using curl
-status: Developed
+status: Experimental
 description: Detects the use of `curl` to upload files, which could indicate potential data exfiltration to external services like `file.io`.
 author: Amr Ashraf
 date: 2024-12-06

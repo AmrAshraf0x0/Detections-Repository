@@ -1,6 +1,6 @@
 title: PowerShell Script with Webcam Video Capture Capabilities
 description: Detects PowerShell scripts that include functionality to record webcam video. Attackers may use this technique to spy on or extort victims.
-status: Developed
+status: Experimental
 date: 2024-12-01
 author: Amr Ashraf
 logsource:

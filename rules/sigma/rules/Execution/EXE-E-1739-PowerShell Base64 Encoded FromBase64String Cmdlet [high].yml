@@ -1,5 +1,5 @@
 title: PowerShell Base64 Encoded FromBase64String Cmdlet
-status: Developed
+status: Experimental
 description: Detects usage of a base64 encoded "FromBase64String" cmdlet in a process command line
 references:
     - Internal Research

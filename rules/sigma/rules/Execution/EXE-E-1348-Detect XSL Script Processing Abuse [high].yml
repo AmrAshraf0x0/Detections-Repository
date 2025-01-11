@@ -1,6 +1,6 @@
 title: Detect XSL Script Processing Abuse
 id: detect-xsl-script-processing
-status: Developed
+status: Experimental
 description: Detects execution of XSL scripts via tools like wmic.exe or PowerShell, which may indicate malicious activity.
 author: Amr Ashraf
 logsource:

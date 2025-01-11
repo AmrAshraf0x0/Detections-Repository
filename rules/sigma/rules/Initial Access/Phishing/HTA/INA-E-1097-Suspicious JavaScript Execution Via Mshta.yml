@@ -1,6 +1,6 @@
 title: Suspicious JavaScript Execution Via Mshta
 description: Detects execution of javascript code using "mshta.exe".
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

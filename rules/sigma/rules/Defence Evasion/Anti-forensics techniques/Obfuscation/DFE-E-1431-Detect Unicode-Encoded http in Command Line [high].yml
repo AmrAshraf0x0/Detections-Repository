@@ -1,5 +1,5 @@
 title: Detect Unicode-Encoded "http" in Command Line
-status: Developed
+status: Experimental
 description: Detects the presence of "http" in Unicode encoding within command lines, a potential indicator of obfuscation used to hide malicious URLs.
 author: Amr Ashraf
 date: 2024-12-06

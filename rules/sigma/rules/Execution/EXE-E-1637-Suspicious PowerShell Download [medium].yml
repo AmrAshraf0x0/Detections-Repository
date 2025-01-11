@@ -1,5 +1,5 @@
 title: Suspicious PowerShell Download
-status: Developed
+status: Experimental
 description: Detects suspicious PowerShell download command
 references:
     - https://www.trendmicro.com/en_us/research/22/j/lv-ransomware-exploits-proxyshell-in-attack.html

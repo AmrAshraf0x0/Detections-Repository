@@ -1,5 +1,5 @@
 title: Detect PDQ Deploy Console Execution
-status: Developed
+status: Experimental
 description: Detects the execution of PDQ Deploy software which may be used to deploy Remote Administration Tools (RATs).
 author: Amr Ashraf
 date: 2024-12-06

@@ -1,6 +1,6 @@
 title: Detect Suspicious Modifications to Authentication Packages Registry Key
 id: detect-authentication-packages-registry-modification
-status: Developed
+status: Experimental
 description: Detects modifications to the Authentication Packages registry key, which may indicate persistence.
 author: Amr Ashraf
 logsource:

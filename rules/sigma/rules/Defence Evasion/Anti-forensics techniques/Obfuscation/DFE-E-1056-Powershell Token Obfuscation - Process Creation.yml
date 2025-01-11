@@ -1,7 +1,7 @@
 # syntax error
 title: Powershell Token Obfuscation - Process Creation
 description: Detects TOKEN OBFUSCATION technique from Invoke-Obfuscation
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

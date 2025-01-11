@@ -1,5 +1,5 @@
 title: Detect Suspicious Local Account Enumeration
-status: Developed
+status: Experimental
 description: Detects suspicious commands or processes used to enumerate local accounts, commonly seen in post-exploitation activities.
 author: Amr Ashraf
 logsource:

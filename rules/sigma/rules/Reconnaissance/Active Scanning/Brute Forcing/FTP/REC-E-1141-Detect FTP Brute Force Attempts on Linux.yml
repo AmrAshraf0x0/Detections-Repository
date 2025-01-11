@@ -1,6 +1,6 @@
 title: Detect FTP Brute Force Attempts on Linux
 description: Detects repeated failed FTP login attempts from the same source IP on a Linux server, indicative of brute force.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/03
 logsource:

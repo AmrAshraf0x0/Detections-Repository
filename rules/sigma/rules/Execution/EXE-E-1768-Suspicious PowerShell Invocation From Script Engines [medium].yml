@@ -1,5 +1,5 @@
 title: Suspicious PowerShell Invocation From Script Engines
-status: Developed
+status: Experimental
 description: Detects suspicious powershell invocations from interpreters or unusual programs
 references:
     - https://www.securitynewspaper.com/2017/03/20/attackers-leverage-excel-powershell-dns-latest-non-malware-attack/

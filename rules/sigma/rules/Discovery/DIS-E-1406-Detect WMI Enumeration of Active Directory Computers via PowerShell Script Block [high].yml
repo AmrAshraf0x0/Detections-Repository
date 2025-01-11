@@ -1,5 +1,5 @@
 title: Detect WMI Enumeration of Active Directory Computers via PowerShell Script Block
-status: Developed
+status: Experimental
 description: Detects PowerShell script blocks querying WMI for Active Directory computer objects using the `ds_computer` class in the `root\directory\ldap` namespace.
 author: Amr Ashraf
 date: 2024-12-06

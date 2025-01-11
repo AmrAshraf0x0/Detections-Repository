@@ -1,5 +1,5 @@
 title: Unusually Long PowerShell CommandLine
-status: Developed
+status: Experimental
 description: Detects unusually long PowerShell command lines with a length of 1000 characters or more
 references:
     - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse

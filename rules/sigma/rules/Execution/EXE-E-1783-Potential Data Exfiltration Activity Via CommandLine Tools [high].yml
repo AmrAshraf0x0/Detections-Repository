@@ -1,5 +1,5 @@
 title: Potential Data Exfiltration Activity Via CommandLine Tools
-status: Developed
+status: Experimental
 description: Detects the use of various CLI utilities exfiltrating data via web requests
 references:
     - https://www.sentinelone.com/blog/living-off-windows-defender-lockbit-ransomware-sideloads-cobalt-strike-through-microsoft-security-tool/

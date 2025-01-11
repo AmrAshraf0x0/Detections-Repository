@@ -1,6 +1,6 @@
 # Needs FP testing for whitelisting "don't deploy"
 title: Potential Relay Attack Against a Domain Controller
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024-12-01
 description: |

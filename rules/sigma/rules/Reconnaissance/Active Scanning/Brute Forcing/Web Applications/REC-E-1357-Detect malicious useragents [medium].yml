@@ -1,6 +1,6 @@
 title: Detect malicious useragents
 id: detect-wordlist-scanning
-status: Developed
+status: Experimental
 description: Detects malicious useragents
 author: Amr Ashraf
 logsource:

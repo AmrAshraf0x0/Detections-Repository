@@ -1,5 +1,5 @@
 title: Modification of Boot Configuration
-status: Developed
+status: Experimental
 description: Detects the use of the `bcdedit` command to modify or delete boot configuration data. This tactic may be used by attackers or malware as a destructive technique.
 author: Amr Ashraf
 logsource:

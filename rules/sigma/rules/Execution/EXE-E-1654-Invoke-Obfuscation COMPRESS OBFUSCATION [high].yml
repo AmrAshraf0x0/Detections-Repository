@@ -1,5 +1,5 @@
 title: Invoke-Obfuscation COMPRESS OBFUSCATION
-status: Developed
+status: Experimental
 description: Detects Obfuscated Powershell via COMPRESS OBFUSCATION
 references:
     - https://github.com/SigmaHQ/sigma/issues/1009 # (Task 19)

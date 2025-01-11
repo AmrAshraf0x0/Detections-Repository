@@ -1,5 +1,5 @@
 title: Potential Persistence Via New AMSI Providers
-status: Developed
+status: Experimental
 description: Detects when an attacker registers a new AMSI provider in order to achieve persistence
 references:
     - https://persistence-info.github.io/Data/amsi.html

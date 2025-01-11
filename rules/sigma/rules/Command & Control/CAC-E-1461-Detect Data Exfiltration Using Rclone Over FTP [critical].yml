@@ -1,5 +1,5 @@
 title: Detect Data Exfiltration Using Rclone Over FTP
-status: Developed
+status: Experimental
 description: Detects the use of Rclone to configure and exfiltrate data to an FTP server, which may indicate adversarial activity or unauthorized data transfers.
 author: Amr Ashraf
 date: 2024-12-06

@@ -1,6 +1,6 @@
 title: Login Attempt on Honeypot User
 description: Detects login attempts (both failed and successful) targeting a honeypot user account, which may indicate an attack or reconnaissance.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/11
 logsource:

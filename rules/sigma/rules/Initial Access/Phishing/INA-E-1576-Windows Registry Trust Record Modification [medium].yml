@@ -1,6 +1,6 @@
 # FP testing Req
 title: Windows Registry Trust Record Modification
-status: Developed
+status: Experimental
 description: Alerts on trust record modification within the registry, indicating usage of macros
 references:
     - https://outflank.nl/blog/2018/01/16/hunting-for-evil-detect-macros-being-executed/

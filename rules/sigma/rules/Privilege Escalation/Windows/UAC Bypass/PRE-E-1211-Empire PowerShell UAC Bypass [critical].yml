@@ -1,5 +1,5 @@
 title: HackTool - Empire PowerShell UAC Bypass
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 description: Detects some Empire PowerShell UAC bypass methods

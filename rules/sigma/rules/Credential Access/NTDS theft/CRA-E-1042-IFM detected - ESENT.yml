@@ -1,6 +1,6 @@
 title: IFM detected - ESENT
 description: Detects scenarios where an attacker attempts to create an IFM image (usually used for deploying domain controllers to reduce replication traffic) for dumping credentials.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 logsource:

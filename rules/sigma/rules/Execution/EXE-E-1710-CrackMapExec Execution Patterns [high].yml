@@ -1,5 +1,5 @@
 title: HackTool - CrackMapExec Execution Patterns
-status: Developed
+status: Experimental
 description: Detects various execution patterns of the CrackMapExec pentesting framework
 references:
     - https://github.com/byt3bl33d3r/CrackMapExec

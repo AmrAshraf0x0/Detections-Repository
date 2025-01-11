@@ -1,6 +1,6 @@
 title: Log Cleared
 description: A user has cleared the Security event log.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 level: high

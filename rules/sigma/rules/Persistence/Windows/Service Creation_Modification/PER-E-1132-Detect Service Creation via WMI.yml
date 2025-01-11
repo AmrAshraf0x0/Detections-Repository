@@ -1,6 +1,6 @@
 title: Detect Service Creation via WMI
 description: Detects the creation of services via WMI commands.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 logsource:
   product: windows

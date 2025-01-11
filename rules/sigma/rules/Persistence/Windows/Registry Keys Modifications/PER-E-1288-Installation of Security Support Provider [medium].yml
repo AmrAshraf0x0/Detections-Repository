@@ -1,5 +1,5 @@
 title: Installation of Security Support Provider
-status: Developed
+status: Experimental
 description: Detects modifications to registry keys related to the Windows Security Support Provider (SSP) configuration, which may indicate attempts to establish persistence.
 author: Amr Ashraf
 logsource:

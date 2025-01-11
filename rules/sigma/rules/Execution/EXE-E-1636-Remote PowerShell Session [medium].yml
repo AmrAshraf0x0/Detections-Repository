@@ -1,6 +1,6 @@
 # FP testing Req
 title: Remote PowerShell Session
-status: Developed
+status: Experimental
 description: Detects remote PowerShell sessions
 references:
     - https://threathunterplaybook.com/hunts/windows/190511-RemotePwshExecution/notebook.html

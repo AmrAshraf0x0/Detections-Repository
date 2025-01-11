@@ -1,5 +1,5 @@
 title: Detect NTDS.dit and SYSTEM Hive Access via Volume Shadow Copy
-status: Developed
+status: Experimental
 description: Detects attempts to access the NTDS.dit and SYSTEM registry hive from a Volume Shadow Copy, indicating potential credential dumping.
 author: Amr Ashraf
 date: 2024-12-06

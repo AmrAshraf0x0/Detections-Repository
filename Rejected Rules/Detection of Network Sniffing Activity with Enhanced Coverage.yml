@@ -1,6 +1,6 @@
 title: Detection of Network Sniffing Activity with Enhanced Coverage
 id: 789ab123-cdef-4567-89gh-ijklmn012345
-status: Developed
+status: Experimental
 description: Detects network sniffing on Windows systems using a variety of methods, including common sniffing tools, suspicious library loads, and unusual parent-child process relationships.
 author: Danish Kumar 
 date: 2024-11-13

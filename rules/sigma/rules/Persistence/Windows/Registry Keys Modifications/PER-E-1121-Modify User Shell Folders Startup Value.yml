@@ -1,6 +1,6 @@
 title: Modify User Shell Folders Startup Value
 description: Detect modification of the startup key to a path where a payload could be stored to be launched during startup
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

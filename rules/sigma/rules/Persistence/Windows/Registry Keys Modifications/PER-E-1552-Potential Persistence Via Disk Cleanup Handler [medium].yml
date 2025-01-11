@@ -1,5 +1,5 @@
 title: Potential Persistence Via Disk Cleanup Handler
-status: Developed
+status: Experimental
 description: |
     Detects when an attacker modifies values of the Disk Cleanup Handler in the registry to achieve persistence.
     The disk cleanup manager is part of the operating system. It displays the dialog box […]

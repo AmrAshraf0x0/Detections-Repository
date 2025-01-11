@@ -1,5 +1,5 @@
 title: Detect Network Share Mapping via New-PSDrive
-status: Developed
+status: Experimental
 description: Detects the use of PowerShell's `New-PSDrive` command to map a network share, which may indicate lateral movement or unauthorized access attempts.
 author: Amr Ashraf
 date: 2024-12-06

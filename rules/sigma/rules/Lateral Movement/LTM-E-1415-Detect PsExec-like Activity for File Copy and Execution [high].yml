@@ -1,5 +1,5 @@
 title: Detect PsExec-like Activity for File Copy and Execution
-status: Developed
+status: Experimental
 description: Detects suspicious activity resembling PsExec usage for copying and executing files on remote hosts, focusing on behavior instead of executable name.
 author: Amr Ashraf
 date: 2024-12-06

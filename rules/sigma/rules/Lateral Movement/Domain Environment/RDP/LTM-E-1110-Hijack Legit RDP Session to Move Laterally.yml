@@ -1,7 +1,7 @@
 title: Hijack Legit RDP Session to Move Laterally
 description: Detects the usage of tsclient share to place a backdoor on the RDP source machine's startup folder
 author: Amr
-status: Developed
+status: Experimental
 tags:
     - attack.command-and-control
     - attack.t1219

@@ -1,5 +1,5 @@
 title: Bypass UAC Using SilentCleanup Task
-status: Developed
+status: Experimental
 description: |
     Detects the setting of the environement variable "windir" to a non default value.
     Attackers often abuse this variable in order to trigger a UAC bypass via the "SilentCleanup" task.

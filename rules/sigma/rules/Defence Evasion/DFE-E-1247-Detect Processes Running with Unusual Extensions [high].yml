@@ -1,6 +1,6 @@
 # FP testing Req
 title: Detect Processes Running with Unusual Extensions
-status: Developed
+status: Experimental
 description: Detects processes executing with non-standard or unusual file extensions.
 author: Amr Ashraf
 logsource:

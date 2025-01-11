@@ -1,5 +1,5 @@
 title: Windows File Permissions Modification
-status: Developed
+status: Experimental
 description: Detects the use of tools such as `takeown.exe`, or `icacls.exe` to modify file permissions or attributes, which can be used to evade discretionary access control lists (DACLs).
 author: Amr Ashraf
 logsource:

@@ -1,7 +1,7 @@
 # needs traffic testing before deploy
 title: Detect Suspicious DRSR (DCsync) Replication Traffic Over RPC
 description: Detects potential DCsync attempts by monitoring for unusual network traffic involving RPC (port 135) to a Domain Controller, particularly from non-DC machines.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/07
 logsource:

@@ -1,6 +1,6 @@
 # need to check if we can match a string twice for detection
 title: Detect Changing Non-Executable Files to Executable or Script Extensions
-status: Developed
+status: Experimental
 description: Detects file operations where a non-executable file (e.g., .txt) is copied, moved, or renamed to an executable or script extension (e.g., .exe, .ps1, .bat).
 author: Amr Ashraf
 date: 2024-12-06

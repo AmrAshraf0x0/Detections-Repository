@@ -1,6 +1,6 @@
 title: Firewall Disabled via Netsh
 description: Detects netsh commands that turns off the Windows firewall
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

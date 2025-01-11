@@ -1,6 +1,6 @@
 title: SetSPN.exe Usage Detection
 description: Detects the execution of SetSPN.exe, commonly used for Service Principal Name management in Active Directory. Suspicious use of SetSPN.exe may indicate enumeration or manipulation attempts for lateral movement or privilege escalation.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/11
 logsource:

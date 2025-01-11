@@ -1,5 +1,5 @@
 title: Detect Base64 Encoded Commands in Scheduled Tasks
-status: Developed
+status: Experimental
 description: Detects scheduled tasks configured to execute base64-encoded commands, a common technique used by Qakbot and other malware.
 author: Amr Ashraf
 date: 2024-12-06

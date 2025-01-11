@@ -1,7 +1,7 @@
 # FP testing REQ
 title: Detect Service Start Type Modification
 description: Detects changes to the start type of services.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 logsource:
   product: windows

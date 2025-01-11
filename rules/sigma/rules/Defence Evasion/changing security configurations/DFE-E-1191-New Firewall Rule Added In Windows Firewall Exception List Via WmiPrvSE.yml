@@ -2,7 +2,7 @@ title: New Firewall Rule Added In Windows Firewall Exception List Via WmiPrvSE
 description: |
     Detects the addition of a new "Allow" firewall rule by the WMI process (WmiPrvSE.EXE).
     This can occur if an attacker leverages PowerShell cmdlets such as "New-NetFirewallRule", or directly uses WMI CIM classes such as "MSFT_NetFirewallRule".
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

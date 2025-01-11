@@ -1,6 +1,6 @@
 title: Linux Domain Group Enumeration
 description: Detects commands used to enumerate domain groups on Linux.
-status: Developed
+status: Experimental
 author: Yuliya Volkova
 date: 2024/11/12
 modified: 2024/11/12

@@ -1,5 +1,5 @@
 title: Detect Data Exfiltration via PowerShell Process Creation
-status: Developed
+status: Experimental
 description: Detects PowerShell or PowerShell Core activity involving file creation and data exfiltration using `Invoke-WebRequest` with the PUT method, identified through process creation logs.
 author: Amr Ashraf
 date: 2024-12-06

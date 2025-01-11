@@ -1,5 +1,5 @@
 title: New BgInfo Custom DB Path Registry Configuration
-status: Developed
+status: Experimental
 description: Detects setting of a new registry database value related to BgInfo configuration. Attackers can for example set this value to save the results of the commands executed by BgInfo in order to exfiltrate information.
 author: Amr Ashraf
 date: 2024/12/23

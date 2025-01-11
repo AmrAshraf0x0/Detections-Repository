@@ -1,5 +1,5 @@
 title: Detect Application Discovery via CommandLine
-status: Developed
+status: Experimental
 description: Detects usage of commands like tasklist or WMIC to enumerate running processes or application windows.
 author: Amr Ashraf
 logsource:

@@ -3,7 +3,7 @@ title: Outbound RDP Connections Over Non-Standard Tools
 description: |
     Detects Non-Standard tools initiating a connection over port 3389 indicating possible lateral movement.
     An initial baseline is required before using this utility to exclude third party RDP tooling that you might use.
-status: Developed
+status: Experimental
 author: Amr Ashraf
 date: 2024/11/09
 tags:

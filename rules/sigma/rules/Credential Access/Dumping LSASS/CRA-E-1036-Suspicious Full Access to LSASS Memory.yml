@@ -2,7 +2,7 @@
 title: Suspicious Full Access to LSASS Memory
 description: Detects processes with high access rights (0x1fffff) attempting to access lsass.exe, which can indicate credential dumping attempts. Known legitimate processes are whitelisted to reduce false positives.
 author: Amr Ashraf
-status: Developed
+status: Experimental
 date: 2024/11/10
 Added by: Amr Ashraf
 logsource:
