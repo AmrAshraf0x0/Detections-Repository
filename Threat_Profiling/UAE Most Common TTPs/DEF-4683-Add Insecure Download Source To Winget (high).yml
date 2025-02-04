@@ -1,0 +1,30 @@
+title: Add Insecure Download Source To Winget
+status: test
+description: |
+    Detects usage of winget to add a new insecure (http) download source.
+    Winget will not allow the addition of insecure sources, hence this could indicate potential suspicious activity (or typos)
+references:
+    - https://learn.microsoft.com/en-us/windows/package-manager/winget/source
+    - https://github.com/nasbench/Misc-Research/tree/b9596e8109dcdb16ec353f316678927e507a5b8d/LOLBINs/Winget
+tags:
+    - attack.defense-evasion
+    - attack.execution
+    - attack.t1059
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\winget.exe'
+    selection_cli:
+        CommandLine|contains|all:
+            - 'source '
+            - 'add '
+            - 'http://'
+    condition: all of selection_*
+falsepositives:
+    - False positives might occur if the users are unaware of such control checks
+level: high
+

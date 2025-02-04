@@ -1,0 +1,60 @@
+title: Potential PowerShell Obfuscation Via Reversed Commands
+status: test
+description: Detects the presence of reversed PowerShell commands in the CommandLine. This is often used as a method of obfuscation by attackers
+references:
+    - https://2019.offzone.moscow/ru/report/hunting-for-powershell-abuses/
+    - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse?slide=66
+tags:
+    - attack.defense-evasion
+    - attack.t1027
+    - attack.execution
+    - attack.t1059.001
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+              - '\powershell.exe'
+              - '\pwsh.exe'
+    selection_cli:
+        CommandLine|contains:
+            - 'hctac'
+            - 'kaerb'
+            - 'dnammoc'
+            - 'ekovn' # Also covers 'ekovni'
+            - 'eliFd'
+            - 'rahc'
+            - 'etirw'
+            - 'golon'
+            - 'tninon'
+            - 'eddih'
+            - 'tpircS'
+            - 'ssecorp'
+            - 'llehsrewop'
+            - 'esnopser'
+            - 'daolnwod'
+            - 'tneilCbeW'
+            - 'tneilc'
+            - 'ptth'
+            - 'elifotevas'
+            - '46esab'
+            - 'htaPpmeTteG'
+            - 'tcejbO'
+            - 'maerts'
+            - 'hcaerof'
+            - 'retupmoc'
+    filter_main_encoded_keyword:
+        # We exclude usage of encoded commands as they might generate FPs as shown here:
+        #   https://github.com/SigmaHQ/sigma/pull/2720
+        #   https://github.com/SigmaHQ/sigma/issues/4270
+        CommandLine|contains:
+            - ' -EncodedCommand '
+            - ' -enc '
+    condition: all of selection_* and not 1 of filter_main_*
+falsepositives:
+    - Unlikely
+level: high
+

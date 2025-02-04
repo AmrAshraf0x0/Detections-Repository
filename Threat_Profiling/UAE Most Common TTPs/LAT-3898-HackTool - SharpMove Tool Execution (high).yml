@@ -1,0 +1,38 @@
+title: HackTool - SharpMove Tool Execution
+status: test
+description: |
+    Detects the execution of SharpMove, a .NET utility performing multiple tasks such as "Task Creation", "SCM" query, VBScript execution using WMI via its PE metadata and command line options.
+references:
+    - https://github.com/0xthirteen/SharpMove/
+    - https://pentestlab.blog/tag/sharpmove/
+tags:
+    - attack.lateral-movement
+    - attack.t1021.002
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\SharpMove.exe'
+    selection_cli_computer:
+        # In its current implementation the "computername" flag is required in all actions
+        CommandLine|contains: 'computername='
+    selection_cli_actions:
+        CommandLine|contains:
+            - 'action=create'
+            - 'action=dcom'
+            - 'action=executevbs'
+            - 'action=hijackdcom'
+            - 'action=modschtask'
+            - 'action=modsvc'
+            - 'action=query'
+            - 'action=scm'
+            - 'action=startservice'
+            - 'action=taskscheduler'
+    condition: selection_img or all of selection_cli_*
+falsepositives:
+    - Unknown
+level: high
+

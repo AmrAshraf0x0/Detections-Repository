@@ -1,0 +1,24 @@
+title: PUA - CsExec Execution
+status: test
+description: Detects the use of the lesser known remote execution tool named CsExec a PsExec alternative
+references:
+    - https://github.com/malcomvetter/CSExec
+    - https://www.microsoft.com/security/blog/2022/05/09/ransomware-as-a-service-understanding-the-cybercrime-gig-economy-and-how-to-protect-yourself/
+tags:
+    - attack.resource-development
+    - attack.t1587.001
+    - attack.execution
+    - attack.t1569.002
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\csexec.exe'
+    condition: 1 of selection*
+falsepositives:
+    - Unknown
+level: high
+

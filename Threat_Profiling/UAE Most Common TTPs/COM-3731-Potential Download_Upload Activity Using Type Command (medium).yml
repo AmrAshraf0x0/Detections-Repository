@@ -1,0 +1,28 @@
+title: Potential Download/Upload Activity Using Type Command
+status: test
+description: Detects usage of the "type" command to download/upload data from WebDAV server
+references:
+    - https://mr0range.com/a-new-lolbin-using-the-windows-type-command-to-upload-download-files-81d7b6179e22
+tags:
+    - attack.command-and-control
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: process_creation (EID 1)
+    service: sysmon
+detection:
+    # Note that since built in CMD commands do not trigger a process creation. This would be detected only if used in a "/c" command
+    selection_upload:
+        CommandLine|contains|all:
+            - 'type '
+            - ' > \\\\'
+    selection_download:
+        CommandLine|contains|all:
+            - 'type \\\\'
+            - ' > ' 
+    condition: 1 of selection_*
+falsepositives:
+    - Unknown
+level: medium
+

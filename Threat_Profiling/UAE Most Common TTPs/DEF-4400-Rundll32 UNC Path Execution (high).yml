@@ -1,0 +1,26 @@
+title: Rundll32 UNC Path Execution
+status: test
+description: Detects rundll32 execution where the DLL is located on a remote location (share)
+references:
+    - https://www.cybereason.com/blog/rundll32-the-infamous-proxy-for-executing-malicious-code
+tags:
+    - attack.defense-evasion
+    - attack.execution
+    - attack.t1021.002
+    - attack.t1218.011
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\rundll32.exe'
+        - CommandLine|contains: 'rundll32'
+    selection_cli:
+        CommandLine|contains: ' \\\\'
+    condition: all of selection_*
+falsepositives:
+    - Unlikely
+level: high
+

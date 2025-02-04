@@ -1,0 +1,51 @@
+title: Webshell Tool Reconnaissance Activity
+status: test
+description: |
+    Detects processes spawned from web servers (PHP, Tomcat, IIS, etc.) that perform reconnaissance looking for the existence of popular scripting tools (perl, python, wget) on the system via the help commands
+references:
+    - https://ragged-lab.blogspot.com/2020/07/webshells-automating-reconnaissance.html
+tags:
+    - attack.persistence
+    - attack.t1505.003
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_webserver_image:
+        ParentImage|endswith:
+            - '\caddy.exe'
+            - '\httpd.exe'
+            - '\nginx.exe'
+            - '\php-cgi.exe'
+            - '\w3wp.exe'
+            - '\ws_tomcatservice.exe'
+    selection_webserver_characteristics_tomcat1:
+        ParentImage|endswith:
+            - '\java.exe'
+            - '\javaw.exe'
+        ParentImage|contains:
+            - '-tomcat-'
+            - '\tomcat'
+    selection_webserver_characteristics_tomcat2:
+        ParentImage|endswith:
+            - '\java.exe'
+            - '\javaw.exe'
+        CommandLine|contains:
+            - 'CATALINA_HOME'
+            - 'catalina.jar'
+    selection_recon:
+        CommandLine|contains:
+            - 'perl --help'
+            - 'perl -h'
+            - 'python --help'
+            - 'python -h'
+            - 'python3 --help'
+            - 'python3 -h'
+            - 'wget --help'
+    condition: 1 of selection_webserver_* and selection_recon
+falsepositives:
+    - Unknown
+level: high
+

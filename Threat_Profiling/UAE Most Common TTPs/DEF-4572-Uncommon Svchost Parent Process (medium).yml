@@ -1,0 +1,35 @@
+title: Uncommon Svchost Parent Process
+status: test
+description: Detects an uncommon svchost parent process
+references:
+    - Internal Research
+tags:
+    - attack.defense-evasion
+    - attack.t1036.005
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\svchost.exe'
+    filter_main_generic:
+        ParentImage|endswith:
+            - '\Mrt.exe'
+            - '\MsMpEng.exe'
+            - '\ngen.exe'
+            - '\rpcnet.exe'
+            - '\services.exe'
+            - '\TiWorker.exe'
+    filter_main_parent_null:
+        ParentImage: null
+    filter_main_parent_empty:
+        ParentImage:
+            - '-'
+            - ''
+    condition: selection and not 1 of filter_main_*
+falsepositives:
+    - Unknown
+level: medium
+

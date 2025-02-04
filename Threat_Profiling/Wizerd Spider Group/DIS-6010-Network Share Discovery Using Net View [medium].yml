@@ -1,0 +1,23 @@
+title: Network Share Discovery Using Net View
+status: test
+author: Amr Ashraf
+description: Detects the use of the "net view" command to discover accessible network shares, a technique used by Wizard Spider for lateral movement and ransomware operations.
+references:
+  - https://attack.mitre.org/techniques/T1135/
+  - https://attack.mitre.org/groups/G0102/
+tags:
+  - attack.discovery
+  - attack.t1135
+logsource:
+    category: process_creation
+    service: sysmon
+    product: windows
+detection:
+  selection:
+    Image|endswith: '\net.exe'
+    CommandLine|contains: ' view '
+  condition: selection
+falsepositives:
+  - Legitimate use by administrators for network troubleshooting.
+level: medium
+

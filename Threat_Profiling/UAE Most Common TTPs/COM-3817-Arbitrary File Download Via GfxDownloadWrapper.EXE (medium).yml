@@ -1,0 +1,26 @@
+title: Arbitrary File Download Via GfxDownloadWrapper.EXE
+status: test
+description: Detects execution of GfxDownloadWrapper.exe with a URL as an argument to download file.
+references:
+    - https://lolbas-project.github.io/lolbas/HonorableMentions/GfxDownloadWrapper/
+tags:
+    - attack.command-and-control
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\GfxDownloadWrapper.exe'
+        CommandLine|contains:
+            - 'http://'
+            - 'https://'
+    filter_main_known_urls:
+        CommandLine|contains: 'https://gameplayapi.intel.com/'
+    condition: selection and not 1 of filter_main_*
+falsepositives:
+    - Unknown
+level: medium
+

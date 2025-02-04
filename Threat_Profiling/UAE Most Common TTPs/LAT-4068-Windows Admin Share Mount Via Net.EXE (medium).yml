@@ -1,0 +1,27 @@
+title: Windows Admin Share Mount Via Net.EXE
+status: test
+description: Detects when an admin share is mounted using net.exe
+references:
+    - https://drive.google.com/file/d/1lKya3_mLnR3UQuCoiYruO3qgu052_iS_/view
+tags:
+    - attack.lateral-movement
+    - attack.t1021.002
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+              - '\net.exe'
+              - '\net1.exe'
+    selection_cli:
+        CommandLine|contains|all:
+            - ' use '
+            - ' \\\\*\\*$'
+    condition: all of selection_*
+falsepositives:
+    - Administrators
+level: medium
+

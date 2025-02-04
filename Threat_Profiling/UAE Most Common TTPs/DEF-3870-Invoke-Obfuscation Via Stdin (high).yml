@@ -1,0 +1,23 @@
+title: Invoke-Obfuscation Via Stdin
+status: test
+description: Detects Obfuscated Powershell via Stdin in Scripts
+references:
+    - https://github.com/SigmaHQ/sigma/issues/1009 # (Task28)
+tags:
+    - attack.defense-evasion
+    - attack.t1027
+    - attack.execution
+    - attack.t1059.001
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        CommandLine|re: '(?i)(set).*&&\s?set.*(environment|invoke|\$\{?input).*&&.*"'
+    condition: selection
+falsepositives:
+    - Unknown
+level: high
+

@@ -1,0 +1,29 @@
+title: IIS Native-Code Module Command Line Installation
+status: test
+description: Detects suspicious IIS native-code module installations via command line
+references:
+    - https://researchcenter.paloaltonetworks.com/2018/01/unit42-oilrig-uses-rgdoor-iis-backdoor-targets-middle-east/
+    - https://www.microsoft.com/security/blog/2022/07/26/malicious-iis-extensions-quietly-open-persistent-backdoors-into-servers/
+tags:
+    - attack.persistence
+    - attack.t1505.003
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\appcmd.exe'
+    selection_cli:
+        CommandLine|contains|all:
+            - 'install'
+            - 'module'
+        CommandLine|contains|windash: '-name:'
+    filter_iis_setup:
+        ParentImage: 'C:\Windows\System32\inetsrv\iissetup.exe'
+    condition: all of selection_* and not 1 of filter_*
+falsepositives:
+    - Unknown as it may vary from organisation to organisation how admins use to install IIS modules
+level: medium
+

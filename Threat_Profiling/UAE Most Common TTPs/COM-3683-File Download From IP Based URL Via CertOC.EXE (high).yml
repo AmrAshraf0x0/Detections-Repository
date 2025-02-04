@@ -1,0 +1,26 @@
+title: File Download From IP Based URL Via CertOC.EXE
+status: test
+description: Detects when a user downloads a file from an IP based URL using CertOC.exe
+references:
+    - https://lolbas-project.github.io/lolbas/Binaries/Certoc/
+tags:
+    - attack.command-and-control
+    - attack.execution
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\certoc.exe'
+    selection_ip:
+        CommandLine|re: '://[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
+    selection_cli:
+        CommandLine|contains: '-GetCACAPS'
+    condition: all of selection*
+falsepositives:
+    - Unknown
+level: high
+

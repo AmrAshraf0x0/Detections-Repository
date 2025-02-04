@@ -1,0 +1,34 @@
+title: Domain Account Creation in Active Directory
+status: test
+author: Amr Ashraf
+description: Detects domain account creation in Active Directory, a persistence method used by Wizard Spider.
+references:
+  - https://attack.mitre.org/techniques/T1136/002/
+  - https://attack.mitre.org/groups/G0102/
+tags:
+  - attack.persistence
+  - attack.t1136.002
+logsource:
+    product: windows
+    category: Process_Creation (EID 1)
+    service: sysmon
+detection:
+  selection_net_user:
+    Image|endswith: '\net.exe'
+    CommandLine|contains:
+      - ' user '
+      - ' /add '
+      - ' /domain '
+  selection_dsadd:
+    Image|endswith: '\dsadd.exe'
+    CommandLine|contains: 'user'
+  selection_powershell:
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains:
+      - 'New-ADUser'
+      - 'Set-ADUser'
+  condition: selection_net_user or selection_dsadd or selection_powershell
+falsepositives:
+  - Legitimate domain account creation by administrators.
+level: high
+

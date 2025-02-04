@@ -1,0 +1,24 @@
+title: Suspicious Diantz Download and Compress Into a CAB File
+status: test
+description: Download and compress a remote file and store it in a cab file on local machine.
+references:
+    - https://lolbas-project.github.io/lolbas/Binaries/Diantz/
+tags:
+    - attack.command-and-control
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        CommandLine|contains|all:
+            - diantz.exe
+            - ' \\\\'
+            - '.cab'
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium
+

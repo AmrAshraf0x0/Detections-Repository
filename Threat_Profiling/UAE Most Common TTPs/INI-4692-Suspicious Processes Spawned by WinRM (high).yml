@@ -1,0 +1,34 @@
+title: Suspicious Processes Spawned by WinRM
+status: test
+description: Detects suspicious processes including shells spawnd from WinRM host process
+references:
+    - Internal Research
+tags:
+    - attack.t1190
+    - attack.initial-access
+    - attack.persistence
+    - attack.privilege-escalation
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        ParentImage|endswith: '\wsmprovhost.exe'
+        Image|endswith:
+            - '\cmd.exe'
+            - '\sh.exe'
+            - '\bash.exe'
+            - '\powershell.exe'
+            - '\pwsh.exe'
+            - '\wsl.exe'
+            - '\schtasks.exe'
+            - '\certutil.exe'
+            - '\whoami.exe'
+            - '\bitsadmin.exe'
+    condition: selection
+falsepositives:
+    - Legitimate WinRM usage
+level: high
+

@@ -1,0 +1,27 @@
+title: PowerShell Web Download
+status: test
+description: Detects suspicious ways to download files or content using PowerShell
+references:
+    - https://github.com/VirtualAlllocEx/Payload-Download-Cradles/blob/88e8eca34464a547c90d9140d70e9866dcbc6a12/Download-Cradles.cmd
+tags:
+    - attack.command-and-control
+    - attack.execution
+    - attack.t1059.001
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: process_creation (EID 1)
+    service: sysmon
+detection:
+    selection:
+        CommandLine|contains:
+            - '.DownloadString('
+            - '.DownloadFile('
+            - 'Invoke-WebRequest '
+            - 'iwr '
+    condition: selection
+falsepositives:
+    - Scripts or tools that download files
+level: medium
+

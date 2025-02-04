@@ -1,0 +1,44 @@
+title: Suspicious Manipulation Of Default Accounts Via Net.EXE
+status: test
+description: Detects suspicious manipulations of default accounts such as 'administrator' and 'guest'. For example 'enable' or 'disable' accounts or change the password...etc
+references:
+    - https://www.trellix.com/en-sg/about/newsroom/stories/threat-labs/lockergoga-ransomware-family-used-in-targeted-attacks.html
+    - https://redacted.com/blog/bianlian-ransomware-gang-gives-it-a-go/
+    - https://www.microsoft.com/security/blog/2022/09/07/profiling-dev-0270-phosphorus-ransomware-operations/
+tags:
+    - attack.collection
+    - attack.t1560.001
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+              - '\net.exe'
+              - '\net1.exe'
+    selection_user_option:
+        CommandLine|contains: ' user '
+    selection_username:
+        CommandLine|contains:
+            - ' Administrator ' 
+            - ' guest '
+            - ' DefaultAccount '
+
+            - ' "Administrator" ' 
+            - ' "guest" '
+            - ' "DefaultAccount" '
+
+            - " 'Administrator' " 
+            - " 'guest' "
+            - " 'DefaultAccount' "
+    filter:
+        CommandLine|contains|all:
+            - 'guest'
+            - '/active no'
+    condition: all of selection_* and not filter
+falsepositives:
+    - Some false positives could occur with the admin or guest account. It depends on the scripts being used by the admins in your env. If you experience a lot of FP you could reduce the level to medium
+level: high
+

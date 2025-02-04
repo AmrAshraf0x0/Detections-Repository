@@ -1,0 +1,24 @@
+title: Computer System Reconnaissance Via Wmic.EXE
+status: test
+description: Detects execution of wmic utility with the "computersystem" flag in order to obtain information about the machine such as the domain, username, model, etc.
+references:
+    - https://www.microsoft.com/security/blog/2022/09/07/profiling-dev-0270-phosphorus-ransomware-operations/
+tags:
+    - attack.discovery
+    - attack.execution
+    - attack.t1047
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: process_creation (EID 1)
+    service: sysmon
+detection:
+    selection_img:
+        - Image|endswith: '\wmic.exe'
+    selection_cli:
+        CommandLine|contains: 'computersystem'
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: medium
+

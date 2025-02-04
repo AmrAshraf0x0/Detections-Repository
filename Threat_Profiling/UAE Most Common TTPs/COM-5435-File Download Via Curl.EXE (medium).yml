@@ -1,0 +1,30 @@
+title: File Download Via Curl.EXE
+status: test
+description: Detects file download using curl.exe
+references:
+    - https://web.archive.org/web/20200128160046/https://twitter.com/reegun21/status/1222093798009790464
+tags:
+    - attack.command-and-control
+    - attack.t1105
+    - detection.threat-hunting
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\curl.exe'
+        
+    selection_remote:
+        CommandLine|contains:
+            - ' -O'  # covers the alias for --remote-name and --output
+            - '--remote-name'
+            - '--output'
+    condition: all of selection_*
+falsepositives:
+    - Scripts created by developers and admins
+    - Administrative activity
+    - The "\Git\usr\bin\sh.exe" process uses the "--output" flag to download a specific file in the temp directory with the pattern "gfw-httpget-xxxxxxxx.txt "
+level: medium
+

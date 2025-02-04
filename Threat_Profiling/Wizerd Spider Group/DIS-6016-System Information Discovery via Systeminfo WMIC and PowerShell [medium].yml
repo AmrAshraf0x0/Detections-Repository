@@ -1,0 +1,28 @@
+title: System Information Discovery via Systeminfo, WMIC, and PowerShell
+status: test
+author: Amr Ashraf
+description: Detects the use of Systeminfo, WMIC, and PowerShell commands to gather system details, a technique used by Wizard Spider for reconnaissance.
+references:
+  - https://attack.mitre.org/techniques/T1082/
+  - https://attack.mitre.org/groups/G0102/
+logsource:
+    category: process_creation
+    service: sysmon
+    product: windows
+detection:
+  selection_systeminfo:
+    Image|endswith: '\systeminfo.exe'
+  selection_wmic:
+    Image|endswith: '\wmic.exe'
+    CommandLine|contains:
+      - 'os get'
+      - 'computersystem get'
+  selection_powershell:
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains:
+      - 'Get-ADComputer'
+      - 'gwmi Win32_ComputerSystem'
+      - 'Get-WmiObject Win32_OperatingSystem'
+  condition: selection_systeminfo or selection_wmic or selection_powershell
+falsepositives:
+  - System administration

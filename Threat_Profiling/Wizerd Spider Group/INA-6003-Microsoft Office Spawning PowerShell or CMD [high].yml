@@ -1,0 +1,31 @@
+title: Microsoft Office Spawning PowerShell or CMD
+status: test
+author: Amr Ashraf
+description: Detects Microsoft Word or Excel spawning PowerShell or CMD, which is commonly used in macro-based malware attacks.
+references:
+  - https://attack.mitre.org/techniques/T1204/
+  - https://attack.mitre.org/techniques/T1059/003/
+  - https://attack.mitre.org/groups/G0102/
+tags:
+  - attack.execution
+  - attack.t1204
+  - attack.t1059.003
+logsource:
+    category: process_creation
+    service: sysmon
+    product: windows
+detection:
+  selection_parent:
+    ParentImage|endswith:
+      - '\WINWORD.EXE'
+      - '\EXCEL.EXE'
+  selection_child:
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\pwsh.exe'
+  condition: selection_parent and selection_child
+falsepositives:
+  - Some legitimate automation scripts, though rare.
+level: high
+

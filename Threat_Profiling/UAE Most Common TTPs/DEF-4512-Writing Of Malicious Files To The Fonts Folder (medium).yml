@@ -1,0 +1,51 @@
+title: Writing Of Malicious Files To The Fonts Folder
+status: test
+description: Monitors for the hiding possible malicious files in the C:\Windows\Fonts\ location. This folder doesn't require admin privillege to be written and executed from.
+references:
+    - https://thedfirreport.com/2020/04/20/sqlserver-or-the-miner-in-the-basement/
+tags:
+    - attack.t1211
+    - attack.t1059
+    - attack.defense-evasion
+    - attack.persistence
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: process_creation (EID 1)
+    service: sysmon
+detection:
+    selection_1:
+        CommandLine|contains:
+            - 'echo'
+            - 'copy'
+            - 'type'
+            - 'file createnew'
+            - 'cacls'
+    selection_2:
+        CommandLine|contains: 'C:\Windows\Fonts\'
+    selection_3:
+        CommandLine|contains:
+            - '.sh'
+            - '.exe'
+            - '.dll'
+            - '.bin'
+            - '.bat'
+            - '.cmd'
+            - '.js'
+            - '.msh'
+            - '.reg'
+            - '.scr'
+            - '.ps'
+            - '.vb'
+            - '.jar'
+            - '.pl'
+            - '.inf'
+            - '.cpl'
+            - '.hta'
+            - '.msi'
+            - '.vbs'
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: medium
+

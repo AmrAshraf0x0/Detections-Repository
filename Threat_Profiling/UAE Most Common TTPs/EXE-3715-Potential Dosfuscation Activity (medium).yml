@@ -1,0 +1,40 @@
+title: Potential Dosfuscation Activity
+status: test
+description: Detects possible payload obfuscation via the commandline
+references:
+    - https://www.fireeye.com/content/dam/fireeye-www/blog/pdfs/dosfuscation-report.pdf
+    - https://github.com/danielbohannon/Invoke-DOSfuscation
+tags:
+    - attack.execution
+    - attack.t1059
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        CommandLine|contains:
+            - '^^'
+            - '^|^'
+            - ',;,'
+            - ';;;;'
+            - ';; ;;'
+            - '(,(,'
+            - '%COMSPEC:~'
+            - ' c^m^d'
+            - '^c^m^d'
+            - ' c^md'
+            - ' cm^d'
+            - '^cm^d'
+            - ' s^et '
+            - ' s^e^t '
+            - ' se^t '
+            # - '%%'
+            # - '&&'
+            # - '""'
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium
+

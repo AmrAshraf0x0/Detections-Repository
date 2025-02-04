@@ -1,0 +1,22 @@
+title: Suspicious RASdial Activity
+status: test
+description: Detects suspicious process related to rasdial.exe
+references:
+    - https://twitter.com/subTee/status/891298217907830785
+tags:
+    - attack.defense-evasion
+    - attack.execution
+    - attack.t1059
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        Image|endswith: 'rasdial.exe'
+    condition: selection
+falsepositives:
+    - False positives depend on scripts and administrative tools used in the monitored environment
+level: medium
+

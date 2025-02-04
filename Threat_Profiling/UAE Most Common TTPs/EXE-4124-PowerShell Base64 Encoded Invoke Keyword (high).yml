@@ -1,0 +1,38 @@
+title: PowerShell Base64 Encoded Invoke Keyword
+status: test
+description: Detects UTF-8 and UTF-16 Base64 encoded powershell 'Invoke-' calls
+references:
+    - https://thedfirreport.com/2022/05/09/seo-poisoning-a-gootloader-story/
+tags:
+    - attack.execution
+    - attack.t1059.001
+    - attack.defense-evasion
+    - attack.t1027
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+              - '\powershell.exe'
+              - '\pwsh.exe'
+    selection_cli_enc:
+        CommandLine|contains: ' -e'
+    selection_cli_invoke:
+        CommandLine|contains:
+            # Invoke-
+            # UTF-16LE
+            - 'SQBuAHYAbwBrAGUALQ'
+            - 'kAbgB2AG8AawBlAC0A'
+            - 'JAG4AdgBvAGsAZQAtA'
+            # UTF-8
+            - 'SW52b2tlL'
+            - 'ludm9rZS'
+            - 'JbnZva2Ut'
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: high
+

@@ -1,0 +1,29 @@
+title: Invoke-Obfuscation Via Use MSHTA
+status: test
+description: Detects Obfuscated Powershell via use MSHTA in Scripts
+references:
+    - https://github.com/SigmaHQ/sigma/issues/1009   # (Task31)
+tags:
+    - attack.defense-evasion
+    - attack.t1027
+    - attack.execution
+    - attack.t1059.001
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        CommandLine|contains|all:
+            - 'set'
+            - '&&'
+            - 'mshta'
+            - 'vbscript:createobject'
+            - '.run'
+            - '(window.close)'
+    condition: selection
+falsepositives:
+    - Unknown
+level: high
+
