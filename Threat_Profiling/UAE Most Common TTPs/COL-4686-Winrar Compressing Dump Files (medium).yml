@@ -16,7 +16,6 @@ detection:
         - Image|endswith:
               - '\rar.exe'
               - '\winrar.exe'
-        
     selection_extension:
         CommandLine|contains:
             - '.dmp'

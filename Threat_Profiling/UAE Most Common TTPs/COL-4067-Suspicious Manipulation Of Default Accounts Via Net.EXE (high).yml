@@ -22,17 +22,9 @@ detection:
         CommandLine|contains: ' user '
     selection_username:
         CommandLine|contains:
-            - ' Administrator ' 
-            - ' guest '
-            - ' DefaultAccount '
-
-            - ' "Administrator" ' 
-            - ' "guest" '
-            - ' "DefaultAccount" '
-
-            - " 'Administrator' " 
-            - " 'guest' "
-            - " 'DefaultAccount' "
+            - 'Administrator' 
+            - 'guest'
+            - 'DefaultAccount'
     filter:
         CommandLine|contains|all:
             - 'guest'

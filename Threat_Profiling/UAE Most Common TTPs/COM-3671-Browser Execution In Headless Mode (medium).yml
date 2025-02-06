@@ -1,3 +1,4 @@
+# FP test required
 title: Browser Execution In Headless Mode
 status: test
 description: Detects execution of Chromium based browser in headless mode
