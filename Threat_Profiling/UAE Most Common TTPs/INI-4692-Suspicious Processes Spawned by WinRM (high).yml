@@ -1,3 +1,4 @@
+# FP test required
 title: Suspicious Processes Spawned by WinRM
 status: test
 description: Detects suspicious processes including shells spawnd from WinRM host process

@@ -1,0 +1,30 @@
+title: Data Compression via Makecab.exe
+status: test
+description: Detects the use of makecab.exe to create cabinet files, likely for data exfiltration.
+author: Amr Ashraf
+references:
+    - https://attack.mitre.org/techniques/T1560.001/
+tags:
+    - attack.collection
+    - attack.exfiltration
+    - attack.t1560.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_makecab_execution:
+        Image|endswith: '\makecab.exe'
+    selection_suspicious_command:
+        CommandLine|contains:
+            - '.txt'
+            - '.csv'
+            - '.log'
+            - '.doc'
+            - '.pdf'
+            - '.xls'
+            - 'C:\Users\Public\'
+            - 'AppData\Local\Temp\'
+    condition: selection_makecab_execution and selection_suspicious_command
+falsepositives:
+    - Legitimate use of makecab.exe for system diagnostics or IT support
+level: high

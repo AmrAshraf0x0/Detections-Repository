@@ -24,7 +24,7 @@ detection:
             - 'hklm'
             - 'hkey_local_machine'
     selection_cli_3:
-        CommandLine|endswith:
+        CommandLine|contains:
             - '\system'
             - '\sam'
             - '\security'

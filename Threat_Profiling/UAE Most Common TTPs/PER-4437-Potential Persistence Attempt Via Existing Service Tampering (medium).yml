@@ -18,15 +18,17 @@ detection:
               - 'sc '
               - 'config '
               - 'binpath='
+    selection_sc1:
         - CommandLine|contains|all:
               - 'sc '
               - 'failure'
               - 'command='
-    selection_reg_img:
+    selection_reg_fail:
         - CommandLine|contains|all:
               - 'reg '
               - 'add '
               - 'FailureCommand'
+    selection_reg_img:
         - CommandLine|contains|all:
               - 'reg '
               - 'add '
@@ -47,7 +49,7 @@ detection:
             - '.vb'
             - '.jar'
             - '.pl'
-    condition: selection_sc or all of selection_reg_*
+    condition: 1 of selection_sc* or all of selection_reg_*
 falsepositives:
     - Unknown
 level: medium

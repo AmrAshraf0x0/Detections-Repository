@@ -1,3 +1,4 @@
+# FP required
 title: Copy From Or To Admin Share Or Sysvol Folder
 status: test
 description: Detects a copy command or a copy utility execution to or from an Admin share or remote

@@ -1,0 +1,25 @@
+title: Invoke-Obfuscation COMPRESS OBFUSCATION
+status: test
+description: Detects Obfuscated Powershell via COMPRESS OBFUSCATION
+author: Amr Ashraf
+tags:
+    - attack.defense-evasion
+    - attack.t1027
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine|contains|all:
+            - 'new-object'
+            - 'text.encoding]::ascii'
+        CommandLine|contains:
+            - 'system.io.compression.deflatestream'
+            - 'system.io.streamreader'
+            - 'readtoend('
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium

@@ -18,7 +18,7 @@ detection:
         Image|endswith: '/wget'
     selection_output:
         - CommandLine|contains: 
-            - ' -O ' # We use regex to ensure a case sensitive argument detection
+            - ' -O ' 
             - '--output-document'
     selection_path:
         CommandLine|contains: '/tmp/'

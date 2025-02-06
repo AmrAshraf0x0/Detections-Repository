@@ -1,0 +1,23 @@
+title: Suspicious Execution of CMSTP with INF File
+status: test
+description: Detects execution of cmstp.exe with an INF file, which can be used for defense evasion and arbitrary command execution.
+author: Amr Ashraf
+references:
+    - https://sec0wn.blogspot.com/2018/03/a-quick-dip-into-muddywaters-recent.html
+tags:
+    - attack.defense_evasion
+    - attack.execution
+    - attack.t1218.003
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_cmstp_execution:
+        Image|endswith: '\cmstp.exe'
+        CommandLine|contains:
+            - '/s'
+            - '.inf'
+    condition: selection_cmstp_execution
+falsepositives:
+    - Legitimate CMSTP usage for VPN profile installations
+level: high

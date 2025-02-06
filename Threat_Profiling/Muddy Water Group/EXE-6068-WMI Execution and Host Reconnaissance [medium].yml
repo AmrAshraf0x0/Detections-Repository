@@ -1,0 +1,38 @@
+title: WMI Execution and Host Reconnaissance
+status: test
+description: Detects the use of WMI for process execution and querying host information, a technique observed in MuddyWater malware.
+author: Amr Ashraf
+references:
+    - https://attack.mitre.org/techniques/T1047/
+    - https://attack.mitre.org/techniques/T1012/
+tags:
+    - attack.execution
+    - attack.discovery
+    - attack.t1047
+    - attack.t1012
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_wmi_execution:
+        Image|endswith:
+            - '\wmic.exe'
+        CommandLine|contains:
+            - 'process call create'
+            - 'process call'
+    selection_wmi_query:
+        Image|endswith:
+            - '\wmic.exe'
+        CommandLine|contains:
+            - 'os get'
+            - 'computersystem get'
+            - 'bios get'
+            - 'cpu get'
+            - 'logicaldisk get'
+            - 'nicconfig get'
+            - 'service get'
+            - 'startup get'
+    condition: selection_wmi_execution or selection_wmi_query
+falsepositives:
+    - Legitimate administrative WMI usage
+level: medium

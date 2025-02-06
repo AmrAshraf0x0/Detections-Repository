@@ -1,3 +1,4 @@
+# FP test required
 title: Rundll32 Execution Without Parameters
 status: test
 description: Detects rundll32 execution without parameters as observed when running Metasploit windows/smb/psexec exploit module

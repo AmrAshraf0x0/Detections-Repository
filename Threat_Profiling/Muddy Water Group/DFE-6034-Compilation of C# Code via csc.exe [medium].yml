@@ -1,0 +1,34 @@
+# Don't deploy without FP test first
+title: Compilation of C# Code via csc.exe
+status: test
+description: Detects the use of csc.exe (C# compiler) to compile executables from downloaded C# code, often used by adversaries like MuddyWater.
+author: Amr Ashraf
+references:
+    - https://attack.mitre.org/techniques/T1027/
+    - https://attack.mitre.org/techniques/T1500/
+tags:
+    - attack.defense_evasion
+    - attack.execution
+    - attack.t1027
+    - attack.t1500
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_image:
+        Image|endswith: '\csc.exe'
+    selection_commandline:
+        CommandLine|contains:
+            - '.cs'
+            - '/out:'
+            - '.cmd'
+            - '.cmdline' ## Focus on this on the FP test
+    selection_network:
+        - Image|endswith: '\csc.exe'
+        - CommandLine|contains:
+              - 'http'
+              - 'https'
+    condition: selection_image and (selection_commandline or selection_network)
+falsepositives:
+    - Legitimate C# development activities
+level: medium
