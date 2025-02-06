@@ -20,6 +20,7 @@ detection:
             - '\Microsoft\Protect\S-1-5-18\' # For System32
             - '\Microsoft\Protect\S-1-5-21-' # For Users
     filter_system_folders:
+        # FP test required for more filters if found
         Image|startswith:
             - 'C:\Program Files\'
             - 'C:\Program Files (x86)\'
@@ -28,6 +29,5 @@ detection:
     condition: selection and not 1 of filter_*
 falsepositives:
     - Unknown
-# Increase level after false positives filters are good enough
 level: medium
 

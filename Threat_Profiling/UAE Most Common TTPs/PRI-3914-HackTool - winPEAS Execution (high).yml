@@ -24,6 +24,7 @@ detection:
               - '\winPEASx86_ofs.exe'
               - '\winPEASx86.exe'
     selection_cli_option:
+    #FP test required for the commandline parameters
         CommandLine|contains:
             - ' applicationsinfo' # Search installed applications information
             - ' browserinfo' # Search browser information

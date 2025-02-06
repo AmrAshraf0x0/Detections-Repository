@@ -20,6 +20,7 @@ detection:
             - '\wmpub\'
             - '\htdocs\'
     filter_main_generic:
+        # FP test required for more filters if found
         Image|contains:
             - 'bin\'
             - '\Tools\'
