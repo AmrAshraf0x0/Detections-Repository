@@ -1,0 +1,34 @@
+title: 7Zip Compressing Dump Files
+status: test
+description: Detects execution of 7z in order to compress a file with a ".dmp"/".dump" extension, which could be a step in a process of dump file exfiltration.
+references:
+    - https://thedfirreport.com/2022/09/26/bumblebee-round-two/
+tags:
+    - attack.collection
+    - attack.t1560.001
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        
+        - Image|endswith:
+              - '\7z.exe'
+              - '\7zr.exe'
+              - '\7za.exe'
+        - OriginalFileName:
+              - '7z.exe'
+              - '7za.exe'
+    selection_extension:
+        CommandLine|contains:
+            - '.dmp'
+            - '.dump'
+            - '.hdmp'
+    condition: all of selection_*
+falsepositives:
+    - Legitimate use of 7z with a command line in which ".dmp" or ".dump" appears accidentally
+    - Legitimate use of 7z to compress WER ".dmp" files for troubleshooting
+level: medium
+

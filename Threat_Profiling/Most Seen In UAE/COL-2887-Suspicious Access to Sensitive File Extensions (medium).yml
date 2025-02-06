@@ -1,0 +1,34 @@
+title: Suspicious Access to Sensitive File Extensions
+status: test
+description: Detects known sensitive file extensions accessed on a network share
+references:
+    - Internal Research
+tags:
+    - attack.collection
+    - attack.t1039
+author: Amr Ashraf
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 5145
+        RelativeTargetName|endswith:
+            - '.bak'
+            - '.dmp'
+            - '.edb'
+            - '.kirbi'
+            - '.msg'
+            - '.nsf'
+            - '.nst'
+            - '.oab'
+            - '.ost'
+            - '.pst'
+            - '.rdp'
+            - '\groups.xml'
+    condition: selection
+falsepositives:
+    - Help Desk operator doing backup or re-imaging end user machine or backup software
+    - Users working with these data types or exchanging message files
+level: medium
+
