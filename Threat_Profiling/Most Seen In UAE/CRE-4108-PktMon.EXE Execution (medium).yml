@@ -1,0 +1,21 @@
+title: PktMon.EXE Execution
+status: test
+description: Detects execution of PktMon, a tool that captures network packets.
+references:
+    - https://lolbas-project.github.io/lolbas/Binaries/Pktmon/
+tags:
+    - attack.credential-access
+    - attack.t1040
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        - Image|endswith: '\pktmon.exe'
+    condition: selection
+falsepositives:
+    - Legitimate use
+level: medium
+

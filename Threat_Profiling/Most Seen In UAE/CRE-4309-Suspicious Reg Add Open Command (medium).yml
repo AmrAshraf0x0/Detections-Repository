@@ -1,0 +1,39 @@
+title: Suspicious Reg Add Open Command
+status: test
+description: Threat actors performed dumping of SAM, SECURITY and SYSTEM registry hives using DelegateExecute key
+references:
+    - https://thedfirreport.com/2021/12/13/diavol-ransomware/
+tags:
+    - attack.credential-access
+    - attack.t1003
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_1:
+        CommandLine|contains|all:
+            - 'reg'
+            - 'add'
+            - 'hkcu\software\classes\ms-settings\shell\open\command'
+            - '/ve '
+            - '/d'
+    selection_2:
+        CommandLine|contains|all:
+            - 'reg'
+            - 'add'
+            - 'hkcu\software\classes\ms-settings\shell\open\command'
+            - '/v'
+            - 'DelegateExecute'
+    selection_3:
+        CommandLine|contains|all:
+            - 'reg'
+            - 'delete'
+            - 'hkcu\software\classes\ms-settings'
+    condition: 1 of selection_*
+falsepositives:
+    - Unknown
+level: medium
+
+

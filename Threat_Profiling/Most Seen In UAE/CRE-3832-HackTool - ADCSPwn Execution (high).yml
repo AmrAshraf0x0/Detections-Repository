@@ -1,0 +1,23 @@
+title: HackTool - ADCSPwn Execution
+status: test
+description: Detects command line parameters used by ADCSPwn, a tool to escalate privileges in an active directory network by coercing authenticate from machine accounts and relaying to the certificate service
+references:
+    - https://github.com/bats3c/ADCSPwn
+tags:
+    - attack.credential-access
+    - attack.t1557.001
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        CommandLine|contains|all:
+            - ' --adcs '
+            - ' --port '
+    condition: selection
+falsepositives:
+    - Unlikely
+level: high
+

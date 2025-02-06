@@ -1,0 +1,22 @@
+title: Potential SPN Enumeration Via Setspn.EXE
+status: test
+description: Detects service principal name (SPN) enumeration used for Kerberoasting
+references:
+    - https://web.archive.org/web/20200329173843/https://p16.praetorian.com/blog/how-to-use-kerberoasting-t1208-for-privilege-escalation
+    - https://www.praetorian.com/blog/how-to-use-kerberoasting-t1208-for-privilege-escalation/?edition=2019
+tags:
+    - attack.credential-access
+    - attack.t1558.003
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_pe:
+        - Image|endswith: '\setspn.exe'
+    condition: selection_pe
+falsepositives:
+    - Administration activity
+level: medium
+

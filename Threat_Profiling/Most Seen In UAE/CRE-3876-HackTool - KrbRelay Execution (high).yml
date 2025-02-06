@@ -1,0 +1,36 @@
+title: HackTool - KrbRelay Execution
+status: test
+description: Detects the use of KrbRelay, a Kerberos relaying tool
+references:
+    - https://github.com/cube0x0/KrbRelay
+tags:
+    - attack.credential-access
+    - attack.t1558.003
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\KrbRelay.exe'
+    selection_cli_1:
+        CommandLine|contains|all:
+            - ' -spn '
+            - ' -clsid '
+            - ' -rbcd '
+    selection_cli_2:
+        CommandLine|contains|all:
+            - 'shadowcred'
+            - 'clsid'
+            - 'spn'
+    selection_cli_3:
+        CommandLine|contains|all:
+            - 'spn '
+            - 'session '
+            - 'clsid '
+    condition: 1 of selection_*
+falsepositives:
+    - Unlikely
+level: high
+

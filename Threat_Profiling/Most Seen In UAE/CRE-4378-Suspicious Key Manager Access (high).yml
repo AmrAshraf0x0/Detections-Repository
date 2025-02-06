@@ -1,0 +1,25 @@
+title: Suspicious Key Manager Access
+status: test
+description: Detects the invocation of the Stored User Names and Passwords dialogue (Key Manager)
+references:
+    - https://twitter.com/NinjaParanoid/status/1516442028963659777
+tags:
+    - attack.credential-access
+    - attack.t1555.004
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\rundll32.exe'
+    selection_cli:
+        CommandLine|contains|all:
+            - 'keymgr'
+            - 'KRShowKeyMgr'
+    condition: all of selection_*
+falsepositives:
+    - Administrative activity
+level: high
+
