@@ -18,17 +18,15 @@ detection:
         Image|endswith: '\mshta.exe'
     selection_remote_script:
         CommandLine|contains:
-            - 'http://'
-            - 'https://'
-            - '\\'
+            - 'http'
             - '.hta'
     selection_embedded_powershell:
         CommandLine|contains:
-            - 'powershell -'
+            - 'powershell'
             - 'FromBase64String'
             - 'Invoke-Expression'
             - 'iex'
-            - 'IEX (New-Object Net.WebClient).DownloadString'
+            - 'New-Object'
     condition: selection_mshta_execution and (selection_remote_script or selection_embedded_powershell)
 falsepositives:
     - Rare but possible legitimate use of mshta for administrative automation
