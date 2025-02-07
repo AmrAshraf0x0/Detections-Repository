@@ -22,12 +22,6 @@ detection:
             - '.cs'
             - '/out:'
             - '.cmd'
-            - '.cmdline' ## Focus on this on the FP test
-    selection_network:
-        - Image|endswith: '\csc.exe'
-        - CommandLine|contains:
-              - 'http'
-              - 'https'
     condition: selection_image and (selection_commandline or selection_network)
 falsepositives:
     - Legitimate C# development activities
