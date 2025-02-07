@@ -1,0 +1,35 @@
+title: Suspicious WScript Execution from Scheduled Task
+status: test
+description: Detects execution of wscript.exe with suspicious script arguments, likely triggered by a scheduled task.
+author: Amr Ashraf
+references:
+    - https://attack.mitre.org/techniques/T1059.005/
+    - https://attack.mitre.org/techniques/T1053.005/
+    - https://securelist.com/wirtes-campaign-in-the-middle-east-living-off-the-land-since-at-least-2019/105044/
+tags:
+    - attack.execution
+    - attack.persistence
+    - attack.t1059.005
+    - attack.t1053.005
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_wscript_execution:
+        Image|endswith: '\wscript.exe'
+    selection_suspicious_script:
+        CommandLine|contains:
+            - 'C:\ProgramData\winrm.vbs'
+            - 'C:\Windows\System32\slmgr.vbs'
+            - 'C:\ProgramData\winrm.txt'
+            - '/B'
+            - 'vbscript'
+    selection_suspicious_parent:
+        ParentImage|endswith:
+            - '\taskeng.exe'
+            - '\taskhostw.exe'
+            - '\svchost.exe'
+    condition: selection_wscript_execution and (selection_suspicious_script or selection_suspicious_parent)
+falsepositives:
+    - Legitimate execution of administrative scripts via scheduled tasks
+level: high

@@ -1,0 +1,30 @@
+title: Suspicious Registry Modification via reg.exe (COM Hijacking & Persistence)
+status: test
+description: Detects registry modifications using reg.exe to alter CLSID entries, often used in COM hijacking for persistence.
+author: Amr Ashraf
+references:
+    - https://attack.mitre.org/techniques/T1546.015/
+    - https://attack.mitre.org/techniques/T1112/
+    - https://securelist.com/wirtes-campaign-in-the-middle-east-living-off-the-land-since-at-least-2019/105044/
+tags:
+    - attack.persistence
+    - attack.defense_evasion
+    - attack.privilege_escalation
+    - attack.t1546.015
+    - attack.t1112
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_reg_add:
+        Image|endswith: '\reg.exe'
+        CommandLine|contains:
+            - 'add'
+    selection_clsid_modification:
+        CommandLine|contains:
+            - 'HKCU\Software\Classes\Scripting.Dictionary\CLSID'
+            - 'HKCU\Software\Classes\CLSID\{14C34482-E07F-44CF-B261-3B5B616C54EC}\LocalServer32'
+    condition: selection_reg_add and selection_clsid_modification
+falsepositives:
+    - Legitimate software installations modifying CLSID entries
+level: high
