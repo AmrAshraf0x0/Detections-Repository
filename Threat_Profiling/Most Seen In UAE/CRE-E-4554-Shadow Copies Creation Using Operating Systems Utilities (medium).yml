@@ -21,11 +21,6 @@ detection:
               - '\pwsh.exe'
               - '\wmic.exe'
               - '\vssadmin.exe'
-        - OriginalFileName:
-              - 'PowerShell.EXE'
-              - 'pwsh.dll'
-              - 'wmic.exe'
-              - 'VSSADMIN.EXE'
     selection_cli:
         CommandLine|contains|all:
             - 'shadow'
