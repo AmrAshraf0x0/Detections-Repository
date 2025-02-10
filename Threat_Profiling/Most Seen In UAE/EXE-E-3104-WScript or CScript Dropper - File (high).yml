@@ -1,0 +1,39 @@
+# FP test Required
+title: WScript or CScript Dropper - File
+status: test
+description: Detects a file ending in jse, vbe, js, vba, vbs written by cscript.exe or wscript.exe
+references:
+    - WScript or CScript Dropper (cea72823-df4d-4567-950c-0b579eaf0846)
+tags:
+    - attack.execution
+    - attack.t1059.005
+    - attack.t1059.007
+author: Amr Ashraf
+logsource:
+    category: file_event (EID 11)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        Image|endswith:
+            - '\wscript.exe'
+            - '\cscript.exe'
+        TargetFilename|startswith:
+            - 'C:\Users\'
+            - 'C:\ProgramData'
+        TargetFilename|endswith:
+            - '.jse'
+            - '.vbe'
+            - '.js'
+            - '.vba'
+            - '.vbs'
+            - '.ps1'
+            - '.cmd'
+    condition: selection
+fields:
+    - Image
+    - TargetFilename
+falsepositives:
+    - Unknown
+level: high
+

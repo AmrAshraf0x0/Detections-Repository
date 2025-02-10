@@ -1,0 +1,23 @@
+title: UAC Bypass Using Consent and Comctl32 - File
+status: test
+description: Detects the pattern of UAC Bypass using consent.exe and comctl32.dll (UACMe 22)
+references:
+    - https://github.com/hfiref0x/UACME
+tags:
+    - attack.defense-evasion
+    - attack.privilege-escalation
+    - attack.t1548.002
+author: Amr Ashraf
+logsource:
+    category: file_event (EID 11)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        TargetFilename|startswith: 'C:\Windows\System32\consent.exe.@'
+        TargetFilename|endswith: '\comctl32.dll'
+    condition: selection
+falsepositives:
+    - Unknown
+level: high
+

@@ -1,0 +1,27 @@
+title: Suspicious Scheduled Task Write to System32 Tasks
+status: test
+description: Detects the creation of tasks from processes executed from suspicious locations
+references:
+    - Internal Research
+tags:
+    - attack.persistence
+    - attack.execution
+    - attack.t1053
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: file_event (EID 11)
+    service: sysmon
+detection:
+    selection:
+        TargetFilename|contains: '\Windows\System32\Tasks'
+        Image|contains:
+            - '\AppData\'
+            - 'C:\PerfLogs'
+            - '\Windows\System32\config\systemprofile'
+            - '\public\'
+    condition: selection
+falsepositives:
+    - Unknown
+level: high
+
