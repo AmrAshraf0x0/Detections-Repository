@@ -1,0 +1,24 @@
+title: Download a File with Windows Defender MpCmdRun [medium]
+status: test
+description: 
+references:
+    - Internal Research
+tags:
+    - attack.command_and_control
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    product: Windows
+    category: process_execution
+detection:
+    selection:
+        Image|contains: 
+          - '\mpcmdrun'
+        CommandLine|contains:
+          - 'Downloadfile '
+    condition: selection
+falsepositives:
+    - unknown
+level: medium
+
+

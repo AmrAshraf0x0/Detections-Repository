@@ -1,0 +1,40 @@
+title: Renaming observed for lolbin tool [medium]
+status: test
+description: 
+references:
+    - Internal Research
+tags:
+    - attack.command_and_control
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    product: Windows
+    category: process_execution
+detection:
+    selection:
+        EventID: 1 # this should be sysmon not 4688
+        Image|contains: 
+          - '\scp.exe'
+          - '\pscp.exe'
+          - '\sftp.exe'
+          - '\powershell.exe'
+          - '\cmd.exe'
+          - '\bitsadmin.exe'
+          - 'certutil.exe'
+          - '\certreq.exe'
+    filter:
+        OriginalFileName|contains:
+          - '\scp.exe'
+          - '\pscp.exe'
+          - '\sftp.exe'
+          - '\powershell.exe'
+          - '\cmd.exe'
+          - '\bitsadmin.exe'
+          - 'certutil.exe'
+          - '\certreq.exe'
+    condition: selection and not filter
+falsepositives:
+    - possible wrong names
+level: medium
+
+

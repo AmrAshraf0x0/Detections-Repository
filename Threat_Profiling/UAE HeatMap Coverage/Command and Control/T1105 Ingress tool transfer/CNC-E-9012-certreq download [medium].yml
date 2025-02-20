@@ -1,0 +1,24 @@
+title: certreq download [medium]
+status: test
+description: 
+references:
+    - Internal Research
+tags:
+    - attack.command_and_control
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    product: Windows
+    category: process_execution
+detection:
+    selection:
+        Image|contains: 
+          - '\certreq'
+        CommandLine|contains:
+          - '-Post '
+    condition: selection
+falsepositives:
+    - unknown
+level: medium
+
+

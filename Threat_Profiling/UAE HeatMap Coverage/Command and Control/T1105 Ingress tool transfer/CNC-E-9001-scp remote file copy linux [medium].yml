@@ -1,0 +1,21 @@
+title: scp remote file copy linux [medium]
+status: test
+description: 
+references:
+    - Internal Research
+tags:
+    - attack.command_and_control
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    product: Linux
+    category: process_execution
+detection:
+    selection:
+        CommandLine|contains: 
+          - 'scp ' # Space is imprtant
+    condition: selection
+falsepositives:
+    - unknown
+level: medium
+

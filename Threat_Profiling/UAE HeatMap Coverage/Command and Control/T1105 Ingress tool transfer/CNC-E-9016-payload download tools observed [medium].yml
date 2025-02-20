@@ -1,0 +1,24 @@
+title: payload download tools observed [medium]
+status: test
+description: 
+references:
+    - Internal Research
+tags:
+    - attack.command_and_control
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    product: Windows
+    category: process_execution
+detection:
+    selection:
+        Image|contains: 
+          - '\scp.exe'
+          - '\pscp.exe'
+          - '\sftp.exe'
+    condition: selection
+falsepositives:
+    - legit use in the environment, may require tuning after deployment
+level: medium
+
+
