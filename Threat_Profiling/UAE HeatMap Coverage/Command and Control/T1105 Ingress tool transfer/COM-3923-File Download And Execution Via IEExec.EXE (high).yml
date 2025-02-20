@@ -1,0 +1,24 @@
+title: File Download And Execution Via IEExec.EXE
+status: test
+description: Detects execution of the IEExec utility to download and execute files
+references:
+    - https://lolbas-project.github.io/lolbas/Binaries/Ieexec/
+tags:
+    - attack.command-and-control
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\IEExec.exe'
+    selection_cli:
+        CommandLine|contains:
+            - 'http://'
+            - 'https://'
+    condition: all of selection_*
+falsepositives:
+    - Unknown
+level: high
+
