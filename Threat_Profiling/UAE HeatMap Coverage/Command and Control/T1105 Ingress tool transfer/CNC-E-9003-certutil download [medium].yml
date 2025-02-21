@@ -1,6 +1,6 @@
-title: certutil download [medium]
+title: certutil download activity [medium]
 status: test
-description: 
+description: certutil download activity
 references:
     - Internal Research
 tags:
