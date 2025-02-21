@@ -1,0 +1,32 @@
+title: PowerUp PowerShell attack framework [high]
+status: test
+description: detects PowerUp PowerShell attack framework, popular PowerShell framework
+references:
+    - https://adsecurity.org/?p=2921
+tags:
+    - attack.execution
+    - attack.t1059.001
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: process_execution
+detection:
+    selection:
+      CommandLine|contains:
+        - Get-ServiceUnquoted
+        - Get-ServiceFilePermission
+        - Get-ServicePermission
+        - Invoke-ServiceAbuse
+        - Install-ServiceBinary
+        - Get-RegAutoLogon
+        - Get-VulnAutoRun
+        - Get-VulnSchTask
+        - Get-UnattendedInstallFile
+        - Get-WebConfig
+        - Get-ApplicationHost
+        - Get-RegAlwaysInstallElevated
+    condition: selection
+falsepositives:
+    - unknown 
+level: high
+

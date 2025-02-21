@@ -1,0 +1,27 @@
+title: PowerShell invokes a suspicious child [medium]
+status: test
+description: Detects Suspicious childs from PowerShell.
+tags:
+    - attack.execution
+    - attack.t1059.001
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: process_creatio
+detection:
+    selection:
+      ParentImage|contains: 
+        - \powershell.exe
+        - \pwsh.exe # PowerShell v6
+        - \powershell_ise.exe # Development GUI
+      Image|contains:
+        - 'hh.exe'
+        - 'mshta.exe'
+        - 'wscript.exe'
+        - 'cscript.exe'
+        - 'mstsc.exe'
+    condition: selection
+falsepositives:
+    - unknown
+level: medium
+

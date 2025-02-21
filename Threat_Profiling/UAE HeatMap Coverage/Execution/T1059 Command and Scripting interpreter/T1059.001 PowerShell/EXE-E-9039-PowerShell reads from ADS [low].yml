@@ -1,0 +1,27 @@
+title: PowerShell reads from ADS [low]
+status: test
+description: Detects Suspicious commands from powershell to read data from Alternetive Data Stream
+tags:
+    - attack.execution
+    - attack.t1059.001
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+      Image|contains: 
+        - \powershell.exe
+        - \pwsh.exe # PowerShell v6
+        - \powershell_ise.exe # Development GUI
+      CommandLine|contains:
+        - 'GC '
+        - 'Get-Content '
+    selection2:
+      CommadLine:
+        '-stream'
+    condition: selection
+falsepositives:
+    - possible simmiler command line option for other tool in the same commandline
+level: low
+

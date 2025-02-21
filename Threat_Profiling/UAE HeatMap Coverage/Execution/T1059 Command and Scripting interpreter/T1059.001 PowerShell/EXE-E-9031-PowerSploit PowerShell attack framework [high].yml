@@ -1,0 +1,34 @@
+title: PowerSploit PowerShell attack framework [high]
+status: test
+description: detects PowerSploit PowerShell attack framework, popular PowerShell framework
+references:
+    - https://adsecurity.org/?p=2921
+tags:
+    - attack.execution
+    - attack.t1059.001
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: process_execution
+detection:
+    selection:
+      CommandLine|contains:
+        - Invoke-DllInjection
+        - Invoke-Shellcode
+        - Invoke-WmiCommand
+        - Get-GPPPassword
+        - Get-Keystrokes
+        - Get-TimedScreenshot
+        - Get-VaultCredential
+        - Invoke-CredentialInjection
+        - Invoke-Mimikatz
+        - Invoke-NinjaCopy
+        - Invoke-TokenManipulation
+        - Out-Minidump
+        - VolumeShadowCopyTools
+        - Invoke-ReflectivePEInjection
+    condition: selection
+falsepositives:
+    - unknown 
+level: high
+

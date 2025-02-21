@@ -1,0 +1,77 @@
+title: Empire PowerShell attack framework [high]
+status: test
+description: detects Empire PowerShell attack framework, popular PowerShell framework
+references:
+    - https://adsecurity.org/?p=2921
+tags:
+    - attack.execution
+    - attack.t1059.001
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: process_execution
+detection:
+    selection:
+      CommandLine|contains:
+        - Invoke-DllInjection
+        - Invoke-ReflectivePEInjection
+        - Invoke-ShellCode
+        - Get-ChromeDump
+        - Get-ClipboardContents
+        - Get-FoxDump
+        - Get-IndexedItem
+        - Get-Keystrokes
+        - Get-Screenshot
+        - Invoke-Inveigh
+        - Invoke-NetRipper
+        - Invoke-NinjaCopy
+        - Out-Minidump
+        - Invoke-EgressCheck
+        - Invoke-PostExfil
+        - Invoke-PSInject
+        - Invoke-RunAs
+        - MailRaider
+        - New-HoneyHash
+        - Set-MacAttribute
+        - Get-VaultCredential
+        - Invoke-DCSync
+        - Invoke-Mimikatz
+        - Invoke-PowerDump
+        - Invoke-TokenManipulation
+        - Exploit-Jboss
+        - Invoke-ThunderStruck
+        - Invoke-VoiceTroll
+        - Set-Wallpaper
+        - Invoke-InveighRelay
+        - Invoke-PsExec
+        - Invoke-SSHCommand
+        - Get-SecurityPackages
+        - Install-SSP
+        - Invoke-BackdoorLNK
+        - PowerBreach
+        - Get-GPPPassword
+        - Get-SiteListPassword
+        - Get-System
+        - Invoke-BypassUAC
+        - Invoke-Tater
+        - Invoke-WScriptBypassUAC
+        - PowerUp
+        - PowerView
+        - Get-RickAstley
+        - Find-Fruit
+        - HTTP-Login
+        - Find-TrustedDocuments
+        - Get-ComputerDetails
+        - Get-SystemDNSServer
+        - Invoke-Paranoia
+        - Invoke-WinEnum
+        - Get-SPN
+        - Invoke-ARPScan
+        - Invoke-PortScan
+        - Invoke-ReverseDNSLookup
+        - Invoke-SMBScanner
+    condition: selection
+falsepositives:
+    - unknown 
+level: high
+

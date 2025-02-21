@@ -1,0 +1,43 @@
+title: Nishang PowerShell attack framework [high]
+status: test
+description: detects Nishang PowerShell attack framework, popular PowerShell framework
+references:
+    - https://adsecurity.org/?p=2921
+tags:
+    - attack.execution
+    - attack.t1059.001
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: process_execution
+detection:
+    selection:
+      CommandLine|contains:
+        - Get-Unconstrained
+        - Add-RegBackdoor
+        - Add-ScrnSaveBackdoor
+        - Gupt-Backdoor
+        - Invoke-ADSBackdoor
+        - Enabled-DuplicateToken
+        - Invoke-PsUaCme
+        - Remove-Update
+        - Check-VM
+        - Copy-VSS
+        - Get-Information
+        - Get-LSASecret
+        - Get-PassHashes
+        - Invoke-Mimikatz
+        - Show-TargetScreen
+        - Port-Scan
+        - Invoke-PoshRatHttp
+        - Invoke-PowerShellTCP
+        - Invoke-PowerShellWMI
+        - Add-Exfiltration
+        - Add-Persistence
+        - Do-Exfiltration
+        - Start-CaptureServer
+    condition: selection
+falsepositives:
+    - unknown 
+level: high
+
