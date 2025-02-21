@@ -29,6 +29,7 @@ detection:
         ParentImage|contains:
             - ':\Program Files\'
             - ':\Program Files (x86)\'
+            - 'java.exe'
     condition: selection and not 1 of filter_main_*
 falsepositives:
     - Unknown
