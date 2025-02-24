@@ -1,0 +1,23 @@
+title: Windows services Information discovery [medium]
+status: test
+description: System Information Discovery using Commandline utility
+references:
+    - Threat intel feed "https://andreacristaldi.github.io/APTmap/"
+tags:
+    - attack.discovery
+    - attack.t1082
+author: Amr Ashraf
+logsource:
+    product: Windows
+    category: process_execution
+detection:
+    selection:
+        CommandLine|contains|all: 
+          - 'reg '
+          - 'query' 
+          - 'HKLM\SYSTEM\CurrentControlSet\Services\Disk\Enum'
+    condition: selection
+falsepositives:
+    - legitemate use
+level: medium
+

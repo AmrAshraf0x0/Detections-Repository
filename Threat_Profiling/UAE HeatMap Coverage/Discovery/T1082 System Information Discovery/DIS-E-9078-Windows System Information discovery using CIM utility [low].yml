@@ -1,0 +1,22 @@
+title: Windows System Information discovery using CIM utility [low]
+status: test
+description: System Information Discovery using Commandline utility
+references:
+    - Threat intel feed "https://andreacristaldi.github.io/APTmap/"
+tags:
+    - attack.discovery
+    - attack.t1082
+author: Amr Ashraf
+logsource:
+    product: Windows
+    category: process_execution
+detection:
+    selection:
+        CommandLine|contains|all: 
+          - 'Get-CimInstance'
+          - 'Win32_OperatingSystem'
+    condition: selection
+falsepositives:
+    - legitemate use
+level: low
+

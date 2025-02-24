@@ -1,0 +1,44 @@
+title: Suspicious Group And Account Reconnaissance Activity Using Net.EXE
+status: test
+description: |
+    Detects suspicious reconnaissance command line activity on Windows systems using Net.EXE
+    Check if the user that executed the commands is suspicious (e.g. service accounts, LOCAL_SYSTEM)
+references:
+    - https://redcanary.com/blog/how-one-hospital-thwarted-a-ryuk-ransomware-outbreak/
+    - https://thedfirreport.com/2020/10/18/ryuk-in-5-hours/
+    - https://research.nccgroup.com/2022/08/19/back-in-black-unlocking-a-lockbit-3-0-ransomware-attack/
+tags:
+    - attack.discovery
+    - attack.t1082
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+              - '\net.exe'
+              - '\net1.exe'
+        - OriginalFileName:
+              - 'net.exe'
+              - 'net1.exe'
+    
+    selection_group_root:
+        CommandLine|contains:
+            - ' group '
+            - ' localgroup '
+    selection_group_flags:
+        CommandLine|contains:
+            - 'domain admins'
+            - ' administrator' 
+            - 'enterprise admins'
+            - 'Exchange Trusted Subsystem'
+            - 'Remote Desktop Users'
+            - ' /do' # short for domain
+    condition: selection_img and all of selection_group_*
+falsepositives:
+    - Inventory tool runs
+    - Administrative activity
+level: medium
+

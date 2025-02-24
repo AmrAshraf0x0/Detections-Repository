@@ -1,0 +1,32 @@
+title: Share And Session Enumeration Using Net
+status: stable
+description: Detects attempts to enumerate file shares, printer shares and sessions using "net.exe" with the "view" flag.
+references:
+    - https://eqllib.readthedocs.io/en/latest/analytics/b8a94d2f-dc75-4630-9d73-1edc6bd26fff.html
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1018/T1018.md
+tags:
+    - attack.discovery
+    - attack.t1082
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith:
+              - '\net.exe'
+              - '\net1.exe'
+    selection_cli:
+        CommandLine|contains: 'view'
+    filter:
+        CommandLine|contains: '\\\\'
+    condition: all of selection_* and not filter
+fields:
+    - ComputerName
+    - User
+    - CommandLine
+falsepositives:
+    - Legitimate use of net.exe utility by legitimate user
+level: low
+

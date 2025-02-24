@@ -1,0 +1,27 @@
+title: Local Groups Reconnaissance Via Wmic.EXE
+status: test
+description: |
+    Detects the execution of "wmic" with the "group" flag.
+    Adversaries may attempt to find local system groups and permission settings.
+    The knowledge of local system permission groups can help adversaries determine which groups exist and which users belong to a particular group.
+    Adversaries may use this information to determine which users have elevated permissions, such as the users found within the local administrators group.
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1069.001/T1069.001.md
+tags:
+    - attack.discovery
+    - attack.t1082
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: process_creation (EID 1)
+    service: sysmon
+detection:
+    selection_img:
+        - Image|endswith: '\wmic.exe'
+    selection_cli:
+        CommandLine|contains: ' group'
+    condition: all of selection*
+falsepositives:
+    - Unknown
+level: low
+

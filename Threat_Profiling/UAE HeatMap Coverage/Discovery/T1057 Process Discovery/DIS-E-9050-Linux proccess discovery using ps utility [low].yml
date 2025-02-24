@@ -1,0 +1,22 @@
+title: Linux proccess discovery using ps utility [low]
+status: test
+description: Proess Discovery using Commandline utility
+references:
+    - Threat intel feed "https://andreacristaldi.github.io/APTmap/"
+tags:
+    - attack.discovery
+    - attack.t1057
+author: Amr Ashraf
+logsource:
+    product: Linux
+    category: process_execution
+detection:
+    selection:
+        CommandLine|contains|all: 
+          - ps
+          - aux
+    condition: selection
+falsepositives:
+    - legitemate use
+level: low
+

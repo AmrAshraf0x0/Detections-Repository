@@ -1,0 +1,25 @@
+title: Whoami.EXE Execution Anomaly
+status: test
+description: Detects the execution of whoami.exe with suspicious parent processes.
+references:
+    - https://brica.de/alerts/alert/public/1247926/agent-tesla-keylogger-delivered-inside-a-power-iso-daa-archive/
+    - https://app.any.run/tasks/7eaba74e-c1ea-400f-9c17-5e30eee89906/
+    - https://www.youtube.com/watch?v=DsJ9ByX84o4&t=6s
+tags:
+    - attack.discovery
+    - attack.t1082
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        - Image|endswith: '\whoami.exe'
+    condition: selection  
+falsepositives:
+    - Admin activity
+    - Scripts and administrative tools used in the monitored environment
+    - Monitoring activity
+level: medium
+

@@ -1,0 +1,23 @@
+# FP test required before deploy
+title: Windows proccess discovery using commandline utilities [low]
+status: test
+description: Proess Discovery using Commandline utility
+references:
+    - Threat intel feed "https://andreacristaldi.github.io/APTmap/"
+tags:
+    - attack.discovery
+    - attack.t1057
+author: Amr Ashraf
+logsource:
+    product: Windows
+    category: process_execution
+detection:
+    selection:
+        CommandLine|contains|all: 
+          - tasklist 
+          - Get-Process
+    condition: selection
+falsepositives:
+    - legitemate use
+level: low
+

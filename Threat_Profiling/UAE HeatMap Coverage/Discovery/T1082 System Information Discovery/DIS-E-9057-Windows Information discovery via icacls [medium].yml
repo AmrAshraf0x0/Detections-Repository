@@ -1,0 +1,22 @@
+# FP test required to understand the developers behaviour
+title: Windows Information discovery via icacls [medium]
+status: test
+description: System Information Discovery using Commandline utility
+references:
+    - Threat intel feed "https://andreacristaldi.github.io/APTmap/"
+tags:
+    - attack.discovery
+    - attack.t1082
+author: Amr Ashraf
+logsource:
+    product: Windows
+    category: process_execution
+detection:
+    selection:
+        CommandLine|contains: 
+          - 'icacls '
+    condition: selection
+falsepositives:
+    - legitemate use
+level: medium
+
