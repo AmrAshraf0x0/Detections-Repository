@@ -1,0 +1,33 @@
+title: Suspicious Startup Folder Persistence
+status: test
+description: Detects when a file with a suspicious extension is created in the startup folder
+references:
+    - https://github.com/last-byte/PersistenceSniper
+tags:
+    - attack.persistence
+    - attack.t1547.001
+author: Amr Ashraf
+logsource:
+    product: windows
+    category: file_event (EID 11)
+    service: sysmon
+detection:
+    selection:
+        TargetFilename|contains: '\Windows\Start Menu\Programs\Startup\'
+        TargetFilename|endswith:
+            - '.vbs'
+            - '.vbe'
+            - '.bat'
+            - '.ps1'
+            - '.hta'
+            - '.dll'
+            - '.jar'
+            - '.msi'
+            - '.scr'
+            - '.cmd'
+            - '.lnk'
+    condition: selection
+falsepositives:
+    - Rare legitimate usage of some of the extensions mentioned in the rule
+level: high
+

@@ -1,0 +1,27 @@
+title: Potential Persistence Attempt Via Run Keys Using Reg.EXE
+status: test
+description: Detects suspicious command line reg.exe tool adding key to RUN key in Registry
+references:
+    - https://app.any.run/tasks/9c0f37bc-867a-4314-b685-e101566766d7/
+    - https://learn.microsoft.com/en-us/windows/win32/setupapi/run-and-runonce-registry-keys
+tags:
+    - attack.persistence
+    - attack.t1547.001
+author: Amr Ashraf
+logsource:
+    category: process_creation (EID 1)
+    service: sysmon
+    product: windows
+detection:
+    selection:
+        CommandLine|contains|all:
+            - 'reg'
+            - ' ADD '
+            - 'Software\Microsoft\Windows\CurrentVersion\Run'
+    condition: selection
+falsepositives:
+    - Legitimate software automatically (mostly, during installation) sets up autorun keys for legitimate reasons.
+    - Legitimate administrator sets up autorun keys for legitimate reasons.
+    - Discord
+level: medium
+

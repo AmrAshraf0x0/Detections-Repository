@@ -1,0 +1,37 @@
+title: System Scripts Autorun Keys Modification
+status: test
+description: Detects modification of autostart extensibility point (ASEP) in registry.
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1547.001/T1547.001.md
+    - https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns
+    - https://gist.github.com/GlebSukhodolskiy/0fc5fa5f482903064b448890db1eaf9d # a list with registry keys
+tags:
+    - attack.persistence
+    - attack.t1547.001
+author: Amr Ashraf
+logsource:
+    category: registry_set (EID 13)
+    service: sysmon
+    product: windows
+detection:
+    scripts_base:
+        TargetObject|contains: '\Software\Policies\Microsoft\Windows\System\Scripts'
+    scripts:
+        TargetObject|contains:
+            - '\Startup'
+            - '\Shutdown'
+            - '\Logon'
+            - '\Logoff'
+    filter:
+        Details: '(Empty)'
+    condition: scripts_base and scripts and not filter
+fields:
+    - SecurityID
+    - ObjectName
+    - OldValueType
+    - NewValueType
+falsepositives:
+    - Legitimate software automatically (mostly, during installation) sets up autorun keys for legitimate reason
+    - Legitimate administrator sets up autorun keys for legitimate reason
+level: medium
+
