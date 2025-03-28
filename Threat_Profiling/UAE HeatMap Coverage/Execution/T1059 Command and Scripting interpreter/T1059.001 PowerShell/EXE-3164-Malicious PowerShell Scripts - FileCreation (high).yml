@@ -33,7 +33,7 @@ logsource:
 detection:
     selection_generic:
         TargetFilename|endswith:
-            # Note: Please ensure alphabetical order when adding new entries
+            
             - '\Add-ConstrainedDelegationBackdoor.ps1'
             - '\Add-Exfiltration.ps1'
             - '\Add-Persistence.ps1'
