@@ -1,0 +1,30 @@
+title: Privilege Escalation via Local Group Membership [high]
+status: test
+description: Detects the addition of default accounts (Guest, Administrator, DefaultAccount) to privileged local groups.
+author: Amr Ashraf
+date: 2025-03-28
+references:
+    - https://attack.mitre.org/techniques/T1078/001/ # Default Accounts Abuse
+logsource:
+    category: windows
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4732
+        TargetUserName:
+            - "Administrators"
+            - "Remote Desktop Users"
+            - "Backup Operators"
+        MemberSid|re:
+            - "S-1-5-21-.*-501"  # Guest Account SID pattern
+            - "S-1-5-21-.*-500"  # Administrator Account SID pattern
+            - "S-1-5-21-.*-503"  # DefaultAccount SID pattern
+    condition: selection
+falsepositives:
+    - Legitimate administrative actions
+level: high
+tags:
+    - attack.persistence
+    - attack.privilege_escalation
+    - attack.t1078.001

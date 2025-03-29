@@ -1,0 +1,27 @@
+title: Enable Default Windows Accounts via WMIC [high]
+status: test
+description: Detects the activation of default Windows accounts (Guest, Administrator, DefaultAccount) using WMIC.
+author: Amr Ashraf
+date: 2025-03-28
+references:
+    - https://attack.mitre.org/techniques/T1078/001/ # Default Accounts Abuse
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith:
+            - '\wmic.exe'
+        CommandLine|contains|re:
+            - "useraccount.*where.*name='Guest'"
+            - "useraccount.*where.*name='Administrator'"
+            - "useraccount.*where.*name='DefaultAccount'"
+    condition: selection
+falsepositives:
+    - Legitimate system administration activity
+level: high
+tags:
+    - attack.persistence
+    - attack.initial_access
+    - attack.t1078.001
+    - attack.t1098

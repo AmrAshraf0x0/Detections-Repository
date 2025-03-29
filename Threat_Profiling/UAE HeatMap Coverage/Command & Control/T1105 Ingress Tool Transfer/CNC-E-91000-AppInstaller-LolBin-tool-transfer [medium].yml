@@ -1,0 +1,23 @@
+title: AppInstaller LolBin Tool Transfer [Medium]
+status: test
+description: AppInsteller tool used to download a payload
+references:
+    - https://lolbas-project.github.io/lolbas/Binaries/AppInstaller/
+tags:
+    - attack.command_and_control
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    product: Windows
+    category: process_execution
+detection:
+    selection:
+        CommandLine|contains|all: 
+          - 'ms-appinstaller'
+          - 'http'
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium
+
+

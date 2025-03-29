@@ -1,0 +1,29 @@
+title: Enable Default Windows Accounts via Net User [high]
+status: test
+description: Detects the activation of default Windows accounts (Guest, Administrator, DefaultAccount) using the 'net user' command.
+author: Amr Ashraf
+date: 2025-03-28
+references:
+    - https://attack.mitre.org/techniques/T1078/001/ # Default Accounts Abuse
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith:
+            - '\net.exe'
+            - '\net1.exe'
+        CommandLine|contains|re:
+            - 'user.*Guest.*/active:yes'
+            - 'user.*Administrator.*/active:yes'
+            - 'user.*DefaultAccount.*/active:yes'
+    condition: selection
+falsepositives:
+    - Legitimate system administration activity
+level: high
+tags:
+    - attack.initial_access
+    - attack.t1078.001
+    - attack.persistence
+    - attack.t1098
+

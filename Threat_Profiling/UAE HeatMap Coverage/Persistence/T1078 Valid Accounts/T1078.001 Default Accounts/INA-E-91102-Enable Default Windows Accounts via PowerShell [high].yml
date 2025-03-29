@@ -1,0 +1,25 @@
+title: Enable Default Windows Accounts via PowerShell [high]
+status: test
+description: Detects the activation of default Windows accounts (Guest, Administrator, DefaultAccount) using PowerShell.
+author: Amr Ashraf
+date: 2025-03-28
+references:
+    - https://attack.mitre.org/techniques/T1078/001/ # Default Accounts Abuse
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine|contains|re:
+            - 'Set-LocalUser.*-Name.*Guest.*-Enabled.* $true'
+            - 'Set-LocalUser.*-Name.*Administrator.*-Enabled.*$true'
+            - 'Set-LocalUser.*-Name.*DefaultAccount.*-Enabled.*$true'
+    condition: selection
+falsepositives:
+    - Legitimate system administration activity
+level: high
+tags:
+    - attack.persistence
+    - attack.initial_access
+    - attack.t1078.001
+    - attack.t1098

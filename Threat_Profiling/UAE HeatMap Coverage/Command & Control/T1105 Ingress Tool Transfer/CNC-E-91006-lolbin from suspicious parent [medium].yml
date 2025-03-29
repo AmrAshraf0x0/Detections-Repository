@@ -1,0 +1,31 @@
+title: lolbin from suspicious parent [medium]
+status: test
+description: possible Transfer operation using lolbin bitsadmin 
+references:
+    - Internal Research
+tags:
+    - attack.command_and_control
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    product: Windows
+    category: process_execution
+detection:
+    selection:
+        Image|endswith: 
+          - '\bitsadmin.exe'
+          - '\certoc.exe'
+          - '\appinstaller.exe'
+        ParentImage|contains:
+          - 'cmd.exe'
+          - 'powershell.exe'
+          - 'pwsh.exe'
+          - 'wscript.exe'
+          - 'cscript.exe'
+          - 'hh.exe'
+          - 'mshta.exe'   
+    condition: selection
+falsepositives:
+    - FP test Required
+level: medium
+

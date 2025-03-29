@@ -1,0 +1,28 @@
+title: LLMNR Configuration Change via Registry [medium]
+status: test
+description: Detects changes to the EnableMulticast registry value, which controls LLMNR. Disabling LLMNR improves security against name resolution poisoning attacks.
+author: Amr Ashraf
+date: 2025-03-28
+references:
+    - https://attack.mitre.org/techniques/T1557/001/ # MITRE ATT&CK - LLMNR Poisoning
+logsource:
+    category: registry_event
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 13
+        TargetObject: "HKLM\\Software\\Policies\\Microsoft\\Windows NT\\DNSClient\\EnableMulticast"
+    filter_allowed:
+        Details:
+            - "DWORD (0x0)"  # LLMNR Disabled (Security Best Practice)
+    condition: selection and not filter_allowed
+falsepositives:
+    - Legitimate administrative changes
+level: medium
+tags:
+    - attack.defense_evasion
+    - attack.t1557.001
+    - attack.initial_access
+    - attack.t1078.002
+

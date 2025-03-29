@@ -1,0 +1,21 @@
+title: CertReq Files creation [medium]
+status: test
+description: possible Transfer operation using lolbin CertReq
+references:
+    - https://lolbas-project.github.io/lolbas/Binaries/CertReq/
+tags:
+    - attack.command_and_control
+    - attack.t1105
+author: Amr Ashraf
+logsource:
+    product: Windows
+    category: file_creation
+detection:
+    selection:
+        Image|endswith: 
+          - '\certreq.exe'  
+    condition: selection
+falsepositives:
+    - FP test Required
+level: medium
+
