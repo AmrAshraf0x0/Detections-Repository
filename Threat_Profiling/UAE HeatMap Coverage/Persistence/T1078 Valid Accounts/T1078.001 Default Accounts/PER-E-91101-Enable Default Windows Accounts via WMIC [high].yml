@@ -6,17 +6,22 @@ date: 2025-03-28
 references:
     - https://attack.mitre.org/techniques/T1078/001/ # Default Accounts Abuse
 logsource:
-    category: process_creation
+    category: Command Execution
     product: windows
 detection:
     selection:
         Image|endswith:
             - '\wmic.exe'
-        CommandLine|contains|re:
-            - "useraccount.*where.*name='Guest'"
-            - "useraccount.*where.*name='Administrator'"
-            - "useraccount.*where.*name='DefaultAccount'"
-    condition: selection
+        CommandLine|contains:
+            - 'useraccount'
+            - 'where'
+            - 'name'
+    accounts:
+        CommandLine|contains:
+            - 'Guest'
+            - 'DefaultAccount'
+            - 'Administrator'
+    condition: selection and accounts
 falsepositives:
     - Legitimate system administration activity
 level: high

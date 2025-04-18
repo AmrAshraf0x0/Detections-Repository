@@ -6,7 +6,7 @@ date: 2025-03-28
 references:
     - https://attack.mitre.org/techniques/T1078/001/ # Default Accounts Abuse
 logsource:
-    category: windows
+    category: Group Modification
     product: windows
     service: security
 detection:

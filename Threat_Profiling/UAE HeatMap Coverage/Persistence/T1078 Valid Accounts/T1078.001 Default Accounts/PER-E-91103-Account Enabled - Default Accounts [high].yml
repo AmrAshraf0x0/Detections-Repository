@@ -1,27 +1,27 @@
-title: Default Account Logins Failed [medium]
+title: Account Enabled - Default Accounts [high]
 status: test
-description: Detects logins failed for default Windows accounts (Guest, DefaultAccount).
+description: Detects enabling of disabled default Windows accounts (Guest, Administrator, DefaultAccount)
 author: Amr Ashraf
 date: 2025-03-28
 references:
     - https://attack.mitre.org/techniques/T1078/001/ # Default Accounts Abuse
 logsource:
-    category: windows
+    category: User Account Modification
     product: windows
     service: security
 detection:
     selection:
-        EventID:
-            - 4625 
+        EventID: 4722
         TargetUserName:
             - 'Guest'
+            - 'Administrator'
             - 'DefaultAccount'
     condition: selection
 falsepositives:
-    - Legitimate logins by IT administrators or system tasks
-level: medium
+    - Legitimate account re-enablement by system administrators
+level: high
 tags:
     - attack.persistence
-    - attack.t1078.001
     - attack.initial_access
-
+    - attack.t1078.001
+    - attack.t1098

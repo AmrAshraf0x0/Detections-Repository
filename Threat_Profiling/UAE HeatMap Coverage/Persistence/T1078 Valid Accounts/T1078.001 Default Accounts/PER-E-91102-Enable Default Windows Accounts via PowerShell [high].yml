@@ -6,15 +6,19 @@ date: 2025-03-28
 references:
     - https://attack.mitre.org/techniques/T1078/001/ # Default Accounts Abuse
 logsource:
-    category: process_creation
+    category: Command Execution
     product: windows
 detection:
     selection:
-        CommandLine|contains|re:
-            - 'Set-LocalUser.*-Name.*Guest.*-Enabled.* $true'
-            - 'Set-LocalUser.*-Name.*Administrator.*-Enabled.*$true'
-            - 'Set-LocalUser.*-Name.*DefaultAccount.*-Enabled.*$true'
-    condition: selection
+        CommandLine|contains|all:
+            - 'Set-LocalUser'
+            - '-Enabled'
+            - '$true'
+    accounts:
+            - 'Guest'
+            - 'Administrator'
+            - 'DefaultAccount'
+    condition: selection and accounts
 falsepositives:
     - Legitimate system administration activity
 level: high

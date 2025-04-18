@@ -6,18 +6,23 @@ date: 2025-03-28
 references:
     - https://attack.mitre.org/techniques/T1078/001/ # Default Accounts Abuse
 logsource:
-    category: process_creation
+    category: Command Execution
     product: windows
 detection:
     selection:
         Image|endswith:
             - '\net.exe'
             - '\net1.exe'
-        CommandLine|contains|re:
-            - 'user.*Guest.*/active:yes'
-            - 'user.*Administrator.*/active:yes'
-            - 'user.*DefaultAccount.*/active:yes'
-    condition: selection
+        CommandLine|contains:
+            - 'user'
+            - 'active'
+            - 'yes'
+    accounts:
+        CommandLine|contains:
+            - 'Guest'
+            - 'DefaultAccount'
+            - 'Administrator'
+    condition: selection and accounts
 falsepositives:
     - Legitimate system administration activity
 level: high

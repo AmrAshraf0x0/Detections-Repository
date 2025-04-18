@@ -1,0 +1,37 @@
+title: Enable Default Windows Accounts via Registry Modification [high]
+status: test
+description: Detects enabling of default Windows accounts (Guest, Administrator, DefaultAccount) by modifying SAM registry keys using PowerShell.
+author: Amr Ashraf
+date: 2025-03-28
+references:
+    - https://attack.mitre.org/techniques/T1078/001/ # Default Accounts Abuse
+logsource:
+    category: Process Creation
+    product: windows
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains|all:
+            - 'Set-ItemProperty'
+            - 'HKLM:\SAM\SAM\Domains\Account\Users'
+            - '-Name'
+            - '"F"'
+    sids:
+        CommandLine|contains:
+            - '000001F4'  # Administrator
+            - '000001F5'  # Guest
+            - '000001F7'  # DefaultAccount
+    value:
+        CommandLine|contains:
+            - '0x10'
+    condition: selection and sids and value
+falsepositives:
+    - Extremely rare for legitimate use
+level: high
+tags:
+    - attack.privilege_escalation
+    - attack.persistence
+    - attack.defense_evasion
+    - attack.t1078.001

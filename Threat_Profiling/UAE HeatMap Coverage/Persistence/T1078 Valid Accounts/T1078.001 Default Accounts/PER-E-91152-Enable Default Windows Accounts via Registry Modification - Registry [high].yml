@@ -1,0 +1,31 @@
+title: Enable Default Windows Accounts via Registry Modification - Registry [high]
+status: test
+description: Detects enabling of default Windows accounts (Guest, Administrator, DefaultAccount) via registry manipulation of SAM hive using Sysmon Event ID 13.
+author: Amr Ashraf
+date: 2025-03-28
+references:
+    - https://attack.mitre.org/techniques/T1078/001/
+    - https://attack.mitre.org/techniques/T1112/
+logsource:
+    category: Windows Registry Key Modification
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 13
+        TargetObject|contains: 'HKLM\SAM\SAM\Domains\Account\Users\'
+        TargetObject|endswith:
+            - '\000001F4\F'  # Administrator
+            - '\000001F5\F'  # Guest
+            - '\000001F7\F'  # DefaultAccount
+        Details|contains: '0x10'
+    condition: selection
+falsepositives:
+    - Rare; possibly during system hardening, malware testing, or recovery tools
+level: high
+tags:
+    - attack.privilege_escalation
+    - attack.persistence
+    - attack.defense_evasion
+    - attack.t1078.001
+    - attack.t1112
