@@ -1,0 +1,34 @@
+title: HXP Base - Windows User Account Created (4720)
+id: HXP-BASE-WIN-USER-CREATED-4720
+status: test
+description: |
+  Detection Description:
+  Base rule matching Windows Security event for new user creation (EventID 4720). Intended for re-use by correlation rules.
+
+  Status:
+  test
+
+  Data Sources:
+  MITRE Data Source: User Account Management
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Security
+
+  Author:
+  HXP Detection team
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/datasources/DS0002/
+logsource:
+  category: account_management
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4720
+  condition: selection
+falsepositives:
+  - Legitimate user provisioning
+level: low
+tags:
+  - attack.t1078

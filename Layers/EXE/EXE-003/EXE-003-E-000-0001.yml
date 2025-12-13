@@ -1,0 +1,78 @@
+title: Scheduled Task Created via schtasks.exe from suspicious parent process - EXE-003-E-000-0001
+id: EXE-003-E-000-0001
+status: experimental
+description: |
+  Detection Description:
+  Detects suspicious scheduled task creation via schtasks.exe when launched by a high-risk parent process commonly abused by attackers.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1053.005 - Scheduled Task/Job: Scheduled Task
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Sysmon (Event ID 1) or equivalent process creation logs
+
+  Detection Logic:
+  Looks for schtasks.exe '/create' executions where the parent process is a common LOLBIN/scripting host used in malicious chains.
+
+  False Positive Considerations:
+  See falsepositives section below.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 4
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: Scheduled Task Execution
+- L2 Use Case Identifier: EXE-003
+- Rule Identifier: EXE-003-E-000-0001
+- Technical Use Case Name: Scheduled Task Created via schtasks.exe from suspicious parent process
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith: '\\schtasks.exe'
+    CommandLine|contains:
+      - '/create'
+    ParentImage|endswith:
+      - '\\powershell.exe'
+      - '\\pwsh.exe'
+      - '\\cmd.exe'
+      - '\\wscript.exe'
+      - '\\cscript.exe'
+      - '\\mshta.exe'
+      - '\\rundll32.exe'
+      - '\\regsvr32.exe'
+
+  condition: selection
+
+falsepositives:
+  - Legitimate IT automation or admin scripting that creates scheduled tasks using PowerShell/CMD (tune by user, host, or signed scripts)
+level: high
+tags:
+  - attack.execution
+  - attack.persistence
+  - attack.t1053.005

@@ -1,0 +1,69 @@
+title: WMI Querying Shares and Network Resources - EXE-004-E-000-0016
+id: EXE-004-E-000-0016
+status: experimental
+description: |
+  Detection Description:
+  Detects enumeration of network shares using WMI/WMIC.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1135 - Network Share Discovery
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Sysmon (Event ID 1) or equivalent process creation logs
+
+  Detection Logic:
+  Matches WMIC queries for Win32_Share or share get operations.
+
+  False Positive Considerations:
+  See falsepositives section below.
+
+  Severity and Risk Rating:
+  Severity Level: Medium
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 36
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: WMI Execution
+- L2 Use Case Identifier: EXE-004
+- Rule Identifier: EXE-004-E-000-0016
+- Technical Use Case Name: WMI Querying Shares and Network Resources
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1135/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith: '\\wmic.exe'
+    CommandLine|contains:
+      - 'Win32_Share'
+      - 'share get'
+
+  condition: selection
+
+falsepositives:
+  - Legitimate admin scripts and inventory tools
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1135

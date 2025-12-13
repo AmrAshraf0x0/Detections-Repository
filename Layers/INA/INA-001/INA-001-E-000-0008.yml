@@ -1,0 +1,72 @@
+title: Local Administrator Account Interactive Login - INA-001-E-000-0008
+id: INA-001-E-000-0008
+status: experimental
+description: |
+  Detection Description:
+  Detects interactive logons by the built-in local Administrator account (RID 500). Interactive use of this account is high risk
+  and should be rare and tightly controlled.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1078 - Valid Accounts
+  Kill Chain Phase: Initial Access
+
+  Data Sources:
+  MITRE Data Source: Authentication Logs
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Security
+
+  Detection Logic:
+  Successful logon (4624) with interactive logon types where the TargetUserSid ends with -500.
+
+  False Positive Considerations:
+  Approved break-glass/local recovery usage; provisioning activity.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  MITRE T1078 technique page.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 8
+- L1 Use Case Name: Initial Access
+- L1 Use Case Identifier: INA
+- L2 Use Case Name: Valid Account
+- L2 Use Case Identifier: INA-001
+- Rule Identifier: INA-001-E-000-0008
+- Technical Use Case Name: Local Administrator Account Interactive Login
+- Use Case Description:
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All users
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1078/
+logsource:
+  category: authentication
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4624
+    LogonType:
+      - 2
+      - 10
+      - 11
+  built_in_admin:
+    TargetUserSid|endswith: "-500"
+  condition: selection and built_in_admin
+falsepositives:
+  - Legitimate break-glass usage for local recovery
+  - Initial provisioning activity
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1078

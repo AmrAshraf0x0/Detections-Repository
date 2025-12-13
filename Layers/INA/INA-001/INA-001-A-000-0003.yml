@@ -1,0 +1,82 @@
+title: Service Account Interactive Login Attempt - INA-001-A-000-0003
+id: INA-001-A-000-0003
+status: experimental
+description: |
+  Detection Description:
+  Detects interactive logons (console/RDP/cached) performed by accounts that match common service-account naming patterns.
+  Service accounts should rarely authenticate interactively; this can indicate credential theft or misuse.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1078 - Valid Accounts
+  Kill Chain Phase: Initial Access
+
+  Data Sources:
+  MITRE Data Source: Authentication Logs
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Security
+
+  Detection Logic:
+  Successful logon (4624) with interactive logon types where TargetUserName matches service-account patterns.
+
+  False Positive Considerations:
+  Approved troubleshooting/break-glass; initial service setup.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  MITRE T1078 technique page.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 8
+- L1 Use Case Name: Initial Access
+- L1 Use Case Identifier: INA
+- L2 Use Case Name: Valid Account
+- L2 Use Case Identifier: INA-001
+- Rule Identifier: INA-001-A-000-0003
+- Technical Use Case Name: Service Account Interactive Login Attempt
+- Use Case Description:
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All users
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1078/
+logsource:
+  category: authentication
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4624
+    LogonType:
+      - 2
+      - 10
+      - 11
+  service_account_name_patterns:
+    TargetUserName|startswith:
+      - "svc"
+      - "svc_"
+      - "service"
+      - "app_"
+      - "sa_"
+  filter_machine_accounts:
+    TargetUserName|endswith: '$'
+  filter_anonymous:
+    TargetUserName:
+      - "ANONYMOUS LOGON"
+  condition: selection and service_account_name_patterns and not filter_machine_accounts and not filter_anonymous
+falsepositives:
+  - Authorized break-glass / troubleshooting using service accounts
+  - Temporary interactive usage during initial configuration
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1078

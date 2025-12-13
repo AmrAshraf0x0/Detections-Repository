@@ -1,0 +1,70 @@
+title: wmic.exe Process Call Create Execution - EXE-004-E-000-0001
+id: EXE-004-E-000-0001
+status: experimental
+description: |
+  Detection Description:
+  Detects process creation via WMIC 'process call create', a common technique for command execution through WMI.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1047 - Windows Management Instrumentation
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Sysmon (Event ID 1) or equivalent process creation logs
+
+  Detection Logic:
+  Matches wmic.exe executions where the command line includes 'process call create'.
+
+  False Positive Considerations:
+  See falsepositives section below.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 36
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: WMI Execution
+- L2 Use Case Identifier: EXE-004
+- Rule Identifier: EXE-004-E-000-0001
+- Technical Use Case Name: wmic.exe Process Call Create Execution
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1047/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith: '\\wmic.exe'
+    CommandLine|contains|all:
+      - 'process'
+      - 'call'
+      - 'create'
+
+  condition: selection
+
+falsepositives:
+  - Legitimate admin scripts using WMIC for remote/local process creation (tune by user/host)
+level: high
+tags:
+  - attack.execution
+  - attack.t1047

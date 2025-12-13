@@ -1,0 +1,64 @@
+title: First-Time Authentication from New User - INA-001-E-000-0004
+id: INA-001-E-000-0004
+status: experimental
+description: |
+  Detection Description:
+  Detects creation of a new user account followed by a successful authentication for that account within 4 hours.
+  Implemented as a Sigma correlation rule referencing shared base rules in BASE/.
+  Prioritize triage for business-critical assets.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1078 - Valid Accounts
+  Kill Chain Phase: Initial Access
+
+  Data Sources:
+  MITRE Data Source: User Account Management, Authentication Logs
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Security
+
+  Detection Logic:
+  Ordered correlation: user created (4720) then successful logon (4624), grouped by TargetUserName, timespan 4h.
+
+  False Positive Considerations:
+  Standard onboarding/IAM workflows.
+
+  Severity and Risk Rating:
+  Severity Level: Medium
+
+  References:
+  MITRE T1078 technique page.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 8
+- L1 Use Case Name: Initial Access
+- L1 Use Case Identifier: INA
+- L2 Use Case Name: Valid Account
+- L2 Use Case Identifier: INA-001
+- Rule Identifier: INA-001-E-000-0004
+- Technical Use Case Name: First-Time Authentication from New User
+- Use Case Description:
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: Business critical assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1078/
+correlation:
+  type: temporal_ordered
+  rules:
+    - HXP-BASE-WIN-USER-CREATED-4720
+    - HXP-BASE-WIN-SUCCESS-4624
+  group-by:
+    - TargetUserName
+  timespan: 4h
+level: medium
+tags:
+  - attack.initial_access
+  - attack.t1078

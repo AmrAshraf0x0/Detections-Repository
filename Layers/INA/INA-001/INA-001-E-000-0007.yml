@@ -1,0 +1,66 @@
+title: Same Account Authenticating to Multiple Hosts In small time frame - INA-001-E-000-0007
+id: INA-001-E-000-0007
+status: experimental
+description: |
+  Detection Description:
+  Detects a single account authenticating successfully to multiple distinct destination hosts within 10 minutes.
+  Implemented as a Sigma correlation rule (value_count) referencing a shared base rule in BASE/.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1078 - Valid Accounts
+  Kill Chain Phase: Initial Access
+
+  Data Sources:
+  MITRE Data Source: Authentication Logs
+  Product targeted by the Rule: Active Directory / Windows Authentication
+  Service in the product that provides the log: Security
+
+  Detection Logic:
+  value_count correlation over ComputerName grouped by TargetUserName, timespan 10m, threshold >= 5.
+
+  False Positive Considerations:
+  Jump servers/bastions; patching tools; automation/orchestration accounts; monitoring tools.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  MITRE T1078 technique page.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 8
+- L1 Use Case Name: Initial Access
+- L1 Use Case Identifier: INA
+- L2 Use Case Name: Valid Account
+- L2 Use Case Identifier: INA-001
+- Rule Identifier: INA-001-E-000-0007
+- Technical Use Case Name: Same Account Authenticating to Multiple Hosts In small time frame
+- Use Case Description:
+- Log source type: Active Directory
+- Detection Technology: SIEM
+- Scope: All users
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1078/
+correlation:
+  type: value_count
+  rules:
+    - HXP-BASE-WIN-SUCCESS-4624-NETWORKRDP
+  group-by:
+    - TargetUserName
+  timespan: 10m
+  condition:
+    gte: 5
+    field: ComputerName
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1078
+  - attack.lateral_movement

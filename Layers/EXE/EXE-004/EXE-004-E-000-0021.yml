@@ -1,0 +1,73 @@
+title: WMI Deleting Registry Keys - EXE-004-E-000-0021
+id: EXE-004-E-000-0021
+status: experimental
+description: |
+  Detection Description:
+  Detects registry modifications/enumeration performed through WMI StdRegProv provider, which can be used for stealthy configuration changes.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1112 - Modify Registry
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Sysmon (Event ID 1) or equivalent process creation logs
+
+  Detection Logic:
+  Matches PowerShell or WMIC commands referencing StdRegProv and specific registry operations/keys.
+
+  False Positive Considerations:
+  See falsepositives section below.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 36
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: WMI Execution
+- L2 Use Case Identifier: EXE-004
+- Rule Identifier: EXE-004-E-000-0021
+- Technical Use Case Name: WMI Deleting Registry Keys
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1112/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith:
+      - '\\powershell.exe'
+      - '\\pwsh.exe'
+      - '\\wmic.exe'
+    CommandLine|contains:
+      - 'StdRegProv'
+      - 'DeleteKey'
+      - 'DeleteValue'
+
+  condition: selection
+
+falsepositives:
+  - Legitimate administration scripts modifying registry settings (tune by signed script allowlists/admin hosts)
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1112

@@ -1,0 +1,71 @@
+title: PowerShell Invoke-WmiMethod Command Execution - EXE-004-E-000-0002
+id: EXE-004-E-000-0002
+status: experimental
+description: |
+  Detection Description:
+  Detects PowerShell usage of Invoke-WmiMethod/Invoke-CimMethod for WMI-based command execution or remote operations.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1047 - Windows Management Instrumentation
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Sysmon (Event ID 1) or equivalent process creation logs
+
+  Detection Logic:
+  Matches PowerShell process creation with WMI invocation keywords in the command line.
+
+  False Positive Considerations:
+  See falsepositives section below.
+
+  Severity and Risk Rating:
+  Severity Level: Medium
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 36
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: WMI Execution
+- L2 Use Case Identifier: EXE-004
+- Rule Identifier: EXE-004-E-000-0002
+- Technical Use Case Name: PowerShell Invoke-WmiMethod Command Execution
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1047/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith:
+      - '\\powershell.exe'
+      - '\\pwsh.exe'
+    CommandLine|contains:
+      - 'Invoke-WmiMethod'
+      - 'Invoke-CimMethod'
+
+  condition: selection
+
+falsepositives:
+  - Legitimate management scripts using PowerShell WMI/CIM cmdlets (tune by signed scripts / admin hosts)
+level: medium
+tags:
+  - attack.execution
+  - attack.t1047

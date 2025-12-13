@@ -1,0 +1,74 @@
+title: VPN Authentication from Unusual Geographic Location - INA-001-E-000-0006
+id: INA-001-E-000-0006
+status: experimental
+description: |
+  Detection Description:
+  Detects successful VPN authentications where the source country (geo-IP enriched) is not within an approved/expected list.
+  Requires geo-IP enrichment in the SIEM.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1078 - Valid Accounts
+  Kill Chain Phase: Initial Access
+
+  Data Sources:
+  MITRE Data Source: Authentication Logs
+  Product targeted by the Rule: Pulse Secure
+  Service in the product that provides the log: VPN
+
+  Detection Logic:
+  Successful VPN authentication events with geo country not matching the allowlist.
+
+  False Positive Considerations:
+  Legitimate travel; geo-IP inaccuracies; roaming networks; VPN egress changes.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  MITRE T1078 technique page.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 8
+- L1 Use Case Name: Initial Access
+- L1 Use Case Identifier: INA
+- L2 Use Case Name: Valid Account
+- L2 Use Case Identifier: INA-001
+- Rule Identifier: INA-001-E-000-0006
+- Technical Use Case Name: VPN Authentication from Unusual Geographic Location
+- Use Case Description:
+- Log source type: Pulse Secure
+- Detection Technology: SIEM
+- Scope: All users
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1078/
+logsource:
+  category: authentication
+  product: pulse_secure
+  service: vpn
+detection:
+  selection:
+    event.category: authentication
+    event.outcome: success
+  geo_present:
+    source.geo.country_name|exists: true
+  allow_expected_countries:
+    source.geo.country_name:
+      - "YOUR_EXPECTED_COUNTRY_1"
+      - "YOUR_EXPECTED_COUNTRY_2"
+  condition: selection and geo_present and not allow_expected_countries
+falsepositives:
+  - Legitimate travel
+  - Geo-IP inaccuracies / mobile roaming
+  - VPN egress / proxy changes affecting geolocation
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1078

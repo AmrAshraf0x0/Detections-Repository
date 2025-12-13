@@ -1,0 +1,66 @@
+title: Multiple Failed Login Attempts Followed by Successful Authentication - Windows - INA-001-A-000-0002
+id: INA-001-A-000-0002
+status: experimental
+description: |
+  Detection Description:
+  Detects multiple failed Windows logon attempts followed by a successful logon for the same user and source IP within 5 minutes.
+  Implemented as a Sigma correlation rule referencing shared base rules in BASE/.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1110 - Brute Force, T1078 - Valid Accounts
+  Kill Chain Phase: Initial Access
+
+  Data Sources:
+  MITRE Data Source: Authentication Logs
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Security
+
+  Detection Logic:
+  Ordered correlation: failed (4625) then success (4624), grouped by TargetUserName and IpAddress, timespan 5m.
+
+  False Positive Considerations:
+  User typos then success; credential rotation edge cases.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  MITRE technique pages.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 8
+- L1 Use Case Name: Initial Access
+- L1 Use Case Identifier: INA
+- L2 Use Case Name: Valid Account
+- L2 Use Case Identifier: INA-001
+- Rule Identifier: INA-001-A-000-0002
+- Technical Use Case Name: Multiple Failed Login Attempts Followed by Successful Authentication - Windows
+- Use Case Description:
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All users
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1110/
+  - https://attack.mitre.org/techniques/T1078/
+correlation:
+  type: temporal_ordered
+  rules:
+    - HXP-BASE-WIN-FAILED-4625
+    - HXP-BASE-WIN-SUCCESS-4624
+  group-by:
+    - TargetUserName
+    - IpAddress
+  timespan: 5m
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1110
+  - attack.t1078

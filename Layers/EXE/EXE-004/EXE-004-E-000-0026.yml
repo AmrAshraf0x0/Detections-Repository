@@ -1,0 +1,73 @@
+title: WMI Querying Event Logs - EXE-004-E-000-0026
+id: EXE-004-E-000-0026
+status: experimental
+description: |
+  Detection Description:
+  Detects querying of Windows event logs, which may be used for reconnaissance or collection.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1005 - Data from Local System
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Sysmon (Event ID 1) or equivalent process creation logs
+
+  Detection Logic:
+  Matches wevtutil qe or PowerShell log query commands. Consider tuning for admin tooling.
+
+  False Positive Considerations:
+  See falsepositives section below.
+
+  Severity and Risk Rating:
+  Severity Level: Medium
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 36
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: WMI Execution
+- L2 Use Case Identifier: EXE-004
+- Rule Identifier: EXE-004-E-000-0026
+- Technical Use Case Name: WMI Querying Event Logs
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1005/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith:
+      - '\\wevtutil.exe'
+      - '\\powershell.exe'
+      - '\\pwsh.exe'
+    CommandLine|contains:
+      - 'wevtutil qe'
+      - 'Get-WinEvent'
+      - 'Get-EventLog'
+
+  condition: selection
+
+falsepositives:
+  - Legitimate troubleshooting and auditing activities (tune by admin hosts/users)
+level: medium
+tags:
+  - attack.collection
+  - attack.t1005
