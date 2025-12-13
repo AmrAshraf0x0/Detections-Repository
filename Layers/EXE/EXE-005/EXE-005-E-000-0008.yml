@@ -1,0 +1,76 @@
+title: Service Executing via PowerShell - EXE-005-E-000-0008
+id: EXE-005-E-000-0008
+status: experimental
+description: |
+  Detection Description:
+  Detects PowerShell commands used to create, start, or modify Windows services (New-Service/Set-Service/Start-Service).
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1543.003 - Windows Service, T1059.001 - PowerShell
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Sysmon (Event ID 1) or equivalent
+
+  Detection Logic:
+  PowerShell execution containing service-management cmdlets.
+
+  False Positive Considerations:
+  Legitimate admin automation and configuration management.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 11
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: Service Execution
+- L2 Use Case Identifier: EXE-005
+- Rule Identifier: EXE-005-E-000-0008
+- Technical Use Case Name: Service Executing via PowerShell
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+  - https://attack.mitre.org/techniques/T1059/001/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains:
+      - 'New-Service'
+      - 'Set-Service'
+      - 'Start-Service'
+      - 'Stop-Service'
+      - 'Restart-Service'
+      - 'sc.exe'
+  condition: selection
+falsepositives:
+  - Legitimate PowerShell service administration from management servers (tune by host/user/signed scripts)
+level: high
+tags:
+  - attack.execution
+  - attack.persistence
+  - attack.t1543.003
+  - attack.t1059.001

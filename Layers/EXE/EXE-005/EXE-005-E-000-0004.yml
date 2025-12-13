@@ -1,0 +1,71 @@
+title: Remote sc.exe Service Creation - EXE-005-E-000-0004
+id: EXE-005-E-000-0004
+status: experimental
+description: |
+  Detection Description:
+  Detects remote service creation attempts using sc.exe targeting a remote host (\\HOSTNAME), commonly used for lateral movement.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1021.002 - Remote Services, T1543.003 - Windows Service
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Sysmon (Event ID 1) or equivalent
+
+  Detection Logic:
+  sc.exe with a remote target (\\) and 'create' verb in the same command line.
+
+  False Positive Considerations:
+  Legitimate remote administration and deployment tools.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 11
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: Service Execution
+- L2 Use Case Identifier: EXE-005
+- Rule Identifier: EXE-005-E-000-0004
+- Technical Use Case Name: Remote sc.exe Service Creation
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+  - https://attack.mitre.org/techniques/T1021/002/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith: '\sc.exe'
+    CommandLine|contains:
+      - ' create '
+      - '\\\\'
+  condition: selection
+falsepositives:
+  - Remote software deployment systems
+  - IT admin actions from management servers (tune allowlisted hosts/accounts)
+level: high
+tags:
+  - attack.execution
+  - attack.lateral_movement
+  - attack.t1543.003
+  - attack.t1021.002
