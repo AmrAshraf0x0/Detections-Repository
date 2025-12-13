@@ -1,0 +1,72 @@
+title: Net Localgroup Command Executed - PRE-005-E-000-0001
+id: PRE-005-E-000-0001
+status: experimental
+description: |
+  Detection Description:
+  Detects Net Localgroup Command Executed.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1098 – Account Manipulation
+  Kill Chain Phase: Privilege Escalation
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: Security
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 6
+  - L1 Use Case Name: Privilege Escalation
+  - L1 Use Case Identifier: PRE
+  - L2 Use Case Name: Local or Remote Admin Privilege Upgrade
+  - L2 Use Case Identifier: PRE-005
+  - Rule Identifier: PRE-005-E-000-0001
+  - Technical Use Case Name: Net Localgroup Command Executed
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1098/
+tags:
+  - attack.privilege_escalation
+  - attack.t1098
+logsource:
+  category: process_creation
+  product: windows
+  service: security
+detection:
+\
+          selection:
+            Image|endswith:
+              - '\net.exe'
+              - '\net1.exe'
+            CommandLine|contains|all:
+              - 'localgroup'
+              - 'administrators'
+              - '/add'
+          condition: selection
+falsepositives:
+  - Legitimate local admin changes by IT administrators
+  - Configuration management or build scripts
+level: high

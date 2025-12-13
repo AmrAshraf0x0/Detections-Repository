@@ -1,0 +1,72 @@
+title: PowerShell Token Impersonation Detection - PRE-004-E-000-0001
+id: PRE-004-E-000-0001
+status: experimental
+description: |
+  Detection Description:
+  Detects PowerShell Token Impersonation Detection.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1134 – Access Token Manipulation
+  Kill Chain Phase: Privilege Escalation
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: PowerShell
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 6
+  - L1 Use Case Name: Privilege Escalation
+  - L1 Use Case Identifier: PRE
+  - L2 Use Case Name: Access Token Manipulation
+  - L2 Use Case Identifier: PRE-004
+  - Rule Identifier: PRE-004-E-000-0001
+  - Technical Use Case Name: PowerShell Token Impersonation Detection
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1134/
+tags:
+  - attack.privilege_escalation
+  - attack.t1134
+logsource:
+  category: ps_script
+  product: windows
+  service: powershell
+detection:
+\
+          selection:
+            EventID: 4104
+            ScriptBlockText|contains:
+              - 'ImpersonateLoggedOnUser'
+              - 'DuplicateTokenEx'
+              - 'OpenProcessToken'
+              - 'WindowsIdentity::Impersonate'
+              - 'SetThreadToken'
+          condition: selection
+falsepositives:
+  - Legitimate PowerShell administration scripts (rare)
+  - Red team / security testing
+level: high

@@ -1,0 +1,74 @@
+title: Windows Account Lockout Policy Disabled - PRE-008-E-000-0005
+id: PRE-008-E-000-0005
+status: experimental
+description: |
+  Detection Description:
+  Detects Windows Account Lockout Policy Disabled.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1098 – Account Manipulation
+  Kill Chain Phase: Privilege Escalation
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: Security
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 5
+  - L1 Use Case Name: Privilege Escalation
+  - L1 Use Case Identifier: PRE
+  - L2 Use Case Name: Account Privileges Manipulation
+  - L2 Use Case Identifier: PRE-008
+  - Rule Identifier: PRE-008-E-000-0005
+  - Technical Use Case Name: Windows Account Lockout Policy Disabled
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1098/
+tags:
+  - attack.privilege_escalation
+  - attack.t1098
+logsource:
+  category: process_creation
+  product: windows
+  service: security
+detection:
+\
+          selection:
+            Image|endswith:
+              - '\net.exe'
+              - '\net1.exe'
+            CommandLine|contains:
+              - 'accounts'
+          disable_lockout:
+            CommandLine|contains:
+              - '/lockoutthreshold:0'
+              - '/lockoutthreshold: 0'
+          condition: selection and disable_lockout
+falsepositives:
+  - Planned security policy changes
+  - Baseline / hardening deployment (verify expected values)
+level: high

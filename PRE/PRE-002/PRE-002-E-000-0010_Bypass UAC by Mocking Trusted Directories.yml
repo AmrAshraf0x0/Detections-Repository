@@ -1,0 +1,69 @@
+title: Bypass UAC by Mocking Trusted Directories - PRE-002-E-000-0010
+id: PRE-002-E-000-0010
+status: experimental
+description: |
+  Detection Description:
+  Detects Bypass UAC by Mocking Trusted Directories.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1548.002 – Bypass User Account Control
+  Kill Chain Phase: Privilege Escalation
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: Security
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 19
+  - L1 Use Case Name: Privilege Escalation
+  - L1 Use Case Identifier: PRE
+  - L2 Use Case Name: Abuse of System Elevation Controls
+  - L2 Use Case Identifier: PRE-002
+  - Rule Identifier: PRE-002-E-000-0010
+  - Technical Use Case Name: Bypass UAC by Mocking Trusted Directories
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1548/002/
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.002
+logsource:
+  category: process_creation
+  product: windows
+  service: security
+detection:
+\
+          selection_mocked_trusted_path:
+            Image|contains:
+              - '\Windows \System32\'
+              - '\Windows \SysWOW64\'
+              - '\System32 \'
+          condition: selection_mocked_trusted_path
+falsepositives:
+  - Red team / security testing
+  - Rare administrative registry edits or troubleshooting
+level: high

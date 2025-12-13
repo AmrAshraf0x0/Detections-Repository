@@ -1,0 +1,83 @@
+title: Sudoers File NOPASSWD Directive Modification - PRE-006-E-000-0001
+id: PRE-006-E-000-0001
+status: experimental
+description: |
+  Detection Description:
+  Detects Sudoers File NOPASSWD Directive Modification.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1548.003 – Sudo and Sudo Caching
+  Kill Chain Phase: Privilege Escalation
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Linux Server
+  Service in the product that provides the log: auditd
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 3
+  - L1 Use Case Name: Privilege Escalation
+  - L1 Use Case Identifier: PRE
+  - L2 Use Case Name: Privileged Configuration Abuse
+  - L2 Use Case Identifier: PRE-006
+  - Rule Identifier: PRE-006-E-000-0001
+  - Technical Use Case Name: Sudoers File NOPASSWD Directive Modification
+  - Use Case Description:
+  - Log source type: Linux Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1548/003/
+  - https://man7.org/linux/man-pages/man5/sudoers.5.html
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.003
+logsource:
+  category: process_creation
+  product: linux
+  service: auditd
+detection:
+\
+          selection_editors:
+            Image|endswith:
+              - '/visudo'
+              - '/vi'
+              - '/vim'
+              - '/nano'
+              - '/sed'
+              - '/perl'
+              - '/python'
+              - '/bash'
+              - '/sh'
+          target_paths:
+            CommandLine|contains:
+              - '/etc/sudoers'
+              - '/etc/sudoers.d/'
+          nopasswd:
+            CommandLine|contains:
+              - 'NOPASSWD'
+          condition: selection_editors and target_paths and nopasswd
+falsepositives:
+  - Legitimate sudoers changes using visudo
+  - Configuration management changes (Ansible/Chef/Puppet)
+level: high

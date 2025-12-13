@@ -1,0 +1,68 @@
+title: Disable UAC admin consent prompt via ConsentPromptBehaviorAdmin registry key - PRE-002-E-000-0018
+id: PRE-002-E-000-0018
+status: experimental
+description: |
+  Detection Description:
+  Detects Disable UAC admin consent prompt via ConsentPromptBehaviorAdmin registry key.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1548.002 – Bypass User Account Control
+  Kill Chain Phase: Privilege Escalation
+  
+  Data Sources:
+  MITRE Data Source: Windows Registry: Registry Key Modification
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: sysmon
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 19
+  - L1 Use Case Name: Privilege Escalation
+  - L1 Use Case Identifier: PRE
+  - L2 Use Case Name: Abuse of System Elevation Controls
+  - L2 Use Case Identifier: PRE-002
+  - Rule Identifier: PRE-002-E-000-0018
+  - Technical Use Case Name: Disable UAC admin consent prompt via ConsentPromptBehaviorAdmin registry key
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1548/002/
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.002
+logsource:
+  category: registry_set
+  product: windows
+detection:
+\
+          selection:
+            TargetObject|endswith: '\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorAdmin'
+          disabled:
+            Details|contains:
+              - 'DWORD (0x00000000)'
+          condition: selection and disabled
+falsepositives:
+  - Red team / security testing
+  - Rare administrative registry edits or troubleshooting
+level: high

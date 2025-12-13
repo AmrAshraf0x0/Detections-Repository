@@ -1,0 +1,74 @@
+title: Linux Setuid Setgid Bit Modification via chmod - PRE-002-E-000-0001
+id: PRE-002-E-000-0001
+status: experimental
+description: |
+  Detection Description:
+  Detects Linux Setuid Setgid Bit Modification via chmod.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1548.001 – Setuid and Setgid
+  Kill Chain Phase: Privilege Escalation
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Linux Server
+  Service in the product that provides the log: auditd
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 19
+  - L1 Use Case Name: Privilege Escalation
+  - L1 Use Case Identifier: PRE
+  - L2 Use Case Name: Abuse of System Elevation Controls
+  - L2 Use Case Identifier: PRE-002
+  - Rule Identifier: PRE-002-E-000-0001
+  - Technical Use Case Name: Linux Setuid Setgid Bit Modification via chmod
+  - Use Case Description:
+  - Log source type: Linux Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1548/001/
+tags:
+  - attack.privilege_escalation
+  - attack.t1548.001
+logsource:
+  category: process_creation
+  product: linux
+  service: auditd
+detection:
+selection_chmod:
+  Image|endswith:
+    - '/chmod'
+  CommandLine|contains:
+    - 'u+s'
+    - 'g+s'
+    - '+s'
+selection_numeric:
+  Image|endswith:
+    - '/chmod'
+  CommandLine|re: '(\s|^)(4[0-7]{3}|2[0-7]{3}|6[0-7]{3})(\s|$)'
+condition: selection_chmod or selection_numeric
+falsepositives:
+  - Legitimate permission changes (installers, hardening)
+  - Configuration management tools (Ansible/Chef/Puppet)
+level: high

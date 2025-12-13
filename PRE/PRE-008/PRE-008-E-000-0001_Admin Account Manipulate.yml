@@ -1,0 +1,76 @@
+title: Admin Account Manipulate - PRE-008-E-000-0001
+id: PRE-008-E-000-0001
+status: experimental
+description: |
+  Detection Description:
+  Detects Admin Account Manipulate.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1098 – Account Manipulation
+  Kill Chain Phase: Privilege Escalation
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: Security
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 5
+  - L1 Use Case Name: Privilege Escalation
+  - L1 Use Case Identifier: PRE
+  - L2 Use Case Name: Account Privileges Manipulation
+  - L2 Use Case Identifier: PRE-008
+  - Rule Identifier: PRE-008-E-000-0001
+  - Technical Use Case Name: Admin Account Manipulate
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1098/
+  - https://learn.microsoft.com/windows/security/threat-protection/auditing/event-4722
+tags:
+  - attack.privilege_escalation
+  - attack.t1098
+logsource:
+  category: account_management
+  product: windows
+  service: security
+detection:
+\
+          selection:
+            EventID:
+              - 4720
+              - 4722
+              - 4725
+              - 4726
+              - 4738
+              - 4724
+          privileged_sid:
+            TargetSid|endswith:
+              - '-500'
+          condition: selection and privileged_sid
+falsepositives:
+  - Legitimate account maintenance / password resets
+  - Break-glass account enablement during incident response
+level: high

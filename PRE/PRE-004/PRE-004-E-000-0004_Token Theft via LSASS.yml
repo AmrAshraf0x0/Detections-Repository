@@ -1,0 +1,76 @@
+title: Token Theft via LSASS - PRE-004-E-000-0004
+id: PRE-004-E-000-0004
+status: experimental
+description: |
+  Detection Description:
+  Detects Token Theft via LSASS.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1134 – Access Token Manipulation
+  Kill Chain Phase: Privilege Escalation
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: sysmon
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 6
+  - L1 Use Case Name: Privilege Escalation
+  - L1 Use Case Identifier: PRE
+  - L2 Use Case Name: Access Token Manipulation
+  - L2 Use Case Identifier: PRE-004
+  - Rule Identifier: PRE-004-E-000-0004
+  - Technical Use Case Name: Token Theft via LSASS
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1134/
+  - https://learn.microsoft.com/sysinternals/downloads/sysmon
+tags:
+  - attack.privilege_escalation
+  - attack.t1134
+logsource:
+  category: process_access
+  product: windows
+  service: sysmon
+detection:
+\
+          selection:
+            EventID: 10
+            TargetImage|endswith: '\lsass.exe'
+          suspicious_source:
+            SourceImage|endswith:
+              - '\procdump.exe'
+              - '\rundll32.exe'
+              - '\powershell.exe'
+              - '\pwsh.exe'
+              - '\wmic.exe'
+              - '\mimikatz.exe'
+          condition: selection and suspicious_source
+falsepositives:
+  - AV/EDR accessing LSASS (allowlist known vendors/processes)
+  - Legitimate admin tools (Task Manager) accessing LSASS
+level: high

@@ -1,0 +1,78 @@
+title: SSH Authorized Keys File Modification - PRE-008-E-000-0004
+id: PRE-008-E-000-0004
+status: experimental
+description: |
+  Detection Description:
+  Detects SSH Authorized Keys File Modification.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1098 – Account Manipulation
+  Kill Chain Phase: Privilege Escalation
+  
+  Data Sources:
+  MITRE Data Source: File: File Modification
+  Product targeted by the Rule: Linux Server
+  Service in the product that provides the log: auditd
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 5
+  - L1 Use Case Name: Privilege Escalation
+  - L1 Use Case Identifier: PRE
+  - L2 Use Case Name: Account Privileges Manipulation
+  - L2 Use Case Identifier: PRE-008
+  - Rule Identifier: PRE-008-E-000-0004
+  - Technical Use Case Name: SSH Authorized Keys File Modification
+  - Use Case Description:
+  - Log source type: Linux Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1098/
+  - https://man.openbsd.org/sshd.8
+tags:
+  - attack.privilege_escalation
+  - attack.t1098
+logsource:
+  category: file_event
+  product: linux
+  service: auditd
+detection:
+\
+          selection:
+            FileName|endswith:
+              - '/authorized_keys'
+          suspicious_process:
+            Image|endswith:
+              - '/echo'
+              - '/cat'
+              - '/tee'
+              - '/sed'
+              - '/perl'
+              - '/python'
+              - '/bash'
+              - '/sh'
+          condition: selection and suspicious_process
+falsepositives:
+  - Legitimate key rotation or onboarding
+  - Automated key management tooling
+level: high

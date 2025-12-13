@@ -61,8 +61,10 @@ detection:
     source.geo.country_name|exists: true
   allow_expected_countries:
     source.geo.country_name:
-      - "YOUR_EXPECTED_COUNTRY_1"
-      - "YOUR_EXPECTED_COUNTRY_2"
+      - "USA"
+      - "China"
+      - "Iran"
+      - "Russia"
   condition: selection and geo_present and not allow_expected_countries
 falsepositives:
   - Legitimate travel
