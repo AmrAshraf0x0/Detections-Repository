@@ -1,0 +1,69 @@
+title: ESXi Virtual Machine Listing and Discovery - EXE-007-E-000-0002
+id: EXE-007-E-000-0002
+status: experimental
+description: |
+  Detection Description:
+  Detects discovery/listing of VMs on ESXi (vim-cmd/esxcli vm).
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1057 - Process Discovery / VM Discovery
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Virtualization Discovery
+  Product targeted by the Rule: VMware ESXi
+  Service in the product that provides the log: syslog / ESXi shell / hostd (as ingested to SIEM)
+
+  Detection Logic:
+  Keyword-based matching on command strings in ESXi syslog/shell logs. Tune to your ESXi parsing schema.
+
+  False Positive Considerations:
+  Legitimate vCenter/administrator activity; scripted maintenance.
+
+  Severity and Risk Rating:
+  Severity Level: Medium
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 11
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: ESXi Administration Commands
+- L2 Use Case Identifier: EXE-007
+- Rule Identifier: EXE-007-E-000-0002
+- Technical Use Case Name: ESXi Virtual Machine Listing and Discovery
+- Use Case Description: 
+- Log source type: VMware ESXi
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1057/
+logsource:
+  category: syslog
+  product: vmware_esxi
+  service: syslog
+detection:
+  selection:
+    Message|contains:
+      - 'vim-cmd vmsvc/getallvms'
+      - 'vim-cmd vmsvc/get.summary'
+      - 'esxcli vm process list'
+      - 'govc ls'
+      - 'Get-VM'
+  condition: selection
+falsepositives:
+  - vCenter or admin scripts listing VMs
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1057

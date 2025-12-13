@@ -1,0 +1,70 @@
+title: Systemd Service Executing from Temp Directories - EXE-005-E-000-0007
+id: EXE-005-E-000-0007
+status: experimental
+description: |
+  Detection Description:
+  Detects systemd launching a service whose executable path resides in temporary or user-writable directories.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1543.002 - Systemd Service
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Linux
+  Service in the product that provides the log: auditd / process execution logs in SIEM
+
+  Detection Logic:
+  Parent process is systemd and the executed binary is in /tmp, /var/tmp, /dev/shm, or /run/user.
+
+  False Positive Considerations:
+  Rare; review and allowlist expected maintenance patterns.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 11
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: Service Execution
+- L2 Use Case Identifier: EXE-005
+- Rule Identifier: EXE-005-E-000-0007
+- Technical Use Case Name: Systemd Service Executing from Temp Directories
+- Use Case Description: 
+- Log source type: Linux Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/002/
+logsource:
+  category: process_creation
+  product: linux
+  service: auditd
+detection:
+  selection:
+    ParentImage|endswith: '/systemd'
+    Image|contains:
+      - '/tmp/'
+      - '/var/tmp/'
+      - '/dev/shm/'
+      - '/run/user/'
+  condition: selection
+falsepositives:
+  - Legitimate short-lived service wrappers created by admins (rare; tune by host)
+level: high
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.t1543.002

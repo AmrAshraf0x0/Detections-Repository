@@ -1,0 +1,81 @@
+title: Office Macro Spawning Scripting Interpreters - EXE-006-E-000-0004
+id: EXE-006-E-000-0004
+status: experimental
+description: |
+  Detection Description:
+  Detects Office applications spawning scripting interpreters and common LOLBINs (wscript/cscript/mshta/rundll32/regsvr32).
+  Strongly associated with malicious macro execution chains.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1059 - Command and Scripting Interpreter, T1204.002 - Malicious File
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Sysmon (Event ID 1) or equivalent
+
+  Detection Logic:
+  Office parent process spawning scripting hosts/LOLBINs.
+
+  False Positive Considerations:
+  Rare; tune by host/user, signed templates/macros.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 4
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: Office Macro Execution
+- L2 Use Case Identifier: EXE-006
+- Rule Identifier: EXE-006-E-000-0004
+- Technical Use Case Name: Office Macro Spawning Scripting Interpreters
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1059/
+  - https://attack.mitre.org/techniques/T1204/002/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  office_parent:
+    ParentImage|endswith:
+      - '\WINWORD.EXE'
+      - '\EXCEL.EXE'
+      - '\POWERPNT.EXE'
+      - '\OUTLOOK.EXE'
+  script_child:
+    Image|endswith:
+      - '\wscript.exe'
+      - '\cscript.exe'
+      - '\mshta.exe'
+      - '\rundll32.exe'
+      - '\regsvr32.exe'
+      - '\powershell.exe'
+      - '\pwsh.exe'
+      - '\python.exe'
+  condition: office_parent and script_child
+falsepositives:
+  - Legitimate enterprise automation using VBA to invoke scripting hosts (review and allowlist)
+level: high
+tags:
+  - attack.execution
+  - attack.t1059
+  - attack.t1204.002
