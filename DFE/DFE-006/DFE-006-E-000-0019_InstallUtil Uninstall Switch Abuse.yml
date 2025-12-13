@@ -1,0 +1,70 @@
+title: InstallUtil Uninstall Switch Abuse - DFE-006-E-000-0019
+id: DFE-006-E-000-0019
+status: experimental
+description: |
+  Detection Description:
+  Detects InstallUtil.exe being run with the uninstall switch, a known LOLBin technique to execute malicious .NET installers.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1218 - Signed Binary Proxy Execution (InstallUtil)
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon process creation (EventID 1) where installutil.exe executes with /u (uninstall).
+  
+  False Positive Considerations:
+  Legitimate software uninstall/install operations involving .NET installer classes (rare on servers).
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1218/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 35
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Signed Binary Proxy Execution (LOLBins)
+  - L2 Use Case Identifier: DFE-006
+  - Rule Identifier: DFE-006-E-000-0019
+  - Technical Use Case Name: InstallUtil Uninstall Switch Abuse
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\installutil.exe'
+    CommandLine|contains:
+      - ' /u '
+      - ' /U '
+      - ' -u '
+      - ' -U '
+  condition: selection
+falsepositives:
+  - Legitimate InstallUtil usage by administrators or software installers
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218

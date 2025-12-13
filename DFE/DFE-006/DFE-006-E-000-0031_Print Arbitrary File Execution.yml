@@ -1,0 +1,71 @@
+title: Print Arbitrary File Execution - DFE-006-E-000-0031
+id: DFE-006-E-000-0031
+status: experimental
+description: |
+  Detection Description:
+  Detects print.exe being used to write/copy to an Alternate Data Stream (ADS), which can be used to hide payloads.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1218 - Signed Binary Proxy Execution (Print); T1564.004 - Hide Artifacts: NTFS File Attributes / ADS
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon process creation (EventID 1) where print.exe is used with /D: and the destination path matches ADS-style syntax (extension followed by colon).
+  
+  False Positive Considerations:
+  Very rare; some legacy printing scripts (validate).
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1218/
+  - https://attack.mitre.org/techniques/T1564/004/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 35
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Signed Binary Proxy Execution (LOLBins)
+  - L2 Use Case Identifier: DFE-006
+  - Rule Identifier: DFE-006-E-000-0031
+  - Technical Use Case Name: Print Arbitrary File Execution
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1218/
+  - https://attack.mitre.org/techniques/T1564/004/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\print.exe'
+    CommandLine|contains: '/D:'
+  ads_destination:
+    CommandLine|re: '/D:[^\\s"]+\.[A-Za-z0-9]{1,6}:[^\\s"]+'
+  condition: selection and ads_destination
+falsepositives:
+  - Unknown/rare legitimate usage; tune with allow-lists
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218
+  - attack.t1564.004

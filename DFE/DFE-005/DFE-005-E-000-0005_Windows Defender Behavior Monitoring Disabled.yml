@@ -1,0 +1,68 @@
+title: Windows Defender Behavior Monitoring Disabled - DFE-005-E-000-0005
+id: DFE-005-E-000-0005
+status: experimental
+description: |
+  Detection Description:
+  Detects Windows Defender Behavior Monitoring Disabled.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1562.001 – Disable or Modify Tools
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Command: Command Execution
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: powershell
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 31
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Impair Defenses (Disable Security Tools)
+  - L2 Use Case Identifier: DFE-005
+  - Rule Identifier: DFE-005-E-000-0005
+  - Technical Use Case Name: Windows Defender Behavior Monitoring Disabled
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1562/001/
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001
+logsource:
+  product: windows
+  service: powershell
+  category: ps_script
+detection:
+  \
+          selection:
+            ScriptBlockText|contains|all:
+              - 'Set-MpPreference'
+              - 'DisableBehaviorMonitoring'
+          condition: selection
+falsepositives:
+  - Authorized security configuration changes (should be tracked/approved)
+  - Troubleshooting by IT/SecOps
+level: high

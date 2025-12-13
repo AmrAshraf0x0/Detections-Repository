@@ -1,0 +1,68 @@
+title: Wevtutil Log Clearing Command - DFE-007-E-000-0003
+id: DFE-007-E-000-0003
+status: experimental
+description: |
+  Detection Description:
+  Detects use of wevtutil.exe to clear event logs (cl).
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1070.001 - Clear Windows Event Logs
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon process creation (EventID 1) where wevtutil.exe runs with the 'cl' argument.
+  
+  False Positive Considerations:
+  Legitimate log maintenance (rare).
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1070/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 5
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Clear or Disable Logs
+  - L2 Use Case Identifier: DFE-007
+  - Rule Identifier: DFE-007-E-000-0003
+  - Technical Use Case Name: Wevtutil Log Clearing Command
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1070/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\wevtutil.exe'
+    CommandLine|contains:
+      - ' cl '
+      - ' cl"'
+  condition: selection
+falsepositives:
+  - Administrative log maintenance
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1070.001

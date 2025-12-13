@@ -1,0 +1,75 @@
+title: EDR Driver File Deletion - DFE-005-E-000-0012
+id: DFE-005-E-000-0012
+status: experimental
+description: |
+  Detection Description:
+  Detects EDR Driver File Deletion.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1562 – Impair Defenses
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: File: File Deletion
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: sysmon
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 31
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Impair Defenses (Disable Security Tools)
+  - L2 Use Case Identifier: DFE-005
+  - Rule Identifier: DFE-005-E-000-0012
+  - Technical Use Case Name: EDR Driver File Deletion
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/
+tags:
+  - attack.defense_evasion
+  - attack.t1562
+logsource:
+  product: windows
+  service: sysmon
+  category: file_delete
+detection:
+  \
+          selection:
+            EventID: 23
+            TargetFilename|endswith: '.sys'
+          selection_security_vendors:
+            TargetFilename|contains:
+              - '\CrowdStrike\'
+              - '\SentinelOne\'
+              - '\CarbonBlack\'
+              - '\Sophos\'
+              - '\Windows Defender\'
+              - '\Microsoft\'
+          condition: selection and selection_security_vendors
+falsepositives:
+  - Authorized security configuration changes (should be tracked/approved)
+  - Troubleshooting by IT/SecOps
+level: high

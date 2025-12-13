@@ -1,0 +1,68 @@
+title: Rundll32 StartW Function - DFE-006-E-000-0013
+id: DFE-006-E-000-0013
+status: experimental
+description: |
+  Detection Description:
+  Detects rundll32.exe being used to invoke the StartW export, which is frequently abused for proxy execution.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1218 - Signed Binary Proxy Execution (Rundll32)
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon process creation (EventID 1) where rundll32.exe command line contains ',StartW' and references a DLL.
+  
+  False Positive Considerations:
+  Legitimate DLL registration/automation (rare for these exports).
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1218/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 35
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Signed Binary Proxy Execution (LOLBins)
+  - L2 Use Case Identifier: DFE-006
+  - Rule Identifier: DFE-006-E-000-0013
+  - Technical Use Case Name: Rundll32 StartW Function
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\rundll32.exe'
+    CommandLine|contains|all:
+      - ',StartW'
+      - '.dll'
+  condition: selection
+falsepositives:
+  - Some legitimate software installers may call rundll32 for registration tasks (verify export)
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218

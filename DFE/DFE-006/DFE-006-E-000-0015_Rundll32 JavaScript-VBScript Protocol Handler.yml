@@ -1,0 +1,71 @@
+title: Rundll32 JavaScript/VBScript Protocol Handler - DFE-006-E-000-0015
+id: DFE-006-E-000-0015
+status: experimental
+description: |
+  Detection Description:
+  Detects rundll32.exe being used to execute JavaScript/VBScript via mshtml RunHTMLApplication, a common proxy execution pattern.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1218 - Signed Binary Proxy Execution (Rundll32)
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon process creation (EventID 1) where rundll32.exe references RunHTMLApplication and uses javascript: or vbscript: protocol.
+  
+  False Positive Considerations:
+  Very rare; some legacy admin scripts or testing tools.
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1218/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 35
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Signed Binary Proxy Execution (LOLBins)
+  - L2 Use Case Identifier: DFE-006
+  - Rule Identifier: DFE-006-E-000-0015
+  - Technical Use Case Name: Rundll32 JavaScript/VBScript Protocol Handler
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\rundll32.exe'
+    CommandLine|contains:
+      - 'RunHTMLApplication'
+  proto:
+    CommandLine|contains:
+      - 'javascript:'
+      - 'vbscript:'
+  condition: selection and proto
+falsepositives:
+  - Legacy automation (rare)
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218

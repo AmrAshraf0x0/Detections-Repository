@@ -1,0 +1,72 @@
+title: Disable UAC via Registry Modification - DFE-008-E-000-0003
+id: DFE-008-E-000-0003
+status: experimental
+description: |
+  Detection Description:
+  Detects registry changes that disable User Account Control (UAC).
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1548.002 - Abuse Elevation Control Mechanism: Bypass User Account Control; T1112 - Modify Registry
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Registry
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon registry set (EventID 13) where EnableLUA is set to 0.
+  
+  False Positive Considerations:
+  Legitimate hardening/troubleshooting changes (rare; should be strongly controlled).
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1548/002/
+  - https://attack.mitre.org/techniques/T1112/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 11
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Modify Registry / System Configuration for Evasion
+  - L2 Use Case Identifier: DFE-008
+  - Rule Identifier: DFE-008-E-000-0003
+  - Technical Use Case Name: Disable UAC via Registry Modification
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1548/002/
+  - https://attack.mitre.org/techniques/T1112/
+logsource:
+  category: registry_set
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 13
+    TargetObject|endswith:
+      - '\CurrentVersion\Policies\System\EnableLUA'
+  details:
+    Details|contains:
+      - '0x00000000'
+      - ' 0'
+  condition: selection and details
+falsepositives:
+  - Legitimate hardening/troubleshooting changes (rare; should be strongly controlled).
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1112

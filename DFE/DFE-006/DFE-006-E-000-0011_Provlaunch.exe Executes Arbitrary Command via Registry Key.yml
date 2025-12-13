@@ -1,0 +1,68 @@
+title: Provlaunch.exe Executes Arbitrary Command via Registry Key - DFE-006-E-000-0011
+id: DFE-006-E-000-0011
+status: experimental
+description: |
+  Detection Description:
+  Detects provlaunch.exe being invoked to run provisioning commands that can be staged in registry (Provisioning\Commands), enabling proxy execution.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1218 - Signed Binary Proxy Execution
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon process creation (EventID 1) where provlaunch.exe executes with /RunProv (or /RunProv64) to run provisioning commands.
+  
+  False Positive Considerations:
+  Legitimate provisioning/MDM tooling invoking provlaunch (e.g., OEM provisioning).
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1218/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 35
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Signed Binary Proxy Execution (LOLBins)
+  - L2 Use Case Identifier: DFE-006
+  - Rule Identifier: DFE-006-E-000-0011
+  - Technical Use Case Name: Provlaunch.exe Executes Arbitrary Command via Registry Key
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\provlaunch.exe'
+    CommandLine|contains:
+      - '/RunProv'
+      - '/RunProv64'
+  condition: selection
+falsepositives:
+  - OEM/MDM provisioning tasks on endpoints/servers (validate in environment)
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218

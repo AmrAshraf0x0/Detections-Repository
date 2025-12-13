@@ -1,0 +1,71 @@
+title: Forfiles Arbitrary Command Execution - DFE-006-E-000-0029
+id: DFE-006-E-000-0029
+status: experimental
+description: |
+  Detection Description:
+  Detects forfiles.exe executing a command via the /c parameter, which can be abused for indirect command execution.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1202 - Indirect Command Execution
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon process creation (EventID 1) where forfiles.exe is executed with /c and invokes common interpreters (cmd/powershell).
+  
+  False Positive Considerations:
+  Legitimate administrative scripts using forfiles to run maintenance tasks.
+  
+  Severity and Risk Rating:
+  Severity Level: medium
+  
+  References:
+  - https://attack.mitre.org/techniques/T1202/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 35
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Signed Binary Proxy Execution (LOLBins)
+  - L2 Use Case Identifier: DFE-006
+  - Rule Identifier: DFE-006-E-000-0029
+  - Technical Use Case Name: Forfiles Arbitrary Command Execution
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1202/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\forfiles.exe'
+    CommandLine|contains: ' /c '
+  interpreter:
+    CommandLine|contains:
+      - 'cmd.exe'
+      - 'powershell.exe'
+      - 'pwsh.exe'
+  condition: selection and interpreter
+falsepositives:
+  - Legitimate maintenance scripts using forfiles
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1202

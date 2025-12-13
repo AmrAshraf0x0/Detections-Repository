@@ -1,0 +1,68 @@
+title: Audit Policy Registry Tampering - DFE-008-E-000-0008
+id: DFE-008-E-000-0008
+status: experimental
+description: |
+  Detection Description:
+  Detects changes to SCENoApplyLegacyAuditPolicy which impacts how audit policies are applied and can reduce audit visibility if misconfigured.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1562.002 - Impair Defenses: Disable Windows Event Logging; T1112 - Modify Registry
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Registry
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon registry set (EventID 13) where SCENoApplyLegacyAuditPolicy is modified.
+  
+  False Positive Considerations:
+  Legitimate audit policy configuration via GPO/security baselines.
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1562/002/
+  - https://attack.mitre.org/techniques/T1112/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 11
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Modify Registry / System Configuration for Evasion
+  - L2 Use Case Identifier: DFE-008
+  - Rule Identifier: DFE-008-E-000-0008
+  - Technical Use Case Name: Audit Policy Registry Tampering
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1562/002/
+  - https://attack.mitre.org/techniques/T1112/
+logsource:
+  category: registry_set
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 13
+    TargetObject|endswith:
+      - '\Control\Lsa\SCENoApplyLegacyAuditPolicy'
+  condition: selection
+falsepositives:
+  - Legitimate audit policy configuration via GPO/security baselines.
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1112

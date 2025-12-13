@@ -1,0 +1,74 @@
+title: Disable Windows Firewall via Registry - DFE-008-E-000-0005
+id: DFE-008-E-000-0005
+status: experimental
+description: |
+  Detection Description:
+  Detects registry changes that disable Windows Firewall profiles via policy keys.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1562.004 - Impair Defenses: Disable or Modify System Firewall; T1112 - Modify Registry
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Registry
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon registry set (EventID 13) where EnableFirewall is set to 0 for one or more Windows Firewall profiles.
+  
+  False Positive Considerations:
+  Legitimate firewall policy changes (should be controlled).
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1562/004/
+  - https://attack.mitre.org/techniques/T1112/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 11
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Modify Registry / System Configuration for Evasion
+  - L2 Use Case Identifier: DFE-008
+  - Rule Identifier: DFE-008-E-000-0005
+  - Technical Use Case Name: Disable Windows Firewall via Registry
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1562/004/
+  - https://attack.mitre.org/techniques/T1112/
+logsource:
+  category: registry_set
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 13
+    TargetObject|endswith:
+      - '\Policies\Microsoft\WindowsFirewall\DomainProfile\EnableFirewall'
+      - '\Policies\Microsoft\WindowsFirewall\StandardProfile\EnableFirewall'
+      - '\Policies\Microsoft\WindowsFirewall\PublicProfile\EnableFirewall'
+  details:
+    Details|contains:
+      - '0x00000000'
+      - ' 0'
+  condition: selection and details
+falsepositives:
+  - Legitimate firewall policy changes (should be controlled).
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1112

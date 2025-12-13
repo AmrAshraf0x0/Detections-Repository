@@ -1,0 +1,74 @@
+title: Firewall Rule Deletion - DFE-004-E-000-0008
+id: DFE-004-E-000-0008
+status: experimental
+description: |
+  Detection Description:
+  Detects Firewall Rule Deletion.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1562.004 – Disable or Modify System Firewall
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: sysmon
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 19
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Indicator Removal on Host
+  - L2 Use Case Identifier: DFE-004
+  - Rule Identifier: DFE-004-E-000-0008
+  - Technical Use Case Name: Firewall Rule Deletion
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1562/004/
+tags:
+  - attack.defense_evasion
+  - attack.t1562.004
+logsource:
+  product: windows
+  service: sysmon
+  category: process_creation
+detection:
+  \
+          selection_netsh:
+            Image|endswith: '\netsh.exe'
+            CommandLine|contains|all:
+              - 'advfirewall'
+              - 'delete'
+              - 'rule'
+          selection_ps:
+            Image|endswith:
+              - '\powershell.exe'
+              - '\pwsh.exe'
+            CommandLine|contains: 'Remove-NetFirewallRule'
+          condition: selection_netsh or selection_ps
+falsepositives:
+  - Firewall administration by network/security team
+level: high

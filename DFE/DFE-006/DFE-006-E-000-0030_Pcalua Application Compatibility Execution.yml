@@ -1,0 +1,73 @@
+title: Pcalua Application Compatibility Execution - DFE-006-E-000-0030
+id: DFE-006-E-000-0030
+status: experimental
+description: |
+  Detection Description:
+  Detects pcalua.exe being used to execute a target binary from suspicious locations or UNC paths.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1218 - Signed Binary Proxy Execution (Pcalua)
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon process creation (EventID 1) where pcalua.exe runs with -a (application path) and references user-writable or remote paths.
+  
+  False Positive Considerations:
+  Rare; troubleshooting/application compatibility runs by IT.
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1218/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 35
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Signed Binary Proxy Execution (LOLBins)
+  - L2 Use Case Identifier: DFE-006
+  - Rule Identifier: DFE-006-E-000-0030
+  - Technical Use Case Name: Pcalua Application Compatibility Execution
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\pcalua.exe'
+    CommandLine|contains: ' -a '
+  suspicious_target:
+    CommandLine|contains:
+      - '\\\\'
+      - '\AppData\'
+      - '\Temp\'
+      - '\Downloads\'
+      - '\Users\Public\'
+  condition: selection and suspicious_target
+falsepositives:
+  - IT troubleshooting; application compatibility shims
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218

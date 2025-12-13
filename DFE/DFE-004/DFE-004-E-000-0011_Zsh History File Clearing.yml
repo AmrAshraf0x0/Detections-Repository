@@ -1,0 +1,74 @@
+title: Zsh History File Clearing - DFE-004-E-000-0011
+id: DFE-004-E-000-0011
+status: experimental
+description: |
+  Detection Description:
+  Detects Zsh History File Clearing.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1070.003 – Clear Command History
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Linux Server
+  Service in the product that provides the log: auditd
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: Medium
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 19
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Indicator Removal on Host
+  - L2 Use Case Identifier: DFE-004
+  - Rule Identifier: DFE-004-E-000-0011
+  - Technical Use Case Name: Zsh History File Clearing
+  - Use Case Description:
+  - Log source type: Linux Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1070/003/
+tags:
+  - attack.defense_evasion
+  - attack.t1070.003
+logsource:
+  product: linux
+  service: auditd
+  category: process_creation
+detection:
+  \
+          selection_shell:
+            exe|endswith:
+              - '/zsh'
+              - '/sh'
+            a1:
+              - '-c'
+          selection_cmd:
+            a2|contains:
+              - 'history -c'
+              - '.zsh_history'
+          condition: selection_shell and selection_cmd
+falsepositives:
+  - Users clearing shell history for privacy (policy dependent)
+  - Shell profile scripts
+level: medium

@@ -1,0 +1,69 @@
+title: Event Log Service Stopped - DFE-004-E-000-0005
+id: DFE-004-E-000-0005
+status: experimental
+description: |
+  Detection Description:
+  Detects Event Log Service Stopped.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1070.001 – Clear Windows Event Logs
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Windows Event Logs: System
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: system
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: Medium
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 19
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Indicator Removal on Host
+  - L2 Use Case Identifier: DFE-004
+  - Rule Identifier: DFE-004-E-000-0005
+  - Technical Use Case Name: Event Log Service Stopped
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1070/001/
+tags:
+  - attack.defense_evasion
+  - attack.t1070.001
+logsource:
+  product: windows
+  service: system
+detection:
+  \
+          selection:
+            EventID: 7036
+          selection_servicename:
+            ServiceName:
+              - 'Windows Event Log'
+              - 'eventlog'
+          condition: selection and selection_servicename
+falsepositives:
+  - Planned maintenance or service restarts
+  - System shutdown events (check context)
+level: medium

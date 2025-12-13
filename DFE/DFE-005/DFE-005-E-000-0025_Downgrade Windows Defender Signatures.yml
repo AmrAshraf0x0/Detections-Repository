@@ -1,0 +1,68 @@
+title: Downgrade Windows Defender Signatures - DFE-005-E-000-0025
+id: DFE-005-E-000-0025
+status: experimental
+description: |
+  Detection Description:
+  Detects Downgrade Windows Defender Signatures.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1562.001 – Disable or Modify Tools
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: sysmon
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 31
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Impair Defenses (Disable Security Tools)
+  - L2 Use Case Identifier: DFE-005
+  - Rule Identifier: DFE-005-E-000-0025
+  - Technical Use Case Name: Downgrade Windows Defender Signatures
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1562/001/
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001
+logsource:
+  product: windows
+  service: sysmon
+  category: process_creation
+detection:
+  \
+          selection:
+            Image|endswith: '\MpCmdRun.exe'
+            CommandLine|contains:
+              - '-RemoveDefinitions'
+          condition: selection
+falsepositives:
+  - Authorized security configuration changes (should be tracked/approved)
+  - Troubleshooting by IT/SecOps
+level: high

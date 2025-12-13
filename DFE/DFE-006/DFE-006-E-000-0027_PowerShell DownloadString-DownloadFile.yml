@@ -1,0 +1,75 @@
+title: PowerShell DownloadString/DownloadFile - DFE-006-E-000-0027
+id: DFE-006-E-000-0027
+status: experimental
+description: |
+  Detection Description:
+  Detects PowerShell network download patterns commonly used to retrieve payloads (DownloadString/DownloadFile/IWR).
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1059.001 - PowerShell; T1105 - Ingress Tool Transfer
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: PowerShell
+  Product targeted by the Rule: Windows Servers (PowerShell Script Block)
+  Service in the product that provides the log: Microsoft-Windows-PowerShell/Operational
+  
+  Detection Logic:
+  PowerShell Script Block Logging (EventID 4104) where script contains download primitives such as WebClient DownloadString/DownloadFile or Invoke-WebRequest.
+  
+  False Positive Considerations:
+  Legitimate admin automation and configuration scripts downloading content.
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1059/
+  - https://attack.mitre.org/techniques/T1105/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 35
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Signed Binary Proxy Execution (LOLBins)
+  - L2 Use Case Identifier: DFE-006
+  - Rule Identifier: DFE-006-E-000-0027
+  - Technical Use Case Name: PowerShell DownloadString/DownloadFile
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1059/
+  - https://attack.mitre.org/techniques/T1105/
+logsource:
+  category: ps_script
+  product: windows
+  service: powershell
+detection:
+  selection:
+    EventID: 4104
+    ScriptBlockText|contains:
+      - 'DownloadString('
+      - 'DownloadFile('
+      - 'Invoke-WebRequest'
+      - 'iwr '
+      - 'WebClient'
+      - 'System.Net.WebClient'
+  condition: selection
+falsepositives:
+  - Legitimate scripts that fetch installers or configuration files
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.execution
+  - attack.t1059.001
+  - attack.t1105

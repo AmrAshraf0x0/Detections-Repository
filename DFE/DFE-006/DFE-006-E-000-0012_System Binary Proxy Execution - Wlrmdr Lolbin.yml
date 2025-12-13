@@ -1,0 +1,66 @@
+title: System Binary Proxy Execution - Wlrmdr Lolbin - DFE-006-E-000-0012
+id: DFE-006-E-000-0012
+status: experimental
+description: |
+  Detection Description:
+  Detects wlrmdr.exe being used with parameters associated with LOLBAS proxy execution.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1218 - Signed Binary Proxy Execution
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon process creation (EventID 1) where wlrmdr.exe runs with the `-u` parameter (commonly used to specify a URL/command payload).
+  
+  False Positive Considerations:
+  Rare; validate any legitimate WLRM/diagnostic tooling usage in your environment.
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1218/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 35
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Signed Binary Proxy Execution (LOLBins)
+  - L2 Use Case Identifier: DFE-006
+  - Rule Identifier: DFE-006-E-000-0012
+  - Technical Use Case Name: System Binary Proxy Execution - Wlrmdr Lolbin
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\wlrmdr.exe'
+    CommandLine|contains: ' -u '
+  condition: selection
+falsepositives:
+  - Unknown/rare legitimate use; tune with allow-lists if needed
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218

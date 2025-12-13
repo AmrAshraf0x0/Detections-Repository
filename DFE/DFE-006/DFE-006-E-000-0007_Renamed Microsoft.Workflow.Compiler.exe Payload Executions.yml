@@ -1,0 +1,70 @@
+title: Renamed Microsoft.Workflow.Compiler.exe Payload Executions - DFE-006-E-000-0007
+id: DFE-006-E-000-0007
+status: experimental
+description: |
+  Detection Description:
+  Detects execution of Microsoft.Workflow.Compiler.exe when the binary has been renamed (OriginalFileName mismatch), a common masquerading/LOLBAS evasion tactic.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1218 - Signed Binary Proxy Execution
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon process creation (EventID 1) where OriginalFileName equals Microsoft.Workflow.Compiler.exe but the executing Image name is not Microsoft.Workflow.Compiler.exe.
+  
+  False Positive Considerations:
+  Rare; file renaming during legitimate software packaging/tests.
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1218/
+  - https://attack.mitre.org/techniques/T1036/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 35
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Signed Binary Proxy Execution (LOLBins)
+  - L2 Use Case Identifier: DFE-006
+  - Rule Identifier: DFE-006-E-000-0007
+  - Technical Use Case Name: Renamed Microsoft.Workflow.Compiler.exe Payload Executions
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1218/
+  - https://attack.mitre.org/techniques/T1036/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    OriginalFileName: 'Microsoft.Workflow.Compiler.exe'
+  filter_expected_name:
+    Image|endswith: '\Microsoft.Workflow.Compiler.exe'
+  condition: selection and not filter_expected_name
+falsepositives:
+  - Legitimate repackaging/testing where the binary is renamed
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218
+  - attack.t1036

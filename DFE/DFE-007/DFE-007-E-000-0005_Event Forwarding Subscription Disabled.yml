@@ -1,0 +1,69 @@
+title: Event Forwarding Subscription Disabled - DFE-007-E-000-0005
+id: DFE-007-E-000-0005
+status: experimental
+description: |
+  Detection Description:
+  Detects use of wecutil to disable or delete Windows Event Forwarding (WEF) subscriptions, reducing centralized log visibility.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1562 - Impair Defenses
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon process creation (EventID 1) where wecutil.exe is used to disable a subscription (ss <name> /e:false) or delete a subscription (ds <name>).
+  
+  False Positive Considerations:
+  Legitimate WEF administration/changes.
+  
+  Severity and Risk Rating:
+  Severity Level: medium
+  
+  References:
+  - https://attack.mitre.org/techniques/T1562/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 5
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Clear or Disable Logs
+  - L2 Use Case Identifier: DFE-007
+  - Rule Identifier: DFE-007-E-000-0005
+  - Technical Use Case Name: Event Forwarding Subscription Disabled
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1562/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\wecutil.exe'
+  disable:
+    CommandLine|contains:
+      - ' /e:false'
+      - ' ds '
+  condition: selection and disable
+falsepositives:
+  - Legitimate Windows Event Forwarding administration
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1562

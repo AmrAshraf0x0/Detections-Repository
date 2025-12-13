@@ -1,0 +1,68 @@
+title: Wevtutil Event Log Clearing - DFE-004-E-000-0003
+id: DFE-004-E-000-0003
+status: experimental
+description: |
+  Detection Description:
+  Detects Wevtutil Event Log Clearing.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1070.001 – Clear Windows Event Logs
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: sysmon
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: Medium
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 19
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Indicator Removal on Host
+  - L2 Use Case Identifier: DFE-004
+  - Rule Identifier: DFE-004-E-000-0003
+  - Technical Use Case Name: Wevtutil Event Log Clearing
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1070/001/
+tags:
+  - attack.defense_evasion
+  - attack.t1070.001
+logsource:
+  product: windows
+  service: sysmon
+  category: process_creation
+detection:
+  \
+          selection:
+            Image|endswith: '\wevtutil.exe'
+            CommandLine|contains|all:
+              - ' cl '
+          condition: selection
+falsepositives:
+  - Administrative troubleshooting
+  - Security team clearing logs in lab environments
+level: medium

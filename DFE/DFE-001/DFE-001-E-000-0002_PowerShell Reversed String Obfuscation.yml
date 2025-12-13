@@ -1,0 +1,70 @@
+title: PowerShell Reversed String Obfuscation - DFE-001-E-000-0002
+id: DFE-001-E-000-0002
+status: experimental
+description: |
+  Detection Description:
+  Detects PowerShell Reversed String Obfuscation.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1027 – Obfuscated/Compressed Files and Information
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Command: Command Execution
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: powershell
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: Medium
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 16
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Obfuscated / Encrypted Payloads
+  - L2 Use Case Identifier: DFE-001
+  - Rule Identifier: DFE-001-E-000-0002
+  - Technical Use Case Name: PowerShell Reversed String Obfuscation
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1027/
+tags:
+  - attack.defense_evasion
+  - attack.t1027
+logsource:
+  category: ps_script
+  product: windows
+  service: powershell
+detection:
+  \
+          selection:
+            ScriptBlockText|contains:
+              - '[array]::Reverse'
+              - 'ToCharArray()'
+              - '-join'
+          condition: selection
+falsepositives:
+  - Legitimate administration scripts using encoded commands or obfuscated one-liners
+  - Security testing / red team exercises
+  - Some software installers or management tools using encoded payloads
+level: medium

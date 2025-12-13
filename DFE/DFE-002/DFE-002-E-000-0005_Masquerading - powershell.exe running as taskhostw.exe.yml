@@ -1,0 +1,68 @@
+title: Masquerading - powershell.exe running as taskhostw.exe - DFE-002-E-000-0005
+id: DFE-002-E-000-0005
+status: experimental
+description: |
+  Detection Description:
+  Detects Masquerading - powershell.exe running as taskhostw.exe.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1036 – Masquerading
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: sysmon
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: Medium
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 15
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Masquerading & Rename System Utilities
+  - L2 Use Case Identifier: DFE-002
+  - Rule Identifier: DFE-002-E-000-0005
+  - Technical Use Case Name: Masquerading - powershell.exe running as taskhostw.exe
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1036/
+tags:
+  - attack.defense_evasion
+  - attack.t1036
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  \
+          selection:
+            OriginalFileName: 'powershell.exe'
+            Image|endswith: '\taskhostw.exe'
+          condition: selection
+falsepositives:
+  - Legitimate portable apps or custom deployments in non-standard paths
+  - IT troubleshooting tools renamed for packaging
+  - Software updates executed from temporary directories (verify publisher/path)
+level: medium

@@ -1,0 +1,65 @@
+title: Invoke-ATHRemoteFXvGPUDisablementCommand base test - DFE-006-E-000-0008
+id: DFE-006-E-000-0008
+status: experimental
+description: |
+  Detection Description:
+  Detects usage of Invoke-ATHRemoteFXvGPUDisablementCommand (AtomicTestHarness) which can be used to exercise signed-binary proxy execution behaviors in test or attacker activity.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1218 - Signed Binary Proxy Execution
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: PowerShell
+  Product targeted by the Rule: Windows Servers (PowerShell Script Block)
+  Service in the product that provides the log: Microsoft-Windows-PowerShell/Operational
+  
+  Detection Logic:
+  PowerShell Script Block Logging (EventID 4104) containing Invoke-ATHRemoteFXvGPUDisablementCommand.
+  
+  False Positive Considerations:
+  Security testing (Atomic Red Team / Invoke-Atomic) and purple team activity.
+  
+  Severity and Risk Rating:
+  Severity Level: medium
+  
+  References:
+  - https://attack.mitre.org/techniques/T1218/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 35
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Signed Binary Proxy Execution (LOLBins)
+  - L2 Use Case Identifier: DFE-006
+  - Rule Identifier: DFE-006-E-000-0008
+  - Technical Use Case Name: Invoke-ATHRemoteFXvGPUDisablementCommand base test
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  category: ps_script
+  product: windows
+  service: powershell
+detection:
+  selection:
+    EventID: 4104
+    ScriptBlockText|contains: 'Invoke-ATHRemoteFXvGPUDisablementCommand'
+  condition: selection
+falsepositives:
+  - Authorized security testing (Atomic Red Team / Invoke-Atomic)
+level: medium
+tags:
+  - attack.defense_evasion
+  - attack.t1218

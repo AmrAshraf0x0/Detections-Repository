@@ -1,0 +1,72 @@
+title: mavinject - Inject DLL into running process - DFE-006-E-000-0001
+id: DFE-006-E-000-0001
+status: experimental
+description: |
+  Detection Description:
+  Detects use of mavinject.exe to inject a DLL into an existing process. This can be used for stealthy code injection and defense evasion.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1055 - Process Injection; T1218 - Signed Binary Proxy Execution
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows Servers (Sysmon)
+  Service in the product that provides the log: Sysmon
+  
+  Detection Logic:
+  Sysmon process creation (EventID 1) where mavinject.exe is executed with the `/INJECTRUNNING` parameter and a DLL path. For the ADS variant, the DLL argument matches an Alternate Data Stream (ADS) style path (e.g., `file.txt:payload.dll`).
+  
+  False Positive Considerations:
+  Rare; may occur during specialized debugging or application virtualization tooling.
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1055/
+  - https://attack.mitre.org/techniques/T1218/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 35
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Signed Binary Proxy Execution (LOLBins)
+  - L2 Use Case Identifier: DFE-006
+  - Rule Identifier: DFE-006-E-000-0001
+  - Technical Use Case Name: mavinject - Inject DLL into running process
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1055/
+  - https://attack.mitre.org/techniques/T1218/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: '\mavinject.exe'
+    CommandLine|contains|all:
+      - '/INJECTRUNNING'
+      - '.dll'
+  condition: selection
+falsepositives:
+  - Specialized debugging tools
+  - Application virtualization / instrumentation
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1055
+  - attack.t1218

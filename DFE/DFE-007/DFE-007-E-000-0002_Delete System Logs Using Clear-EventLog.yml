@@ -1,0 +1,68 @@
+title: Delete System Logs Using Clear-EventLog - DFE-007-E-000-0002
+id: DFE-007-E-000-0002
+status: experimental
+description: |
+  Detection Description:
+  Detects PowerShell Clear-EventLog cmdlet usage, which can be used to clear Windows event logs.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1070.001 - Clear Windows Event Logs; T1059.001 - PowerShell
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: PowerShell
+  Product targeted by the Rule: Windows Servers (PowerShell Script Block)
+  Service in the product that provides the log: Microsoft-Windows-PowerShell/Operational
+  
+  Detection Logic:
+  PowerShell Script Block Logging (EventID 4104) containing Clear-EventLog.
+  
+  False Positive Considerations:
+  Administrative troubleshooting scripts.
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1070/
+  - https://attack.mitre.org/techniques/T1059/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 5
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Clear or Disable Logs
+  - L2 Use Case Identifier: DFE-007
+  - Rule Identifier: DFE-007-E-000-0002
+  - Technical Use Case Name: Delete System Logs Using Clear-EventLog
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1070/
+  - https://attack.mitre.org/techniques/T1059/
+logsource:
+  category: ps_script
+  product: windows
+  service: powershell
+detection:
+  selection:
+    EventID: 4104
+    ScriptBlockText|contains: 'Clear-EventLog'
+  condition: selection
+falsepositives:
+  - Administrative troubleshooting/maintenance
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1070.001
+  - attack.t1059.001

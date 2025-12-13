@@ -1,0 +1,72 @@
+title: Linux auditd Service Stopped - DFE-005-E-000-0020
+id: DFE-005-E-000-0020
+status: experimental
+description: |
+  Detection Description:
+  Detects Linux auditd Service Stopped.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1562.002 – Disable Windows Event Logging
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process: Process Creation
+  Product targeted by the Rule: Linux Server
+  Service in the product that provides the log: auditd
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 31
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Impair Defenses (Disable Security Tools)
+  - L2 Use Case Identifier: DFE-005
+  - Rule Identifier: DFE-005-E-000-0020
+  - Technical Use Case Name: Linux auditd Service Stopped
+  - Use Case Description:
+  - Log source type: Linux Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1562/002/
+tags:
+  - attack.defense_evasion
+  - attack.t1562.002
+logsource:
+  product: linux
+  service: auditd
+  category: process_creation
+detection:
+  \
+          selection:
+            exe|endswith:
+              - '/systemctl'
+              - '/service'
+            a1|contains:
+              - 'stop'
+            a2|contains:
+              - 'auditd'
+          condition: selection
+falsepositives:
+  - Authorized security configuration changes (should be tracked/approved)
+  - Troubleshooting by IT/SecOps
+level: high

@@ -1,0 +1,70 @@
+title: Linux auditd Service Stopped - DFE-007-E-000-0004
+id: DFE-007-E-000-0004
+status: experimental
+description: |
+  Detection Description:
+  Detects attempts to stop the Linux auditd service, which reduces security auditing visibility.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1562.012 - Impair Defenses: Disable or Modify Tools
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Linux Servers
+  Service in the product that provides the log: auditd/system logs
+  
+  Detection Logic:
+  Linux process creation where systemctl/service is used to stop auditd.
+  
+  False Positive Considerations:
+  Legitimate maintenance or troubleshooting on Linux hosts.
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1562/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 5
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Clear or Disable Logs
+  - L2 Use Case Identifier: DFE-007
+  - Rule Identifier: DFE-007-E-000-0004
+  - Technical Use Case Name: Linux auditd Service Stopped
+  - Use Case Description: 
+  - Log source type: Linux Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1562/
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection_systemctl:
+    Image|endswith: '/systemctl'
+    CommandLine|contains:
+      - ' stop auditd'
+      - ' stop auditd.service'
+  selection_service:
+    Image|endswith: '/service'
+    CommandLine|contains:
+      - ' auditd stop'
+  condition: selection_systemctl or selection_service
+falsepositives:
+  - Legitimate auditd maintenance
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1562.012

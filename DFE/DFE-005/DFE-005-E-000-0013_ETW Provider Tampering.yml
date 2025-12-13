@@ -1,0 +1,67 @@
+title: ETW Provider Tampering - DFE-005-E-000-0013
+id: DFE-005-E-000-0013
+status: experimental
+description: |
+  Detection Description:
+  Detects ETW Provider Tampering.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1562 – Impair Defenses
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Registry: Registry Modification
+  Product targeted by the Rule: Windows Server
+  Service in the product that provides the log: sysmon
+  
+  Detection Logic:
+  See Sigma detection section.
+  
+  False Positive Considerations:
+  See falsepositives section.
+  
+  Severity and Risk Rating:
+  Severity Level: High
+  
+  References:
+  See references section.
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 31
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Impair Defenses (Disable Security Tools)
+  - L2 Use Case Identifier: DFE-005
+  - Rule Identifier: DFE-005-E-000-0013
+  - Technical Use Case Name: ETW Provider Tampering
+  - Use Case Description:
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/
+tags:
+  - attack.defense_evasion
+  - attack.t1562
+logsource:
+  product: windows
+  service: sysmon
+  category: registry_set
+detection:
+  \
+          selection:
+            EventID: 13
+            TargetObject|contains: '\SYSTEM\CurrentControlSet\Control\WMI\Autologger\'
+          condition: selection
+falsepositives:
+  - Authorized security configuration changes (should be tracked/approved)
+  - Troubleshooting by IT/SecOps
+level: high

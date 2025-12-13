@@ -1,0 +1,64 @@
+title: Clear Logs detected - DFE-007-E-000-0001
+id: DFE-007-E-000-0001
+status: experimental
+description: |
+  Detection Description:
+  Detects Windows Security audit log being cleared, a common indicator removal technique.
+  
+  Status:
+  experimental
+  
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1070.001 - Clear Windows Event Logs
+  Kill Chain Phase: Defense Evasion
+  
+  Data Sources:
+  MITRE Data Source: Windows Security Log
+  Product targeted by the Rule: Windows Servers
+  Service in the product that provides the log: Security
+  
+  Detection Logic:
+  Windows Security event 1102 indicates the audit log was cleared.
+  
+  False Positive Considerations:
+  Rare; legitimate log maintenance by administrators or GPO-driven actions.
+  
+  Severity and Risk Rating:
+  Severity Level: high
+  
+  References:
+  - https://attack.mitre.org/techniques/T1070/
+  
+  Author:
+  HXP Detection team
+  
+  Use Case Sheet Details:
+  - L3 use cases per L2: 5
+  - L1 Use Case Name: Defence Evasion
+  - L1 Use Case Identifier: DFE
+  - L2 Use Case Name: Clear or Disable Logs
+  - L2 Use Case Identifier: DFE-007
+  - Rule Identifier: DFE-007-E-000-0001
+  - Technical Use Case Name: Clear Logs detected
+  - Use Case Description: 
+  - Log source type: Windows Servers
+  - Detection Technology: SIEM
+  - Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1070/
+logsource:
+  category: security
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 1102
+  condition: selection
+falsepositives:
+  - Legitimate administrative log maintenance
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1070.001
