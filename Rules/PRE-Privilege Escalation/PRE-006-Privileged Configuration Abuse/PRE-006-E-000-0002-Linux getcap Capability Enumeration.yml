@@ -1,0 +1,26 @@
+title: PRE-006-E-000-0002-Linux getcap Capability Enumeration
+id: pre-006-e-000-0002
+status: experimental
+description: Detects getcap command execution for capability enumeration which could indicate privilege escalation reconnaissance
+references:
+    - https://attack.mitre.org/techniques/T1548.006/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1548.006
+    - attack.privilege_escalation
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/getcap'
+        CommandLine|contains:
+            - '-r'
+            - '/'
+    condition: selection
+falsepositives:
+    - System administration tasks
+    - Security auditing tools
+    - Capability management scripts
+level: low

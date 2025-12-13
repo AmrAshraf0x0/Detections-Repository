@@ -1,0 +1,39 @@
+title: DFE-005-E-000-0022-Linux rsyslog Service Stopped
+id: dfe-005-e-000-0022
+status: experimental
+description: Detects Linux rsyslog service being stopped which could indicate defense evasion techniques to disable logging
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection1:
+        Image|endswith:
+            - '/systemctl'
+        CommandLine|contains:
+            - 'stop'
+            - 'rsyslog'
+    selection2:
+        Image|endswith:
+            - '/service'
+        CommandLine|contains:
+            - 'rsyslog'
+            - 'stop'
+    selection3:
+        Image|endswith:
+            - '/killall'
+            - '/pkill'
+        CommandLine|contains:
+            - 'rsyslogd'
+    condition: 1 of selection*
+falsepositives:
+    - Legitimate system administration
+    - Service maintenance procedures
+    - System updates
+level: medium

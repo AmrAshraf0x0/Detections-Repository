@@ -1,0 +1,29 @@
+title: CNC-002-E-000-0007-RustDesk Files Detected on Windows
+id: cnc-002-e-000-0007
+status: experimental
+description: Detects RustDesk files and execution on Windows systems which could indicate remote access tool usage for command and control
+references:
+    - https://attack.mitre.org/techniques/T1219/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1219
+    - attack.command_and_control
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\rustdesk.exe'
+            - '\RustDesk.exe'
+        CommandLine|contains:
+            - '--service'
+            - '--server'
+            - '--install-service'
+    condition: selection
+falsepositives:
+    - Legitimate RustDesk usage
+    - Open source remote access needs
+    - Authorized remote support
+level: medium

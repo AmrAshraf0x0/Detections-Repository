@@ -1,0 +1,32 @@
+title: EXE-007-E-000-0004-ESXi User Account and Permissions Enumeration
+id: exe-007-e-000-0004
+status: experimental
+description: Detects ESXi user account and permissions enumeration which could indicate privilege discovery
+references:
+    - https://attack.mitre.org/techniques/T1033/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1033
+    - attack.discovery
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection_esxcli:
+        Image|contains: 'esxcli'
+        CommandLine|contains:
+            - 'system account list'
+            - 'system permission list'
+    selection_files:
+        Image|endswith: '/cat'
+        CommandLine|contains:
+            - '/etc/passwd'
+            - '/etc/shadow'
+            - '/etc/group'
+    condition: 1 of selection*
+falsepositives:
+    - ESXi user management
+    - Security auditing operations
+    - Administrative account verification
+level: medium

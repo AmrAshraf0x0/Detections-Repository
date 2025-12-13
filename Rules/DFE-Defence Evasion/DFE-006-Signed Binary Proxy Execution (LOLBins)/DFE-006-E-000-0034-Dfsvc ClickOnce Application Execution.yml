@@ -1,0 +1,23 @@
+title: DFE-006-E-000-0034-Dfsvc ClickOnce Application Execution
+id: dfe-006-e-000-0034
+status: experimental
+description: Detects dfsvc.exe execution which can be used for defense evasion via ClickOnce application deployment
+references:
+    - https://attack.mitre.org/techniques/T1218/
+    - https://lolbas-project.github.io/lolbas/Binaries/Dfsvc/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1218
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\dfsvc.exe'
+    condition: selection
+falsepositives:
+    - Legitimate ClickOnce applications
+    - .NET deployment scenarios
+level: medium

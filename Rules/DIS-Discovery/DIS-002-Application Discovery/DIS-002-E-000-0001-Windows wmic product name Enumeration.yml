@@ -1,0 +1,27 @@
+title: DIS-002-E-000-0001-Windows wmic product name Enumeration
+id: dis-002-e-000-0001
+status: experimental
+description: Detects WMIC product name enumeration for application discovery
+references:
+    - https://attack.mitre.org/techniques/T1518.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1518.001
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\wmic.exe'
+        CommandLine|contains:
+            - 'product'
+            - 'get'
+            - 'name'
+    condition: selection
+falsepositives:
+    - Legitimate software inventory
+    - System administration tasks
+    - Asset management tools
+level: low

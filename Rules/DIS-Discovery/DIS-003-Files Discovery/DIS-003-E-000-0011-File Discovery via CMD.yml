@@ -1,0 +1,33 @@
+title: DIS-003-E-000-0011-File Discovery via CMD
+id: dis-003-e-000-0011
+status: experimental
+description: Detects Command Prompt file discovery operations which could indicate reconnaissance
+references:
+    - https://attack.mitre.org/techniques/T1083/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1083
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\cmd.exe'
+        CommandLine|contains:
+            - 'dir'
+            - 'tree'
+            - 'attrib'
+    selection_recursive:
+        CommandLine|contains:
+            - '/s'
+            - '/a'
+            - '/b'
+            - '/q'
+    condition: selection and selection_recursive
+falsepositives:
+    - Administrative batch scripts
+    - System maintenance operations
+    - File management tasks
+level: low

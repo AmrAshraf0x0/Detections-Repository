@@ -1,0 +1,27 @@
+title: DFE-005-E-000-0034-Remove AMSI Provider Registry Key
+id: dfe-005-e-000-0034
+status: experimental
+description: Detects removal of AMSI provider registry keys which could indicate defense evasion techniques to bypass AMSI
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: registry_delete
+detection:
+    selection:
+        TargetObject|contains:
+            - 'SOFTWARE\Microsoft\AMSI\Providers'
+        TargetObject|contains:
+            - '{2781761E-28E0-4109-99FE-B9D127C57AFE}'
+            - '{A7C452EF-8E9F-42EB-9F2B-245613CA0DC9}'
+    condition: selection
+falsepositives:
+    - Legitimate software uninstallation
+    - System maintenance procedures
+    - Security software updates
+level: high

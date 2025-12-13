@@ -1,0 +1,28 @@
+title: DFE-004-E-000-0007-Event Log Registry Tampering
+id: dfe-004-e-000-0007
+status: experimental
+description: Detects registry tampering with event log settings which could indicate indicator removal for defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1070.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1070.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains: 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\EventLog'
+        TargetObject|endswith:
+            - 'MaxSize'
+            - 'Retention'
+            - 'AutoBackupLogFiles'
+        Details: 'DWORD (0x00000000)'
+    condition: selection
+falsepositives:
+    - Event log configuration changes
+    - System administration tasks
+    - Log management policies
+level: medium

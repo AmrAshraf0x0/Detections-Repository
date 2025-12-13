@@ -1,0 +1,23 @@
+title: IMP-001-E-000-0007-userdel Command Utility Detected
+id: imp-001-e-000-0007
+status: experimental
+description: Detects userdel command usage for user account deletion on Linux systems
+references:
+    - https://attack.mitre.org/techniques/T1531/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1531
+    - attack.impact
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/userdel'
+    condition: selection
+falsepositives:
+    - Legitimate user account removal
+    - System administration tasks
+    - User lifecycle management
+level: medium

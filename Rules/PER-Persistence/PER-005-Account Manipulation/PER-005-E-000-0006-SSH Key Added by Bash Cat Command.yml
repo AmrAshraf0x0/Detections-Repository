@@ -1,0 +1,31 @@
+title: PER-005-E-000-0006-SSH Key Added by Bash/Cat Command
+id: per-005-e-000-0006
+status: experimental
+description: Detects SSH key additions via bash/cat commands for persistence and backdoor access
+references:
+    - https://attack.mitre.org/techniques/T1098.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1098.004
+    - attack.persistence
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '/bash'
+            - '/cat'
+            - '/echo'
+        CommandLine|contains:
+            - 'authorized_keys'
+            - 'ssh-rsa'
+            - 'ssh-dss'
+            - 'ecdsa-sha2'
+    condition: selection
+falsepositives:
+    - Legitimate SSH key management
+    - User account provisioning
+    - Administrative key deployment
+level: medium

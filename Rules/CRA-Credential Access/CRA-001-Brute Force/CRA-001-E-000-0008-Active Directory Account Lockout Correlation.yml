@@ -1,0 +1,24 @@
+title: CRA-001-E-000-0008-Active Directory Account Lockout Correlation
+id: cra-001-e-000-0008
+status: experimental
+description: Detects correlation patterns in Active Directory account lockouts indicating coordinated brute force attacks
+references:
+    - https://attack.mitre.org/techniques/T1110/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1110
+    - attack.credential_access
+logsource:
+    product: windows
+    category: security
+detection:
+    selection:
+        EventID: 4740
+    condition: selection | count() by CallerComputerName > 5
+    timeframe: 15m
+falsepositives:
+    - Password policy enforcement
+    - User password issues
+    - Service account problems
+level: high

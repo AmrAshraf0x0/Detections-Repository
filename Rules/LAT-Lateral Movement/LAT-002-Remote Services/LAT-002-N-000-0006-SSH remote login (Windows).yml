@@ -1,0 +1,26 @@
+title: LAT-002-N-000-0006-SSH remote login (Windows)
+id: lat-002-n-000-0006
+status: experimental
+description: Detects SSH remote login sessions on Windows systems which could indicate lateral movement
+references:
+    - https://attack.mitre.org/techniques/T1021.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1021.004
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: authentication
+detection:
+    selection:
+        EventID: 4624
+        LogonType: 3  # Network
+        AuthenticationPackageName: 'Negotiate'
+        ProcessName|endswith: '\sshd.exe'
+    condition: selection
+falsepositives:
+    - Legitimate SSH access
+    - OpenSSH for Windows usage
+    - System administration tasks
+level: low

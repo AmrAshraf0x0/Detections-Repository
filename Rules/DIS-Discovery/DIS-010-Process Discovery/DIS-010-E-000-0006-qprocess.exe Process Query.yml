@@ -1,0 +1,23 @@
+title: DIS-010-E-000-0006-qprocess.exe Process Query
+id: dis-010-e-000-0006
+status: experimental
+description: Detects qprocess.exe execution for process querying which could indicate reconnaissance activities
+references:
+    - https://attack.mitre.org/techniques/T1057/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1057
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\qprocess.exe'
+    condition: selection
+falsepositives:
+    - System administration tasks
+    - Terminal Services management
+    - Process monitoring tools
+level: low

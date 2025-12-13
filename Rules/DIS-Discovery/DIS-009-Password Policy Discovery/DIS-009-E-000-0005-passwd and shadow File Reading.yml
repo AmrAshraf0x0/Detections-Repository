@@ -1,0 +1,31 @@
+title: DIS-009-E-000-0005-passwd and shadow File Reading
+id: dis-009-e-000-0005
+status: experimental
+description: Detects reading of passwd and shadow files for password policy and user account discovery on Linux systems
+references:
+    - https://attack.mitre.org/techniques/T1201/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1201
+    - attack.discovery
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '/cat'
+            - '/less'
+            - '/more'
+            - '/grep'
+        CommandLine|contains:
+            - '/etc/passwd'
+            - '/etc/shadow'
+            - '/etc/login.defs'
+    condition: selection
+falsepositives:
+    - System administration tasks
+    - User management scripts
+    - Security auditing activities
+level: low

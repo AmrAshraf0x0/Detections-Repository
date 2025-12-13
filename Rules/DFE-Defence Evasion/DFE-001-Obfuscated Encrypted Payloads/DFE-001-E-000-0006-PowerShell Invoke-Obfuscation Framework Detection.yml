@@ -1,0 +1,30 @@
+title: DFE-001-E-000-0006-PowerShell Invoke-Obfuscation Framework Detection
+id: dfe-001-e-000-0006
+status: experimental
+description: Detects PowerShell Invoke-Obfuscation framework usage which could indicate advanced command obfuscation
+references:
+    - https://attack.mitre.org/techniques/T1027/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1027
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Invoke-Obfuscation'
+            - 'Out-ObfuscatedTokenCommand'
+            - 'Out-ObfuscatedStringCommand'
+            - 'Out-ObfuscatedAst'
+    condition: selection
+falsepositives:
+    - Security research activities
+    - PowerShell obfuscation testing
+    - Educational demonstrations
+level: high

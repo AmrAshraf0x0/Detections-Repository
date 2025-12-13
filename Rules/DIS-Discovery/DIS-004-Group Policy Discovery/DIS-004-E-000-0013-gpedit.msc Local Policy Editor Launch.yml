@@ -1,0 +1,26 @@
+title: DIS-004-E-000-0013-gpedit.msc Local Policy Editor Launch
+id: dis-004-e-000-0013
+status: experimental
+description: Detects Local Group Policy Editor launch which could indicate policy discovery or modification attempts
+references:
+    - https://attack.mitre.org/techniques/T1615/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1615
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection1:
+        Image|endswith: '\gpedit.msc'
+    selection2:
+        Image|endswith: '\mmc.exe'
+        CommandLine|contains: 'gpedit.msc'
+    condition: selection1 or selection2
+falsepositives:
+    - Local policy administration
+    - System configuration tasks
+    - Administrative activities
+level: low

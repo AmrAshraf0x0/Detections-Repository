@@ -1,0 +1,37 @@
+title: LAT-003-E-000-0005-Endpoint hash-ticket injection prep LSASS access spike + immediate NTLM lateral logons
+id: lat-003-e-000-0005
+status: experimental
+description: Detects credential harvesting preparation followed by lateral movement, indicated by LSASS access spikes followed by NTLM lateral authentication
+references:
+    - https://attack.mitre.org/techniques/T1550.002/
+    - https://attack.mitre.org/techniques/T1003.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1550.002
+    - attack.T1003.001
+    - attack.lateral_movement
+    - attack.credential_access
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    lsass_access:
+        Image|endswith:
+            - '\mimikatz.exe'
+            - '\sekurlsa.exe'
+            - '\procdump.exe'
+        CommandLine|contains:
+            - 'lsass'
+            - 'sekurlsa'
+    ntlm_lateral:
+        EventID: 4624
+        LogonType: 3
+        AuthenticationPackageName: 'NTLM'
+    timeframe: 10m
+    condition: lsass_access followed by ntlm_lateral
+falsepositives:
+    - Legitimate credential management tools
+    - System troubleshooting
+    - Memory dump analysis
+level: high

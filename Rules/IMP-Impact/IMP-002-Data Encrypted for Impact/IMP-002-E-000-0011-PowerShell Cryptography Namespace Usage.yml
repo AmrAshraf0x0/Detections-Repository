@@ -1,0 +1,32 @@
+title: IMP-002-E-000-0011-PowerShell Cryptography Namespace Usage
+id: imp-002-e-000-0011
+status: experimental
+description: Detects PowerShell cryptography namespace usage which could indicate data encryption for impact activities
+references:
+    - https://attack.mitre.org/techniques/T1486/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1486
+    - attack.impact
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'System.Security.Cryptography'
+            - 'AesManaged'
+            - 'RijndaelManaged'
+            - 'CreateEncryptor'
+            - 'CreateDecryptor'
+            - 'CryptoStream'
+    condition: selection
+falsepositives:
+    - Legitimate PowerShell encryption scripts
+    - Security-related automation
+    - Administrative cryptographic operations
+level: medium

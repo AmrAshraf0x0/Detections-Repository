@@ -1,0 +1,26 @@
+title: INA-001-E-000-0009-Windows DefaultAccount Enabled
+id: ina-001-e-000-0009
+status: experimental
+description: Detects enabling of Windows DefaultAccount which is normally disabled and could indicate persistence establishment
+references:
+    - https://attack.mitre.org/techniques/T1078.003/
+    - https://attack.mitre.org/techniques/T1136.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1078.003
+    - attack.T1136.001
+    - attack.initial_access
+    - attack.persistence
+logsource:
+    product: windows
+    category: authentication
+detection:
+    selection:
+        EventID: 4722
+        TargetUserName: 'DefaultAccount'
+    condition: selection
+falsepositives:
+    - Legitimate system configuration changes
+    - Windows feature enablement
+level: high

@@ -1,0 +1,33 @@
+title: EXE-005-E-000-0010-Service Executing with Specific Security Descriptor
+id: exe-005-e-000-0010
+status: experimental
+description: Detects Windows services configured with specific security descriptors which could be used for privilege escalation and execution
+references:
+    - https://attack.mitre.org/techniques/T1569.002/
+    - https://attack.mitre.org/techniques/T1222.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1569.002
+    - attack.T1222.001
+    - attack.execution
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\sc.exe'
+        CommandLine|contains|all:
+            - 'create'
+            - 'obj='
+        CommandLine|contains:
+            - 'LocalSystem'
+            - 'NetworkService'
+            - 'LocalService'
+    condition: selection
+falsepositives:
+    - Legitimate service installations
+    - System service configurations
+    - Enterprise deployment scripts
+level: low

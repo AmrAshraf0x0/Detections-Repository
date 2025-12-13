@@ -1,0 +1,28 @@
+title: PRE-008-E-000-0001-Admin Account Manipulate
+id: pre-008-e-000-0001
+status: experimental
+description: Detects manipulation of administrator account privileges for privilege escalation
+references:
+    - https://attack.mitre.org/techniques/T1078.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1078.003
+    - attack.privilege_escalation
+    - attack.persistence
+logsource:
+    product: windows
+    category: security
+detection:
+    selection:
+        EventID:
+            - 4728
+            - 4732
+            - 4756
+        TargetUserName: 'Administrators'
+    condition: selection
+falsepositives:
+    - Legitimate administrative tasks
+    - User account provisioning
+    - System maintenance activities
+level: medium

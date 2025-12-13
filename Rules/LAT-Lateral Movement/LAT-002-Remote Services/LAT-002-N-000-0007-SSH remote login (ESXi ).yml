@@ -1,0 +1,27 @@
+title: LAT-002-N-000-0007-SSH remote login (ESXi )
+id: lat-002-n-000-0007
+status: experimental
+description: Detects SSH remote login sessions on ESXi systems which could indicate lateral movement
+references:
+    - https://attack.mitre.org/techniques/T1021.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1021.004
+    - attack.lateral_movement
+logsource:
+    product: linux
+    category: authentication
+detection:
+    selection:
+        keywords:
+            - 'shell request'
+            - 'connection from'
+            - 'Accepted password'
+        source|contains: 'sshd'
+    condition: selection
+falsepositives:
+    - Legitimate ESXi administration
+    - VMware management tools
+    - System maintenance tasks
+level: medium

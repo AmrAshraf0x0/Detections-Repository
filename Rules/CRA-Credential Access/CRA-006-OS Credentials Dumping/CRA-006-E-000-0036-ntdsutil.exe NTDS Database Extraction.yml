@@ -1,0 +1,28 @@
+title: CRA-006-E-000-0036-ntdsutil.exe NTDS Database Extraction
+id: cra-006-e-000-0036
+status: experimental
+description: Detects ntdsutil.exe usage for NTDS database extraction which could indicate credential dumping on Domain Controllers
+references:
+    - https://attack.mitre.org/techniques/T1003.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1003.003
+    - attack.credential_access
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\ntdsutil.exe'
+        CommandLine|contains:
+            - 'ac i ntds'
+            - 'activate instance ntds'
+            - 'ifm'
+            - 'create full'
+    condition: selection
+falsepositives:
+    - Authorized Active Directory backup
+    - Database maintenance operations
+    - Disaster recovery procedures
+level: high

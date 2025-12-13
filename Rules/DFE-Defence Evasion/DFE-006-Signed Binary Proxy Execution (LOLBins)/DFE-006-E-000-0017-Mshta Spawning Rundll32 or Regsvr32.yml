@@ -1,0 +1,27 @@
+title: DFE-006-E-000-0017-Mshta Spawning Rundll32 or Regsvr32
+id: dfe-006-e-000-0017
+status: experimental
+description: Detects mshta.exe spawning rundll32.exe or regsvr32.exe which indicates potential defense evasion chains
+references:
+    - https://attack.mitre.org/techniques/T1218.005/
+    - https://attack.mitre.org/techniques/T1218.011/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1218.005
+    - attack.T1218.011
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        ParentImage|endswith: '\mshta.exe'
+        Image|endswith:
+            - '\rundll32.exe'
+            - '\regsvr32.exe'
+    condition: selection
+falsepositives:
+    - Legitimate HTA applications
+    - Complex application installations
+level: high

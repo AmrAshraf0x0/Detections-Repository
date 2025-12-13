@@ -1,0 +1,32 @@
+title: EXE-004-E-000-0013-WMI Process List Enumeration
+id: exe-004-e-000-0013
+status: experimental
+description: Detects WMI queries used to enumerate running processes for reconnaissance purposes
+references:
+    - https://attack.mitre.org/techniques/T1047/
+    - https://attack.mitre.org/techniques/T1057/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1047
+    - attack.T1057
+    - attack.execution
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\wmic.exe'
+        CommandLine|contains:
+            - 'process'
+            - 'list'
+    filter:
+        CommandLine|contains:
+            - 'call'
+            - 'create'
+    condition: selection and not filter
+falsepositives:
+    - System monitoring tools
+    - Process management utilities
+level: low

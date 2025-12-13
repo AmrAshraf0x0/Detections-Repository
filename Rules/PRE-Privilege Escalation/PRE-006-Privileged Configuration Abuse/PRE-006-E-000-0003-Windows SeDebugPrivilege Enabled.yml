@@ -1,0 +1,31 @@
+title: PRE-006-E-000-0003-Windows SeDebugPrivilege Enabled
+id: pre-006-e-000-0003
+status: experimental
+description: Detects when SeDebugPrivilege is enabled for a process which could indicate privilege escalation attempts
+references:
+    - https://attack.mitre.org/techniques/T1548.006/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1548.006
+    - attack.privilege_escalation
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection1:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'SeDebugPrivilege'
+            - 'Enable-SeDebugPrivilege'
+    selection2:
+        Image|endswith: '\whoami.exe'
+        CommandLine|contains: '/priv'
+    condition: selection1 or selection2
+falsepositives:
+    - Debugging tools
+    - System administration tasks
+    - Security software
+level: medium

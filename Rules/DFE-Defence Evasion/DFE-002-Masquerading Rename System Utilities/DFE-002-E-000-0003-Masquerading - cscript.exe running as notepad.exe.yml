@@ -1,0 +1,23 @@
+title: DFE-002-E-000-0003-Masquerading - cscript.exe running as notepad.exe
+id: dfe-002-e-000-0003
+status: experimental
+description: Detects cscript.exe masquerading as notepad.exe which could indicate defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1036.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1036.003
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\notepad.exe'
+        OriginalFileName: 'cscript.exe'
+    condition: selection
+falsepositives:
+    - Legitimate renamed applications
+    - Software deployment processes
+level: high

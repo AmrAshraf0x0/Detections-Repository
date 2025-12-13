@@ -1,0 +1,31 @@
+title: COL-003-E-000-0004-SmbShare Enumeration using PowerShell
+id: col-003-e-000-0004
+status: experimental
+description: Detects PowerShell SMB share enumeration commands which could indicate network share discovery
+references:
+    - https://attack.mitre.org/techniques/T1039/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1039
+    - attack.collection
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Get-SmbShare'
+            - 'Get-FileShare'
+            - 'Get-WmiObject'
+            - 'Win32_Share'
+    condition: selection
+falsepositives:
+    - PowerShell administration scripts
+    - Network monitoring tools
+    - System inventory operations
+level: low

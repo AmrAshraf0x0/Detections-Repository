@@ -1,0 +1,29 @@
+title: COL-002-E-000-0001-Automated Collection using Command Prompt
+id: col-002-e-000-0001
+status: experimental
+description: Detects automated data collection activities using Windows Command Prompt
+references:
+    - https://attack.mitre.org/techniques/T1119/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1119
+    - attack.collection
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\cmd.exe'
+        CommandLine|contains:
+            - 'for /r'
+            - 'dir /s'
+            - 'findstr /s'
+            - 'copy *.'
+            - 'xcopy /s'
+    condition: selection
+falsepositives:
+    - Legitimate batch file operations
+    - System administration tasks
+    - Backup and archiving scripts
+level: low

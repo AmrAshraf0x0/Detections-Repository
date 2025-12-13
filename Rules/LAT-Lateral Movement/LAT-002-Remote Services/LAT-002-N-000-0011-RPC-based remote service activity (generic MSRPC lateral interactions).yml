@@ -1,0 +1,26 @@
+title: LAT-002-N-000-0011-RPC-based remote service activity (generic MSRPC lateral interactions)
+id: lat-002-n-000-0011
+status: experimental
+description: Detects RPC-based remote service activity indicating potential lateral movement via MSRPC interactions
+references:
+    - https://attack.mitre.org/techniques/T1021/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1021
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: authentication
+detection:
+    selection:
+        EventID: 4624
+        LogonType: 3  # Network
+        AuthenticationPackageName: 'NTLM'
+        ProcessName|endswith: '\lsass.exe'
+    condition: selection
+falsepositives:
+    - Legitimate RPC communications
+    - Domain operations
+    - System services
+level: low

@@ -1,0 +1,31 @@
+title: DIS-003-E-000-0003-File Discovery (PowerShell)
+id: dis-003-e-000-0003
+status: experimental
+description: Detects PowerShell file discovery commands which could indicate reconnaissance activities
+references:
+    - https://attack.mitre.org/techniques/T1083/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1083
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Get-ChildItem'
+            - 'gci'
+            - 'ls'
+            - 'dir'
+            - '-Recurse'
+    condition: selection
+falsepositives:
+    - PowerShell administration scripts
+    - File management operations
+    - System automation tasks
+level: low

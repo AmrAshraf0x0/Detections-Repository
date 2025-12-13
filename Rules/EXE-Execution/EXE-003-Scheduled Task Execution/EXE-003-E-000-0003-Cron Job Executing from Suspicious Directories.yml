@@ -1,0 +1,28 @@
+title: EXE-003-E-000-0003-Cron Job Executing from Suspicious Directories
+id: exe-003-e-000-0003
+status: experimental
+description: Detects cron job execution from suspicious directories on Linux systems which could indicate malicious code execution
+references:
+    - https://attack.mitre.org/techniques/T1053.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1053.003
+    - attack.execution
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        ParentImage|endswith: '/cron'
+        Image|startswith:
+            - '/tmp/'
+            - '/var/tmp/'
+            - '/dev/shm/'
+            - '/home/'
+    condition: selection
+falsepositives:
+    - Legitimate user scripts
+    - Development environments
+    - Custom application deployments
+level: medium

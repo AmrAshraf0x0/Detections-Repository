@@ -1,0 +1,27 @@
+title: DFE-008-E-000-0005-Disable Windows Firewall via Registry
+id: dfe-008-e-000-0005
+status: experimental
+description: Detects registry modifications to disable Windows Firewall which could indicate defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1562.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.004
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains: 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy'
+        TargetObject|endswith:
+            - 'EnableFirewall'
+            - 'DisableNotifications'
+        Details: 'DWORD (0x00000000)'
+    condition: selection
+falsepositives:
+    - Network troubleshooting
+    - Firewall configuration changes
+    - System administration tasks
+level: high

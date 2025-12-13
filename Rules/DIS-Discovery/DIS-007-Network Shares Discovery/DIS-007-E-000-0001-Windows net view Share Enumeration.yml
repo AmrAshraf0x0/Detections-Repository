@@ -1,0 +1,26 @@
+title: DIS-007-E-000-0001-Windows net view Share Enumeration
+id: dis-007-e-000-0001
+status: experimental
+description: Detects Windows net view command execution for share enumeration which could indicate network reconnaissance
+references:
+    - https://attack.mitre.org/techniques/T1135/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1135
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\net.exe'
+        CommandLine|contains:
+            - 'view'
+            - '/domain'
+    condition: selection
+falsepositives:
+    - Network administration tasks
+    - System troubleshooting
+    - Inventory scripts
+level: low

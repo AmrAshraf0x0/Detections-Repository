@@ -1,0 +1,24 @@
+title: PER-008-E-000-0001-WMI Event Filter Creation
+id: per-008-e-000-0001
+status: experimental
+description: Detects creation of WMI event filters which could be used for persistence or event-triggered execution
+references:
+    - https://attack.mitre.org/techniques/T1546.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1546.003
+    - attack.persistence
+    - attack.privilege_escalation
+logsource:
+    product: windows
+    category: wmi_event
+detection:
+    selection:
+        EventType: 'FilterCreation'
+    condition: selection
+falsepositives:
+    - Legitimate WMI monitoring applications
+    - System management tools
+    - Antivirus software operations
+level: medium

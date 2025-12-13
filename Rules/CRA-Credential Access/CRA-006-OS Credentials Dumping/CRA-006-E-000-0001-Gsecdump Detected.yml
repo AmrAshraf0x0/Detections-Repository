@@ -1,0 +1,28 @@
+title: CRA-006-E-000-0001-Gsecdump Detected
+id: cra-006-e-000-0001
+status: experimental
+description: Detects execution of Gsecdump tool for credential dumping which could indicate credential access activities
+references:
+    - https://attack.mitre.org/techniques/T1003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1003
+    - attack.credential_access
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|contains:
+            - 'gsecdump'
+            - 'gsec_dump'
+        CommandLine|contains:
+            - '-a'
+            - '-u'
+            - '-c'
+    condition: selection
+falsepositives:
+    - Authorized security testing
+    - Penetration testing activities
+level: high

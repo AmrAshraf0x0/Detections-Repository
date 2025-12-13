@@ -1,0 +1,29 @@
+title: EXE-004-E-000-0032-WMI Deleting Services
+id: exe-004-e-000-0032
+status: experimental
+description: Detects WMI commands used to delete Windows services, potentially for defense evasion or cleanup
+references:
+    - https://attack.mitre.org/techniques/T1047/
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1047
+    - attack.T1562.001
+    - attack.execution
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\wmic.exe'
+        CommandLine|contains|all:
+            - 'service'
+            - 'where'
+            - 'delete'
+    condition: selection
+falsepositives:
+    - Legitimate service removal
+    - Software uninstallation
+level: medium

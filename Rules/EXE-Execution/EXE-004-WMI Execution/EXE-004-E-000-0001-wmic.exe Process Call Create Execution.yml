@@ -1,0 +1,28 @@
+title: EXE-004-E-000-0001-wmic.exe Process Call Create Execution
+id: exe-004-e-000-0001
+status: experimental
+description: Detects execution of wmic.exe with process call create commands which can be used by attackers to execute arbitrary commands remotely or locally
+references:
+    - https://attack.mitre.org/techniques/T1047/
+    - https://lolbas-project.github.io/lolbas/Binaries/Wmic/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1047
+    - attack.execution
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\wmic.exe'
+        CommandLine|contains|all:
+            - 'process'
+            - 'call'
+            - 'create'
+    condition: selection
+falsepositives:
+    - Legitimate administrative activities
+    - System management scripts
+    - Software deployment tools
+level: medium

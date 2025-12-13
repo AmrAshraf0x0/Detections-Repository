@@ -1,0 +1,36 @@
+title: DFE-004-E-000-0013-PowerShell Remove-Item File Deletion
+id: dfe-004-e-000-0013
+status: experimental
+description: Detects PowerShell Remove-Item usage for file deletion which could indicate indicator removal for defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1070.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1070.004
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Remove-Item'
+            - 'rm '
+            - 'del '
+            - '-Recurse'
+            - '-Force'
+        CommandLine|contains:
+            - '*.log'
+            - '*.tmp'
+            - 'Temp\\'
+            - 'AppData\\'
+    condition: selection
+falsepositives:
+    - PowerShell administration scripts
+    - Legitimate file cleanup
+    - System maintenance tasks
+level: low

@@ -1,0 +1,30 @@
+title: EXE-005-E-000-0006-Systemd Service Creation via systemctl
+id: exe-005-e-000-0006
+status: experimental
+description: Detects systemd service creation and execution via systemctl which can be used for code execution on Linux systems
+references:
+    - https://attack.mitre.org/techniques/T1569.002/
+    - https://attack.mitre.org/techniques/T1543.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1569.002
+    - attack.T1543.002
+    - attack.execution
+    - attack.persistence
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/systemctl'
+        CommandLine|contains:
+            - 'start'
+            - 'restart'
+            - 'reload'
+    condition: selection
+falsepositives:
+    - Legitimate service management
+    - System administration tasks
+    - Service restart operations
+level: low

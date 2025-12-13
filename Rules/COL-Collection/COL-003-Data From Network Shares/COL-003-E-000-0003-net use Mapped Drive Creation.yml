@@ -1,0 +1,26 @@
+title: COL-003-E-000-0003-net use Mapped Drive Creation
+id: col-003-e-000-0003
+status: experimental
+description: Detects net use command for mapping network drives and accessing remote shares
+references:
+    - https://attack.mitre.org/techniques/T1039/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1039
+    - attack.collection
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\net.exe'
+        CommandLine|contains:
+            - 'use'
+            - '\\'
+    condition: selection
+falsepositives:
+    - Legitimate network drive mapping
+    - Administrative file access
+    - Business application requirements
+level: low

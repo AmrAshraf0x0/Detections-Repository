@@ -1,0 +1,27 @@
+title: PER-003-E-000-0009-AT Remote Job Scheduling
+id: per-003-e-000-0009
+status: experimental
+description: Detects remote AT command execution for job scheduling which can be used for lateral movement and persistence
+references:
+    - https://attack.mitre.org/techniques/T1053.002/
+    - https://attack.mitre.org/techniques/T1021/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1053.002
+    - attack.T1021
+    - attack.persistence
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\at.exe'
+        CommandLine|contains: '\\'
+    condition: selection
+falsepositives:
+    - Legitimate remote administration
+    - Enterprise job scheduling
+    - System maintenance tasks
+level: medium

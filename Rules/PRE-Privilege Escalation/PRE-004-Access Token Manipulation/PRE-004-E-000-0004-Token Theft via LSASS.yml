@@ -1,0 +1,28 @@
+title: PRE-004-E-000-0004-Token Theft via LSASS
+id: pre-004-e-000-0004
+status: experimental
+description: Detects token theft attempts via LSASS process access for privilege escalation
+references:
+    - https://attack.mitre.org/techniques/T1134.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1134.001
+    - attack.privilege_escalation
+    - attack.credential_access
+logsource:
+    product: windows
+    category: process_access
+detection:
+    selection:
+        TargetImage|endswith: '\lsass.exe'
+        GrantedAccess:
+            - '0x1010'
+            - '0x1038'
+            - '0x40'
+    condition: selection
+falsepositives:
+    - Legitimate security software
+    - System monitoring tools
+    - Debugging applications
+level: high

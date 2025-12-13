@@ -1,0 +1,24 @@
+title: DFE-004-E-000-0002-System Event Log Cleared Detection
+id: dfe-004-e-000-0002
+status: experimental
+description: Detects System Event Log clearing which could indicate indicator removal for defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1070.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1070.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: system
+detection:
+    selection:
+        EventID: 104
+        Channel: System
+    condition: selection
+falsepositives:
+    - Legitimate log maintenance
+    - Administrative cleanup activities
+    - System maintenance procedures
+level: medium

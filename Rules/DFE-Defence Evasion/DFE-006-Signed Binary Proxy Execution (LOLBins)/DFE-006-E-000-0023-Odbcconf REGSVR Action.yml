@@ -1,0 +1,25 @@
+title: DFE-006-E-000-0023-Odbcconf REGSVR Action
+id: dfe-006-e-000-0023
+status: experimental
+description: Detects odbcconf.exe execution with REGSVR action which can be used for defense evasion and DLL execution
+references:
+    - https://attack.mitre.org/techniques/T1218.008/
+    - https://lolbas-project.github.io/lolbas/Binaries/Odbcconf/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1218.008
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\odbcconf.exe'
+        CommandLine|contains:
+            - 'REGSVR'
+    condition: selection
+falsepositives:
+    - Legitimate ODBC driver registration
+    - Database software installation
+level: medium

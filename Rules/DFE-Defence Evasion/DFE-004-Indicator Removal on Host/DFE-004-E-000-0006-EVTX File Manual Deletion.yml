@@ -1,0 +1,25 @@
+title: DFE-004-E-000-0006-EVTX File Manual Deletion
+id: dfe-004-e-000-0006
+status: experimental
+description: Detects manual deletion of EVTX event log files which could indicate indicator removal for defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1070.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1070.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        EventType: FileDelete
+        TargetFilename|endswith: '.evtx'
+        TargetFilename|contains: '\\System32\\winevt\\Logs\\'
+    condition: selection
+falsepositives:
+    - Legitimate log archival
+    - System maintenance activities
+    - Log rotation procedures
+level: high

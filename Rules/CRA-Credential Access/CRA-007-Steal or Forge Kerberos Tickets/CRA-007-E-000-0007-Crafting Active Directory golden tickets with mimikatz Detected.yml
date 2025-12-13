@@ -1,0 +1,33 @@
+title: CRA-007-E-000-0007-Crafting Active Directory golden tickets with mimikatz Detected
+id: cra-007-e-000-0007
+status: experimental
+description: Detects mimikatz execution for crafting Kerberos golden tickets to forge domain authentication
+references:
+    - https://attack.mitre.org/techniques/T1558.001/
+    - https://attack.mitre.org/techniques/T1550.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1558.001
+    - attack.T1550.001
+    - attack.credential_access
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\mimikatz.exe'
+        CommandLine|contains|all:
+            - 'kerberos'
+            - 'golden'
+        CommandLine|contains:
+            - '/domain:'
+            - '/sid:'
+            - '/krbtgt:'
+            - '/user:'
+    condition: selection
+falsepositives:
+    - Authorized security testing
+    - Forensic analysis with approval
+level: high

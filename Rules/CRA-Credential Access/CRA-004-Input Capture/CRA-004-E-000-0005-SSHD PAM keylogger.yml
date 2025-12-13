@@ -1,0 +1,35 @@
+title: CRA-004-E-000-0005-SSHD PAM keylogger
+id: cra-004-e-000-0005
+status: experimental
+description: Detects SSHD PAM keylogger installation which could indicate input capture for credential theft
+references:
+    - https://attack.mitre.org/techniques/T1056.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1056.001
+    - attack.credential_access
+logsource:
+    product: linux
+    category: file_event
+detection:
+    selection1:
+        TargetFilename: '/etc/pam.d/sshd'
+        ProcessName|endswith:
+            - '/vi'
+            - '/vim'
+            - '/nano'
+            - '/emacs'
+    selection2:
+        TargetFilename|contains: '/lib/security/'
+        TargetFilename|endswith: '.so'
+        TargetFilename|contains:
+            - 'pam_'
+            - 'keylog'
+            - 'capture'
+    condition: selection1 or selection2
+falsepositives:
+    - Legitimate PAM module installations
+    - SSH configuration changes
+    - Security hardening activities
+level: high

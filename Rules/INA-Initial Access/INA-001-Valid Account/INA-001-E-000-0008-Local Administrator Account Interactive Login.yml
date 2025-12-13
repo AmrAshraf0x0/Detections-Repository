@@ -1,0 +1,35 @@
+title: INA-001-E-000-0008-Local Administrator Account Interactive Login
+id: ina-001-e-000-0008
+status: experimental
+description: Detects interactive login attempts using local administrator accounts which may indicate privilege escalation or lateral movement
+references:
+    - https://attack.mitre.org/techniques/T1078.003/
+    - https://attack.mitre.org/techniques/T1021.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1078.003
+    - attack.T1021.001
+    - attack.initial_access
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: authentication
+detection:
+    selection:
+        EventID: 4624
+        LogonType:
+            - 2
+            - 10
+        TargetUserName:
+            - 'Administrator'
+            - 'admin'
+        TargetUserName|endswith:
+            - 'admin'
+            - 'administrator'
+    condition: selection
+falsepositives:
+    - Legitimate administrative activities
+    - Emergency access scenarios
+    - Authorized administrative login
+level: medium

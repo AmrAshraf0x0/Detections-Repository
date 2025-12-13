@@ -1,0 +1,31 @@
+title: CNC-001-E-000-0012-mshta.exe Download File Detected
+id: cnc-001-e-000-0012
+status: experimental
+description: Detects mshta.exe usage for file downloads which could indicate ingress tool transfer via LOLBin abuse
+references:
+    - https://attack.mitre.org/techniques/T1105/
+    - https://attack.mitre.org/techniques/T1218.005/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1105
+    - attack.T1218.005
+    - attack.command_and_control
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\mshta.exe'
+        CommandLine|contains:
+            - 'http'
+            - 'https'
+            - 'ftp'
+            - 'javascript:'
+            - 'vbscript:'
+    condition: selection
+falsepositives:
+    - Legitimate HTA applications
+    - Web-based applications
+    - Administrative tools
+level: high

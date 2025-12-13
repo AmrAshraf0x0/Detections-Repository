@@ -1,0 +1,31 @@
+title: PER-007-E-000-0002-Kernel Module Loaded via modprobe from Suspicious Path
+id: per-007-e-000-0002
+status: experimental
+description: Detects kernel module loading via modprobe from suspicious paths which could indicate malicious persistence
+references:
+    - https://attack.mitre.org/techniques/T1547.006/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1547.006
+    - attack.persistence
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/modprobe'
+        CommandLine|contains:
+            - '/tmp/'
+            - '/dev/shm/'
+            - '/var/tmp/'
+            - '/home/'
+            - '/opt/'
+    filter:
+        CommandLine|startswith: '/lib/modules/'
+    condition: selection and not filter
+falsepositives:
+    - Custom kernel modules
+    - Third-party driver installations
+    - Development environments
+level: high

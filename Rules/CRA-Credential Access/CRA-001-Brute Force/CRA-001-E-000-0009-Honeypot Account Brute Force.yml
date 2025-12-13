@@ -1,0 +1,28 @@
+title: CRA-001-E-000-0009-Honeypot Account Brute Force
+id: cra-001-e-000-0009
+status: experimental
+description: Detects brute force attempts against honeypot accounts which should never be used legitimately
+references:
+    - https://attack.mitre.org/techniques/T1110/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1110
+    - attack.credential_access
+logsource:
+    product: windows
+    category: security
+detection:
+    selection:
+        EventID:
+            - 4625
+            - 4648
+        TargetUserName|contains:
+            - 'honeypot'
+            - 'trap'
+            - 'decoy'
+            - 'canary'
+    condition: selection
+falsepositives:
+    - Very low - honeypot accounts should never be used
+level: high

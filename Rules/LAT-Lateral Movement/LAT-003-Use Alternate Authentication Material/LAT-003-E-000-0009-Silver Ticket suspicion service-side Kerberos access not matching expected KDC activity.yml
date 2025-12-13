@@ -1,0 +1,31 @@
+title: LAT-003-E-000-0009-Silver Ticket suspicion service-side Kerberos access not matching expected KDC activity
+id: lat-003-e-000-0009
+status: experimental
+description: Detects potential silver ticket attacks by identifying service-side Kerberos authentication without corresponding KDC ticket issuance activity
+references:
+    - https://attack.mitre.org/techniques/T1550.003/
+    - https://attack.mitre.org/techniques/T1558.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1550.003
+    - attack.T1558.003
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: authentication
+detection:
+    service_access:
+        EventID: 4624
+        AuthenticationPackageName: 'Kerberos'
+        LogonType: 3
+    kdc_ticket:
+        EventID: 4769  # Service ticket issued by KDC
+        Status: '0x0'
+    timeframe: 10m
+    condition: service_access and not kdc_ticket
+falsepositives:
+    - Cached ticket usage
+    - Cross-domain authentication
+    - Service account delegation
+level: medium

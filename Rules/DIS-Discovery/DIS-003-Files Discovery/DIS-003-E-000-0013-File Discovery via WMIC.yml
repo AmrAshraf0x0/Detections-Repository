@@ -1,0 +1,29 @@
+title: DIS-003-E-000-0013-File Discovery via WMIC
+id: dis-003-e-000-0013
+status: experimental
+description: Detects WMIC usage for file discovery which could indicate reconnaissance activities
+references:
+    - https://attack.mitre.org/techniques/T1083/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1083
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\wmic.exe'
+        CommandLine|contains:
+            - 'datafile'
+            - 'get'
+            - 'where'
+            - 'name'
+            - 'path'
+    condition: selection
+falsepositives:
+    - System administration scripts
+    - Inventory management tools
+    - File auditing operations
+level: medium

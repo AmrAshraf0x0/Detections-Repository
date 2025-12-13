@@ -1,0 +1,27 @@
+title: CNC-002-E-000-0013-UltraVNC Execution Detected
+id: cnc-002-e-000-0013
+status: experimental
+description: Detects UltraVNC execution which could indicate VNC remote access tool usage for command and control
+references:
+    - https://attack.mitre.org/techniques/T1021.005/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1021.005
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\winvnc.exe'
+            - '\vncviewer.exe'
+            - '\ultravnc.exe'
+            - '\uvnc_service.exe'
+    condition: selection
+falsepositives:
+    - Legitimate UltraVNC usage
+    - VNC remote desktop access
+    - System administration tasks
+level: medium

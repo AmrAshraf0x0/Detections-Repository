@@ -1,0 +1,32 @@
+title: PER-007-E-000-0005-Driver File (.sys) Created in Non-Standard Directory
+id: per-007-e-000-0005
+status: experimental
+description: Detects driver (.sys) file creation in non-standard directories which could indicate malicious driver installation
+references:
+    - https://attack.mitre.org/techniques/T1547.006/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1547.006
+    - attack.persistence
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        TargetFilename|endswith: '.sys'
+        TargetFilename|startswith:
+            - 'C:\Users\'
+            - 'C:\Temp\'
+            - 'C:\Windows\Temp\'
+            - 'C:\ProgramData\'
+    filter:
+        TargetFilename|startswith:
+            - 'C:\Windows\System32\drivers\'
+            - 'C:\Windows\SysWOW64\drivers\'
+    condition: selection and not filter
+falsepositives:
+    - Driver development activities
+    - Third-party driver installations
+    - Software deployment processes
+level: high

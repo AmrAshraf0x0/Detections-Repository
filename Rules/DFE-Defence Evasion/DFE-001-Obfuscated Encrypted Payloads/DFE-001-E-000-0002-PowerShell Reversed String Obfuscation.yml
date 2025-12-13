@@ -1,0 +1,30 @@
+title: DFE-001-E-000-0002-PowerShell Reversed String Obfuscation
+id: dfe-001-e-000-0002
+status: experimental
+description: Detects PowerShell reversed string obfuscation techniques which could indicate defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1027/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1027
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - ')esrever-'
+            - ').reverse('
+            - '[array]::reverse'
+            - 'gnirtSmorF'
+            - 'ecalpeR-'
+    condition: selection
+falsepositives:
+    - Legitimate string manipulation scripts
+    - Educational PowerShell examples
+level: medium

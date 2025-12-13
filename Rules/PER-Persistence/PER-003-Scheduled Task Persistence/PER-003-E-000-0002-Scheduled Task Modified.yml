@@ -1,0 +1,23 @@
+title: PER-003-E-000-0002-Scheduled Task Modified
+id: per-003-e-000-0002
+status: experimental
+description: Detects scheduled task modifications which could be used to alter existing tasks for persistence
+references:
+    - https://attack.mitre.org/techniques/T1053.005/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1053.005
+    - attack.persistence
+logsource:
+    product: windows
+    category: system
+detection:
+    selection:
+        EventID: 4698  # Scheduled task was created
+    condition: selection
+falsepositives:
+    - Legitimate task modifications
+    - System maintenance activities
+    - Software updates
+level: low

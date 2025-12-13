@@ -1,0 +1,35 @@
+title: DIS-003-E-000-0009-File Discovery (Windows)
+id: dis-003-e-000-0009
+status: experimental
+description: Detects Windows native commands for file discovery which could indicate reconnaissance activities
+references:
+    - https://attack.mitre.org/techniques/T1083/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1083
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_dir:
+        Image|endswith: '\cmd.exe'
+        CommandLine|contains:
+            - 'dir'
+            - '/s'
+            - '/a'
+            - '/b'
+    selection_where:
+        Image|endswith: '\where.exe'
+    selection_forfiles:
+        Image|endswith: '\forfiles.exe'
+        CommandLine|contains:
+            - '/s'
+            - '/m'
+    condition: 1 of selection*
+falsepositives:
+    - Administrative scripts
+    - System maintenance tasks
+    - File management operations
+level: low

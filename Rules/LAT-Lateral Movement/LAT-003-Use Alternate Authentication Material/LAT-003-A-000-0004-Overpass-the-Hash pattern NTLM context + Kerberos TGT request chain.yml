@@ -1,0 +1,30 @@
+title: LAT-003-A-000-0004-Overpass-the-Hash pattern NTLM context + Kerberos TGT request chain
+id: lat-003-a-000-0004
+status: experimental
+description: Detects overpass-the-hash attack pattern where NTLM authentication context is used to request Kerberos TGT tickets
+references:
+    - https://attack.mitre.org/techniques/T1550.002/
+    - https://attack.mitre.org/techniques/T1550.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1550.002
+    - attack.T1550.001
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: authentication
+detection:
+    ntlm_auth:
+        EventID: 4624
+        AuthenticationPackageName: 'NTLM'
+    kerberos_tgt:
+        EventID: 4768  # Kerberos TGT request
+        Status: '0x0'   # Successful
+    timeframe: 5m
+    condition: ntlm_auth followed by kerberos_tgt
+falsepositives:
+    - Mixed authentication environments
+    - Application authentication flows
+    - Service account behaviors
+level: high

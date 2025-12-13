@@ -1,0 +1,27 @@
+title: EXE-006-E-000-0002-Modification to Excel Personal.xlsb Template
+id: exe-006-e-000-0002
+status: experimental
+description: Detects modifications to Excel Personal.xlsb template which could indicate macro-based persistence or execution
+references:
+    - https://attack.mitre.org/techniques/T1566.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1566.001
+    - attack.execution
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        TargetFilename|endswith: '\Personal.xlsb'
+        EventType: FileCreate
+    filter:
+        ProcessImage|endswith: '\excel.exe'
+        ProcessImage|startswith: 'C:\Program Files\'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate Excel template modifications
+    - User customizations
+    - Administrative template updates
+level: medium

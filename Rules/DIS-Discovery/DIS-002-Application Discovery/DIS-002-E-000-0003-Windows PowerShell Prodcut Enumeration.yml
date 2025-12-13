@@ -1,0 +1,30 @@
+title: DIS-002-E-000-0003-Windows PowerShell Product Enumeration
+id: dis-002-e-000-0003
+status: experimental
+description: Detects PowerShell commands for product and application enumeration
+references:
+    - https://attack.mitre.org/techniques/T1518.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1518.001
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Get-WmiObject'
+            - 'Win32_Product'
+            - 'Get-ItemProperty'
+            - 'Uninstall'
+    condition: selection
+falsepositives:
+    - Legitimate PowerShell inventory scripts
+    - System administration tasks
+    - Software management tools
+level: low

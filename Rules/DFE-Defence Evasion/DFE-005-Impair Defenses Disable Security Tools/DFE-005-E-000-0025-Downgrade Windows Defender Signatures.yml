@@ -1,0 +1,29 @@
+title: DFE-005-E-000-0025-Downgrade Windows Defender Signatures
+id: dfe-005-e-000-0025
+status: experimental
+description: Detects attempts to downgrade Windows Defender signatures which could indicate defense evasion techniques
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Update-MpSignature'
+            - 'SignatureVersion'
+            - 'UpdateSource'
+    condition: selection
+falsepositives:
+    - Legitimate signature management
+    - System administration tasks
+    - Troubleshooting procedures
+level: medium

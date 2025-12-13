@@ -1,0 +1,29 @@
+title: EXE-004-E-000-0033-WMI Disabling Windows Defender Real-Time Protection
+id: exe-004-e-000-0033
+status: experimental
+description: Detects WMI commands used to disable Windows Defender real-time protection for defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1047/
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1047
+    - attack.T1562.001
+    - attack.execution
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\wmic.exe'
+        CommandLine|contains:
+            - 'MSFT_MpPreference'
+            - 'DisableRealtimeMonitoring'
+            - 'True'
+    condition: selection
+falsepositives:
+    - Authorized security testing
+    - System maintenance with approval
+level: high

@@ -1,0 +1,26 @@
+title: DIS-011-E-000-0003-timedatectl Command Execution
+id: dis-011-e-000-0003
+status: experimental
+description: Detects execution of timedatectl command used for system time and timezone discovery on Linux systems
+references:
+    - https://attack.mitre.org/techniques/T1016/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1016
+    - attack.discovery
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/timedatectl'
+        CommandLine|contains:
+            - 'status'
+            - 'show'
+    condition: selection
+falsepositives:
+    - System administration tasks
+    - Time synchronization scripts
+    - System monitoring tools
+level: low

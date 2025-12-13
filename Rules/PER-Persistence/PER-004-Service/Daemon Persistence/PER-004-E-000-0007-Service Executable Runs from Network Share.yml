@@ -1,0 +1,27 @@
+title: PER-004-E-000-0007-Service Executable Runs from Network Share
+id: per-004-e-000-0007
+status: experimental
+description: Detects Windows services configured to execute from network shares which could be used for persistence and evasion
+references:
+    - https://attack.mitre.org/techniques/T1543.003/
+    - https://attack.mitre.org/techniques/T1021.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1543.003
+    - attack.T1021.002
+    - attack.persistence
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: system
+detection:
+    selection:
+        EventID: 7045  # Service installed
+        ImagePath|startswith: '\\'
+    condition: selection
+falsepositives:
+    - Legitimate network-based service deployments
+    - Enterprise software installations
+    - Shared application servers
+level: medium

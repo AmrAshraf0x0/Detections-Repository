@@ -1,0 +1,25 @@
+title: DFE-008-E-000-0002-Windows Defender Tamper Protection Registry Disabled
+id: dfe-008-e-000-0002
+status: experimental
+description: Detects registry modifications to disable Windows Defender Tamper Protection which could indicate defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains: 'HKLM\\SOFTWARE\\Microsoft\\Windows Defender\\Features'
+        TargetObject|endswith: 'TamperProtection'
+        Details: 'DWORD (0x00000000)'
+    condition: selection
+falsepositives:
+    - Legitimate antivirus configuration changes
+    - System maintenance activities
+    - Software deployment scripts
+level: high

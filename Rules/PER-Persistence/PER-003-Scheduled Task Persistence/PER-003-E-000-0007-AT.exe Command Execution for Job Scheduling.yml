@@ -1,0 +1,23 @@
+title: PER-003-E-000-0007-AT.exe Command Execution for Job Scheduling
+id: per-003-e-000-0007
+status: experimental
+description: Detects AT.exe command execution for job scheduling which can be used for persistence on older Windows systems
+references:
+    - https://attack.mitre.org/techniques/T1053.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1053.002
+    - attack.persistence
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\at.exe'
+    condition: selection
+falsepositives:
+    - Legacy system administration
+    - Older automation scripts
+    - Compatibility applications
+level: medium

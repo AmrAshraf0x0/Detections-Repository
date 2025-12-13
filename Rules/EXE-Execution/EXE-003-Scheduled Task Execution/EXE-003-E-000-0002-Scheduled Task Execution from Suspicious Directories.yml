@@ -1,0 +1,29 @@
+title: EXE-003-E-000-0002-Scheduled Task Execution from Suspicious Directories
+id: exe-003-e-000-0002
+status: experimental
+description: Detects scheduled task execution from suspicious directories which could indicate malicious code execution
+references:
+    - https://attack.mitre.org/techniques/T1053.005/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1053.005
+    - attack.execution
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        ParentImage|endswith: '\svchost.exe'
+        Image|contains:
+            - '\Users\'
+            - '\Temp\'
+            - '\AppData\'
+            - '\Downloads\'
+            - '\Desktop\'
+    condition: selection
+falsepositives:
+    - Legitimate user applications
+    - Portable software execution
+    - Development environments
+level: medium

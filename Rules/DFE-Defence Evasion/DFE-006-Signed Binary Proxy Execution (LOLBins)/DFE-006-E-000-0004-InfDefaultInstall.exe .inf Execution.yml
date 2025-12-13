@@ -1,0 +1,24 @@
+title: DFE-006-E-000-0004-InfDefaultInstall.exe .inf Execution
+id: dfe-006-e-000-0004
+status: experimental
+description: Detects execution of InfDefaultInstall.exe with .inf files which can be used for defense evasion and code execution
+references:
+    - https://attack.mitre.org/techniques/T1218/
+    - https://lolbas-project.github.io/lolbas/Binaries/InfDefaultInstall/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1218
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\InfDefaultInstall.exe'
+        CommandLine|contains: '.inf'
+    condition: selection
+falsepositives:
+    - Legitimate software installation
+    - Driver installation processes
+level: medium

@@ -1,0 +1,29 @@
+title: IMP-002-E-000-0004-Encrypt files using openssl
+id: imp-002-e-000-0004
+status: experimental
+description: Detects OpenSSL file encryption operations which could indicate data encryption for impact or ransomware activities
+references:
+    - https://attack.mitre.org/techniques/T1486/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1486
+    - attack.impact
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/openssl'
+        CommandLine|contains:
+            - 'enc'
+            - 'aes-256-cbc'
+            - '-in'
+            - '-out'
+            - '-k'
+    condition: selection
+falsepositives:
+    - Legitimate file encryption operations
+    - SSL/TLS certificate operations
+    - Administrative cryptographic tasks
+level: medium

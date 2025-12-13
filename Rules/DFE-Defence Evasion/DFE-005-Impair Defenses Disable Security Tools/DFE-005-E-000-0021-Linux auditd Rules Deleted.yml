@@ -1,0 +1,39 @@
+title: DFE-005-E-000-0021-Linux auditd Rules Deleted
+id: dfe-005-e-000-0021
+status: experimental
+description: Detects Linux auditd rules being deleted which could indicate defense evasion techniques
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection1:
+        Image|endswith:
+            - '/auditctl'
+        CommandLine|contains:
+            - '-D'
+    selection2:
+        Image|endswith:
+            - '/rm'
+            - '/unlink'
+        CommandLine|contains:
+            - '/etc/audit/rules.d/'
+            - '/etc/audit/audit.rules'
+    selection3:
+        Image|endswith:
+            - '/truncate'
+            - '/dd'
+        CommandLine|contains:
+            - '/etc/audit/audit.rules'
+    condition: 1 of selection*
+falsepositives:
+    - Legitimate audit configuration changes
+    - System administration tasks
+    - Security policy updates
+level: high

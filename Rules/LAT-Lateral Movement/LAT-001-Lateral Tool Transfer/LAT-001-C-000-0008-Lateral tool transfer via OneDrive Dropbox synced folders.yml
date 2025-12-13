@@ -1,0 +1,37 @@
+title: LAT-001-C-000-0008-Lateral tool transfer via OneDrive/Dropbox synced folders
+id: lat-001-c-000-0008
+status: experimental
+description: Detects tool transfer via cloud storage synced folders which could indicate lateral movement through cloud services
+references:
+    - https://attack.mitre.org/techniques/T1570/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1570
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        TargetFilename|contains:
+            - '\\OneDrive\\'
+            - '\\Dropbox\\'
+            - '\\Google Drive\\'
+            - '\\Box\\'
+        TargetFilename|endswith:
+            - '.exe'
+            - '.dll'
+            - '.ps1'
+            - '.bat'
+            - '.cmd'
+        ProcessName|endswith:
+            - '\\OneDrive.exe'
+            - '\\Dropbox.exe'
+            - '\\GoogleDriveFS.exe'
+    condition: selection
+falsepositives:
+    - Legitimate cloud file synchronization
+    - User productivity activities
+    - Authorized software distribution
+level: medium

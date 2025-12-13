@@ -1,0 +1,30 @@
+title: CRA-006-E-000-0035-NTDS.dit File Access on Domain Controller
+id: cra-006-e-000-0035
+status: experimental
+description: Detects suspicious access to NTDS.dit file on Domain Controller which could indicate credential dumping
+references:
+    - https://attack.mitre.org/techniques/T1003.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1003.003
+    - attack.credential_access
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        TargetFilename|endswith: '\NTDS.dit'
+        ProcessImage|endswith:
+            - '\copy.exe'
+            - '\xcopy.exe'
+            - '\robocopy.exe'
+            - '\esentutl.exe'
+    filter:
+        ProcessImage|startswith: 'C:\Windows\System32\'
+    condition: selection and not filter
+falsepositives:
+    - Active Directory backup operations
+    - System maintenance tasks
+    - Authorized database operations
+level: high

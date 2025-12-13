@@ -1,0 +1,41 @@
+title: CRA-004-E-000-0007-Audio Capture Detected
+id: cra-004-e-000-0007
+status: experimental
+description: Detects audio capture activities which could indicate input capture for eavesdropping or credential theft
+references:
+    - https://attack.mitre.org/techniques/T1123/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1123
+    - attack.credential_access
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection1:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'System.Speech'
+            - 'SpeechRecognition'
+            - 'Microphone'
+            - 'AudioCapture'
+            - 'WaveIn'
+    selection2:
+        Image|endswith:
+            - '\ffmpeg.exe'
+            - '\sox.exe'
+            - '\audacity.exe'
+        CommandLine|contains:
+            - '-f dshow'
+            - 'audio='
+            - 'microphone'
+            - 'record'
+    condition: selection1 or selection2
+falsepositives:
+    - Legitimate audio recording software
+    - Voice recognition applications
+    - Multimedia applications
+level: medium

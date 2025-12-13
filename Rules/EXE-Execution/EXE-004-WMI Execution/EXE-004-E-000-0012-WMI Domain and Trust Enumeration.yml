@@ -1,0 +1,29 @@
+title: EXE-004-E-000-0012-WMI Domain and Trust Enumeration
+id: exe-004-e-000-0012
+status: experimental
+description: Detects WMI queries used to enumerate domain information and trust relationships for reconnaissance
+references:
+    - https://attack.mitre.org/techniques/T1047/
+    - https://attack.mitre.org/techniques/T1482/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1047
+    - attack.T1482
+    - attack.execution
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\wmic.exe'
+        CommandLine|contains:
+            - 'Win32_NTDomain'
+            - 'Win32_ComputerSystemProduct'
+            - 'ntdomain'
+    condition: selection
+falsepositives:
+    - Domain administration tools
+    - Network discovery scripts
+level: medium

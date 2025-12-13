@@ -1,0 +1,35 @@
+title: DFE-005-E-000-0031-WDAC (Windows Defender Application Control) Disabled
+id: dfe-005-e-000-0031
+status: experimental
+description: Detects Windows Defender Application Control (WDAC) being disabled which could indicate defense evasion techniques
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection1:
+        Image|endswith:
+            - '\CiTool.exe'
+        CommandLine|contains:
+            - '--remove-policy'
+            - '--update-policy'
+    selection2:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Remove-CIPolicy'
+            - 'Set-CIPolicy'
+            - '-FilePath'
+    condition: 1 of selection*
+falsepositives:
+    - Legitimate policy management
+    - System administration tasks
+    - Security policy updates
+level: high

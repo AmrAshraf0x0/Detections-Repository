@@ -1,0 +1,26 @@
+title: CNC-001-E-000-0007-File download with finger.exe on Windows
+id: cnc-001-e-000-0007
+status: experimental
+description: Detects finger.exe usage for file downloads which could indicate ingress tool transfer via LOLBin abuse
+references:
+    - https://attack.mitre.org/techniques/T1105/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1105
+    - attack.command_and_control
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\finger.exe'
+        CommandLine|contains:
+            - '@'
+            - 'http'
+            - 'ftp'
+    condition: selection
+falsepositives:
+    - Legitimate finger protocol usage
+    - Network troubleshooting
+level: high

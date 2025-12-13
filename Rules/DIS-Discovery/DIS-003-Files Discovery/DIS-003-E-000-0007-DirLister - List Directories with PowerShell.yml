@@ -1,0 +1,33 @@
+title: DIS-003-E-000-0007-DirLister - List Directories with PowerShell
+id: dis-003-e-000-0007
+status: experimental
+description: Detects PowerShell commands mimicking DirLister functionality for directory enumeration
+references:
+    - https://attack.mitre.org/techniques/T1083/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1083
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Get-ChildItem'
+            - 'gci'
+            - 'dir'
+            - '-Directory'
+            - '-Recurse'
+            - 'Export-Csv'
+            - 'Out-File'
+    condition: selection
+falsepositives:
+    - PowerShell administration scripts
+    - System inventory scripts
+    - File management operations
+level: low

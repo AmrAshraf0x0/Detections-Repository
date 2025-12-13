@@ -1,0 +1,27 @@
+title: DIS-008-E-000-0001-Windows Groups and whoami Discovery
+id: dis-008-e-000-0001
+status: experimental
+description: Detects Windows groups and user information discovery using whoami and related commands
+references:
+    - https://attack.mitre.org/techniques/T1069/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1069
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\whoami.exe'
+        CommandLine|contains:
+            - '/groups'
+            - '/all'
+            - '/priv'
+    condition: selection
+falsepositives:
+    - System administration tasks
+    - Troubleshooting activities
+    - Security auditing tools
+level: low

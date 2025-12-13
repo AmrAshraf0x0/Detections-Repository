@@ -1,0 +1,31 @@
+title: DIS-005-E-000-0003-PowerShell Get-WinEvent Execution
+id: dis-005-e-000-0003
+status: experimental
+description: Detects PowerShell Get-WinEvent usage for Windows event log enumeration which could indicate reconnaissance
+references:
+    - https://attack.mitre.org/techniques/T1654/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1654
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Get-WinEvent'
+            - 'Security'
+            - 'System'
+            - 'Application'
+            - 'Microsoft-Windows-Sysmon'
+    condition: selection
+falsepositives:
+    - PowerShell administration scripts
+    - Security monitoring tools
+    - Event log analysis scripts
+level: low

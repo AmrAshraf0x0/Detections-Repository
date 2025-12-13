@@ -1,0 +1,28 @@
+title: DIS-012-E-000-0004-Hostname Discovery - linux
+id: dis-012-e-000-0004
+status: experimental
+description: Detects hostname discovery attempts on Linux systems using various commands
+references:
+    - https://attack.mitre.org/techniques/T1082/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1082
+    - attack.discovery
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '/hostname'
+            - '/hostnamectl'
+        CommandLine|contains:
+            - 'hostname'
+            - 'hostnamectl'
+    condition: selection
+falsepositives:
+    - System administration scripts
+    - Network configuration tools
+    - System monitoring applications
+level: low

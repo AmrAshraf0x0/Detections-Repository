@@ -1,0 +1,28 @@
+title: EXE-004-E-000-0017-WMI Querying Startup Programs
+id: exe-004-e-000-0017
+status: experimental
+description: Detects WMI queries used to enumerate startup programs and services for persistence reconnaissance
+references:
+    - https://attack.mitre.org/techniques/T1047/
+    - https://attack.mitre.org/techniques/T1057/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1047
+    - attack.T1057
+    - attack.execution
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\wmic.exe'
+        CommandLine|contains:
+            - 'Win32_StartupCommand'
+            - 'startup'
+    condition: selection
+falsepositives:
+    - System administration tools
+    - Startup management utilities
+level: low

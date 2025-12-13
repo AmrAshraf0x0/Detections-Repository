@@ -1,0 +1,28 @@
+title: DIS-003-E-000-0001-File Discovery (cmd.exe)
+id: dis-003-e-000-0001
+status: experimental
+description: Detects file discovery commands using cmd.exe which could indicate reconnaissance activities
+references:
+    - https://attack.mitre.org/techniques/T1083/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1083
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\cmd.exe'
+        CommandLine|contains:
+            - 'dir'
+            - '/s'
+            - '/a'
+            - '/b'
+    condition: selection
+falsepositives:
+    - Administrative file operations
+    - System maintenance tasks
+    - User file browsing
+level: low

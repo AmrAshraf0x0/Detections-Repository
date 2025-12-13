@@ -1,0 +1,31 @@
+title: PRE-008-E-000-0002-Domain Account and Group Manipulate
+id: pre-008-e-000-0002
+status: experimental
+description: Detects manipulation of domain accounts and groups for privilege escalation
+references:
+    - https://attack.mitre.org/techniques/T1078.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1078.002
+    - attack.privilege_escalation
+    - attack.persistence
+logsource:
+    product: windows
+    category: security
+detection:
+    selection:
+        EventID:
+            - 4728
+            - 4732
+            - 4756
+        TargetUserName|contains:
+            - 'Domain Admins'
+            - 'Enterprise Admins'
+            - 'Schema Admins'
+    condition: selection
+falsepositives:
+    - Legitimate domain administration
+    - User provisioning processes
+    - Administrative group management
+level: high

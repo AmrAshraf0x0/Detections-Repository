@@ -1,0 +1,27 @@
+title: CNC-002-E-000-0015-NetSupport Execution Detected
+id: cnc-002-e-000-0015
+status: experimental
+description: Detects NetSupport execution which could indicate remote access tool usage for command and control
+references:
+    - https://attack.mitre.org/techniques/T1219/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1219
+    - attack.command_and_control
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\pciclient.exe'
+            - '\pcicontl.exe'
+            - '\nsm.exe'
+        Image|contains: 'netsupport'
+    condition: selection
+falsepositives:
+    - Legitimate NetSupport usage
+    - Authorized remote management
+    - Educational software usage
+level: medium

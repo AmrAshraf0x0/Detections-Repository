@@ -1,0 +1,27 @@
+title: PRE-005-E-000-0005-Windows User Added to VPN Users Group
+id: pre-005-e-000-0005
+status: experimental
+description: Detects users being added to VPN Users group which could indicate network access privilege escalation
+references:
+    - https://attack.mitre.org/techniques/T1078.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1078.002
+    - attack.privilege_escalation
+logsource:
+    product: windows
+    category: security
+detection:
+    selection:
+        EventID: 4728
+        GroupName|contains:
+            - 'VPN Users'
+            - 'Remote Access'
+            - 'Dial-in Users'
+    condition: selection
+falsepositives:
+    - Legitimate VPN user additions
+    - Remote access management
+    - User onboarding processes
+level: medium

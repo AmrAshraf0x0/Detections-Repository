@@ -1,0 +1,39 @@
+title: PER-008-E-000-0007-WMI Event Subscription with Network Callback (DownloadString, WebClient)
+id: per-008-e-000-0007
+status: experimental
+description: Detects WMI event subscriptions containing network callbacks which could indicate malicious payload retrieval
+references:
+    - https://attack.mitre.org/techniques/T1546.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1546.003
+    - attack.persistence
+    - attack.privilege_escalation
+    - attack.command_and_control
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_wmi:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - '__EventConsumer'
+            - '__EventFilter'
+            - '__FilterToConsumerBinding'
+    selection_network:
+        CommandLine|contains:
+            - 'DownloadString'
+            - 'WebClient'
+            - 'Invoke-WebRequest'
+            - 'wget'
+            - 'curl'
+            - 'Net.WebClient'
+    condition: selection_wmi and selection_network
+falsepositives:
+    - Legitimate remote management tools
+    - Software update mechanisms
+    - Monitoring system callbacks
+level: high

@@ -1,0 +1,29 @@
+title: EXE-004-E-000-0006-WMI Query for System Information Gathering
+id: exe-004-e-000-0006
+status: experimental
+description: Detects WMI queries used to gather system information for reconnaissance purposes
+references:
+    - https://attack.mitre.org/techniques/T1047/
+    - https://attack.mitre.org/techniques/T1082/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1047
+    - attack.T1082
+    - attack.execution
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\wmic.exe'
+        CommandLine|contains:
+            - 'Win32_ComputerSystem'
+            - 'Win32_OperatingSystem'
+            - 'Win32_BIOS'
+    condition: selection
+falsepositives:
+    - System inventory tools
+    - Administrative scripts
+level: low

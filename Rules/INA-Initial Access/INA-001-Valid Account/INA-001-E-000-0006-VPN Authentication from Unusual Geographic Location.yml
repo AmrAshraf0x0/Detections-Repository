@@ -1,0 +1,30 @@
+title: INA-001-E-000-0006-VPN Authentication from Unusual Geographic Location
+id: ina-001-e-000-0006
+status: experimental
+description: Detects VPN authentication from geographic locations that are unusual for the user, indicating potential account compromise
+references:
+    - https://attack.mitre.org/techniques/T1078/
+    - https://attack.mitre.org/techniques/T1133/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1078
+    - attack.T1133
+    - attack.initial_access
+logsource:
+    product: windows
+    category: authentication
+detection:
+    vpn_auth:
+        EventID: 4624
+        LogonType: 3
+        AuthenticationPackageName: 'NTLM'
+        keywords:
+            - 'VPN'
+            - 'Remote'
+    condition: vpn_auth
+falsepositives:
+    - Users traveling and accessing VPN from legitimate locations
+    - Business trips and remote work scenarios
+    - VPN server geolocation changes
+level: medium

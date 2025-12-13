@@ -1,0 +1,32 @@
+title: DIS-006-E-000-0002-SMB Service Discovery
+id: dis-006-e-000-0002
+status: experimental
+description: Detects SMB service discovery attempts which could indicate network reconnaissance activities
+references:
+    - https://attack.mitre.org/techniques/T1046/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1046
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection1:
+        Image|endswith: '\nmap.exe'
+        CommandLine|contains:
+            - '-p 445'
+            - '-p 139'
+            - 'smb'
+    selection2:
+        Image|endswith: '\telnet.exe'
+        CommandLine|contains:
+            - '445'
+            - '139'
+    condition: selection1 or selection2
+falsepositives:
+    - Network administration tasks
+    - Security scanning tools
+    - Connectivity testing
+level: medium

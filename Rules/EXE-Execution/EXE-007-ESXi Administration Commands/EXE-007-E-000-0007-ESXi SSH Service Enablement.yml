@@ -1,0 +1,33 @@
+title: EXE-007-E-000-0007-ESXi SSH Service Enablement
+id: exe-007-e-000-0007
+status: experimental
+description: Detects ESXi SSH service enablement which could indicate persistence or remote access establishment
+references:
+    - https://attack.mitre.org/techniques/T1021.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1021.004
+    - attack.lateral_movement
+    - attack.persistence
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection_esxcli:
+        Image|contains: 'esxcli'
+        CommandLine|contains|all:
+            - 'system ssh'
+            - 'set'
+            - 'true'
+    selection_service:
+        Image|contains: 'service'
+        CommandLine|contains:
+            - 'ssh'
+            - 'start'
+    condition: 1 of selection*
+falsepositives:
+    - Legitimate remote administration
+    - System maintenance operations
+    - Authorized SSH access enablement
+level: medium

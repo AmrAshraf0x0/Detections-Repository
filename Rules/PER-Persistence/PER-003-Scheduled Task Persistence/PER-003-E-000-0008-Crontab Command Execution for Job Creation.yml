@@ -1,0 +1,27 @@
+title: PER-003-E-000-0008-Crontab Command Execution for Job Creation
+id: per-003-e-000-0008
+status: experimental
+description: Detects crontab command execution for job creation which can be used for persistence on Linux systems
+references:
+    - https://attack.mitre.org/techniques/T1053.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1053.003
+    - attack.persistence
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/crontab'
+        CommandLine|contains:
+            - '-e'
+            - '-l'
+            - '-r'
+    condition: selection
+falsepositives:
+    - Legitimate cron job management
+    - System administration tasks
+    - Scheduled maintenance activities
+level: low

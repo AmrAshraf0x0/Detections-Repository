@@ -1,0 +1,29 @@
+title: DFE-004-E-000-0003-Wevtutil Event Log Clearing
+id: dfe-004-e-000-0003
+status: experimental
+description: Detects wevtutil usage for event log clearing which could indicate indicator removal for defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1070.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1070.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\wevtutil.exe'
+        CommandLine|contains:
+            - 'cl'
+            - 'clear-log'
+            - 'Security'
+            - 'System'
+            - 'Application'
+    condition: selection
+falsepositives:
+    - Legitimate log maintenance
+    - Administrative scripts
+    - System cleanup procedures
+level: high

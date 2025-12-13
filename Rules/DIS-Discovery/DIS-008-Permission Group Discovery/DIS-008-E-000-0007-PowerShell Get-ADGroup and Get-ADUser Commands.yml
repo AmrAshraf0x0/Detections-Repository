@@ -1,0 +1,30 @@
+title: DIS-008-E-000-0007-PowerShell Get-ADGroup and Get-ADUser Commands
+id: dis-008-e-000-0007
+status: experimental
+description: Detects PowerShell Active Directory group and user discovery commands which could indicate domain reconnaissance
+references:
+    - https://attack.mitre.org/techniques/T1069.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1069.002
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Get-ADGroup'
+            - 'Get-ADUser'
+            - 'Get-ADGroupMember'
+            - 'Get-ADPrincipalGroupMembership'
+    condition: selection
+falsepositives:
+    - Active Directory administration scripts
+    - User management tools
+    - Security auditing activities
+level: medium

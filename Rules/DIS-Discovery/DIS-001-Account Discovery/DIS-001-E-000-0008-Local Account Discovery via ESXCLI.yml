@@ -1,0 +1,27 @@
+title: DIS-001-E-000-0008-Local Account Discovery via ESXCLI
+id: dis-001-e-000-0008
+status: experimental
+description: Detects local account discovery on VMware ESXi systems using esxcli
+references:
+    - https://attack.mitre.org/techniques/T1087.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1087.001
+    - attack.discovery
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|contains: 'esxcli'
+        CommandLine|contains:
+            - 'system'
+            - 'account'
+            - 'list'
+    condition: selection
+falsepositives:
+    - Legitimate ESXi administration
+    - System monitoring tasks
+    - User management operations
+level: low

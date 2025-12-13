@@ -1,0 +1,34 @@
+title: INA-001-A-000-0010-Multiple Failed Login Attempts Followed by Successful Authentication - Linux
+id: ina-001-a-000-0010
+status: experimental
+description: Detects multiple failed login attempts followed by successful authentication on Linux systems, indicating potential brute force attacks
+references:
+    - https://attack.mitre.org/techniques/T1110/
+    - https://attack.mitre.org/techniques/T1078/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1110
+    - attack.T1078
+    - attack.credential_access
+    - attack.initial_access
+logsource:
+    product: linux
+    category: authentication
+detection:
+    failed_ssh:
+        keywords:
+            - 'Failed password'
+            - 'authentication failure'
+            - 'Invalid user'
+    successful_ssh:
+        keywords:
+            - 'Accepted password'
+            - 'Accepted publickey'
+    timeframe: 10m
+    condition: failed_ssh | count() by username >= 5 followed by successful_ssh
+falsepositives:
+    - User typing incorrect password multiple times
+    - SSH key configuration issues
+    - Legitimate password changes
+level: medium

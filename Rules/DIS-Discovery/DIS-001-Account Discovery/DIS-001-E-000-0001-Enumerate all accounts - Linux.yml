@@ -1,0 +1,29 @@
+title: DIS-001-E-000-0001-Enumerate all accounts - Linux
+id: dis-001-e-000-0001
+status: experimental
+description: Detects enumeration of all user accounts on Linux systems for reconnaissance
+references:
+    - https://attack.mitre.org/techniques/T1087.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1087.001
+    - attack.discovery
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '/cat'
+            - '/less'
+            - '/more'
+            - '/head'
+            - '/tail'
+        CommandLine|contains: '/etc/passwd'
+    condition: selection
+falsepositives:
+    - Legitimate system administration
+    - User management tasks
+    - System troubleshooting
+level: low

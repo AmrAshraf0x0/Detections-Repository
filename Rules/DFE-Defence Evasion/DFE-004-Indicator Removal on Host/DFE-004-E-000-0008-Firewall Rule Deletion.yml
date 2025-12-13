@@ -1,0 +1,33 @@
+title: DFE-004-E-000-0008-Firewall Rule Deletion
+id: dfe-004-e-000-0008
+status: experimental
+description: Detects firewall rule deletion which could indicate indicator removal for defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1070/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1070
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection1:
+        Image|endswith: '\netsh.exe'
+        CommandLine|contains|all:
+            - 'firewall'
+            - 'delete'
+    selection2:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Remove-NetFirewallRule'
+            - 'Disable-NetFirewallRule'
+    condition: selection1 or selection2
+falsepositives:
+    - Firewall rule management
+    - Network configuration changes
+    - Administrative tasks
+level: medium

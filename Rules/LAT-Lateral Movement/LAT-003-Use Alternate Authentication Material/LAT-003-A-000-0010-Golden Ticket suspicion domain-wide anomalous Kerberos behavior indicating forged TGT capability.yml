@@ -1,0 +1,34 @@
+title: LAT-003-A-000-0010-Golden Ticket suspicion domain-wide anomalous Kerberos behavior indicating forged TGT capability
+id: lat-003-a-000-0010
+status: experimental
+description: Detects potential golden ticket attacks through domain-wide anomalous Kerberos behavior patterns indicating forged TGT capabilities
+references:
+    - https://attack.mitre.org/techniques/T1550.001/
+    - https://attack.mitre.org/techniques/T1558.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1550.001
+    - attack.T1558.001
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: authentication
+detection:
+    anomalous_tgt:
+        EventID: 4768  # TGT request
+        Status: '0x0'
+        TicketOptions: 
+            - '0x40810010'  # Forwardable, renewable, canonicalize
+            - '0x60810010'  # Suspicious ticket options
+    service_access:
+        EventID: 4624
+        AuthenticationPackageName: 'Kerberos'
+        LogonType: 3
+    timeframe: 1h
+    condition: anomalous_tgt followed by service_access | count(Computer) >= 5
+falsepositives:
+    - Legitimate service accounts with broad access
+    - Administrative tools with domain-wide access
+    - Cross-domain trust scenarios
+level: high

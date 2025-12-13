@@ -1,0 +1,31 @@
+title: CRA-002-E-000-0001-LLMNR Poisoning with Inveigh (PowerShell)
+id: cra-002-e-000-0001
+status: experimental
+description: Detects LLMNR poisoning attacks using Inveigh PowerShell module for credential harvesting
+references:
+    - https://attack.mitre.org/techniques/T1557.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1557.001
+    - attack.credential_access
+    - attack.collection
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Inveigh'
+            - 'Invoke-Inveigh'
+            - 'LLMNR'
+            - 'NBT-NS'
+    condition: selection
+falsepositives:
+    - Legitimate penetration testing
+    - Authorized red team exercises
+    - Network troubleshooting tools
+level: high

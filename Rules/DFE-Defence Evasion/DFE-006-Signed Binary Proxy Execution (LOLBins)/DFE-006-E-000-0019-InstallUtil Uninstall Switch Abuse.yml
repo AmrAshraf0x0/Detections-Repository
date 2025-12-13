@@ -1,0 +1,26 @@
+title: DFE-006-E-000-0019-InstallUtil Uninstall Switch Abuse
+id: dfe-006-e-000-0019
+status: experimental
+description: Detects InstallUtil.exe execution with uninstall switch which can be abused for defense evasion and code execution
+references:
+    - https://attack.mitre.org/techniques/T1218.004/
+    - https://lolbas-project.github.io/lolbas/Binaries/Installutil/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1218.004
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\InstallUtil.exe'
+        CommandLine|contains:
+            - '/u'
+            - '/uninstall'
+    condition: selection
+falsepositives:
+    - Legitimate software uninstallation
+    - .NET application deployment
+level: medium

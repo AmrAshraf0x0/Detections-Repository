@@ -1,0 +1,28 @@
+title: CRA-006-E-000-0026-Create Mini Dump of LSASS.exe using ProcDump
+id: cra-006-e-000-0026
+status: experimental
+description: Detects ProcDump usage with specific parameters for creating LSASS mini dumps
+references:
+    - https://attack.mitre.org/techniques/T1003.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1003.001
+    - attack.credential_access
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\procdump.exe'
+            - '\procdump64.exe'
+        CommandLine|contains:
+            - 'lsass'
+            - '-accepteula'
+            - '-mm'
+    condition: selection
+falsepositives:
+    - System troubleshooting activities
+    - Performance monitoring tools
+level: high

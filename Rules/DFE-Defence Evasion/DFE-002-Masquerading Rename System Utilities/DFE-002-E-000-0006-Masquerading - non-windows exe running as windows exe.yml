@@ -1,0 +1,32 @@
+title: DFE-002-E-000-0006-Masquerading - non-windows exe running as windows exe
+id: dfe-002-e-000-0006
+status: experimental
+description: Detects non-Windows executables masquerading as Windows system binaries which could indicate defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1036.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1036.003
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\explorer.exe'
+            - '\winlogon.exe'
+            - '\csrss.exe'
+            - '\dwm.exe'
+            - '\services.exe'
+    filter:
+        Image|startswith:
+            - 'C:\Windows\'
+            - 'C:\Program Files\'
+        Company: 'Microsoft Corporation'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate third-party software
+    - Portable applications
+level: high

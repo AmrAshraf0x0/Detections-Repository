@@ -1,0 +1,31 @@
+title: DFE-001-E-000-0016-Encoded IEX Command Detected
+id: dfe-001-e-000-0016
+status: experimental
+description: Detects encoded IEX (Invoke-Expression) commands which could indicate obfuscated PowerShell execution
+references:
+    - https://attack.mitre.org/techniques/T1027/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1027
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'SQBFAFgA'  # Base64 for IEX
+            - 'aWV4'      # Base64 for iex
+            - 'JABlAHgA'  # Base64 for $ex
+            - 'InvokeExpression'
+            - 'Invoke-Expression'
+    condition: selection
+falsepositives:
+    - Legitimate PowerShell scripts
+    - Dynamic code execution scripts
+    - Administrative automation
+level: high

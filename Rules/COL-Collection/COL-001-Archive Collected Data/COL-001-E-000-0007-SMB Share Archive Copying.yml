@@ -1,0 +1,31 @@
+title: COL-001-E-000-0007-SMB Share Archive Copying
+id: col-001-e-000-0007
+status: experimental
+description: Detects copying of archive files to SMB shares which could indicate data collection staging
+references:
+    - https://attack.mitre.org/techniques/T1560.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1560.001
+    - attack.collection
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\copy.exe'
+            - '\xcopy.exe'
+            - '\robocopy.exe'
+        CommandLine|contains:
+            - '\\'
+            - '.zip'
+            - '.rar'
+            - '.7z'
+    condition: selection
+falsepositives:
+    - Legitimate file sharing operations
+    - Backup to network storage
+    - Administrative file transfers
+level: medium

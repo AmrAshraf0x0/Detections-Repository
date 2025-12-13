@@ -1,0 +1,41 @@
+title: EXF-003-E-000-0003-Archive Files Copy to USB
+id: exf-003-e-000-0003
+status: experimental
+description: Detects copying of archive files to removable USB drives which could indicate data exfiltration
+references:
+    - https://attack.mitre.org/techniques/T1052/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1052
+    - attack.exfiltration
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_copy:
+        Image|endswith:
+            - '\xcopy.exe'
+            - '\robocopy.exe'
+            - '\copy.exe'
+            - '\powershell.exe'
+            - '\cmd.exe'
+    selection_archives:
+        CommandLine|contains:
+            - '.zip'
+            - '.rar'
+            - '.7z'
+            - '.tar'
+            - '.gz'
+    selection_usb:
+        CommandLine|contains:
+            - 'E:'
+            - 'F:'
+            - 'G:'
+            - 'H:'
+    condition: selection_copy and selection_archives and selection_usb
+falsepositives:
+    - Legitimate file backups
+    - Software installation from USB
+    - Administrative file transfers
+level: medium

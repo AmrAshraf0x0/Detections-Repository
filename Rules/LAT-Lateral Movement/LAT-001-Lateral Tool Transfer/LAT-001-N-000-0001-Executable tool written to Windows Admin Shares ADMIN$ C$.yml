@@ -1,0 +1,32 @@
+title: LAT-001-N-000-0001-Executable/tool written to Windows Admin Shares (ADMIN$, C$)
+id: lat-001-n-000-0001
+status: experimental
+description: Detects executable files written to Windows administrative shares which could indicate lateral tool transfer
+references:
+    - https://attack.mitre.org/techniques/T1570/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1570
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        TargetFilename|contains:
+            - '\\ADMIN$\\'
+            - '\\C$\\'
+        TargetFilename|endswith:
+            - '.exe'
+            - '.dll'
+            - '.scr'
+            - '.bat'
+            - '.cmd'
+            - '.ps1'
+    condition: selection
+falsepositives:
+    - Administrative file deployment
+    - Software distribution
+    - System maintenance activities
+level: medium

@@ -1,0 +1,24 @@
+title: PRE-008-E-000-0005-Windows Account Lockout Policy Disabled
+id: pre-008-e-000-0005
+status: experimental
+description: Detects disabling of Windows account lockout policy to enable brute force attacks
+references:
+    - https://attack.mitre.org/techniques/T1562.007/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.007
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: security
+detection:
+    selection:
+        EventID: 4739
+        LockoutThreshold: '0'
+    condition: selection
+falsepositives:
+    - Legitimate policy configuration
+    - Administrative security changes
+    - Group policy updates
+level: high

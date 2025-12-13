@@ -1,0 +1,31 @@
+title: PER-002-E-000-0003-UserInitMprLogonScript Registry Key Creation
+id: per-002-e-000-0003
+status: experimental
+description: Detects creation of UserInitMprLogonScript registry key for logon script persistence
+references:
+    - https://attack.mitre.org/techniques/T1037.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1037.001
+    - attack.persistence
+    - attack.privilege_escalation
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains:
+            - 'Environment\UserInitMprLogonScript'
+        Details|contains:
+            - '.bat'
+            - '.cmd'
+            - '.ps1'
+            - '.vbs'
+            - '.js'
+    condition: selection
+falsepositives:
+    - Legitimate logon script configuration
+    - Group policy deployments
+    - Administrative setup scripts
+level: medium

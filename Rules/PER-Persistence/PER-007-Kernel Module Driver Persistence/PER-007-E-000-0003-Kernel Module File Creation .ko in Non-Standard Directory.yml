@@ -1,0 +1,32 @@
+title: PER-007-E-000-0003-Kernel Module File Creation (.ko) in Non-Standard Directory
+id: per-007-e-000-0003
+status: experimental
+description: Detects kernel module (.ko) file creation in non-standard directories which could indicate malicious persistence
+references:
+    - https://attack.mitre.org/techniques/T1547.006/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1547.006
+    - attack.persistence
+logsource:
+    product: linux
+    category: file_event
+detection:
+    selection:
+        TargetFilename|endswith: '.ko'
+        TargetFilename|startswith:
+            - '/tmp/'
+            - '/dev/shm/'
+            - '/var/tmp/'
+            - '/home/'
+            - '/opt/'
+            - '/usr/local/'
+    filter:
+        TargetFilename|startswith: '/lib/modules/'
+    condition: selection and not filter
+falsepositives:
+    - Custom kernel module development
+    - Third-party driver installations
+    - Build processes
+level: medium

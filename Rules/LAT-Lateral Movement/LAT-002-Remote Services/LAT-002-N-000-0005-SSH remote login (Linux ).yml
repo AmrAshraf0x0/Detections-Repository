@@ -1,0 +1,26 @@
+title: LAT-002-N-000-0005-SSH remote login (Linux )
+id: lat-002-n-000-0005
+status: experimental
+description: Detects SSH remote login sessions on Linux systems which could indicate lateral movement
+references:
+    - https://attack.mitre.org/techniques/T1021.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1021.004
+    - attack.lateral_movement
+logsource:
+    product: linux
+    category: authentication
+detection:
+    selection:
+        keywords:
+            - 'Accepted password'
+            - 'Accepted publickey'
+            - 'session opened'
+    condition: selection
+falsepositives:
+    - Legitimate SSH access
+    - System administration tasks
+    - Automated scripts
+level: low

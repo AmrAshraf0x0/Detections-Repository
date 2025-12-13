@@ -1,0 +1,32 @@
+title: LAT-003-A-000-0002-NTLM auth to a host where the account normally uses Kerberos only
+id: lat-003-a-000-0002
+status: experimental
+description: Detects NTLM authentication to hosts where the account historically only uses Kerberos, indicating potential pass-the-hash attack
+references:
+    - https://attack.mitre.org/techniques/T1550.002/
+    - https://attack.mitre.org/techniques/T1021/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1550.002
+    - attack.T1021
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: authentication
+detection:
+    ntlm_auth:
+        EventID: 4624
+        LogonType: 3
+        AuthenticationPackageName: 'NTLM'
+    baseline_kerberos:
+        EventID: 4624
+        LogonType: 3
+        AuthenticationPackageName: 'Kerberos'
+    timeframe: 30d
+    condition: ntlm_auth and not baseline_kerberos
+falsepositives:
+    - Network configuration changes
+    - Service account configuration changes
+    - Domain controller issues
+level: medium

@@ -1,0 +1,28 @@
+title: CNC-001-E-000-0015-imewdbld.exe Execution for File Download
+id: cnc-001-e-000-0015
+status: experimental
+description: Detects imewdbld.exe execution for file download which could indicate ingress tool transfer via LOLBin abuse
+references:
+    - https://attack.mitre.org/techniques/T1105/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1105
+    - attack.command_and_control
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\imewdbld.exe'
+        CommandLine|contains:
+            - '/c'
+            - 'http'
+            - 'https'
+            - 'download'
+    condition: selection
+falsepositives:
+    - Legitimate IME dictionary operations
+    - Windows language pack updates
+    - Input method editor maintenance
+level: high

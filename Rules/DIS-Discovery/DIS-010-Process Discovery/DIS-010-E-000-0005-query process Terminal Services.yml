@@ -1,0 +1,25 @@
+title: DIS-010-E-000-0005-query process Terminal Services
+id: dis-010-e-000-0005
+status: experimental
+description: Detects query process command for Terminal Services process enumeration which could indicate reconnaissance
+references:
+    - https://attack.mitre.org/techniques/T1057/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1057
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\query.exe'
+        CommandLine|contains:
+            - 'process'
+    condition: selection
+falsepositives:
+    - Terminal Services administration
+    - Remote desktop management
+    - System monitoring activities
+level: low

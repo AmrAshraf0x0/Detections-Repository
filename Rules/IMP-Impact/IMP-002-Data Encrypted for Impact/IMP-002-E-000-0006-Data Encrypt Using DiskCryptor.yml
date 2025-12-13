@@ -1,0 +1,27 @@
+title: IMP-002-E-000-0006-Data Encrypt Using DiskCryptor
+id: imp-002-e-000-0006
+status: experimental
+description: Detects DiskCryptor usage for disk encryption which could indicate data encryption for impact activities
+references:
+    - https://attack.mitre.org/techniques/T1486/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1486
+    - attack.impact
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\dcrypt.exe'
+        CommandLine|contains:
+            - '-e'
+            - '-f'
+            - '-p'
+    condition: selection
+falsepositives:
+    - Legitimate disk encryption operations
+    - System security hardening
+    - Administrative encryption tasks
+level: high

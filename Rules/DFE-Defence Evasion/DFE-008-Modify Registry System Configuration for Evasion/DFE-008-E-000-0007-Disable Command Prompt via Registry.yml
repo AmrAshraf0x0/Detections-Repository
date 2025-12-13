@@ -1,0 +1,25 @@
+title: DFE-008-E-000-0007-Disable Command Prompt via Registry
+id: dfe-008-e-000-0007
+status: experimental
+description: Detects registry modifications to disable Command Prompt which could indicate defense evasion or system lockdown
+references:
+    - https://attack.mitre.org/techniques/T1562/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains: 'HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System'
+        TargetObject|endswith: 'DisableCMD'
+        Details: 'DWORD (0x00000001)'
+    condition: selection
+falsepositives:
+    - Administrative security policies
+    - Kiosk mode configuration
+    - System hardening measures
+level: medium

@@ -1,0 +1,32 @@
+title: LAT-003-A-000-0003-NTLM LogonType 3 immediately followed by remote admin action under same session
+id: lat-003-a-000-0003
+status: experimental
+description: Detects NTLM LogonType 3 authentication immediately followed by administrative actions in the same session, indicating lateral movement with credential reuse
+references:
+    - https://attack.mitre.org/techniques/T1550.002/
+    - https://attack.mitre.org/techniques/T1021.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1550.002
+    - attack.T1021.002
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: authentication
+detection:
+    ntlm_logon:
+        EventID: 4624
+        LogonType: 3
+        AuthenticationPackageName: 'NTLM'
+    admin_action:
+        EventID:
+            - 4672  # Special privileges assigned
+            - 4648  # Logon with explicit credentials
+            - 5140  # Network share accessed
+    timeframe: 2m
+    condition: ntlm_logon followed by admin_action
+falsepositives:
+    - Legitimate administrative workflows
+    - Automated management tools
+level: high

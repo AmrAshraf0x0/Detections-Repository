@@ -1,0 +1,29 @@
+title: CNC-002-E-000-0002-AnyDesk Files Detected on Windows
+id: cnc-002-e-000-0002
+status: experimental
+description: Detects AnyDesk files and execution on Windows systems which could indicate remote access tool usage for command and control
+references:
+    - https://attack.mitre.org/techniques/T1219/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1219
+    - attack.command_and_control
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\anydesk.exe'
+            - '\AnyDesk.exe'
+        CommandLine|contains:
+            - '--install'
+            - '--start-with-win'
+            - '--silent'
+    condition: selection
+falsepositives:
+    - Legitimate AnyDesk usage
+    - Authorized remote support
+    - Remote work scenarios
+level: low

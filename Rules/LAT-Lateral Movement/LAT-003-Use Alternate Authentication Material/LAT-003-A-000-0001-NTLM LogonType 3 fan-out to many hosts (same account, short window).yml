@@ -1,0 +1,28 @@
+title: LAT-003-A-000-0001-NTLM LogonType 3 fan-out to many hosts (same account, short window)
+id: lat-003-a-000-0001
+status: experimental
+description: Detects NTLM LogonType 3 authentication events from the same account to multiple hosts within a short time window, indicating potential pass-the-hash lateral movement
+references:
+    - https://attack.mitre.org/techniques/T1550.002/
+    - https://attack.mitre.org/techniques/T1021/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1550.002
+    - attack.T1021
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: authentication
+detection:
+    selection:
+        EventID: 4624
+        LogonType: 3
+        AuthenticationPackageName: 'NTLM'
+    timeframe: 5m
+    condition: selection | count(Computer) by TargetUserName >= 5
+falsepositives:
+    - Legitimate administrative activities
+    - Automated service accounts
+    - Network shares access patterns
+level: high

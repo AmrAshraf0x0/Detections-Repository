@@ -1,0 +1,32 @@
+title: DFE-002-E-000-0012-Scheduled Task Masquerading as Legitimate Service
+id: dfe-002-e-000-0012
+status: experimental
+description: Detects scheduled tasks masquerading as legitimate Windows services which could indicate persistence or defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1036.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1036.004
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\schtasks.exe'
+        CommandLine|contains|all:
+            - '/create'
+            - '/tn'
+        CommandLine|contains:
+            - 'Windows Update'
+            - 'Microsoft Security'
+            - 'Windows Defender'
+            - 'System Maintenance'
+            - 'Windows Backup'
+    condition: selection
+falsepositives:
+    - Legitimate scheduled task creation
+    - Administrative automation scripts
+    - Software installation processes
+level: medium

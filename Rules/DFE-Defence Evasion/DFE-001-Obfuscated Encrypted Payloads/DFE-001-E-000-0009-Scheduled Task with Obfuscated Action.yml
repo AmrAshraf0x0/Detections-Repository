@@ -1,0 +1,35 @@
+title: DFE-001-E-000-0009-Scheduled Task with Obfuscated Action
+id: dfe-001-e-000-0009
+status: experimental
+description: Detects scheduled tasks with obfuscated actions which could indicate persistence with defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1027/
+    - https://attack.mitre.org/techniques/T1053.005/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1027
+    - attack.T1053.005
+    - attack.defense_evasion
+    - attack.persistence
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\schtasks.exe'
+        CommandLine|contains|all:
+            - '/create'
+            - '/tr'
+        CommandLine|contains:
+            - 'powershell'
+            - '-enc'
+            - 'FromBase64String'
+            - '-e '
+            - 'invoke'
+    condition: selection
+falsepositives:
+    - Legitimate scheduled task creation
+    - Administrative automation
+    - Software deployment scripts
+level: high

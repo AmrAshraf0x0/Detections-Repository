@@ -1,0 +1,27 @@
+title: EXE-006-E-000-0001-Modification to Word Normal.dotm Template
+id: exe-006-e-000-0001
+status: experimental
+description: Detects modifications to Word Normal.dotm template which could indicate macro-based persistence or execution
+references:
+    - https://attack.mitre.org/techniques/T1566.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1566.001
+    - attack.execution
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        TargetFilename|endswith: '\Normal.dotm'
+        EventType: FileCreate
+    filter:
+        ProcessImage|endswith: '\winword.exe'
+        ProcessImage|startswith: 'C:\Program Files\'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate Word template modifications
+    - User customizations
+    - Administrative template updates
+level: medium

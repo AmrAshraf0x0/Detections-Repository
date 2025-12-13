@@ -1,0 +1,26 @@
+title: CRA-006-E-000-0040-Memory Dump via Windows Error Reporting
+id: cra-006-e-000-0040
+status: experimental
+description: Detects memory dumping using Windows Error Reporting mechanism which could indicate credential access
+references:
+    - https://attack.mitre.org/techniques/T1003.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1003.001
+    - attack.credential_access
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\WerFault.exe'
+        CommandLine|contains:
+            - '-pr'
+            - '-u'
+            - 'lsass'
+    condition: selection
+falsepositives:
+    - Legitimate application crash dumps
+    - Windows Error Reporting activities
+level: medium

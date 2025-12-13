@@ -1,0 +1,33 @@
+title: EXE-007-E-000-0001-ESXi System Information Enumeration
+id: exe-007-e-000-0001
+status: experimental
+description: Detects ESXi system information enumeration commands which could indicate reconnaissance activities
+references:
+    - https://attack.mitre.org/techniques/T1082/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1082
+    - attack.discovery
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection_esxcli:
+        Image|contains: 'esxcli'
+        CommandLine|contains:
+            - 'system version get'
+            - 'hardware platform get'
+            - 'system hostname get'
+            - 'system time get'
+    selection_vmware:
+        Image|contains: 'vmware'
+        CommandLine|contains:
+            - '-v'
+            - 'version'
+    condition: 1 of selection*
+falsepositives:
+    - Legitimate ESXi administration
+    - System monitoring scripts
+    - Infrastructure auditing
+level: low

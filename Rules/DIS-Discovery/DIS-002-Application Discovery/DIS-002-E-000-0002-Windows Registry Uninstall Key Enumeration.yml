@@ -1,0 +1,26 @@
+title: DIS-002-E-000-0002-Windows Registry Uninstall Key Enumeration
+id: dis-002-e-000-0002
+status: experimental
+description: Detects enumeration of Windows registry uninstall keys for application discovery
+references:
+    - https://attack.mitre.org/techniques/T1518.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1518.001
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\reg.exe'
+        CommandLine|contains:
+            - 'query'
+            - 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall'
+    condition: selection
+falsepositives:
+    - Legitimate software auditing
+    - System inventory scripts
+    - Administrative tools
+level: low

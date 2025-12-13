@@ -1,0 +1,23 @@
+title: PER-005-E-000-0007-Linux User Account Creation via useradd Command
+id: per-005-e-000-0007
+status: experimental
+description: Detects Linux user account creation via useradd command which could indicate persistence
+references:
+    - https://attack.mitre.org/techniques/T1136.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1136.001
+    - attack.persistence
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/useradd'
+    condition: selection
+falsepositives:
+    - Legitimate user provisioning
+    - System administration tasks
+    - Automated user management
+level: low

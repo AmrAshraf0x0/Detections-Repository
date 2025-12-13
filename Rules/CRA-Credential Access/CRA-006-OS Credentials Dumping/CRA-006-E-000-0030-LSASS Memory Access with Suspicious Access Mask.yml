@@ -1,0 +1,30 @@
+title: CRA-006-E-000-0030-LSASS Memory Access with Suspicious Access Mask
+id: cra-006-e-000-0030
+status: experimental
+description: Detects suspicious memory access patterns to LSASS process which could indicate credential dumping attempts
+references:
+    - https://attack.mitre.org/techniques/T1003.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1003.001
+    - attack.credential_access
+logsource:
+    product: windows
+    category: process_access
+detection:
+    selection:
+        TargetImage|endswith: '\lsass.exe'
+        GrantedAccess:
+            - '0x1010'
+            - '0x1410'
+            - '0x147a'
+            - '0x143a'
+    filter:
+        SourceImage|startswith: 'C:\Windows\System32\'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate system processes
+    - Security software
+    - Windows system services
+level: high

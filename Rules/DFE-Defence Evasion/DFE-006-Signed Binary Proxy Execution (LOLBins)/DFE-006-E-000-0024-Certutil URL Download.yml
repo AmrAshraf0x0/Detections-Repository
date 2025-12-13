@@ -1,0 +1,29 @@
+title: DFE-006-E-000-0024-Certutil URL Download
+id: dfe-006-e-000-0024
+status: experimental
+description: Detects certutil.exe being used to download files from URLs which can be used for defense evasion and payload delivery
+references:
+    - https://attack.mitre.org/techniques/T1105/
+    - https://lolbas-project.github.io/lolbas/Binaries/Certutil/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1105
+    - attack.defense_evasion
+    - attack.command_and_control
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\certutil.exe'
+        CommandLine|contains:
+            - '-urlcache'
+            - 'http://'
+            - 'https://'
+            - 'ftp://'
+    condition: selection
+falsepositives:
+    - Legitimate certificate operations
+    - System administration tasks
+level: medium

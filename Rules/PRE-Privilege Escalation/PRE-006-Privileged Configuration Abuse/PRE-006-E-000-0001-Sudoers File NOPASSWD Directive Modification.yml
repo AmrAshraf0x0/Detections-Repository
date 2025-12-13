@@ -1,0 +1,26 @@
+title: PRE-006-E-000-0001-Sudoers File NOPASSWD Directive Modification
+id: pre-006-e-000-0001
+status: experimental
+description: Detects modifications to sudoers file with NOPASSWD directive which could indicate privilege escalation attempts
+references:
+    - https://attack.mitre.org/techniques/T1548.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1548.003
+    - attack.privilege_escalation
+logsource:
+    product: linux
+    category: file_event
+detection:
+    selection:
+        TargetFilename|contains:
+            - '/etc/sudoers'
+            - '/etc/sudoers.d/'
+        Details|contains: 'NOPASSWD'
+    condition: selection
+falsepositives:
+    - Legitimate sudo configuration changes
+    - System administration tasks
+    - Authorized privilege delegation
+level: medium

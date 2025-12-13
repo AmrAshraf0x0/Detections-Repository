@@ -1,0 +1,32 @@
+title: EXE-006-E-000-0003-Office Process Spawning Windows Shell (cmd.exe/powershell.exe)
+id: exe-006-e-000-0003
+status: experimental
+description: Detects Office applications spawning Windows shell processes which could indicate macro execution
+references:
+    - https://attack.mitre.org/techniques/T1566.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1566.001
+    - attack.execution
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        ParentImage|endswith:
+            - '\winword.exe'
+            - '\excel.exe'
+            - '\powerpnt.exe'
+            - '\outlook.exe'
+            - '\msaccess.exe'
+        Image|endswith:
+            - '\cmd.exe'
+            - '\powershell.exe'
+            - '\pwsh.exe'
+    condition: selection
+falsepositives:
+    - Legitimate Office add-ins
+    - User-initiated shell commands
+    - Office automation scripts
+level: high

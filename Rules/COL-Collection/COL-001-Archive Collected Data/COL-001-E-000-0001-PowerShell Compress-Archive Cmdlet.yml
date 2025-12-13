@@ -1,0 +1,29 @@
+title: COL-001-E-000-0001-PowerShell Compress-Archive Cmdlet
+id: col-001-e-000-0001
+status: experimental
+description: Detects PowerShell Compress-Archive cmdlet usage for data archiving activities
+references:
+    - https://attack.mitre.org/techniques/T1560.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1560.001
+    - attack.collection
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Compress-Archive'
+            - '-Path'
+            - '-DestinationPath'
+    condition: selection
+falsepositives:
+    - Legitimate backup operations
+    - File compression tasks
+    - Administrative automation
+level: low

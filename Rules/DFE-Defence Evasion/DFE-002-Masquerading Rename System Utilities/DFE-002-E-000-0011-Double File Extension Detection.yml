@@ -1,0 +1,23 @@
+title: DFE-002-E-000-0011-Double File Extension Detection
+id: dfe-002-e-000-0011
+status: experimental
+description: Detects files with double extensions which could indicate masquerading attempts to hide file types
+references:
+    - https://attack.mitre.org/techniques/T1036.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1036.002
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        TargetFilename|re: '.*\.(txt|doc|pdf|jpg|png)\.(exe|scr|bat|cmd|com|pif)$'
+    condition: selection
+falsepositives:
+    - Legitimate backup files
+    - File versioning systems
+    - Archive extraction processes
+level: high

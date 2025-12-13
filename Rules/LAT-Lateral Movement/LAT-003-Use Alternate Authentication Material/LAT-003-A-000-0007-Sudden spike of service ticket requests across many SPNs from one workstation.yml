@@ -1,0 +1,28 @@
+title: LAT-003-A-000-0007-Sudden spike of service ticket requests across many SPNs from one workstation
+id: lat-003-a-000-0007
+status: experimental
+description: Detects sudden spikes in Kerberos service ticket requests across multiple SPNs from a single workstation, indicating potential Kerberoasting activity
+references:
+    - https://attack.mitre.org/techniques/T1558.003/
+    - https://attack.mitre.org/techniques/T1550.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1558.003
+    - attack.T1550.003
+    - attack.lateral_movement
+    - attack.credential_access
+logsource:
+    product: windows
+    category: authentication
+detection:
+    selection:
+        EventID: 4769  # Kerberos service ticket request
+        Status: '0x0'   # Successful
+    timeframe: 5m
+    condition: selection | count(ServiceName) by IpAddress >= 10
+falsepositives:
+    - Application startup sequences
+    - Service discovery processes
+    - Automated service enumeration tools
+level: high

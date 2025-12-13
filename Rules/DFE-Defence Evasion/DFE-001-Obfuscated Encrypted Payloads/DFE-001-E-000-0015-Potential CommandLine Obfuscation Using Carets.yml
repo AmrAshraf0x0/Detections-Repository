@@ -1,0 +1,27 @@
+title: DFE-001-E-000-0015-Potential CommandLine Obfuscation Using Carets
+id: dfe-001-e-000-0015
+status: experimental
+description: Detects potential command line obfuscation using caret characters which could indicate defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1027/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1027
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        CommandLine|re: '.*\^[a-z].*\^[a-z].*'
+        CommandLine|contains:
+            - '^p^o^w^e^r^s^h^e^l^l'
+            - '^c^m^d'
+            - '^s^c^h^t^a^s^k^s'
+    condition: selection
+falsepositives:
+    - Legitimate batch scripts with escaping
+    - Command line utilities
+    - System administration tools
+level: medium

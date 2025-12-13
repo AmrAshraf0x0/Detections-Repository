@@ -1,0 +1,50 @@
+title: IMP-002-E-000-0008-Backup Service Termination
+id: imp-002-e-000-0008
+status: experimental
+description: Detects backup service termination which is commonly used by ransomware to prevent data recovery
+references:
+    - https://attack.mitre.org/techniques/T1486/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1486
+    - attack.impact
+    - attack.T1562.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_net:
+        Image|endswith: '\net.exe'
+        CommandLine|contains:
+            - 'stop'
+        CommandLine|contains:
+            - 'backup'
+            - 'VSS'
+            - 'MSSQLSERVER'
+            - 'MySQL'
+    selection_sc:
+        Image|endswith: '\sc.exe'
+        CommandLine|contains|all:
+            - 'stop'
+        CommandLine|contains:
+            - 'backup'
+            - 'VSS'
+            - 'MSSQLSERVER'
+            - 'MySQL'
+    selection_powershell:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Stop-Service'
+        CommandLine|contains:
+            - 'backup'
+            - 'VSS'
+            - 'SQL'
+    condition: 1 of selection*
+falsepositives:
+    - Legitimate service maintenance
+    - System administration tasks
+    - Scheduled maintenance windows
+level: high

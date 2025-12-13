@@ -1,0 +1,30 @@
+title: LAT-002-C-000-0020-ESXi Enable SSH via PowerCLI
+id: lat-002-c-000-0020
+status: experimental
+description: Detects enabling SSH on ESXi hosts via PowerCLI which could be used to facilitate lateral movement
+references:
+    - https://attack.mitre.org/techniques/T1021.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1021.004
+    - attack.lateral_movement
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '/powershell'
+            - '/pwsh'
+        CommandLine|contains:
+            - 'Set-VMHostService'
+            - 'Start-VMHostService'
+            - 'TSM-SSH'
+            - 'Connect-VIServer'
+    condition: selection
+falsepositives:
+    - Legitimate ESXi administration
+    - VMware management tasks
+    - Authorized PowerCLI usage
+level: medium

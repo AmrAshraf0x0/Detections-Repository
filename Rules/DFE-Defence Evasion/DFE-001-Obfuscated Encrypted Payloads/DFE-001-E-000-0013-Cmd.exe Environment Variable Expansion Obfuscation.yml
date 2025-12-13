@@ -1,0 +1,29 @@
+title: DFE-001-E-000-0013-Cmd.exe Environment Variable Expansion Obfuscation
+id: dfe-001-e-000-0013
+status: experimental
+description: Detects cmd.exe environment variable expansion obfuscation techniques which could indicate defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1027/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1027
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\cmd.exe'
+        CommandLine|contains:
+            - '%COMSPEC:~'
+            - '%PATH:~'
+            - '%WINDIR:~'
+            - '%SYSTEMROOT:~'
+            - '%PROCESSOR_ARCHITECTURE:~'
+    condition: selection
+falsepositives:
+    - Advanced batch scripts
+    - System administration tools
+    - Configuration scripts
+level: medium

@@ -1,0 +1,28 @@
+title: LAT-002-N-000-0013-VMware vSphere-vCenter management-plane remote access (vimService-API logins)
+id: lat-002-n-000-0013
+status: experimental
+description: Detects VMware vSphere/vCenter management-plane remote access which could indicate lateral movement in virtualized environments
+references:
+    - https://attack.mitre.org/techniques/T1021/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1021
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: authentication
+detection:
+    selection:
+        EventID: 4624
+        ProcessName|contains:
+            - 'vmware'
+            - 'vsphere'
+            - 'vcenter'
+        LogonType: 3  # Network
+    condition: selection
+falsepositives:
+    - Legitimate VMware administration
+    - vSphere Client usage
+    - Automated VM management
+level: low

@@ -1,0 +1,26 @@
+title: DFE-008-E-000-0008-Audit Policy Registry Tampering
+id: dfe-008-e-000-0008
+status: experimental
+description: Detects registry modifications to audit policy settings which could indicate defense evasion and log tampering
+references:
+    - https://attack.mitre.org/techniques/T1562.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.002
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains:
+            - 'HKLM\\SECURITY\\Policy\\PolAdtEv'
+            - 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Audit'
+        Details: 'DWORD (0x00000000)'
+    condition: selection
+falsepositives:
+    - Audit policy configuration changes
+    - System hardening procedures
+    - Compliance configuration
+level: high

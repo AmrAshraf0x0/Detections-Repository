@@ -1,0 +1,31 @@
+title: DFE-001-E-000-0017-Potential CommandLine Obfuscation Using Garbage delimiters
+id: dfe-001-e-000-0017
+status: experimental
+description: Detects potential command line obfuscation using garbage delimiters which could indicate defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1027/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1027
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        CommandLine|contains:
+            - ';;;;'
+            - '::::'
+            - '&&&&'
+            - '||||'
+            - '~~~~'
+            - '----'
+            - '++++'
+            - '====='
+    condition: selection
+falsepositives:
+    - Legitimate scripts with formatting
+    - Comment delimiters
+    - ASCII art in scripts
+level: low

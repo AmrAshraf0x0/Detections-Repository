@@ -1,0 +1,28 @@
+title: DFE-008-E-000-0009-Disable Windows Error Reporting via Registry
+id: dfe-008-e-000-0009
+status: experimental
+description: Detects registry modifications to disable Windows Error Reporting which could indicate defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1562/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains: 'HKLM\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting'
+        TargetObject|endswith:
+            - 'Disabled'
+            - 'DontSendAdditionalData'
+            - 'DontShowUI'
+        Details: 'DWORD (0x00000001)'
+    condition: selection
+falsepositives:
+    - Privacy configuration changes
+    - System optimization tools
+    - Corporate policy enforcement
+level: low

@@ -1,0 +1,31 @@
+title: EXE-004-E-000-0020-WMI Modifying Run-RunOnce Registry Keys
+id: exe-004-e-000-0020
+status: experimental
+description: Detects WMI commands used to modify Run/RunOnce registry keys for persistence establishment
+references:
+    - https://attack.mitre.org/techniques/T1047/
+    - https://attack.mitre.org/techniques/T1547.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1047
+    - attack.T1547.001
+    - attack.execution
+    - attack.persistence
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\wmic.exe'
+        CommandLine|contains|all:
+            - 'StdRegProv'
+            - 'SetStringValue'
+        CommandLine|contains:
+            - 'Run'
+            - 'RunOnce'
+    condition: selection
+falsepositives:
+    - Software installation scripts
+    - System configuration tools
+level: high

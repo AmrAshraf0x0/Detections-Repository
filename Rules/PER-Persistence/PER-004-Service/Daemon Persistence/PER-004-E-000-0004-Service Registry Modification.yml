@@ -1,0 +1,32 @@
+title: PER-004-E-000-0004-Service Registry Modification
+id: per-004-e-000-0004
+status: experimental
+description: Detects direct registry modifications of service entries which could be used for persistence
+references:
+    - https://attack.mitre.org/techniques/T1543.003/
+    - https://attack.mitre.org/techniques/T1112/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1543.003
+    - attack.T1112
+    - attack.persistence
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: registry_event
+detection:
+    selection:
+        TargetObject|contains: 
+            - '\SYSTEM\CurrentControlSet\Services\'
+            - '\SYSTEM\ControlSet001\Services\'
+        TargetObject|endswith:
+            - '\ImagePath'
+            - '\Start'
+            - '\Type'
+    condition: selection
+falsepositives:
+    - Legitimate service installations
+    - System configuration changes
+    - Software updates
+level: medium

@@ -1,0 +1,32 @@
+title: PER-008-E-000-0005-WmiPrvSE.exe Spawning Suspicious Child Process
+id: per-008-e-000-0005
+status: experimental
+description: Detects WmiPrvSE.exe spawning suspicious child processes which could indicate WMI-based malicious execution
+references:
+    - https://attack.mitre.org/techniques/T1546.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1546.003
+    - attack.persistence
+    - attack.privilege_escalation
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        ParentImage|endswith: '\WmiPrvSE.exe'
+        Image|endswith:
+            - '\cmd.exe'
+            - '\powershell.exe'
+            - '\pwsh.exe'
+            - '\wscript.exe'
+            - '\cscript.exe'
+            - '\rundll32.exe'
+            - '\regsvr32.exe'
+    condition: selection
+falsepositives:
+    - Legitimate WMI provider operations
+    - System management scripts
+    - Antivirus WMI interactions
+level: high

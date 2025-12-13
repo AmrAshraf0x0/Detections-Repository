@@ -1,0 +1,31 @@
+title: INA-001-E-000-0007-Same Account Authenticating to Multiple Hosts In small time frame
+id: ina-001-e-000-0007
+status: experimental
+description: Detects the same account authenticating to multiple hosts within a small time frame, indicating potential lateral movement or account sharing
+references:
+    - https://attack.mitre.org/techniques/T1078/
+    - https://attack.mitre.org/techniques/T1021/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1078
+    - attack.T1021
+    - attack.initial_access
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: authentication
+detection:
+    selection:
+        EventID: 4624
+        LogonType:
+            - 2
+            - 3
+            - 10
+    timeframe: 5m
+    condition: selection | count(Computer) by TargetUserName >= 5
+falsepositives:
+    - Legitimate administrative activities
+    - Automated systems and scripts
+    - Shared service accounts
+level: medium

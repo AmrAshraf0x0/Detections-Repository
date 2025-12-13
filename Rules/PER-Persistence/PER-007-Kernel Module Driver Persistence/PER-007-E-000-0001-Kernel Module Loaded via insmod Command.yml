@@ -1,0 +1,24 @@
+title: PER-007-E-000-0001-Kernel Module Loaded via insmod Command
+id: per-007-e-000-0001
+status: experimental
+description: Detects kernel module loading via insmod command which could indicate rootkit installation or persistence
+references:
+    - https://attack.mitre.org/techniques/T1547.006/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1547.006
+    - attack.persistence
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/insmod'
+        CommandLine|contains: '.ko'
+    condition: selection
+falsepositives:
+    - Legitimate kernel module installation
+    - Driver installations
+    - System administration tasks
+level: medium

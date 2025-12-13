@@ -1,0 +1,32 @@
+title: PER-003-E-000-0011-Suspicious Command Pattern in Scheduled Task
+id: per-003-e-000-0011
+status: experimental
+description: Detects suspicious command patterns in scheduled task creation which could indicate malicious persistence
+references:
+    - https://attack.mitre.org/techniques/T1053.005/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1053.005
+    - attack.persistence
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\schtasks.exe'
+        CommandLine|contains: '/create'
+        CommandLine|contains:
+            - 'powershell'
+            - 'cmd.exe /c'
+            - 'rundll32'
+            - 'regsvr32'
+            - 'mshta'
+            - 'certutil'
+            - 'bitsadmin'
+    condition: selection
+falsepositives:
+    - Legitimate administrative scripts
+    - System maintenance tasks
+    - Software deployment processes
+level: medium

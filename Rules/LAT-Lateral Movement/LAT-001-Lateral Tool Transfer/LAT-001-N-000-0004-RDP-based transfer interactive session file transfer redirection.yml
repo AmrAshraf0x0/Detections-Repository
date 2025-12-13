@@ -1,0 +1,31 @@
+title: LAT-001-N-000-0004-RDP-based transfer (interactive session file transfer/redirection)
+id: lat-001-n-000-0004
+status: experimental
+description: Detects RDP-based file transfer activities which could indicate lateral tool transfer via remote desktop
+references:
+    - https://attack.mitre.org/techniques/T1570/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1570
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        TargetFilename|startswith: 'C:\Users\'
+        TargetFilename|contains: '\\Desktop\\'
+        ProcessName|endswith: '\\rdpclip.exe'
+        TargetFilename|endswith:
+            - '.exe'
+            - '.dll'
+            - '.ps1'
+            - '.bat'
+            - '.cmd'
+    condition: selection
+falsepositives:
+    - Legitimate RDP file transfers
+    - Administrative remote access
+    - User productivity activities
+level: low

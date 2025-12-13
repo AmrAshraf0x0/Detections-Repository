@@ -1,0 +1,43 @@
+title: DFE-005-E-000-0015-Security Center Service Stopped
+id: dfe-005-e-000-0015
+status: experimental
+description: Detects Windows Security Center service being stopped which could indicate defense evasion techniques
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection1:
+        Image|endswith:
+            - '\sc.exe'
+            - '\net.exe'
+        CommandLine|contains:
+            - 'stop'
+            - 'wscsvc'
+    selection2:
+        Image|endswith:
+            - '\sc.exe'
+        CommandLine|contains:
+            - 'config'
+            - 'wscsvc'
+            - 'start='
+            - 'disabled'
+    selection3:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Stop-Service'
+            - 'wscsvc'
+    condition: 1 of selection*
+falsepositives:
+    - Legitimate system administration
+    - Security software installation
+    - System maintenance procedures
+level: high

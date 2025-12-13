@@ -1,0 +1,31 @@
+title: LAT-002-N-000-0014-ESXi host direct remote access (SSH to ESXi host - host shell paths)
+id: lat-002-n-000-0014
+status: experimental
+description: Detects direct SSH access to ESXi hosts which could indicate lateral movement in virtualized environments
+references:
+    - https://attack.mitre.org/techniques/T1021.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1021.004
+    - attack.lateral_movement
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|startswith:
+            - '/bin/sh'
+            - '/bin/bash'
+        ParentImage|contains: 'sshd'
+        CommandLine|contains:
+            - '/vmfs/'
+            - '/opt/vmware/'
+            - 'esxcli'
+            - 'vim-cmd'
+    condition: selection
+falsepositives:
+    - Legitimate ESXi administration
+    - VMware support activities
+    - Authorized maintenance tasks
+level: medium

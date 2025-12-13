@@ -1,0 +1,29 @@
+title: DFE-001-E-000-0014-Potential CommandLine Obfuscation Using Unicode Characters
+id: dfe-001-e-000-0014
+status: experimental
+description: Detects potential command line obfuscation using Unicode characters which could indicate defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1027/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1027
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        CommandLine|contains:
+            - '\u00'
+            - '\x00'
+            - '\u20'
+            - '\u30'
+            - 'U+00'
+            - '&#x'
+    condition: selection
+falsepositives:
+    - Legitimate Unicode processing
+    - Internationalization scripts
+    - Text processing applications
+level: medium

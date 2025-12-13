@@ -1,0 +1,26 @@
+title: PRE-002-E-000-0019-UAC Bypass with WSReset Registry Modification
+id: pre-002-e-000-0019
+status: experimental
+description: Detects UAC bypass using WSReset.exe via registry modification
+references:
+    - https://attack.mitre.org/techniques/T1548.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1548.002
+    - attack.privilege_escalation
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains:
+            - 'AppX82a6gwre4fdg3bt635tn5ctqjf8msdd2\Shell\open\command'
+        Details|contains: '.exe'
+    condition: selection
+falsepositives:
+    - Legitimate Windows Store reset operations
+    - System configuration changes
+    - Administrative modifications
+level: high

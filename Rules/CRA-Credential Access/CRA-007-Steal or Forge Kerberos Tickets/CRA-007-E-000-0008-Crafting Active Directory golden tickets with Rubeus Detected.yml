@@ -1,0 +1,35 @@
+title: CRA-007-E-000-0008-Crafting Active Directory golden tickets with Rubeus Detected
+id: cra-007-e-000-0008
+status: experimental
+description: Detects Rubeus execution for crafting Kerberos golden tickets to forge domain authentication
+references:
+    - https://attack.mitre.org/techniques/T1558.001/
+    - https://attack.mitre.org/techniques/T1550.001/
+    - https://github.com/GhostPack/Rubeus
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1558.001
+    - attack.T1550.001
+    - attack.credential_access
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\Rubeus.exe'
+        CommandLine|contains:
+            - 'golden'
+            - 'silver'
+        CommandLine|contains:
+            - '/domain:'
+            - '/sid:'
+            - '/krbtgt:'
+            - '/user:'
+            - '/rc4:'
+    condition: selection
+falsepositives:
+    - Authorized security testing
+    - Forensic analysis with approval
+level: high

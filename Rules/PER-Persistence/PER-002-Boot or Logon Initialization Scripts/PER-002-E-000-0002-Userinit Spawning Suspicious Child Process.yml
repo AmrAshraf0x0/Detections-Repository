@@ -1,0 +1,34 @@
+title: PER-002-E-000-0002-Userinit Spawning Suspicious Child Process
+id: per-002-e-000-0002
+status: experimental
+description: Detects userinit.exe spawning suspicious child processes which could indicate malicious logon scripts
+references:
+    - https://attack.mitre.org/techniques/T1037.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1037.001
+    - attack.persistence
+    - attack.privilege_escalation
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        ParentImage|endswith: '\userinit.exe'
+        Image|endswith:
+            - '\cmd.exe'
+            - '\powershell.exe'
+            - '\pwsh.exe'
+            - '\wscript.exe'
+            - '\cscript.exe'
+            - '\rundll32.exe'
+    filter:
+        CommandLine|contains:
+            - 'explorer.exe'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate logon scripts
+    - Administrative automation
+    - System startup processes
+level: medium

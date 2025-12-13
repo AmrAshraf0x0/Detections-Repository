@@ -1,0 +1,27 @@
+title: PER-003-E-000-0014-Scheduled Task Creation on Logon Trigger
+id: per-003-e-000-0014
+status: experimental
+description: Detects scheduled task creation with logon trigger which could be used for persistence at user login
+references:
+    - https://attack.mitre.org/techniques/T1053.005/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1053.005
+    - attack.persistence
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\schtasks.exe'
+        CommandLine|contains|all:
+            - '/create'
+            - '/sc'
+            - 'onlogon'
+    condition: selection
+falsepositives:
+    - Legitimate user startup tasks
+    - Login-based automation
+    - User environment setup scripts
+level: low

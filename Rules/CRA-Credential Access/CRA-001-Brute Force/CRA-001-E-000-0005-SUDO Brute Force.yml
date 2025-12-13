@@ -1,0 +1,27 @@
+title: CRA-001-E-000-0005-SUDO Brute Force
+id: cra-001-e-000-0005
+status: experimental
+description: Detects multiple failed sudo authentication attempts indicating potential brute force attacks
+references:
+    - https://attack.mitre.org/techniques/T1110/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1110
+    - attack.credential_access
+    - attack.privilege_escalation
+logsource:
+    product: linux
+    category: auditd
+detection:
+    selection:
+        type: 'USER_AUTH'
+        res: 'failed'
+        exe: '/usr/bin/sudo'
+    condition: selection | count() by uid > 5
+    timeframe: 5m
+falsepositives:
+    - User password changes
+    - Forgotten passwords
+    - Service account issues
+level: medium

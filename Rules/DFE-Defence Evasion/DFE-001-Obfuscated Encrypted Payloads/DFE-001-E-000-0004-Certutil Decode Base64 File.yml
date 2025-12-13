@@ -1,0 +1,29 @@
+title: DFE-001-E-000-0004-Certutil Decode Base64 File
+id: dfe-001-e-000-0004
+status: experimental
+description: Detects certutil usage for Base64 decoding which could indicate obfuscated payload deployment
+references:
+    - https://attack.mitre.org/techniques/T1027/
+    - https://attack.mitre.org/techniques/T1140/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1027
+    - attack.T1140
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\certutil.exe'
+        CommandLine|contains:
+            - '-decode'
+            - '/decode'
+            - '-f'
+    condition: selection
+falsepositives:
+    - Certificate management operations
+    - Legitimate file encoding/decoding
+    - Administrative scripts
+level: medium

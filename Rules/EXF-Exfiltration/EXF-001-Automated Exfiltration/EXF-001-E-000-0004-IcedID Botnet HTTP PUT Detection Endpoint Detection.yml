@@ -1,0 +1,33 @@
+title: EXF-001-E-000-0004-IcedID Botnet HTTP PUT Detection Endpoint Detection
+id: exf-001-e-000-0004
+status: experimental
+description: Detects IcedID botnet automated exfiltration activities via HTTP PUT requests
+references:
+    - https://attack.mitre.org/techniques/T1020/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1020
+    - attack.exfiltration
+logsource:
+    product: windows
+    category: network_connection
+detection:
+    selection:
+        protocol: 'tcp'
+        destination_port: 80
+        http_method: 'PUT'
+    selection_indicators:
+        http_user_agent|contains:
+            - 'IcedID'
+            - 'BokBot'
+        destination_hostname|endswith:
+            - '.tk'
+            - '.ml'
+            - '.ga'
+    condition: selection and selection_indicators
+falsepositives:
+    - Legitimate HTTP PUT requests
+    - Web application uploads
+    - API data submissions
+level: high

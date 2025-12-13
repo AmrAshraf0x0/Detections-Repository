@@ -1,0 +1,27 @@
+title: DIS-007-E-000-0007-Linux smbclient Share Listing
+id: dis-007-e-000-0007
+status: experimental
+description: Detects smbclient execution for share listing which could indicate network share reconnaissance on Linux systems
+references:
+    - https://attack.mitre.org/techniques/T1135/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1135
+    - attack.discovery
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/smbclient'
+        CommandLine|contains:
+            - '-L'
+            - '--list'
+            - '-N'
+    condition: selection
+falsepositives:
+    - Network administration tasks
+    - File sharing operations
+    - System troubleshooting
+level: low

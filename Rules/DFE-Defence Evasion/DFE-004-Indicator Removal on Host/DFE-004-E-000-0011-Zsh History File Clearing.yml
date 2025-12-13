@@ -1,0 +1,32 @@
+title: DFE-004-E-000-0011-Zsh History File Clearing
+id: dfe-004-e-000-0011
+status: experimental
+description: Detects Zsh history file clearing which could indicate indicator removal for defense evasion on Linux systems
+references:
+    - https://attack.mitre.org/techniques/T1070.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1070.003
+    - attack.defense_evasion
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection1:
+        Image|endswith: '/zsh'
+        CommandLine|contains:
+            - 'fc -p'
+            - 'unset HISTFILE'
+            - 'SAVEHIST=0'
+    selection2:
+        Image|endswith:
+            - '/rm'
+            - '/truncate'
+        CommandLine|contains: '.zsh_history'
+    condition: selection1 or selection2
+falsepositives:
+    - Normal Zsh configuration
+    - User privacy practices
+    - Shell environment customization
+level: medium

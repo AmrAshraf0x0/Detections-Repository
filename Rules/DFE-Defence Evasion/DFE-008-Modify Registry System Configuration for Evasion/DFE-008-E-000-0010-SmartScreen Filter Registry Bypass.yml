@@ -1,0 +1,27 @@
+title: DFE-008-E-000-0010-SmartScreen Filter Registry Bypass
+id: dfe-008-e-000-0010
+status: experimental
+description: Detects registry modifications to bypass SmartScreen Filter which could indicate defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains: 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer'
+        TargetObject|endswith:
+            - 'SmartScreenEnabled'
+            - 'EnableSmartScreen'
+        Details: 'DWORD (0x00000000)'
+    condition: selection
+falsepositives:
+    - System configuration changes
+    - User privacy preferences
+    - Software installation requirements
+level: medium

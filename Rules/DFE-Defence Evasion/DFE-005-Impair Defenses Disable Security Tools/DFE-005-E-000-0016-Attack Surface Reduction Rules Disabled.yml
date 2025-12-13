@@ -1,0 +1,29 @@
+title: DFE-005-E-000-0016-Attack Surface Reduction Rules Disabled
+id: dfe-005-e-000-0016
+status: experimental
+description: Detects Windows Defender Attack Surface Reduction rules being disabled which could indicate defense evasion techniques
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Set-MpPreference'
+            - 'AttackSurfaceReductionRules_Actions'
+            - 'Disabled'
+    condition: selection
+falsepositives:
+    - Legitimate system administration
+    - Security policy configuration
+    - Software compatibility requirements
+level: high

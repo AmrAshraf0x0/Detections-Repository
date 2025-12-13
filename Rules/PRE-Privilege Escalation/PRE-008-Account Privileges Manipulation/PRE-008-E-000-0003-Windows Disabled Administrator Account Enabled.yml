@@ -1,0 +1,27 @@
+title: PRE-008-E-000-0003-Windows Disabled Administrator Account Enabled
+id: pre-008-e-000-0003
+status: experimental
+description: Detects enabling of disabled Windows administrator accounts for privilege escalation
+references:
+    - https://attack.mitre.org/techniques/T1078.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1078.003
+    - attack.privilege_escalation
+    - attack.persistence
+logsource:
+    product: windows
+    category: security
+detection:
+    selection:
+        EventID: 4722
+        TargetUserName:
+            - 'Administrator'
+            - 'Admin'
+    condition: selection
+falsepositives:
+    - Legitimate administrator account management
+    - System recovery operations
+    - Authorized security changes
+level: medium

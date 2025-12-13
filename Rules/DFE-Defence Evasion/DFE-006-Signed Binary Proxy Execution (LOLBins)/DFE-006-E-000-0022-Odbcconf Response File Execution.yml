@@ -1,0 +1,28 @@
+title: DFE-006-E-000-0022-Odbcconf Response File Execution
+id: dfe-006-e-000-0022
+status: experimental
+description: Detects odbcconf.exe execution with response files which can be used for defense evasion and code execution
+references:
+    - https://attack.mitre.org/techniques/T1218.008/
+    - https://lolbas-project.github.io/lolbas/Binaries/Odbcconf/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1218.008
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\odbcconf.exe'
+        CommandLine|contains:
+            - '/f'
+            - '-f'
+            - '/a'
+            - '-a'
+    condition: selection
+falsepositives:
+    - Legitimate ODBC configuration
+    - Database administration tasks
+level: medium

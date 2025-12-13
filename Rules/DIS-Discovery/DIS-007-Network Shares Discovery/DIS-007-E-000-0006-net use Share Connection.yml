@@ -1,0 +1,26 @@
+title: DIS-007-E-000-0006-net use Share Connection
+id: dis-007-e-000-0006
+status: experimental
+description: Detects net use command execution for share connection which could indicate lateral movement or data access attempts
+references:
+    - https://attack.mitre.org/techniques/T1135/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1135
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\net.exe'
+        CommandLine|contains:
+            - 'use'
+            - '\\'
+    condition: selection
+falsepositives:
+    - Legitimate network drive mapping
+    - Administrative tasks
+    - User file access
+level: low

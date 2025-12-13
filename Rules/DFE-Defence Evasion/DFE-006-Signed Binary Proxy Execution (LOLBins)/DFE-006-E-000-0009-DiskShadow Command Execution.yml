@@ -1,0 +1,24 @@
+title: DFE-006-E-000-0009-DiskShadow Command Execution
+id: dfe-006-e-000-0009
+status: experimental
+description: Detects execution of diskshadow.exe which can be used for defense evasion and payload execution
+references:
+    - https://attack.mitre.org/techniques/T1218/
+    - https://lolbas-project.github.io/lolbas/Binaries/Diskshadow/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1218
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\diskshadow.exe'
+    condition: selection
+falsepositives:
+    - Legitimate backup operations
+    - System administration tasks
+    - Volume shadow copy operations
+level: medium

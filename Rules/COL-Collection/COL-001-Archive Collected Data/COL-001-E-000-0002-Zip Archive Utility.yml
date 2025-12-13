@@ -1,0 +1,27 @@
+title: COL-001-E-000-0002-Zip Archive Utility
+id: col-001-e-000-0002
+status: experimental
+description: Detects zip archive utility usage for data collection and archiving activities
+references:
+    - https://attack.mitre.org/techniques/T1560.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1560.001
+    - attack.collection
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|contains:
+            - 'zip'
+            - '7z'
+            - 'winrar'
+            - 'rar'
+    condition: selection
+falsepositives:
+    - Legitimate file compression
+    - Backup operations
+    - Software packaging
+level: low

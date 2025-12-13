@@ -1,0 +1,29 @@
+title: EXE-004-E-000-0034-WMI Modifying Windows Firewall Rules
+id: exe-004-e-000-0034
+status: experimental
+description: Detects WMI commands used to modify Windows Firewall rules for defense evasion or backdoor access
+references:
+    - https://attack.mitre.org/techniques/T1047/
+    - https://attack.mitre.org/techniques/T1562.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1047
+    - attack.T1562.004
+    - attack.execution
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\wmic.exe'
+        CommandLine|contains:
+            - 'MSFT_NetFirewallRule'
+            - 'FirewallAPI.FwPolicy2'
+            - 'NetFwRule'
+    condition: selection
+falsepositives:
+    - Legitimate firewall configuration
+    - Network administration scripts
+level: medium

@@ -1,0 +1,23 @@
+title: PER-004-E-000-0002-Windows Service Installed
+id: per-004-e-000-0002
+status: experimental
+description: Detects Windows service installation events which could indicate persistence establishment
+references:
+    - https://attack.mitre.org/techniques/T1543.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1543.003
+    - attack.persistence
+logsource:
+    product: windows
+    category: system
+detection:
+    selection:
+        EventID: 4697  # Service was installed on the system
+    condition: selection
+falsepositives:
+    - Legitimate software installation
+    - Windows updates
+    - Driver installations
+level: low

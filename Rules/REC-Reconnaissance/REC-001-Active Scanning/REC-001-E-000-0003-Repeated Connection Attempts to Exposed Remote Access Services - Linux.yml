@@ -1,0 +1,29 @@
+title: REC-001-E-000-0003-Repeated Connection Attempts to Exposed Remote Access Services - Linux
+id: rec-001-e-000-0003
+status: experimental
+description: Detects repeated connection attempts to remote access services on Linux systems indicating active scanning
+references:
+    - https://attack.mitre.org/techniques/T1595.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1595.001
+    - attack.reconnaissance
+logsource:
+    product: linux
+    category: syslog
+detection:
+    selection:
+        facility: 'auth'
+        message|contains:
+            - 'ssh'
+            - 'connection'
+            - 'failed'
+            - 'refused'
+    condition: selection | count() by remote_host > 20
+    timeframe: 5m
+falsepositives:
+    - Network connectivity issues
+    - Legitimate automation tools
+    - Monitoring systems
+level: medium

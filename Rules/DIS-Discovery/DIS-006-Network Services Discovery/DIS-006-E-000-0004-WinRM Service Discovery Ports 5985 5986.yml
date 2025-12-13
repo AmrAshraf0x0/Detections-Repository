@@ -1,0 +1,42 @@
+title: DIS-006-E-000-0004-WinRM Service Discovery (Ports 5985/5986)
+id: dis-006-e-000-0004
+status: experimental
+description: Detects WinRM service discovery attempts on ports 5985/5986 which could indicate lateral movement reconnaissance
+references:
+    - https://attack.mitre.org/techniques/T1046/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1046
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection1:
+        Image|endswith: '\nmap.exe'
+        CommandLine|contains:
+            - '-p 5985'
+            - '-p 5986'
+    selection2:
+        Image|endswith: '\telnet.exe'
+        CommandLine|contains:
+            - '5985'
+            - '5986'
+    selection3:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Test-WSMan'
+            - 'winrm'
+            - 'Test-NetConnection'
+        CommandLine|contains:
+            - '5985'
+            - '5986'
+    condition: selection1 or selection2 or selection3
+falsepositives:
+    - PowerShell remoting administration
+    - WinRM service management
+    - Network connectivity testing
+level: medium

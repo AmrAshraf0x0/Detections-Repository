@@ -1,0 +1,29 @@
+title: DFE-002-E-000-0014-Google Update running from tmp folder
+id: dfe-002-e-000-0014
+status: experimental
+description: Detects Google Update processes running from temporary folders which could indicate masquerading malware
+references:
+    - https://attack.mitre.org/techniques/T1036.005/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1036.005
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|contains: 'GoogleUpdate'
+        Image|startswith:
+            - 'C:\Users\'
+            - 'C:\Temp\'
+            - 'C:\Windows\Temp\'
+            - 'C:\ProgramData\'
+    filter:
+        Image|startswith: 'C:\Program Files (x86)\Google\'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate Google Update processes
+    - Software installation processes
+level: high

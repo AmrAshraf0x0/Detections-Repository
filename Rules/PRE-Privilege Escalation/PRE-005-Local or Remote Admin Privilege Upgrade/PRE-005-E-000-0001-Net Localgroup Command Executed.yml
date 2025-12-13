@@ -1,0 +1,27 @@
+title: PRE-005-E-000-0001-Net Localgroup Command Executed
+id: pre-005-e-000-0001
+status: experimental
+description: Detects net localgroup command execution which could indicate privilege escalation attempts
+references:
+    - https://attack.mitre.org/techniques/T1078.003/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1078.003
+    - attack.privilege_escalation
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\net.exe'
+        CommandLine|contains:
+            - 'localgroup'
+            - 'administrators'
+            - '/add'
+    condition: selection
+falsepositives:
+    - Legitimate user management
+    - Administrative scripts
+    - System configuration tasks
+level: medium

@@ -1,0 +1,33 @@
+title: CRA-006-E-000-0019-dump volume shadow copy hives with System.IO.File
+id: cra-006-e-000-0019
+status: experimental
+description: Detects PowerShell System.IO.File usage for dumping volume shadow copy registry hives
+references:
+    - https://attack.mitre.org/techniques/T1003.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1003.002
+    - attack.credential_access
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains|all:
+            - 'System.IO.File'
+            - 'Copy'
+            - 'HarddiskVolumeShadowCopy'
+        CommandLine|contains:
+            - 'SAM'
+            - 'SYSTEM'
+            - 'SECURITY'
+    condition: selection
+falsepositives:
+    - PowerShell backup scripts
+    - System recovery operations
+    - File management tasks
+level: high

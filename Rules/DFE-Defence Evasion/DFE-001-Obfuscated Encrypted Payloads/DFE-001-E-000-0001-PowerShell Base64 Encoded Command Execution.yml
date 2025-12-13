@@ -1,0 +1,31 @@
+title: DFE-001-E-000-0001-PowerShell Base64 Encoded Command Execution
+id: dfe-001-e-000-0001
+status: experimental
+description: Detects PowerShell execution with Base64 encoded commands which could indicate obfuscated payload execution
+references:
+    - https://attack.mitre.org/techniques/T1027/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1027
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - '-EncodedCommand'
+            - '-enc'
+            - '-e '
+            - 'FromBase64String'
+            - '[System.Convert]::FromBase64String'
+    condition: selection
+falsepositives:
+    - Legitimate PowerShell scripts
+    - Administrative automation
+    - Software deployment scripts
+level: medium

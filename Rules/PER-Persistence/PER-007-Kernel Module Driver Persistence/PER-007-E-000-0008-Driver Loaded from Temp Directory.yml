@@ -1,0 +1,30 @@
+title: PER-007-E-000-0008-Driver Loaded from Temp Directory
+id: per-007-e-000-0008
+status: experimental
+description: Detects driver loading from temporary directories which could indicate malicious driver persistence
+references:
+    - https://attack.mitre.org/techniques/T1547.006/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1547.006
+    - attack.persistence
+logsource:
+    product: windows
+    category: driver_load
+detection:
+    selection:
+        ImageLoaded|endswith: '.sys'
+        ImageLoaded|contains:
+            - '\\Temp\\'
+            - '\\Users\\'
+            - '\\AppData\\'
+            - '\\Downloads\\'
+            - '\\Desktop\\'
+            - '\\ProgramData\\'
+    condition: selection
+falsepositives:
+    - Driver development environments
+    - Temporary driver installations
+    - System recovery procedures
+level: high

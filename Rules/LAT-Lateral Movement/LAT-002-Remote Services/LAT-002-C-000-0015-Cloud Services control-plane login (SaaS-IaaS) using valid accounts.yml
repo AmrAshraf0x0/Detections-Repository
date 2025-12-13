@@ -1,0 +1,29 @@
+title: LAT-002-C-000-0015-Cloud Services control-plane login (SaaS-IaaS) using valid accounts
+id: lat-002-c-000-0015
+status: experimental
+description: Detects cloud service control-plane logins using valid accounts which could indicate lateral movement in cloud environments
+references:
+    - https://attack.mitre.org/techniques/T1078.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1078.004
+    - attack.initial_access
+    - attack.lateral_movement
+logsource:
+    product: palo_alto_firewall
+    category: authentication
+detection:
+    selection:
+        action: 'allow'
+        app|contains:
+            - 'aws'
+            - 'azure'
+            - 'google'
+            - 'office365'
+    condition: selection
+falsepositives:
+    - Legitimate cloud service access
+    - Business applications usage
+    - Authorized cloud administration
+level: low

@@ -1,0 +1,30 @@
+title: PRE-004-E-000-0002-SeImpersonatePrivilege Token Abuse
+id: pre-004-e-000-0002
+status: experimental
+description: Detects abuse of SeImpersonatePrivilege for token manipulation and privilege escalation
+references:
+    - https://attack.mitre.org/techniques/T1134.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1134.001
+    - attack.privilege_escalation
+logsource:
+    product: windows
+    category: security
+detection:
+    selection:
+        EventID: 4672
+        PrivilegeList|contains: 'SeImpersonatePrivilege'
+    suspicious_process:
+        ProcessName|endswith:
+            - '\w3wp.exe'
+            - '\sqlservr.exe'
+            - '\tomcat.exe'
+            - '\httpd.exe'
+    condition: selection and suspicious_process
+falsepositives:
+    - Legitimate service operations
+    - Web application functionality
+    - Database service operations
+level: medium

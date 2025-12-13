@@ -1,0 +1,28 @@
+title: CRA-001-E-000-0006-Brute Force Until Account Lockout
+id: cra-001-e-000-0006
+status: experimental
+description: Detects brute force attacks on VMware ESXi systems until account lockout occurs
+references:
+    - https://attack.mitre.org/techniques/T1110/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1110
+    - attack.credential_access
+logsource:
+    product: linux
+    category: syslog
+detection:
+    selection:
+        facility: 'auth'
+        message|contains:
+            - 'authentication failure'
+            - 'failed login'
+            - 'account locked'
+    condition: selection | count() by remote_host > 10
+    timeframe: 10m
+falsepositives:
+    - Legitimate authentication issues
+    - Network connectivity problems
+    - Service account misconfigurations
+level: medium

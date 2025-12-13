@@ -1,0 +1,29 @@
+title: DIS-007-E-000-0003-PowerShell Get-SmbShare Execution
+id: dis-007-e-000-0003
+status: experimental
+description: Detects PowerShell Get-SmbShare command execution for share discovery which could indicate reconnaissance activities
+references:
+    - https://attack.mitre.org/techniques/T1135/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1135
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Get-SmbShare'
+            - 'Get-FileShare'
+            - 'Get-WmiObject -Class Win32_Share'
+    condition: selection
+falsepositives:
+    - PowerShell administration scripts
+    - Share management tools
+    - System monitoring scripts
+level: low

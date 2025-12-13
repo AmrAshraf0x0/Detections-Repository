@@ -1,0 +1,37 @@
+title: INA-001-A-000-0002-Multiple Failed Login Attempts Followed by Successful Authentication - Windows
+id: ina-001-a-000-0002
+status: experimental
+description: Detects multiple failed login attempts followed by successful authentication on Windows systems, indicating potential brute force attacks
+references:
+    - https://attack.mitre.org/techniques/T1110/
+    - https://attack.mitre.org/techniques/T1078/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1110
+    - attack.T1078
+    - attack.credential_access
+    - attack.initial_access
+logsource:
+    product: windows
+    category: authentication
+detection:
+    failed_logons:
+        EventID: 4625
+        LogonType: 
+            - 2
+            - 3
+            - 10
+    successful_logon:
+        EventID: 4624
+        LogonType:
+            - 2
+            - 3
+            - 10
+    timeframe: 10m
+    condition: failed_logons | count(TargetUserName) by TargetUserName >= 5 followed by successful_logon
+falsepositives:
+    - User typing incorrect password multiple times
+    - Password expiration scenarios
+    - Service account configuration issues
+level: medium

@@ -1,0 +1,31 @@
+title: CRA-002-E-000-0003-SMB Relay attack
+id: cra-002-e-000-0003
+status: experimental
+description: Detects SMB relay attack indicators including unusual SMB authentication patterns
+references:
+    - https://attack.mitre.org/techniques/T1557.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1557.001
+    - attack.credential_access
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: security
+detection:
+    selection:
+        EventID: 4624
+        LogonType: 3
+        AuthenticationPackageName: 'NTLM'
+    selection_impacket:
+        ProcessName|contains:
+            - 'ntlmrelayx'
+            - 'smbrelayx'
+    condition: selection | count(TargetUserName) by IpAddress > 5 or selection_impacket
+    timeframe: 2m
+falsepositives:
+    - Legitimate SMB authentication
+    - Network shares access
+    - Service account authentication
+level: medium

@@ -1,0 +1,46 @@
+title: DFE-005-E-000-0012-EDR Driver File Deletion
+id: dfe-005-e-000-0012
+status: experimental
+description: Detects deletion of EDR driver files which could indicate defense evasion techniques
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: file_delete
+detection:
+    selection:
+        TargetFilename|endswith:
+            - '.sys'
+        TargetFilename|contains:
+            - 'CrowdStrike'
+            - 'csagent'
+            - 'csfalcon'
+            - 'SentinelOne'
+            - 's1agent'
+            - 'CarbonBlack'
+            - 'cbstream'
+            - 'Cylance'
+            - 'cyprotect'
+            - 'ESET'
+            - 'eamonm'
+            - 'Symantec'
+            - 'sysfer'
+            - 'McAfee'
+            - 'mfehidk'
+            - 'Trend Micro'
+            - 'tmcomm'
+            - 'Kaspersky'
+            - 'klif'
+            - 'Sophos'
+            - 'savonaccess'
+    condition: selection
+falsepositives:
+    - Legitimate software updates
+    - System maintenance procedures
+    - Authorized security tool removal
+level: critical

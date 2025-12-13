@@ -1,0 +1,29 @@
+title: CRA-002-E-000-0002-Responder Tool Execution Detection
+id: cra-002-e-000-0002
+status: experimental
+description: Detects Responder tool execution for LLMNR/NBT-NS poisoning and credential harvesting
+references:
+    - https://attack.mitre.org/techniques/T1557.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1557.001
+    - attack.credential_access
+    - attack.collection
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|contains: 'responder'
+    selection_python:
+        Image|endswith: '\python.exe'
+        CommandLine|contains:
+            - 'Responder.py'
+            - 'responder.py'
+    condition: 1 of selection*
+falsepositives:
+    - Legitimate penetration testing
+    - Authorized security assessments
+    - Network analysis tools
+level: high

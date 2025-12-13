@@ -1,0 +1,32 @@
+title: DIS-003-E-000-0018-Docker Volume and Container File Discovery
+id: dis-003-e-000-0018
+status: experimental
+description: Detects Docker commands for volume and container file discovery operations
+references:
+    - https://attack.mitre.org/techniques/T1083/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1083
+    - attack.discovery
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection_docker:
+        Image|endswith: '/docker'
+        CommandLine|contains:
+            - 'exec'
+            - 'volume'
+            - 'inspect'
+    selection_commands:
+        CommandLine|contains:
+            - 'ls -la'
+            - 'find /'
+            - 'cat /proc/mounts'
+    condition: selection_docker and selection_commands
+falsepositives:
+    - Docker administration tasks
+    - Container debugging operations
+    - System monitoring scripts
+level: medium

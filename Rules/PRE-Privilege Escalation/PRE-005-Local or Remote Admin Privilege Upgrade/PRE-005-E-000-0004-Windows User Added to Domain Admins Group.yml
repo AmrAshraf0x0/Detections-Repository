@@ -1,0 +1,26 @@
+title: PRE-005-E-000-0004-Windows User Added to Domain Admins Group
+id: pre-005-e-000-0004
+status: experimental
+description: Detects users being added to the Domain Admins group which could indicate privilege escalation
+references:
+    - https://attack.mitre.org/techniques/T1078.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1078.002
+    - attack.privilege_escalation
+logsource:
+    product: windows
+    category: security
+detection:
+    selection:
+        EventID: 4728
+        GroupName|contains:
+            - 'Domain Admins'
+            - 'Administrators'
+    condition: selection
+falsepositives:
+    - Legitimate domain administrator additions
+    - Privileged account management
+    - IT administrative activities
+level: high

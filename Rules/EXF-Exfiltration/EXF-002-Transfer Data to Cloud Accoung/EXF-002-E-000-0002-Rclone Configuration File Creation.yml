@@ -1,0 +1,28 @@
+title: EXF-002-E-000-0002-Rclone Configuration File Creation
+id: exf-002-e-000-0002
+status: experimental
+description: Detects creation of Rclone configuration files which could indicate preparation for data exfiltration to cloud storage
+references:
+    - https://attack.mitre.org/techniques/T1567.002/
+    - https://rclone.org/docs/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1567.002
+    - attack.exfiltration
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        TargetFilename|endswith:
+            - '\rclone.conf'
+            - '\.config\rclone\rclone.conf'
+        TargetFilename|contains:
+            - '\AppData\Roaming\rclone\'
+            - '\rclone\'
+    condition: selection
+falsepositives:
+    - Legitimate cloud backup solutions
+    - Authorized data synchronization tools
+level: medium

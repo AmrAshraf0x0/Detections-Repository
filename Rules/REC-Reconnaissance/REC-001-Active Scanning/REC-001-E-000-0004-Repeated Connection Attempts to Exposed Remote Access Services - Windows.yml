@@ -1,0 +1,30 @@
+title: REC-001-E-000-0004-Repeated Connection Attempts to Exposed Remote Access Services - Windows
+id: rec-001-e-000-0004
+status: experimental
+description: Detects repeated connection attempts to remote access services on Windows systems indicating active scanning
+references:
+    - https://attack.mitre.org/techniques/T1595.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1595.001
+    - attack.reconnaissance
+logsource:
+    product: windows
+    category: security
+detection:
+    selection:
+        EventID:
+            - 4625
+            - 4634
+            - 5156
+        LogonType:
+            - 3
+            - 10
+    condition: selection | count() by IpAddress > 15
+    timeframe: 5m
+falsepositives:
+    - Network connectivity issues
+    - Legitimate remote access tools
+    - Monitoring and backup systems
+level: medium

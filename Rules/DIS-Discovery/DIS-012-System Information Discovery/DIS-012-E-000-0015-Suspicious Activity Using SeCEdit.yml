@@ -1,0 +1,29 @@
+title: DIS-012-E-000-0015-Suspicious Activity Using SeCEdit
+id: dis-012-e-000-0015
+status: experimental
+description: Detects suspicious usage of secedit command which can be used for security policy discovery and system configuration reconnaissance
+references:
+    - https://attack.mitre.org/techniques/T1082/
+    - https://attack.mitre.org/techniques/T1069/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1082
+    - attack.T1069
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\secedit.exe'
+        CommandLine|contains:
+            - '/export'
+            - '/analyze'
+            - '/validate'
+    condition: selection
+falsepositives:
+    - System administration tasks
+    - Security policy management
+    - Compliance auditing tools
+level: medium

@@ -1,0 +1,40 @@
+title: LAT-003-E-000-0008-Ticket manipulation endpoint signals + Kerberos anomalies
+id: lat-003-e-000-0008
+status: experimental
+description: Detects ticket manipulation tools execution followed by anomalous Kerberos authentication patterns indicating ticket abuse
+references:
+    - https://attack.mitre.org/techniques/T1550.003/
+    - https://attack.mitre.org/techniques/T1558/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1550.003
+    - attack.T1558
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    ticket_tools:
+        Image|endswith:
+            - '\mimikatz.exe'
+            - '\rubeus.exe'
+            - '\kekeo.exe'
+        CommandLine|contains:
+            - 'kerberos'
+            - 'ticket'
+            - 'golden'
+            - 'silver'
+    kerberos_anomaly:
+        EventID: 
+            - 4768  # TGT request
+            - 4769  # Service ticket request
+        Status:
+            - '0x6'   # Username doesn't exist
+            - '0x12'  # Policy restriction
+    timeframe: 15m
+    condition: ticket_tools followed by kerberos_anomaly
+falsepositives:
+    - Security testing with authorization
+    - Kerberos troubleshooting tools
+level: high

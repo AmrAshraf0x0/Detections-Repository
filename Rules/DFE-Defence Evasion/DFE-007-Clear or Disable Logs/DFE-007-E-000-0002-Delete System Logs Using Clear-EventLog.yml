@@ -1,0 +1,28 @@
+title: DFE-007-E-000-0002-Delete System Logs Using Clear-EventLog
+id: dfe-007-e-000-0002
+status: experimental
+description: Detects PowerShell Clear-EventLog cmdlet usage for log deletion and defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1070.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1070.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Clear-EventLog'
+            - 'LogName'
+    condition: selection
+falsepositives:
+    - Legitimate PowerShell log management
+    - System maintenance scripts
+    - Administrative automation
+level: medium

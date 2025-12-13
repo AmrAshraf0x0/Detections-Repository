@@ -1,0 +1,27 @@
+title: LAT-002-C-000-0016-Direct Cloud VM Connections (Serial Console - Instance Connect - SSM)
+id: lat-002-c-000-0016
+status: experimental
+description: Detects direct cloud VM connections via serial console, instance connect, or SSM which could indicate lateral movement
+references:
+    - https://attack.mitre.org/techniques/T1021.007/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1021.007
+    - attack.lateral_movement
+logsource:
+    product: palo_alto_firewall
+    category: traffic
+detection:
+    selection:
+        action: 'allow'
+        app|contains:
+            - 'ec2-instance-connect'
+            - 'systems-manager'
+            - 'serial-console'
+    condition: selection
+falsepositives:
+    - Legitimate cloud VM management
+    - System administration tasks
+    - Troubleshooting activities
+level: medium

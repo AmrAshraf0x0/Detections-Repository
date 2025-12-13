@@ -1,0 +1,23 @@
+title: CRA-006-E-000-0027-Dump LSASS with createdump.exe
+id: cra-006-e-000-0027
+status: experimental
+description: Detects createdump.exe usage for LSASS memory dumping which could indicate credential access activities
+references:
+    - https://attack.mitre.org/techniques/T1003.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1003.001
+    - attack.credential_access
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\createdump.exe'
+        CommandLine|contains: 'lsass'
+    condition: selection
+falsepositives:
+    - .NET Core debugging activities
+    - Application troubleshooting
+level: high

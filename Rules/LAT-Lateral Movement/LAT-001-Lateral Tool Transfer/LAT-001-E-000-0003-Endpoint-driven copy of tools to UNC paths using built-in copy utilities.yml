@@ -1,0 +1,29 @@
+title: LAT-001-E-000-0003-Endpoint-driven copy of tools to UNC paths using built-in copy utilities
+id: lat-001-e-000-0003
+status: experimental
+description: Detects built-in copy utilities transferring files to UNC paths which could indicate lateral tool transfer
+references:
+    - https://attack.mitre.org/techniques/T1570/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1570
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\copy.exe'
+            - '\xcopy.exe'
+            - '\robocopy.exe'
+            - '\move.exe'
+        CommandLine|contains: '\\'
+        CommandLine|re: '.*\\\\[^\\]+\\.*'
+    condition: selection
+falsepositives:
+    - Administrative file operations
+    - Backup and restore activities
+    - Network file management
+level: medium

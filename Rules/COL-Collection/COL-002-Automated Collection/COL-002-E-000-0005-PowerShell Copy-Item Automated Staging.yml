@@ -1,0 +1,30 @@
+title: COL-002-E-000-0005-PowerShell Copy-Item Automated Staging
+id: col-002-e-000-0005
+status: experimental
+description: Detects automated file staging using PowerShell Copy-Item for data collection
+references:
+    - https://attack.mitre.org/techniques/T1119/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1119
+    - attack.collection
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Copy-Item'
+            - '-Destination'
+            - '-Recurse'
+            - '-Force'
+    condition: selection
+falsepositives:
+    - Legitimate file operations
+    - Backup scripts
+    - Administrative automation
+level: low

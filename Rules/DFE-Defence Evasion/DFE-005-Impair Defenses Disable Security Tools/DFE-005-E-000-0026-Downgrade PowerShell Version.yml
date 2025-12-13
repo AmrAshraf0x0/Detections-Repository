@@ -1,0 +1,27 @@
+title: DFE-005-E-000-0026-Downgrade PowerShell Version
+id: dfe-005-e-000-0026
+status: experimental
+description: Detects PowerShell version downgrade which could be used to bypass security features and logging in newer versions
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+        CommandLine|contains:
+            - '-Version'
+            - '2'
+    condition: selection
+falsepositives:
+    - Legitimate compatibility requirements
+    - Legacy script execution
+    - Testing procedures
+level: medium

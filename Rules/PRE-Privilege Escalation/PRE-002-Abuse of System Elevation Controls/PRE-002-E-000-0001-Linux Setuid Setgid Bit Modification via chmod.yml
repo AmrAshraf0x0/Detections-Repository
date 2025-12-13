@@ -1,0 +1,28 @@
+title: PRE-002-E-000-0001-Linux Setuid Setgid Bit Modification via chmod
+id: pre-002-e-000-0001
+status: experimental
+description: Detects setuid/setgid bit modifications via chmod for privilege escalation
+references:
+    - https://attack.mitre.org/techniques/T1548.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1548.001
+    - attack.privilege_escalation
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/chmod'
+        CommandLine|contains:
+            - '+s'
+            - '4755'
+            - '2755'
+            - '6755'
+    condition: selection
+falsepositives:
+    - Legitimate software installation
+    - System administration tasks
+    - Package management operations
+level: medium

@@ -1,0 +1,39 @@
+title: DFE-005-E-000-0011-EDR Service Disabled via Registry
+id: dfe-005-e-000-0011
+status: experimental
+description: Detects registry modifications to disable EDR services which could indicate defense evasion techniques
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains:
+            - 'SYSTEM\CurrentControlSet\Services'
+        TargetObject|endswith:
+            - '\Start'
+        Details:
+            - 'DWORD (0x00000004)'
+        TargetObject|contains:
+            - 'CrowdStrike'
+            - 'SentinelOne'
+            - 'CarbonBlack'
+            - 'Cylance'
+            - 'ESET'
+            - 'Symantec'
+            - 'McAfee'
+            - 'Trend Micro'
+            - 'Kaspersky'
+            - 'Sophos'
+    condition: selection
+falsepositives:
+    - Legitimate system administration
+    - Software updates or maintenance
+    - Authorized security tool management
+level: high

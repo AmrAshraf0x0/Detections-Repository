@@ -1,0 +1,43 @@
+title: DFE-005-E-000-0013-ETW Provider Tampering
+id: dfe-005-e-000-0013
+status: experimental
+description: Detects tampering with Event Tracing for Windows (ETW) providers which could indicate defense evasion techniques
+references:
+    - https://attack.mitre.org/techniques/T1562.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1562.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection1:
+        TargetObject|contains:
+            - 'SYSTEM\CurrentControlSet\Control\WMI\Autologger'
+        TargetObject|endswith:
+            - '\Start'
+        Details:
+            - 'DWORD (0x00000000)'
+    selection2:
+        TargetObject|contains:
+            - 'SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels'
+        TargetObject|endswith:
+            - '\Enabled'
+        Details:
+            - 'DWORD (0x00000000)'
+    selection3:
+        Image|endswith:
+            - '\wevtutil.exe'
+        CommandLine|contains:
+            - 'sl'
+            - 'set-log'
+            - '/e:false'
+            - '/enabled:false'
+    condition: 1 of selection*
+falsepositives:
+    - Legitimate system administration
+    - Performance troubleshooting
+    - Authorized logging configuration changes
+level: high

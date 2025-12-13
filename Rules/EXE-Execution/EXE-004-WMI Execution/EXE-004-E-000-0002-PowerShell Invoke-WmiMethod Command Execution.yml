@@ -1,0 +1,27 @@
+title: EXE-004-E-000-0002-PowerShell Invoke-WmiMethod Command Execution
+id: exe-004-e-000-0002
+status: experimental
+description: Detects PowerShell Invoke-WmiMethod cmdlet usage which can be used to execute commands remotely via WMI
+references:
+    - https://attack.mitre.org/techniques/T1047/
+    - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/invoke-wmimethod
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1047
+    - attack.execution
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: 
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Invoke-WmiMethod'
+    condition: selection
+falsepositives:
+    - Legitimate PowerShell administration scripts
+    - System management tools
+level: medium

@@ -1,0 +1,29 @@
+title: DFE-004-E-000-0005-Remove Windows Defender Definition Files
+id: dfe-004-e-000-0005
+status: experimental
+description: Detects removal of Windows Defender definition files which could indicate indicator removal for defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1070/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1070
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        EventType: FileDelete
+        TargetFilename|contains: '\\Windows Defender\\'
+        TargetFilename|endswith:
+            - 'mpasbase.vdm'
+            - 'mpavbase.vdm'
+            - 'mpasdlta.vdm'
+            - 'mpavdlta.vdm'
+    condition: selection
+falsepositives:
+    - Windows Defender updates
+    - System maintenance activities
+    - Antivirus software replacement
+level: high

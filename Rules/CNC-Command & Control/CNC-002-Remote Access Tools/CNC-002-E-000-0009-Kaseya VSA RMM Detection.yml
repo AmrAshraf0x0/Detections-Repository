@@ -1,0 +1,27 @@
+title: CNC-002-E-000-0009-Kaseya VSA RMM Detection
+id: cnc-002-e-000-0009
+status: experimental
+description: Detects Kaseya VSA RMM tool execution which could indicate remote monitoring and management activities
+references:
+    - https://attack.mitre.org/techniques/T1219/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1219
+    - attack.command_and_control
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\AgentMon.exe'
+            - '\KaseyaAgent.exe'
+            - '\VSAAgent.exe'
+        Image|contains: 'kaseya'
+    condition: selection
+falsepositives:
+    - Legitimate Kaseya VSA usage
+    - Enterprise RMM operations
+    - Authorized IT management
+level: low

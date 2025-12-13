@@ -1,0 +1,28 @@
+title: COL-002-E-000-0003-find Command Automated Collection
+id: col-002-e-000-0003
+status: experimental
+description: Detects automated data collection using Linux find command for file discovery
+references:
+    - https://attack.mitre.org/techniques/T1119/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1119
+    - attack.collection
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/find'
+        CommandLine|contains:
+            - '-name'
+            - '-type f'
+            - '-exec'
+            - '-print'
+    condition: selection
+falsepositives:
+    - Legitimate file searches
+    - System administration tasks
+    - Backup operations
+level: low

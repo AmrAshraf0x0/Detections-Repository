@@ -1,0 +1,33 @@
+title: PER-004-E-000-0009-Systemd Service File Creation in Non-Standard Directories
+id: per-004-e-000-0009
+status: experimental
+description: Detects creation of systemd service files in non-standard directories which could be used for persistence on Linux systems
+references:
+    - https://attack.mitre.org/techniques/T1543.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1543.002
+    - attack.persistence
+logsource:
+    product: linux
+    category: file_event
+detection:
+    selection:
+        TargetFilename|endswith: '.service'
+        TargetFilename|contains:
+            - '/home/'
+            - '/tmp/'
+            - '/var/tmp/'
+            - '/opt/'
+    filter:
+        TargetFilename|startswith:
+            - '/etc/systemd/'
+            - '/usr/lib/systemd/'
+            - '/lib/systemd/'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate user service installations
+    - Development environments
+    - Custom application deployments
+level: medium

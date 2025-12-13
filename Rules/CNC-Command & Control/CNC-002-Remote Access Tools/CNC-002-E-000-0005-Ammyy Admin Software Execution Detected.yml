@@ -1,0 +1,26 @@
+title: CNC-002-E-000-0005-Ammyy Admin Software Execution Detected
+id: cnc-002-e-000-0005
+status: experimental
+description: Detects Ammyy Admin software execution which could indicate remote access tool usage for command and control
+references:
+    - https://attack.mitre.org/techniques/T1219/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1219
+    - attack.command_and_control
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\ammyy.exe'
+            - '\AmmyyAdmin.exe'
+            - '\AA_v3.exe'
+    condition: selection
+falsepositives:
+    - Legitimate Ammyy Admin usage
+    - Authorized remote support
+    - Technical support activities
+level: medium

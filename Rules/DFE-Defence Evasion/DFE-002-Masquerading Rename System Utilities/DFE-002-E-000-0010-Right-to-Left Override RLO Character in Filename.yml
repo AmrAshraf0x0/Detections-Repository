@@ -1,0 +1,22 @@
+title: DFE-002-E-000-0010-Right-to-Left Override (RLO) Character in Filename
+id: dfe-002-e-000-0010
+status: experimental
+description: Detects Right-to-Left Override (RLO) character usage in filenames which could indicate masquerading attempts
+references:
+    - https://attack.mitre.org/techniques/T1036.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1036.002
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: file_event
+detection:
+    selection:
+        TargetFilename|contains: '\u202E'  # RLO character
+    condition: selection
+falsepositives:
+    - Legitimate files with international characters
+    - Text processing applications
+level: high

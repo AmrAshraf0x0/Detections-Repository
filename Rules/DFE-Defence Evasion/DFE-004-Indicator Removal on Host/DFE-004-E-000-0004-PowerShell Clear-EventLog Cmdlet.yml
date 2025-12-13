@@ -1,0 +1,29 @@
+title: DFE-004-E-000-0004-PowerShell Clear-EventLog Cmdlet
+id: dfe-004-e-000-0004
+status: experimental
+description: Detects PowerShell Clear-EventLog cmdlet usage which could indicate indicator removal for defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1070.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1070.001
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        CommandLine|contains:
+            - 'Clear-EventLog'
+            - 'Clear-WinEvent'
+            - 'Remove-EventLog'
+    condition: selection
+falsepositives:
+    - PowerShell administration scripts
+    - Legitimate log maintenance
+    - System cleanup automation
+level: high

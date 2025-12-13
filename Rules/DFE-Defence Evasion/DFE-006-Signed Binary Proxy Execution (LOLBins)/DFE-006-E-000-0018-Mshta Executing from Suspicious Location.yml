@@ -1,0 +1,29 @@
+title: DFE-006-E-000-0018-Mshta Executing from Suspicious Location
+id: dfe-006-e-000-0018
+status: experimental
+description: Detects mshta.exe executing from suspicious locations which may indicate defense evasion attempts
+references:
+    - https://attack.mitre.org/techniques/T1218.005/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1218.005
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\mshta.exe'
+        Image|contains:
+            - '\Users\'
+            - '\Temp\'
+            - '\AppData\'
+            - '\Downloads\'
+    filter:
+        Image|startswith: 'C:\Windows\System32\'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate HTA applications in user directories
+    - Portable applications
+level: medium

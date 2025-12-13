@@ -1,0 +1,28 @@
+title: DIS-001-E-000-0030-Account Enumeration with LDAPDomainDump
+id: dis-001-e-000-0030
+status: experimental
+description: Detects LDAPDomainDump tool usage for comprehensive Active Directory enumeration
+references:
+    - https://attack.mitre.org/techniques/T1087.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1087.002
+    - attack.discovery
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|contains:
+            - 'ldapdomaindump'
+            - 'ldd'
+    selection_python:
+        Image|endswith: '\python.exe'
+        CommandLine|contains: 'ldapdomaindump'
+    condition: 1 of selection*
+falsepositives:
+    - Legitimate penetration testing
+    - Authorized security assessments
+    - Active Directory auditing
+level: high

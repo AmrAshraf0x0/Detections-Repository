@@ -1,0 +1,29 @@
+title: COL-003-E-000-0001-Failed Share Access Attempts
+id: col-003-e-000-0001
+status: experimental
+description: Detects multiple failed network share access attempts which could indicate reconnaissance or brute force activities
+references:
+    - https://attack.mitre.org/techniques/T1039/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1039
+    - attack.collection
+logsource:
+    product: windows
+    category: security
+detection:
+    selection:
+        EventID: 5140
+        AccessMask: '0x1'
+        ShareName|contains:
+            - 'C$'
+            - 'ADMIN$'
+            - 'IPC$'
+    condition: selection | count(SubjectUserName) by SourceAddress > 5
+    timeframe: 5m
+falsepositives:
+    - Network connectivity issues
+    - Legitimate administrative access attempts
+    - Misconfigured applications
+level: medium

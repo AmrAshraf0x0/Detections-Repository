@@ -1,0 +1,27 @@
+title: CNC-002-E-000-0010-PuTTy Files Detected on Windows
+id: cnc-002-e-000-0010
+status: experimental
+description: Detects PuTTy SSH client execution on Windows which could indicate remote access for command and control
+references:
+    - https://attack.mitre.org/techniques/T1021.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1021.004
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - '\putty.exe'
+            - '\plink.exe'
+            - '\pscp.exe'
+            - '\psftp.exe'
+    condition: selection
+falsepositives:
+    - Legitimate SSH client usage
+    - System administration tasks
+    - Development activities
+level: low

@@ -1,0 +1,27 @@
+title: COL-002-E-000-0004-grep Recursive Content Search
+id: col-002-e-000-0004
+status: experimental
+description: Detects recursive content searching using grep which could indicate data collection activities
+references:
+    - https://attack.mitre.org/techniques/T1119/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1119
+    - attack.collection
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/grep'
+        CommandLine|contains:
+            - '-r'
+            - '-R'
+            - '--recursive'
+    condition: selection
+falsepositives:
+    - Legitimate text searches
+    - Log analysis activities
+    - Development tasks
+level: low

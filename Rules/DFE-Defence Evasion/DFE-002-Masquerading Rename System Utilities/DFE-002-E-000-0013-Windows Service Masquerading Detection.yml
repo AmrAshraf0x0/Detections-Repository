@@ -1,0 +1,31 @@
+title: DFE-002-E-000-0013-Windows Service Masquerading Detection
+id: dfe-002-e-000-0013
+status: experimental
+description: Detects Windows services masquerading as legitimate system services which could indicate persistence or defense evasion
+references:
+    - https://attack.mitre.org/techniques/T1036.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1036.004
+    - attack.defense_evasion
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\sc.exe'
+        CommandLine|contains|all:
+            - 'create'
+            - 'binPath='
+        CommandLine|contains:
+            - 'Windows Update Service'
+            - 'Microsoft Security Service'
+            - 'Windows Defender Service'
+            - 'System Protection Service'
+    condition: selection
+falsepositives:
+    - Legitimate service installation
+    - Administrative service management
+    - Software deployment scripts
+level: medium

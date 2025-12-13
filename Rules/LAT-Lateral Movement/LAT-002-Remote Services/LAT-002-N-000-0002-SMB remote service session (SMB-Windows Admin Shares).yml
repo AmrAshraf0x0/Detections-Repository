@@ -1,0 +1,32 @@
+title: LAT-002-N-000-0002-SMB remote service session (SMB-Windows Admin Shares)
+id: lat-002-n-000-0002
+status: experimental
+description: Detects SMB remote service sessions accessing Windows admin shares which could indicate lateral movement
+references:
+    - https://attack.mitre.org/techniques/T1021.002/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1021.002
+    - attack.lateral_movement
+logsource:
+    product: windows
+    category: authentication
+detection:
+    selection:
+        EventID: 4624
+        LogonType: 3  # Network
+        AuthenticationPackageName: 'NTLM'
+    share_access:
+        EventID: 5140  # Network share accessed
+        ShareName|endswith:
+            - 'ADMIN$'
+            - 'C$'
+            - 'IPC$'
+    timeframe: 1m
+    condition: selection followed by share_access
+falsepositives:
+    - Legitimate administrative activities
+    - System management tools
+    - Backup operations
+level: medium

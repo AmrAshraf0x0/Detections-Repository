@@ -1,0 +1,26 @@
+title: DIS-007-E-000-0008-Linux mount.cifs Share Mounting
+id: dis-007-e-000-0008
+status: experimental
+description: Detects mount.cifs execution for CIFS/SMB share mounting which could indicate lateral movement on Linux systems
+references:
+    - https://attack.mitre.org/techniques/T1135/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1135
+    - attack.discovery
+logsource:
+    product: linux
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '/mount.cifs'
+        CommandLine|contains:
+            - '//'
+            - 'cifs'
+    condition: selection
+falsepositives:
+    - Legitimate file sharing operations
+    - Network drive mounting
+    - System administration tasks
+level: low

@@ -1,0 +1,27 @@
+title: CRA-006-E-000-0029-Dump LSASS.exe Memory through Silent Process Exit
+id: cra-006-e-000-0029
+status: experimental
+description: Detects LSASS memory dumping through Silent Process Exit mechanism which could indicate credential access
+references:
+    - https://attack.mitre.org/techniques/T1003.001/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1003.001
+    - attack.credential_access
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\reg.exe'
+        CommandLine|contains|all:
+            - 'add'
+            - 'SilentProcessExit'
+            - 'lsass.exe'
+            - 'MonitorProcess'
+    condition: selection
+falsepositives:
+    - System debugging configuration
+    - Application monitoring setup
+level: high

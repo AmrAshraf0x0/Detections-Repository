@@ -1,0 +1,25 @@
+title: PRE-008-E-000-0004-SSH Authorized Keys File Modification
+id: pre-008-e-000-0004
+status: experimental
+description: Detects modifications to SSH authorized_keys files for privilege escalation and persistence
+references:
+    - https://attack.mitre.org/techniques/T1098.004/
+author: HexaPrime Detection Team
+date: 2025/12/13
+tags:
+    - attack.T1098.004
+    - attack.privilege_escalation
+    - attack.persistence
+logsource:
+    product: linux
+    category: file_access
+detection:
+    selection:
+        TargetFilename|contains: 'authorized_keys'
+        EventType: 'SetValue'
+    condition: selection
+falsepositives:
+    - Legitimate SSH key management
+    - User account provisioning
+    - Administrative key rotation
+level: medium
