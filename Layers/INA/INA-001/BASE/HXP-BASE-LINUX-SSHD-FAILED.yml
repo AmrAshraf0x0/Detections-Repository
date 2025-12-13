@@ -1,0 +1,39 @@
+title: HXP Base - Linux SSH Authentication Failure
+id: HXP-BASE-LINUX-SSHD-FAILED
+status: test
+description: |
+  Detection Description:
+  Base rule matching Linux SSH (sshd) authentication failures. Intended for re-use by correlation rules.
+
+  Status:
+  test
+
+  Data Sources:
+  MITRE Data Source: Authentication Logs
+  Product targeted by the Rule: Linux
+  Service in the product that provides the log: auth
+
+  Author:
+  HXP Detection team
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/datasources/DS0028/
+logsource:
+  category: authentication
+  product: linux
+  service: auth
+detection:
+  selection_process:
+    process.name: sshd
+  selection_failed:
+    message|contains:
+      - "Failed password"
+      - "authentication failure"
+      - "Invalid user"
+  condition: selection_process and selection_failed
+falsepositives:
+  - Users mistyping passwords
+level: low
+tags:
+  - attack.t1110

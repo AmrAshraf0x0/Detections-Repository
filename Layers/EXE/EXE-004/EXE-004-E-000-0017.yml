@@ -1,0 +1,69 @@
+title: WMI Querying Startup Programs - EXE-004-E-000-0017
+id: EXE-004-E-000-0017
+status: experimental
+description: |
+  Detection Description:
+  Detects querying of startup programs via WMI, which can be used for discovery of persistence mechanisms.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1547.001 - Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Sysmon (Event ID 1) or equivalent process creation logs
+
+  Detection Logic:
+  Matches WMIC startup queries (Win32_StartupCommand).
+
+  False Positive Considerations:
+  See falsepositives section below.
+
+  Severity and Risk Rating:
+  Severity Level: Medium
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 36
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: WMI Execution
+- L2 Use Case Identifier: EXE-004
+- Rule Identifier: EXE-004-E-000-0017
+- Technical Use Case Name: WMI Querying Startup Programs
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1547/001/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith: '\\wmic.exe'
+    CommandLine|contains:
+      - 'startup get'
+      - 'Win32_StartupCommand'
+
+  condition: selection
+
+falsepositives:
+  - Legitimate endpoint management/inventory scripts
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1547.001

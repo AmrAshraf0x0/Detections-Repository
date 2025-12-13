@@ -1,0 +1,66 @@
+title: Multiple Failed Login Attempts Followed by Successful Authentication - Linux - INA-001-A-000-0010
+id: INA-001-A-000-0010
+status: experimental
+description: |
+  Detection Description:
+  Detects multiple failed Linux SSH authentication attempts followed by a successful SSH authentication for the same user and source IP within 5 minutes.
+  Implemented as a Sigma correlation rule referencing shared base rules in BASE/.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1110 - Brute Force, T1078 - Valid Accounts
+  Kill Chain Phase: Initial Access
+
+  Data Sources:
+  MITRE Data Source: Authentication Logs
+  Product targeted by the Rule: Linux
+  Service in the product that provides the log: auth
+
+  Detection Logic:
+  Ordered correlation: SSH failure then SSH success, grouped by user.name and source.ip, timespan 5m.
+
+  False Positive Considerations:
+  Typo then success; legitimate admin testing.
+
+  Severity and Risk Rating:
+  Severity Level: High
+
+  References:
+  MITRE technique pages.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 8
+- L1 Use Case Name: Initial Access
+- L1 Use Case Identifier: INA
+- L2 Use Case Name: Valid Account
+- L2 Use Case Identifier: INA-001
+- Rule Identifier: INA-001-A-000-0010
+- Technical Use Case Name: Multiple Failed Login Attempts Followed by Successful Authentication - Linux
+- Use Case Description:
+- Log source type: Linux Servers
+- Detection Technology: SIEM
+- Scope: All users
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1110/
+  - https://attack.mitre.org/techniques/T1078/
+correlation:
+  type: temporal_ordered
+  rules:
+    - HXP-BASE-LINUX-SSHD-FAILED
+    - HXP-BASE-LINUX-SSHD-SUCCESS
+  group-by:
+    - user.name
+    - source.ip
+  timespan: 5m
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1110
+  - attack.t1078

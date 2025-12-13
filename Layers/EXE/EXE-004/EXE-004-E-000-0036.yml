@@ -1,0 +1,76 @@
+title: WMI Enumerating Local Admin Group Members - EXE-004-E-000-0036
+id: EXE-004-E-000-0036
+status: experimental
+description: |
+  Detection Description:
+  Detects enumeration of local Administrators group membership, which can be used for privilege discovery.
+
+  Status:
+  experimental
+
+  Threat Mapping:
+  MITRE ATT&CK Technique(s): T1069.002 - Permission Groups Discovery: Domain Groups
+  Kill Chain Phase: Execution
+
+  Data Sources:
+  MITRE Data Source: Process Creation
+  Product targeted by the Rule: Windows
+  Service in the product that provides the log: Sysmon (Event ID 1) or equivalent process creation logs
+
+  Detection Logic:
+  Matches net localgroup, PowerShell Get-LocalGroupMember, or WMIC groupuser enumeration patterns.
+
+  False Positive Considerations:
+  See falsepositives section below.
+
+  Severity and Risk Rating:
+  Severity Level: Medium
+
+  References:
+  See references section below.
+
+  Author:
+  HXP Detection team
+
+  Use Case Sheet Details:
+- L3 use cases per L2: 36
+- L1 Use Case Name: Execution
+- L1 Use Case Identifier: EXE
+- L2 Use Case Name: WMI Execution
+- L2 Use Case Identifier: EXE-004
+- Rule Identifier: EXE-004-E-000-0036
+- Technical Use Case Name: WMI Enumerating Local Admin Group Members
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1069/002/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith:
+      - '\\net.exe'
+      - '\\net1.exe'
+      - '\\powershell.exe'
+      - '\\pwsh.exe'
+      - '\\wmic.exe'
+    CommandLine|contains:
+      - 'localgroup administrators'
+      - 'Get-LocalGroupMember'
+      - 'groupuser'
+      - 'Win32_GroupUser'
+
+  condition: selection
+
+falsepositives:
+  - Legitimate administrative audits and inventory scripts
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1069.002
