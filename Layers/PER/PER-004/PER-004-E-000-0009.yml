@@ -1,0 +1,71 @@
+title: Systemd Service File Creation in Non-Standard Directories - PER-004-E-000-0009
+id: PER-004-E-000-0009
+status: experimental
+description: |
+      Detection Description:
+      Detects creation of systemd service unit files in non-standard or user-writable directories, which can indicate persistence.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1543.002 - Systemd Service
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: File Creation
+      Product targeted by the Rule: Linux
+      Service in the product that provides the log: auditd
+
+      Detection Logic:
+      File creation events for *.service under suspicious directories such as /tmp, /var/tmp, /dev/shm, /home, /run/user.
+
+      False Positive Considerations:
+      Rare; legitimate troubleshooting may create temporary unit files (review and allowlist).
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 10
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Service/Daemon Persistence
+- L2 Use Case Identifier: PER-004
+- Rule Identifier: PER-004-E-000-0009
+- Technical Use Case Name: Systemd Service File Creation in Non-Standard Directories
+- Use Case Description: 
+- Log source type: Linux Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/002/
+logsource:
+  category: file_event
+  product: linux
+  service: auditd
+detection:
+  selection_ext:
+    TargetFilename|endswith: '.service'
+  suspicious_dirs:
+    TargetFilename|contains|any:
+      - '/tmp/'
+      - '/var/tmp/'
+      - '/dev/shm/'
+      - '/home/'
+      - '/run/user/'
+  condition: selection_ext and suspicious_dirs
+falsepositives:
+  - Rare legitimate creation of unit files outside standard directories
+level: high
+tags:
+  - attack.persistence
+  - attack.t1543.002

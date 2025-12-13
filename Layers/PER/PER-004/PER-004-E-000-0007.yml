@@ -1,0 +1,67 @@
+title: Service Executable Runs from Network Share - PER-004-E-000-0007
+id: PER-004-E-000-0007
+status: experimental
+description: |
+      Detection Description:
+      Detects newly installed services whose ImagePath points to a UNC network share, which can indicate remote-hosted payload execution.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1543.003 - Windows Service
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Service Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: System (7045) or Security (4697)
+
+      Detection Logic:
+      Service installation event where the service binary path begins with \\ (UNC).
+
+      False Positive Considerations:
+      Rare; some enterprise software may run from shares (should be reviewed).
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 10
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Service/Daemon Persistence
+- L2 Use Case Identifier: PER-004
+- Rule Identifier: PER-004-E-000-0007
+- Technical Use Case Name: Service Executable Runs from Network Share
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+logsource:
+  category: service
+  product: windows
+  service: system
+detection:
+  selection:
+    EventID: 7045
+  unc_path:
+    ImagePath|startswith: '\\\\'
+  condition: selection and unc_path
+falsepositives:
+  - Legitimate software deployed from network shares (rare)
+level: high
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.t1543.003

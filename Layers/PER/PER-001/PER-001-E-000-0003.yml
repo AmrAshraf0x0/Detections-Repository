@@ -1,0 +1,68 @@
+title: reg.exe Modifying LSA Authentication Packages - PER-001-E-000-0003
+id: PER-001-E-000-0003
+status: experimental
+description: |
+      Detection Description:
+      Detects modification of LSA Authentication Packages via reg.exe. Attackers may add malicious authentication packages to gain persistence and credential access.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1547.002 - Authentication Package
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Registry
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 13) or Security 4657 (if enabled)
+
+      Detection Logic:
+      Registry value set in LSA Authentication Packages location where reg.exe is the modifying process.
+
+      False Positive Considerations:
+      Rare; legitimate security software or hardening scripts may update LSA packages (verify change ticket/vendor).
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 11
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Boot or Logon Autostart Execution
+- L2 Use Case Identifier: PER-001
+- Rule Identifier: PER-001-E-000-0003
+- Technical Use Case Name: reg.exe Modifying LSA Authentication Packages
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1547/002/
+logsource:
+  category: registry_event
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 13
+    TargetObject|contains:
+      - '\System\CurrentControlSet\Control\Lsa\Authentication Packages'
+  reg_process:
+    Image|endswith: '\reg.exe'
+  condition: selection and reg_process
+falsepositives:
+  - Legitimate security product configuration changes
+level: high
+tags:
+  - attack.persistence
+  - attack.t1547.002

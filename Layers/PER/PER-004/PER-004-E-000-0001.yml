@@ -1,0 +1,65 @@
+title: New Windows Service Creation - PER-004-E-000-0001
+id: PER-004-E-000-0001
+status: experimental
+description: |
+      Detection Description:
+      Detects creation of a new Windows service (Service Control Manager event 7045). Common persistence and execution technique.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1543.003 - Windows Service
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Service Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: System (Service Control Manager)
+
+      Detection Logic:
+      EventID 7045 indicates a new service was installed. Consider tuning by allowlisting known software installers.
+
+      False Positive Considerations:
+      Legitimate software installation/upgrades.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 10
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Service/Daemon Persistence
+- L2 Use Case Identifier: PER-004
+- Rule Identifier: PER-004-E-000-0001
+- Technical Use Case Name: New Windows Service Creation
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+logsource:
+  category: service
+  product: windows
+  service: system
+detection:
+  selection:
+    EventID: 7045
+  condition: selection
+falsepositives:
+  - Legitimate service creation during software deployments
+level: high
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.t1543.003

@@ -1,0 +1,64 @@
+title: WMI FilterToConsumerBinding Creation - PER-008-E-000-0003
+id: PER-008-E-000-0003
+status: experimental
+description: |
+      Detection Description:
+      Detects creation of WMI FilterToConsumerBinding, which binds filters and consumers to complete a permanent WMI subscription.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1546.003 - WMI Event Subscription
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: WMI
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 21) if enabled
+
+      Detection Logic:
+      Sysmon Event ID 21 indicates a WMI binding was created.
+
+      False Positive Considerations:
+      Legitimate WMI subscription usage by monitoring tools.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 7
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Event-Triggered Execution
+- L2 Use Case Identifier: PER-008
+- Rule Identifier: PER-008-E-000-0003
+- Technical Use Case Name: WMI FilterToConsumerBinding Creation
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1546/003/
+logsource:
+  category: wmi_event
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 21
+  condition: selection
+falsepositives:
+  - Legitimate WMI subscription bindings
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.003

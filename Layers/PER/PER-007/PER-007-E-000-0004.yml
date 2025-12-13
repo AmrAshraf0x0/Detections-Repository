@@ -1,0 +1,71 @@
+title: sc.exe Creating Kernel Driver Service - PER-007-E-000-0004
+id: PER-007-E-000-0004
+status: experimental
+description: |
+      Detection Description:
+      Detects creation of a kernel driver service using sc.exe, which can install a driver for persistence and privilege.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1543.003 - Windows Service (Driver as service)
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 1) or equivalent
+
+      Detection Logic:
+      sc.exe create with 'type= kernel' or 'type= driver' parameters.
+
+      False Positive Considerations:
+      Legitimate driver installation tools.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 7
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Kernel Module / Driver
+- L2 Use Case Identifier: PER-007
+- Rule Identifier: PER-007-E-000-0004
+- Technical Use Case Name: sc.exe Creating Kernel Driver Service
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith: '\sc.exe'
+    CommandLine|contains:
+      - ' create '
+  driver_type:
+    CommandLine|contains|any:
+      - ' type= kernel'
+      - ' type= driver'
+  condition: selection and driver_type
+falsepositives:
+  - Legitimate driver installation
+level: high
+tags:
+  - attack.persistence
+  - attack.privilege_escalation
+  - attack.t1543.003

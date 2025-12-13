@@ -1,0 +1,74 @@
+title: WmiPrvSE.exe Spawning Suspicious Child Process - PER-008-E-000-0005
+id: PER-008-E-000-0005
+status: experimental
+description: |
+      Detection Description:
+      Detects WmiPrvSE.exe spawning suspicious child processes, which can indicate malicious WMI event consumer execution.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1546.003 - WMI Event Subscription
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 1) or equivalent
+
+      Detection Logic:
+      ParentImage WmiPrvSE.exe and child is a scripting host/LOLBIN (powershell, cmd, mshta, wscript, rundll32).
+
+      False Positive Considerations:
+      Rare; some management tools might spawn scripts (tune allowlist).
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 7
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Event-Triggered Execution
+- L2 Use Case Identifier: PER-008
+- Rule Identifier: PER-008-E-000-0005
+- Technical Use Case Name: WmiPrvSE.exe Spawning Suspicious Child Process
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1546/003/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection_parent:
+    ParentImage|endswith: '\WmiPrvSE.exe'
+  suspicious_child:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+      - '\cmd.exe'
+      - '\mshta.exe'
+      - '\wscript.exe'
+      - '\cscript.exe'
+      - '\rundll32.exe'
+      - '\regsvr32.exe'
+  condition: selection_parent and suspicious_child
+falsepositives:
+  - Legitimate WMI consumers from trusted management tools
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.003

@@ -1,0 +1,73 @@
+title: Driver File (.sys) Created in Non-Standard Directory - PER-007-E-000-0005
+id: PER-007-E-000-0005
+status: experimental
+description: |
+      Detection Description:
+      Detects creation of driver files (.sys) in non-standard or user-writable directories, which can indicate malicious driver staging.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1543.003 - Windows Service (Driver), T1014 - Rootkit
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: File Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 11) or equivalent
+
+      Detection Logic:
+      File create events for *.sys under suspicious directories (Temp, Users\Public, ProgramData, Perflogs).
+
+      False Positive Considerations:
+      Some legitimate vendor installers may temporarily stage drivers; validate signer and path.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 7
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Kernel Module / Driver
+- L2 Use Case Identifier: PER-007
+- Rule Identifier: PER-007-E-000-0005
+- Technical Use Case Name: Driver File (.sys) Created in Non-Standard Directory
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1014/
+logsource:
+  category: file_event
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 11
+    TargetFilename|endswith: '.sys'
+  suspicious_dirs:
+    TargetFilename|contains|any:
+      - '\AppData\Local\Temp\'
+      - '\Users\Public\'
+      - '\Windows\Temp\'
+      - '\ProgramData\'
+      - '\Perflogs\'
+  condition: selection and suspicious_dirs
+falsepositives:
+  - Legitimate driver installer staging to temp locations
+level: high
+tags:
+  - attack.persistence
+  - attack.defense_evasion
+  - attack.t1014

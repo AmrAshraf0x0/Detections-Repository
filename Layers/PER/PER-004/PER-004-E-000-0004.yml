@@ -1,0 +1,72 @@
+title: Service Registry Modification - PER-004-E-000-0004
+id: PER-004-E-000-0004
+status: experimental
+description: |
+      Detection Description:
+      Detects registry modifications to service configuration (ImagePath/Start/ServiceDll) under HKLM\System\CurrentControlSet\Services.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1543.003 - Windows Service
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Registry
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 13) or equivalent
+
+      Detection Logic:
+      Registry value set events targeting Services\* keys with sensitive value names.
+
+      False Positive Considerations:
+      Legitimate service configuration changes.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 10
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Service/Daemon Persistence
+- L2 Use Case Identifier: PER-004
+- Rule Identifier: PER-004-E-000-0004
+- Technical Use Case Name: Service Registry Modification
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+logsource:
+  category: registry_event
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 13
+    TargetObject|contains:
+      - '\System\CurrentControlSet\Services\'
+  sensitive_values:
+    TargetObject|endswith:
+      - '\ImagePath'
+      - '\Start'
+      - '\ServiceDll'
+      - '\Parameters\ServiceDll'
+  condition: selection and sensitive_values
+falsepositives:
+  - Legitimate service changes during installs/patching
+level: high
+tags:
+  - attack.persistence
+  - attack.t1543.003

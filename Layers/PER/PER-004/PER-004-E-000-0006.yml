@@ -1,0 +1,79 @@
+title: Service Created by Office Application - PER-004-E-000-0006
+id: PER-004-E-000-0006
+status: experimental
+description: |
+      Detection Description:
+      Detects Office applications creating services by spawning sc.exe or PowerShell New-Service, which is highly suspicious and may indicate macro-driven persistence.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1543.003 - Windows Service, T1137 - Office Application Startup
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 1) or equivalent
+
+      Detection Logic:
+      Office parent process spawning sc.exe or PowerShell with service-creation commands.
+
+      False Positive Considerations:
+      Very rare; investigate if triggered.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 10
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Service/Daemon Persistence
+- L2 Use Case Identifier: PER-004
+- Rule Identifier: PER-004-E-000-0006
+- Technical Use Case Name: Service Created by Office Application
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  office_parent:
+    ParentImage|endswith:
+      - '\WINWORD.EXE'
+      - '\EXCEL.EXE'
+      - '\POWERPNT.EXE'
+      - '\OUTLOOK.EXE'
+  service_child_sc:
+    Image|endswith: '\sc.exe'
+    CommandLine|contains:
+      - ' create '
+  service_child_ps:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains:
+      - 'New-Service'
+  condition: office_parent and (service_child_sc or service_child_ps)
+falsepositives:
+  - Very rare legitimate automation
+level: high
+tags:
+  - attack.persistence
+  - attack.t1543.003
+  - attack.t1137

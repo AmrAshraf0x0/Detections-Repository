@@ -1,0 +1,67 @@
+title: Scheduled Task Creation via schtasks.exe - PER-003-E-000-0001
+id: PER-003-E-000-0001
+status: experimental
+description: |
+      Detection Description:
+      Detects creation of scheduled tasks via schtasks.exe, a common persistence technique.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1053.005 - Scheduled Task/Job: Scheduled Task
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Scheduled Task; Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Security (4698) and/or Sysmon (Event ID 1)
+
+      Detection Logic:
+      Windows Security 4698 OR schtasks.exe with '/create' in command line.
+
+      False Positive Considerations:
+      Legitimate task creation by admins and software installers.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 9
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Scheduled Task Persistence
+- L2 Use Case Identifier: PER-003
+- Rule Identifier: PER-003-E-000-0001
+- Technical Use Case Name: Scheduled Task Creation via schtasks.exe
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection_security:
+    EventID: 4698
+  selection_proc:
+    Image|endswith: '\schtasks.exe'
+    CommandLine|contains:
+      - ' /create'
+  condition: selection_security or selection_proc
+falsepositives:
+  - Legitimate scheduled task creation
+level: high
+tags:
+  - attack.persistence
+  - attack.t1053.005

@@ -1,0 +1,71 @@
+title: Kernel Module Loaded via modprobe from Suspicious Path - PER-007-E-000-0002
+id: PER-007-E-000-0002
+status: experimental
+description: |
+      Detection Description:
+      Detects modprobe loading a kernel module from a suspicious path (e.g., /tmp, /var/tmp, /dev/shm).
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1014 - Rootkit
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Linux
+      Service in the product that provides the log: auditd
+
+      Detection Logic:
+      modprobe execution where the command line references suspicious directories.
+
+      False Positive Considerations:
+      Rare; legitimate troubleshooting should be reviewed.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 7
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Kernel Module / Driver
+- L2 Use Case Identifier: PER-007
+- Rule Identifier: PER-007-E-000-0002
+- Technical Use Case Name: Kernel Module Loaded via modprobe from Suspicious Path
+- Use Case Description: 
+- Log source type: Linux Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1014/
+logsource:
+  category: process_creation
+  product: linux
+  service: auditd
+detection:
+  selection:
+    Image|endswith: '/modprobe'
+  suspicious_path:
+    CommandLine|contains|any:
+      - '/tmp/'
+      - '/var/tmp/'
+      - '/dev/shm/'
+      - '/run/user/'
+  condition: selection and suspicious_path
+falsepositives:
+  - Rare legitimate module testing from temporary locations
+level: high
+tags:
+  - attack.persistence
+  - attack.defense_evasion
+  - attack.t1014

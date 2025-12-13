@@ -1,0 +1,71 @@
+title: New-Service Created via PowerShell - PER-004-E-000-0005
+id: PER-004-E-000-0005
+status: experimental
+description: |
+      Detection Description:
+      Detects creation of Windows services via PowerShell New-Service cmdlet.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1543.003 - Windows Service, T1059.001 - PowerShell
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 1) or PowerShell logging
+
+      Detection Logic:
+      PowerShell command line contains New-Service or Set-Service with binary path parameters.
+
+      False Positive Considerations:
+      Legitimate DevOps/IT automation creating services.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 10
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Service/Daemon Persistence
+- L2 Use Case Identifier: PER-004
+- Rule Identifier: PER-004-E-000-0005
+- Technical Use Case Name: New-Service Created via PowerShell
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+  - https://attack.mitre.org/techniques/T1059/001/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains|any:
+      - 'New-Service'
+      - 'Set-Service'
+  condition: selection
+falsepositives:
+  - Legitimate service provisioning via PowerShell
+level: high
+tags:
+  - attack.persistence
+  - attack.t1543.003
+  - attack.t1059.001

@@ -1,0 +1,69 @@
+title: PnPUtil.exe Adding Driver Package - PER-007-E-000-0007
+id: PER-007-E-000-0007
+status: experimental
+description: |
+      Detection Description:
+      Detects adding/installing driver packages using pnputil.exe, which can be abused to install malicious drivers.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1543.003 - Windows Service (Driver) / T1014 - Rootkit
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 1) or equivalent
+
+      Detection Logic:
+      pnputil.exe executed with add-driver or /add-driver arguments.
+
+      False Positive Considerations:
+      Legitimate driver installation and updates.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 7
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Kernel Module / Driver
+- L2 Use Case Identifier: PER-007
+- Rule Identifier: PER-007-E-000-0007
+- Technical Use Case Name: PnPUtil.exe Adding Driver Package
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1014/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith: '\pnputil.exe'
+    CommandLine|contains|any:
+      - '/add-driver'
+      - ' /add-driver'
+      - 'add-driver'
+  condition: selection
+falsepositives:
+  - Legitimate driver deployments
+level: high
+tags:
+  - attack.persistence
+  - attack.defense_evasion
+  - attack.t1014

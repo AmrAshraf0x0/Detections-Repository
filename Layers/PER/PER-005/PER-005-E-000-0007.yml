@@ -1,0 +1,64 @@
+title: Linux User Account Creation via useradd Command - PER-005-E-000-0007
+id: PER-005-E-000-0007
+status: experimental
+description: |
+      Detection Description:
+      Detects Linux user creation via useradd, a common persistence method.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1136.001 - Create Account: Local Account
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Linux
+      Service in the product that provides the log: auditd
+
+      Detection Logic:
+      Process creation for useradd.
+
+      False Positive Considerations:
+      Legitimate account provisioning.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 8
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Account Manipulation
+- L2 Use Case Identifier: PER-005
+- Rule Identifier: PER-005-E-000-0007
+- Technical Use Case Name: Linux User Account Creation via useradd Command
+- Use Case Description: 
+- Log source type: Linux Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1136/001/
+logsource:
+  category: process_creation
+  product: linux
+  service: auditd
+detection:
+  selection:
+    Image|endswith: '/useradd'
+  condition: selection
+falsepositives:
+  - Legitimate account creation
+level: high
+tags:
+  - attack.persistence
+  - attack.t1136.001

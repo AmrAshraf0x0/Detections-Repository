@@ -1,0 +1,74 @@
+title: Service Tampering - PER-004-E-000-0003
+id: PER-004-E-000-0003
+status: experimental
+description: |
+      Detection Description:
+      Detects service tampering via sc.exe (delete/config/stop/start). Attackers may modify or remove security services or re-point ImagePath.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1562.001 - Disable or Modify Tools; T1543.003 - Windows Service
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 1) or equivalent
+
+      Detection Logic:
+      sc.exe executed with verbs associated with deletion or configuration changes.
+
+      False Positive Considerations:
+      Legitimate service administration.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 10
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Service/Daemon Persistence
+- L2 Use Case Identifier: PER-004
+- Rule Identifier: PER-004-E-000-0003
+- Technical Use Case Name: Service Tampering
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+  - https://attack.mitre.org/techniques/T1562/001/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith: '\sc.exe'
+    CommandLine|contains|any:
+      - ' delete '
+      - ' config '
+      - ' stop '
+      - ' start '
+      - ' failure '
+      - ' sdset '
+  condition: selection
+falsepositives:
+  - Legitimate administrative service configuration changes
+level: high
+tags:
+  - attack.persistence
+  - attack.defense_evasion
+  - attack.t1543.003
+  - attack.t1562.001

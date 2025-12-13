@@ -1,0 +1,66 @@
+title: UserInitMprLogonScript Registry Key Creation - PER-002-E-000-0003
+id: PER-002-E-000-0003
+status: experimental
+description: |
+      Detection Description:
+      Detects creation/modification of the UserInitMprLogonScript registry value, which can be used to execute code at logon.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1037 - Boot or Logon Initialization Scripts
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Registry
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 13) or equivalent
+
+      Detection Logic:
+      Registry value set for UserInitMprLogonScript.
+
+      False Positive Considerations:
+      Legitimate logon script configuration via GPO or IT tooling.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 4
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Initialization Scripts
+- L2 Use Case Identifier: PER-002
+- Rule Identifier: PER-002-E-000-0003
+- Technical Use Case Name: UserInitMprLogonScript Registry Key Creation
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1037/
+logsource:
+  category: registry_event
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 13
+    TargetObject|contains:
+      - '\Environment\UserInitMprLogonScript'
+  condition: selection
+falsepositives:
+  - Legitimate logon script configuration
+level: high
+tags:
+  - attack.persistence
+  - attack.t1037

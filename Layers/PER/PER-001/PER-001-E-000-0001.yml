@@ -1,0 +1,71 @@
+title: Registry Run Key Creation via reg.exe - PER-001-E-000-0001
+id: PER-001-E-000-0001
+status: experimental
+description: |
+      Detection Description:
+      Detects creation/modification of Windows Run/RunOnce autorun registry values performed via reg.exe, which is a common persistence mechanism.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1547.001 - Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Registry
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 13) or equivalent registry auditing
+
+      Detection Logic:
+      Registry value set events targeting common Run/RunOnce paths, correlated with reg.exe as the modifier process.
+
+      False Positive Considerations:
+      Legitimate software installers/updaters creating autorun entries; enterprise management agents.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 11
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Boot or Logon Autostart Execution
+- L2 Use Case Identifier: PER-001
+- Rule Identifier: PER-001-E-000-0001
+- Technical Use Case Name: Registry Run Key Creation via reg.exe
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1547/001/
+logsource:
+  category: registry_event
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 13
+    TargetObject|contains:
+      - '\Software\Microsoft\Windows\CurrentVersion\Run'
+      - '\Software\Microsoft\Windows\CurrentVersion\RunOnce'
+      - '\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run'
+  reg_process:
+    Image|endswith: '\\reg.exe'
+  condition: selection and reg_process
+falsepositives:
+  - Legitimate application auto-start configuration
+  - Software installation/upgrades
+level: high
+tags:
+  - attack.persistence
+  - attack.t1547.001

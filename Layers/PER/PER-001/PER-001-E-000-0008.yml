@@ -1,0 +1,67 @@
+title: Linux Kernel Module Loading via insmod/modprobe - PER-001-E-000-0008
+id: PER-001-E-000-0008
+status: experimental
+description: |
+      Detection Description:
+      Detects loading of Linux kernel modules via insmod or modprobe, which can indicate persistent kernel-level malware or rootkits.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1547 - Boot or Logon Autostart Execution (Kernel Modules) / T1014 - Rootkit
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Linux
+      Service in the product that provides the log: auditd
+
+      Detection Logic:
+      Process creation for insmod/modprobe. Consider enriching with module path and signer info when available.
+
+      False Positive Considerations:
+      Legitimate driver/module loading during maintenance or hardware enablement.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 11
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Boot or Logon Autostart Execution
+- L2 Use Case Identifier: PER-001
+- Rule Identifier: PER-001-E-000-0008
+- Technical Use Case Name: Linux Kernel Module Loading via insmod/modprobe
+- Use Case Description: 
+- Log source type: Linux Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1014/
+logsource:
+  category: process_creation
+  product: linux
+  service: auditd
+detection:
+  selection:
+    Image|endswith:
+      - '/insmod'
+      - '/modprobe'
+  condition: selection
+falsepositives:
+  - Legitimate kernel module administration
+level: high
+tags:
+  - attack.persistence
+  - attack.defense_evasion
+  - attack.t1014

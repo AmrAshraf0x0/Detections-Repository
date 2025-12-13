@@ -1,0 +1,74 @@
+title: Registry Run Key Creation via PowerShell - PER-001-E-000-0002
+id: PER-001-E-000-0002
+status: experimental
+description: |
+      Detection Description:
+      Detects creation/modification of Windows Run/RunOnce autorun registry values performed via PowerShell, often used by attackers to persist at logon.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1547.001 - Registry Run Keys / Startup Folder, T1059.001 - PowerShell
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Registry; Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 13 + Event ID 1) or equivalent
+
+      Detection Logic:
+      Registry value set on Run/RunOnce paths where the modifying process is powershell.exe or pwsh.exe (or PowerShell command line referencing Run keys).
+
+      False Positive Considerations:
+      Legitimate administrative scripts configuring startup apps.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 11
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Boot or Logon Autostart Execution
+- L2 Use Case Identifier: PER-001
+- Rule Identifier: PER-001-E-000-0002
+- Technical Use Case Name: Registry Run Key Creation via PowerShell
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1547/001/
+  - https://attack.mitre.org/techniques/T1059/001/
+logsource:
+  category: registry_event
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 13
+    TargetObject|contains:
+      - '\Software\Microsoft\Windows\CurrentVersion\Run'
+      - '\Software\Microsoft\Windows\CurrentVersion\RunOnce'
+      - '\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run'
+  ps_process:
+    Image|endswith:
+      - '\\powershell.exe'
+      - '\\pwsh.exe'
+  condition: selection and ps_process
+falsepositives:
+  - Legitimate PowerShell automation adding startup entries
+level: high
+tags:
+  - attack.persistence
+  - attack.t1547.001
+  - attack.t1059.001

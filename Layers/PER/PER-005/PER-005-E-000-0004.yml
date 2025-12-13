@@ -1,0 +1,67 @@
+title: Member Added to Administrators Group - PER-005-E-000-0004
+id: PER-005-E-000-0004
+status: experimental
+description: |
+      Detection Description:
+      Detects a member being added to an Administrators-related group in Active Directory, which can indicate persistence via privilege escalation.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1098 - Account Manipulation
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Group Management
+      Product targeted by the Rule: Windows / Active Directory
+      Service in the product that provides the log: Security
+
+      Detection Logic:
+      Windows Security event 4728/4732 indicating a member was added to a security-enabled group. This rule targets group names containing 'Administrators'.
+
+      False Positive Considerations:
+      Legitimate admin group changes (verify change ticket).
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 8
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Account Manipulation
+- L2 Use Case Identifier: PER-005
+- Rule Identifier: PER-005-E-000-0004
+- Technical Use Case Name: Member Added to Administrators Group
+- Use Case Description: 
+- Log source type: Active Directory
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID:
+      - 4728
+      - 4732
+  admins_group:
+    GroupName|contains: 'Administrators'
+  condition: selection and admins_group
+falsepositives:
+  - Legitimate AD group administration
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098

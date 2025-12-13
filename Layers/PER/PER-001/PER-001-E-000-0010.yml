@@ -1,0 +1,69 @@
+title: reg.exe Creating Active Setup GUID Entry - PER-001-E-000-0010
+id: PER-001-E-000-0010
+status: experimental
+description: |
+      Detection Description:
+      Detects creation of Active Setup Installed Components entries via reg.exe. Active Setup can be used to execute code at user logon.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1547 - Boot or Logon Autostart Execution (Active Setup)
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Registry
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 12/13) or equivalent
+
+      Detection Logic:
+      Registry key/value creation under Active Setup Installed Components where reg.exe is involved.
+
+      False Positive Considerations:
+      Legitimate application installers using Active Setup.
+
+      Severity and Risk Rating:
+      Severity Level: Medium
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 11
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Boot or Logon Autostart Execution
+- L2 Use Case Identifier: PER-001
+- Rule Identifier: PER-001-E-000-0010
+- Technical Use Case Name: reg.exe Creating Active Setup GUID Entry
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/
+logsource:
+  category: registry_event
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID:
+      - 12
+      - 13
+    TargetObject|contains:
+      - '\Software\Microsoft\Active Setup\Installed Components\'
+  reg_process:
+    Image|endswith: '\reg.exe'
+  condition: selection and reg_process
+falsepositives:
+  - Legitimate software installation using Active Setup
+level: medium
+tags:
+  - attack.persistence

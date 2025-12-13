@@ -1,0 +1,79 @@
+title: WMI Event Subscription with Network Callback (DownloadString, WebClient) - PER-008-E-000-0007
+id: PER-008-E-000-0007
+status: experimental
+description: |
+      Detection Description:
+      Detects indicators that a WMI subscription is launching a network-capable PowerShell payload (DownloadString/WebClient/Invoke-WebRequest).
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1546.003 - WMI Event Subscription, T1105 - Ingress Tool Transfer
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 1) or equivalent
+
+      Detection Logic:
+      WmiPrvSE.exe spawning PowerShell with DownloadString/WebClient/Invoke-WebRequest keywords.
+
+      False Positive Considerations:
+      Rare; legitimate management scripts pulling resources over HTTP (should be reviewed).
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 7
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Event-Triggered Execution
+- L2 Use Case Identifier: PER-008
+- Rule Identifier: PER-008-E-000-0007
+- Technical Use Case Name: WMI Event Subscription with Network Callback (DownloadString, WebClient)
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1546/003/
+  - https://attack.mitre.org/techniques/T1105/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  parent_wmi:
+    ParentImage|endswith: '\WmiPrvSE.exe'
+  child_ps:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+  net_keywords:
+    CommandLine|contains|any:
+      - 'DownloadString'
+      - 'System.Net.WebClient'
+      - 'Invoke-WebRequest'
+      - 'Invoke-RestMethod'
+      - 'http://'
+      - 'https://'
+  condition: parent_wmi and child_ps and net_keywords
+falsepositives:
+  - Legitimate WMI-based scripts performing downloads (rare)
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.003
+  - attack.command_and_control
+  - attack.t1105

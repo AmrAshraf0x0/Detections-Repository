@@ -1,0 +1,72 @@
+title: Driver Loaded from Temp Directory - PER-007-E-000-0008
+id: PER-007-E-000-0008
+status: experimental
+description: |
+      Detection Description:
+      Detects kernel driver load events where the driver is loaded from a temporary directory, which is suspicious for malicious drivers.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1014 - Rootkit
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Driver Load
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 6) if enabled
+
+      Detection Logic:
+      Sysmon Event ID 6 (Driver loaded) where ImageLoaded path contains Temp or other user-writable locations.
+
+      False Positive Considerations:
+      Rare; some installers may load drivers from temp during install (validate).
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 7
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Kernel Module / Driver
+- L2 Use Case Identifier: PER-007
+- Rule Identifier: PER-007-E-000-0008
+- Technical Use Case Name: Driver Loaded from Temp Directory
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1014/
+logsource:
+  category: driver_load
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 6
+  suspicious_path:
+    ImageLoaded|contains|any:
+      - '\AppData\Local\Temp\'
+      - '\Windows\Temp\'
+      - '\Users\Public\'
+      - '\ProgramData\'
+      - '\Perflogs\'
+  condition: selection and suspicious_path
+falsepositives:
+  - Driver installs that load from temp (rare)
+level: high
+tags:
+  - attack.persistence
+  - attack.defense_evasion
+  - attack.t1014

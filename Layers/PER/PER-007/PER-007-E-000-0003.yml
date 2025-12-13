@@ -1,0 +1,72 @@
+title: Kernel Module File Creation (.ko) in Non-Standard Directory - PER-007-E-000-0003
+id: PER-007-E-000-0003
+status: experimental
+description: |
+      Detection Description:
+      Detects creation of Linux kernel module files (.ko) in non-standard directories, which can indicate staging for kernel persistence.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1014 - Rootkit
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: File Creation
+      Product targeted by the Rule: Linux
+      Service in the product that provides the log: auditd
+
+      Detection Logic:
+      File creation where TargetFilename ends with .ko and path is outside typical module directories.
+
+      False Positive Considerations:
+      Rare; legitimate driver development/test systems.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 7
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Kernel Module / Driver
+- L2 Use Case Identifier: PER-007
+- Rule Identifier: PER-007-E-000-0003
+- Technical Use Case Name: Kernel Module File Creation (.ko) in Non-Standard Directory
+- Use Case Description: 
+- Log source type: Linux Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1014/
+logsource:
+  category: file_event
+  product: linux
+  service: auditd
+detection:
+  selection_ext:
+    TargetFilename|endswith: '.ko'
+  suspicious_dirs:
+    TargetFilename|contains|any:
+      - '/tmp/'
+      - '/var/tmp/'
+      - '/dev/shm/'
+      - '/home/'
+      - '/run/user/'
+  condition: selection_ext and suspicious_dirs
+falsepositives:
+  - Legitimate kernel module development environments
+level: high
+tags:
+  - attack.persistence
+  - attack.defense_evasion
+  - attack.t1014

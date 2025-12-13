@@ -1,0 +1,76 @@
+title: PowerShell Creating Run Key - PER-001-E-000-0011
+id: PER-001-E-000-0011
+status: experimental
+description: |
+      Detection Description:
+      Detects PowerShell creating or modifying Run/RunOnce registry values using cmdlets such as New-ItemProperty/Set-ItemProperty.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1547.001 - Registry Run Keys / Startup Folder, T1059.001 - PowerShell
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 1) or equivalent
+
+      Detection Logic:
+      PowerShell command lines that reference common Run key paths and use property-setting cmdlets.
+
+      False Positive Considerations:
+      Legitimate admin scripts customizing startup behavior.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 11
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Boot or Logon Autostart Execution
+- L2 Use Case Identifier: PER-001
+- Rule Identifier: PER-001-E-000-0011
+- Technical Use Case Name: PowerShell Creating Run Key
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1547/001/
+  - https://attack.mitre.org/techniques/T1059/001/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains|all:
+      - 'CurrentVersion\Run'
+  modifier_cmdlets:
+    CommandLine|contains|any:
+      - 'New-ItemProperty'
+      - 'Set-ItemProperty'
+      - 'New-Item'
+      - 'reg add'
+  condition: selection and modifier_cmdlets
+falsepositives:
+  - Legitimate PowerShell profile/startup configuration
+level: high
+tags:
+  - attack.persistence
+  - attack.t1547.001
+  - attack.t1059.001

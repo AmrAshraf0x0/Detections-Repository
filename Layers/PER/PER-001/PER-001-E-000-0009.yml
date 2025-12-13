@@ -1,0 +1,67 @@
+title: reg.exe Adding Print Monitor Driver Entry - PER-001-E-000-0009
+id: PER-001-E-000-0009
+status: experimental
+description: |
+      Detection Description:
+      Detects reg.exe adding a Print Monitor entry. Print monitor DLL loading can be abused for persistence and privilege escalation.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1547 - Boot or Logon Autostart Execution (Print Monitor)
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Registry
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 13) or equivalent
+
+      Detection Logic:
+      Registry value set under Print\Monitors where reg.exe is the modifier.
+
+      False Positive Considerations:
+      Legitimate printer management software adding monitors.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 11
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Boot or Logon Autostart Execution
+- L2 Use Case Identifier: PER-001
+- Rule Identifier: PER-001-E-000-0009
+- Technical Use Case Name: reg.exe Adding Print Monitor Driver Entry
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/
+logsource:
+  category: registry_event
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 13
+    TargetObject|contains:
+      - '\System\CurrentControlSet\Control\Print\Monitors\'
+  reg_process:
+    Image|endswith: '\reg.exe'
+  condition: selection and reg_process
+falsepositives:
+  - Legitimate printer software installation
+level: high
+tags:
+  - attack.persistence

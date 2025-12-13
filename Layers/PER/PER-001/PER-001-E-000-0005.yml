@@ -1,0 +1,68 @@
+title: reg.exe Adding W32Time TimeProviders Entry - PER-001-E-000-0005
+id: PER-001-E-000-0005
+status: experimental
+description: |
+      Detection Description:
+      Detects reg.exe adding or modifying W32Time TimeProviders entries, which can be abused for persistence by loading a malicious time provider DLL.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1547.003 - Time Providers
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Registry
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 13) or equivalent
+
+      Detection Logic:
+      Registry value set under W32Time\TimeProviders where the modifying process is reg.exe.
+
+      False Positive Considerations:
+      Legitimate time sync customization in domain environments (rare; verify).
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 11
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Boot or Logon Autostart Execution
+- L2 Use Case Identifier: PER-001
+- Rule Identifier: PER-001-E-000-0005
+- Technical Use Case Name: reg.exe Adding W32Time TimeProviders Entry
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1547/003/
+logsource:
+  category: registry_event
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 13
+    TargetObject|contains:
+      - '\System\CurrentControlSet\Services\W32Time\TimeProviders\'
+  reg_process:
+    Image|endswith: '\reg.exe'
+  condition: selection and reg_process
+falsepositives:
+  - Legitimate NTP/time provider configuration changes
+level: high
+tags:
+  - attack.persistence
+  - attack.t1547.003

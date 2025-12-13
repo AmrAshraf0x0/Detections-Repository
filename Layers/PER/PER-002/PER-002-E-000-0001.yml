@@ -1,0 +1,73 @@
+title: PowerShell Creating Logon Script - PER-002-E-000-0001
+id: PER-002-E-000-0001
+status: experimental
+description: |
+      Detection Description:
+      Detects PowerShell creating or modifying logon scripts (e.g., via registry or user profile scripting), which can be used for persistence at logon.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1037 - Boot or Logon Initialization Scripts, T1059.001 - PowerShell
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 1) or equivalent
+
+      Detection Logic:
+      PowerShell commands that reference common logon script locations or keys (UserInitMprLogonScript, scripts folder, GroupPolicy Scripts).
+
+      False Positive Considerations:
+      Legitimate IT logon script deployments.
+
+      Severity and Risk Rating:
+      Severity Level: Medium
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 4
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Initialization Scripts
+- L2 Use Case Identifier: PER-002
+- Rule Identifier: PER-002-E-000-0001
+- Technical Use Case Name: PowerShell Creating Logon Script
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1037/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+  keywords:
+    CommandLine|contains|any:
+      - 'UserInitMprLogonScript'
+      - 'GroupPolicy\Scripts'
+      - '\scripts\'
+      - 'LogonScripts'
+  condition: selection and keywords
+falsepositives:
+  - Legitimate logon script configuration and GPO management
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1037
+  - attack.t1059.001

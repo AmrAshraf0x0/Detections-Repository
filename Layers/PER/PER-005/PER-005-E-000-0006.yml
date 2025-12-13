@@ -1,0 +1,66 @@
+title: SSH Key Added by Bash/Cat Command - PER-005-E-000-0006
+id: PER-005-E-000-0006
+status: experimental
+description: |
+      Detection Description:
+      Detects creation or modification of SSH authorized_keys using bash/cat/echo, which can establish persistent access.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1098.004 - SSH Authorized Keys
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: File Modification; Process Creation
+      Product targeted by the Rule: Linux
+      Service in the product that provides the log: auditd
+
+      Detection Logic:
+      Writes to authorized_keys file or use of cat/echo redirection in command line. This rule flags file events for authorized_keys.
+
+      False Positive Considerations:
+      Legitimate SSH key management by administrators or automation.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 8
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Account Manipulation
+- L2 Use Case Identifier: PER-005
+- Rule Identifier: PER-005-E-000-0006
+- Technical Use Case Name: SSH Key Added by Bash/Cat Command
+- Use Case Description: 
+- Log source type: Linux Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1098/004/
+logsource:
+  category: file_event
+  product: linux
+  service: auditd
+detection:
+  selection:
+    TargetFilename|endswith:
+      - '/.ssh/authorized_keys'
+      - '/.ssh/authorized_keys2'
+  condition: selection
+falsepositives:
+  - Legitimate SSH key updates
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098.004

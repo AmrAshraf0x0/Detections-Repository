@@ -1,0 +1,65 @@
+title: Kernel Module Loaded via insmod Command - PER-007-E-000-0001
+id: PER-007-E-000-0001
+status: experimental
+description: |
+      Detection Description:
+      Detects loading of kernel modules using insmod, which can indicate kernel-level persistence or rootkit activity.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1014 - Rootkit
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Linux
+      Service in the product that provides the log: auditd
+
+      Detection Logic:
+      Process creation for insmod.
+
+      False Positive Considerations:
+      Legitimate module loading during maintenance.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 7
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Kernel Module / Driver
+- L2 Use Case Identifier: PER-007
+- Rule Identifier: PER-007-E-000-0001
+- Technical Use Case Name: Kernel Module Loaded via insmod Command
+- Use Case Description: 
+- Log source type: Linux Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1014/
+logsource:
+  category: process_creation
+  product: linux
+  service: auditd
+detection:
+  selection:
+    Image|endswith: '/insmod'
+  condition: selection
+falsepositives:
+  - Legitimate kernel module management
+level: high
+tags:
+  - attack.persistence
+  - attack.defense_evasion
+  - attack.t1014

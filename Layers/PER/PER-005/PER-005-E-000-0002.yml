@@ -1,0 +1,66 @@
+title: Local Administrator Account Creation - PER-005-E-000-0002
+id: PER-005-E-000-0002
+status: experimental
+description: |
+      Detection Description:
+      Detects creation of a local user followed by addition to the local Administrators group.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1136.001 - Local Account, T1098 - Account Manipulation
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: User Account Management
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Security
+
+      Detection Logic:
+      User created (4720) and/or added to local Administrators group (4732). This rule detects the group add event and targets Administrators.
+
+      False Positive Considerations:
+      Legitimate provisioning of admin accounts; helpdesk actions.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 8
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Account Manipulation
+- L2 Use Case Identifier: PER-005
+- Rule Identifier: PER-005-E-000-0002
+- Technical Use Case Name: Local Administrator Account Creation
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1098/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4732
+  administrators_group:
+    GroupName|contains: 'Administrators'
+  condition: selection and administrators_group
+falsepositives:
+  - Legitimate admin group management
+level: high
+tags:
+  - attack.persistence
+  - attack.t1098
+  - attack.t1136.001

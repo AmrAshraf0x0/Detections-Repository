@@ -1,0 +1,64 @@
+title: Crontab Command Execution for Job Creation - PER-003-E-000-0008
+id: PER-003-E-000-0008
+status: experimental
+description: |
+      Detection Description:
+      Detects creation of cron jobs via crontab, a common Linux persistence mechanism.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1053.003 - Scheduled Task/Job: Cron
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Linux
+      Service in the product that provides the log: auditd
+
+      Detection Logic:
+      Process creation for crontab and related cron file modifications should be monitored; this rule focuses on crontab execution.
+
+      False Positive Considerations:
+      Legitimate cron management by admins and automation.
+
+      Severity and Risk Rating:
+      Severity Level: Medium
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 9
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Scheduled Task Persistence
+- L2 Use Case Identifier: PER-003
+- Rule Identifier: PER-003-E-000-0008
+- Technical Use Case Name: Crontab Command Execution for Job Creation
+- Use Case Description: 
+- Log source type: Linux Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1053/003/
+logsource:
+  category: process_creation
+  product: linux
+  service: auditd
+detection:
+  selection:
+    Image|endswith: '/crontab'
+  condition: selection
+falsepositives:
+  - Legitimate cron job administration
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1053.003

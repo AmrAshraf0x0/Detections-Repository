@@ -1,0 +1,76 @@
+title: PowerShell WMI Subscription Creation - PER-008-E-000-0006
+id: PER-008-E-000-0006
+status: experimental
+description: |
+      Detection Description:
+      Detects PowerShell creating WMI event subscriptions (Register-WmiEvent or WMI classes used for permanent event subscriptions).
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1546.003 - WMI Event Subscription, T1059.001 - PowerShell
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 1) or PowerShell logging
+
+      Detection Logic:
+      PowerShell commands referencing WMI subscription cmdlets or __EventFilter/CommandLineEventConsumer/FilterToConsumerBinding.
+
+      False Positive Considerations:
+      Legitimate admin/management automation.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 7
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Event-Triggered Execution
+- L2 Use Case Identifier: PER-008
+- Rule Identifier: PER-008-E-000-0006
+- Technical Use Case Name: PowerShell WMI Subscription Creation
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1546/003/
+  - https://attack.mitre.org/techniques/T1059/001/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+  wmi_subscription:
+    CommandLine|contains|any:
+      - 'Register-WmiEvent'
+      - '__EventFilter'
+      - 'CommandLineEventConsumer'
+      - 'FilterToConsumerBinding'
+      - 'Set-WmiInstance'
+      - 'New-CimInstance'
+  condition: selection and wmi_subscription
+falsepositives:
+  - Legitimate WMI automation scripts
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.003
+  - attack.t1059.001

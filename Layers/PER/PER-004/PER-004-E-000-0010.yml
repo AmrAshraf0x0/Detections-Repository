@@ -1,0 +1,67 @@
+title: Systemctl Enable Command Detected - PER-004-E-000-0010
+id: PER-004-E-000-0010
+status: experimental
+description: |
+      Detection Description:
+      Detects systemctl enable commands, which configure services to start at boot (persistence).
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1543.002 - Systemd Service
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Linux
+      Service in the product that provides the log: auditd
+
+      Detection Logic:
+      Process creation of systemctl with 'enable' or 'reenable' verbs.
+
+      False Positive Considerations:
+      Legitimate service enablement during package installation or admin configuration.
+
+      Severity and Risk Rating:
+      Severity Level: Medium
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 10
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Service/Daemon Persistence
+- L2 Use Case Identifier: PER-004
+- Rule Identifier: PER-004-E-000-0010
+- Technical Use Case Name: Systemctl Enable Command Detected
+- Use Case Description: 
+- Log source type: Linux Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/002/
+logsource:
+  category: process_creation
+  product: linux
+  service: auditd
+detection:
+  selection:
+    Image|endswith: '/systemctl'
+    CommandLine|contains|any:
+      - ' enable '
+      - ' reenable '
+  condition: selection
+falsepositives:
+  - Legitimate systemd enablement
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1543.002

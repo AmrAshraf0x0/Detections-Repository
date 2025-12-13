@@ -1,0 +1,64 @@
+title: Windows Service Installed - PER-004-E-000-0002
+id: PER-004-E-000-0002
+status: experimental
+description: |
+      Detection Description:
+      Detects service installation events recorded in Windows Security log (4697).
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1543.003 - Windows Service
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Service Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Security
+
+      Detection Logic:
+      EventID 4697 indicates a service was installed on the system.
+
+      False Positive Considerations:
+      Legitimate software installation.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 10
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Service/Daemon Persistence
+- L2 Use Case Identifier: PER-004
+- Rule Identifier: PER-004-E-000-0002
+- Technical Use Case Name: Windows Service Installed
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1543/003/
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4697
+  condition: selection
+falsepositives:
+  - Legitimate service installs
+level: high
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.t1543.003

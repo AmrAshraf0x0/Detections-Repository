@@ -1,0 +1,73 @@
+title: Scheduled Task Creation with PowerShell - PER-003-E-000-0004
+id: PER-003-E-000-0004
+status: experimental
+description: |
+      Detection Description:
+      Detects scheduled task creation via PowerShell cmdlets (Register-ScheduledTask/New-ScheduledTask), often used for stealthy persistence.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1053.005 - Scheduled Task/Job: Scheduled Task, T1059.001 - PowerShell
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Process Creation
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 1) or PowerShell logging as ingested to SIEM
+
+      Detection Logic:
+      PowerShell command line contains task registration cmdlets.
+
+      False Positive Considerations:
+      Legitimate automation and configuration management creating tasks.
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 9
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Scheduled Task Persistence
+- L2 Use Case Identifier: PER-003
+- Rule Identifier: PER-003-E-000-0004
+- Technical Use Case Name: Scheduled Task Creation with PowerShell
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+  - https://attack.mitre.org/techniques/T1059/001/
+logsource:
+  category: process_creation
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains|any:
+      - 'Register-ScheduledTask'
+      - 'New-ScheduledTask'
+      - 'Set-ScheduledTask'
+      - 'New-ScheduledTaskAction'
+  condition: selection
+falsepositives:
+  - Legitimate PowerShell automation creating scheduled tasks
+level: high
+tags:
+  - attack.persistence
+  - attack.t1053.005
+  - attack.t1059.001

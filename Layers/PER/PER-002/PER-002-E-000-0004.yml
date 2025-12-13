@@ -1,0 +1,73 @@
+title: UserInitMprLogonScript Modified by Office Process - PER-002-E-000-0004
+id: PER-002-E-000-0004
+status: experimental
+description: |
+      Detection Description:
+      Detects Office processes modifying the UserInitMprLogonScript registry value, which is unusual and can indicate macro-driven persistence.
+
+      Status:
+      experimental
+
+      Threat Mapping:
+      MITRE ATT&CK Technique(s): T1037 - Boot or Logon Initialization Scripts, T1137 - Office Application Startup
+      Kill Chain Phase: Persistence
+
+      Data Sources:
+      MITRE Data Source: Registry
+      Product targeted by the Rule: Windows
+      Service in the product that provides the log: Sysmon (Event ID 13) or equivalent
+
+      Detection Logic:
+      Registry value set for UserInitMprLogonScript where the modifying process is an Office application.
+
+      False Positive Considerations:
+      Very rare; some enterprise add-ins might write environment settings (validate).
+
+      Severity and Risk Rating:
+      Severity Level: High
+
+      References:
+      See references section below.
+
+      Author:
+      HXP Detection team
+
+      Use Case Sheet Details:
+- L3 use cases per L2: 4
+- L1 Use Case Name: Persistence
+- L1 Use Case Identifier: PER
+- L2 Use Case Name: Initialization Scripts
+- L2 Use Case Identifier: PER-002
+- Rule Identifier: PER-002-E-000-0004
+- Technical Use Case Name: UserInitMprLogonScript Modified by Office Process
+- Use Case Description: 
+- Log source type: Windows Servers
+- Detection Technology: SIEM
+- Scope: All assets
+author: HXP Detection team
+date: 2025-12-13
+references:
+  - https://attack.mitre.org/techniques/T1037/
+logsource:
+  category: registry_event
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 13
+    TargetObject|contains:
+      - '\Environment\UserInitMprLogonScript'
+  office_process:
+    Image|endswith:
+      - '\WINWORD.EXE'
+      - '\EXCEL.EXE'
+      - '\POWERPNT.EXE'
+      - '\OUTLOOK.EXE'
+  condition: selection and office_process
+falsepositives:
+  - Rare legitimate Office automation
+level: high
+tags:
+  - attack.persistence
+  - attack.t1037
+  - attack.t1137
