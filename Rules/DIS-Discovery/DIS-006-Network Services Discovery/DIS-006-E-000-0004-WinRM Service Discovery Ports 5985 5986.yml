@@ -27,14 +27,16 @@ detection:
         Image|endswith:
             - '\powershell.exe'
             - '\pwsh.exe'
+    selection3a:
         CommandLine|contains:
             - 'Test-WSMan'
             - 'winrm'
             - 'Test-NetConnection'
+    selection3b:
         CommandLine|contains:
             - '5985'
             - '5986'
-    condition: selection1 or selection2 or selection3
+    condition: selection1 or selection2 or (selection3 and selection3a and selection3b)
 falsepositives:
     - PowerShell remoting administration
     - WinRM service management

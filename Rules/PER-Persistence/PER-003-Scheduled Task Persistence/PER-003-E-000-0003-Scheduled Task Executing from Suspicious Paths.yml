@@ -13,9 +13,10 @@ logsource:
     product: windows
     category: process_creation
 detection:
-    selection:
+    selection1:
         Image|endswith: '\schtasks.exe'
         CommandLine|contains: '/create'
+    selection2:
         CommandLine|contains:
             - '\Users\'
             - '\Temp\'
@@ -24,7 +25,7 @@ detection:
             - '\Desktop\'
             - '%TEMP%'
             - '%APPDATA%'
-    condition: selection
+    condition: selection1 and selection2
 falsepositives:
     - Legitimate user-specific scheduled tasks
     - Development environments

@@ -13,7 +13,7 @@ logsource:
     product: linux
     category: process_creation
 detection:
-    selection:
+    selection1:
         Image|endswith: '/grep'
         CommandLine|contains:
             - '/var/log/vmware.log'
@@ -21,13 +21,14 @@ detection:
             - '/var/log/vpxa.log'
             - '/var/log/shell.log'
             - '/scratch/log/'
+    selection2:
         CommandLine|contains:
             - 'error'
             - 'fail'
             - 'admin'
             - 'user'
             - 'login'
-    condition: selection
+    condition: selection1 and selection2
 falsepositives:
     - ESXi troubleshooting activities
     - Log analysis for problem resolution

@@ -16,15 +16,16 @@ logsource:
     product: windows
     category: process_creation
 detection:
-    selection:
+    selection1:
         Image|endswith: '\sc.exe'
         CommandLine|contains:
             - 'sdset'
             - 'sdshow'
+    selection2:
         CommandLine|contains:
             - 'D:'
             - 'A:'
-    condition: selection
+    condition: selection1 and selection2
 falsepositives:
     - Legitimate service permission adjustments
     - System administration tasks

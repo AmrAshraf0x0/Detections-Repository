@@ -23,11 +23,12 @@ detection:
     selection2:
         TargetFilename|contains: '/lib/security/'
         TargetFilename|endswith: '.so'
+    selection3:
         TargetFilename|contains:
             - 'pam_'
             - 'keylog'
             - 'capture'
-    condition: selection1 or selection2
+    condition: selection1 or (selection2 and selection3)
 falsepositives:
     - Legitimate PAM module installations
     - SSH configuration changes

@@ -22,13 +22,14 @@ detection:
         CommandLine|contains:
             - 'golden'
             - 'silver'
+    selection1:
         CommandLine|contains:
             - '/domain:'
             - '/sid:'
             - '/krbtgt:'
             - '/user:'
             - '/rc4:'
-    condition: selection
+    condition: selection and selection1
 falsepositives:
     - Authorized security testing
     - Forensic analysis with approval

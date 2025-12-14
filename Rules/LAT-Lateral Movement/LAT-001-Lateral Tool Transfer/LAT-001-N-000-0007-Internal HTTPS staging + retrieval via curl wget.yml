@@ -28,16 +28,18 @@ detection:
         Image|endswith:
             - '\powershell.exe'
             - '\pwsh.exe'
+    selection2a:
         CommandLine|contains:
             - 'Invoke-WebRequest'
             - 'wget'
             - 'curl'
             - 'DownloadFile'
+    selection2b:
         CommandLine|contains:
             - '192.168.'
             - '10.'
             - '172.'
-    condition: selection1 or selection2
+    condition: selection1 or (selection2 and selection2a and selection2b)
 falsepositives:
     - Legitimate internal downloads
     - Software updates

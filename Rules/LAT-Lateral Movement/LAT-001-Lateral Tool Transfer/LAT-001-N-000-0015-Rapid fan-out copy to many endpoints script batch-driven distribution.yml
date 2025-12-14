@@ -13,7 +13,7 @@ logsource:
     product: windows
     category: process_creation
 detection:
-    selection:
+    selection1:
         Image|endswith:
             - '\psexec.exe'
             - '\paexec.exe'
@@ -22,12 +22,13 @@ detection:
             - 'copy'
             - '/c'
             - 'process call create'
+    selection2:
         CommandLine|contains:
             - '@'
             - '.txt'
             - 'computers'
     timeframe: 300s
-    condition: selection | count() > 10
+    condition: (selection1 and selection2) | count() > 10
 falsepositives:
     - Mass software deployment
     - Administrative bulk operations

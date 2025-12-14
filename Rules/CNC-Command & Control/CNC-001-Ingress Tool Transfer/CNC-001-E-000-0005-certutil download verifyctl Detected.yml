@@ -18,11 +18,12 @@ detection:
         CommandLine|contains:
             - '-verifyctl'
             - '-f'
+    selection1:
         CommandLine|contains:
             - 'http'
             - 'https'
             - 'ftp'
-    condition: selection
+    condition: selection and selection1
 falsepositives:
     - Certificate verification operations
     - Administrative certificate tasks

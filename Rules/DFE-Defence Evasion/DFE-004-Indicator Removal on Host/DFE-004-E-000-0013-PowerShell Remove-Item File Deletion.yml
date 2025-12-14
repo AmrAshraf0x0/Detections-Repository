@@ -23,12 +23,13 @@ detection:
             - 'del '
             - '-Recurse'
             - '-Force'
+    selection1:
         CommandLine|contains:
             - '*.log'
             - '*.tmp'
             - 'Temp\\'
             - 'AppData\\'
-    condition: selection
+    condition: selection and selection1
 falsepositives:
     - PowerShell administration scripts
     - Legitimate file cleanup

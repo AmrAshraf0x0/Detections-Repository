@@ -1,4 +1,4 @@
-title: CNC-001-E-000-0002-PowerShell: Invoke-WebRequest Command Detected
+title: CNC-001-E-000-0002-PowerShell Invoke-WebRequest Command Detected
 id: cnc-001-e-000-0002
 status: experimental
 description: Detects PowerShell Invoke-WebRequest usage which could indicate ingress tool transfer

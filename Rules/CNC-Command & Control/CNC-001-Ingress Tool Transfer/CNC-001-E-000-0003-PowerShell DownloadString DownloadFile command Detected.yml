@@ -1,4 +1,4 @@
-title: CNC-001-E-000-0003-PowerShell: DownloadString/DownloadFile command Detected
+title: CNC-001-E-000-0003-PowerShell DownloadString/DownloadFile command Detected
 id: cnc-001-e-000-0003
 status: experimental
 description: Detects PowerShell DownloadString/DownloadFile usage which could indicate ingress tool transfer

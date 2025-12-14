@@ -13,20 +13,21 @@ logsource:
     product: windows
     category: process_creation
 detection:
-    selection:
+    selection1:
         Image|endswith:
             - '\netsh.exe'
         CommandLine|contains:
             - 'advfirewall'
             - 'set'
             - 'off'
+    selection2:
         CommandLine|contains:
             - 'allprofiles'
             - 'currentprofile'
             - 'domainprofile'
             - 'privateprofile'
             - 'publicprofile'
-    condition: selection
+    condition: selection1 and selection2
 falsepositives:
     - Legitimate network administration
     - System configuration scripts

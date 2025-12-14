@@ -23,10 +23,11 @@ detection:
         CommandLine|contains:
             - 'Get-DomainUser'
             - 'Get-NetUser'
+    selection1:
         CommandLine|contains:
             - 'SPN'
             - 'servicePrincipalName'
-    condition: selection
+    condition: selection and selection1
 falsepositives:
     - Legitimate Active Directory enumeration
     - System administration scripts

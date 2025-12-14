@@ -16,10 +16,12 @@ detection:
     selection1:
         Image|endswith:
             - '\wevtutil.exe'
+    selection1a:
         CommandLine|contains:
             - 'sl'
             - 'set-log'
             - '/ms:'
+    selection1b:
         CommandLine|contains:
             - '1024'
             - '2048'
@@ -31,7 +33,7 @@ detection:
         CommandLine|contains:
             - 'Limit-EventLog'
             - 'MaximumSize'
-    condition: 1 of selection*
+    condition: (selection1 and selection1a and selection1b) or selection2
 falsepositives:
     - Legitimate log management
     - Storage optimization procedures

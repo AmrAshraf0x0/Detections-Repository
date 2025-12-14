@@ -21,12 +21,13 @@ detection:
             - '/s'
             - '/q'
             - '/f'
+    selection1:
         CommandLine|contains:
             - '*.log'
             - '*.tmp'
             - '*.temp'
             - 'Temp\\'
-    condition: selection
+    condition: selection and selection1
 falsepositives:
     - Legitimate file cleanup
     - System maintenance scripts

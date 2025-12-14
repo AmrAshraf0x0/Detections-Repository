@@ -19,12 +19,13 @@ detection:
             - '\pwsh.exe'
         CommandLine|contains:
             - 'Search-Mailbox'
+    selection1:
         CommandLine|contains:
             - 'SearchQuery'
             - 'Subject:'
             - 'From:'
             - 'To:'
-    condition: selection
+    condition: selection andd selection1
 falsepositives:
     - Legitimate targeted email searches
     - Legal discovery operations
